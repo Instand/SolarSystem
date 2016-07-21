@@ -52,6 +52,12 @@ SolarSystem::SolarSystemObject::SolarSystemObject(const SolarSystem::SolarSystem
     solarObjectData = obj.solarObjectData;
 }
 
+SolarSystem::SolarSystemObject& SolarSystem::SolarSystemObject::operator=(SolarSystem::SolarSystemObject obj)
+{
+    SolarSystem::swap(*this, obj);
+    return *this;
+}
+
 //interface realization
 void SolarSystem::SolarSystemObject::setDescription(const QString &description)
 {
@@ -171,4 +177,10 @@ void SolarSystem::SolarSystemObject::setOrbitalPeriod(double period)
 double SolarSystem::SolarSystemObject::orbitalPeriod() const
 {
     return solarObjectData->_orbitalPeriod;
+}
+
+//friend
+void SolarSystem::swap(SolarSystem::SolarSystemObject &ls, SolarSystem::SolarSystemObject &rs)
+{
+    std::swap(ls.solarObjectData, rs.solarObjectData);
 }

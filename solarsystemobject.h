@@ -17,6 +17,9 @@ namespace SolarSystem {
         //copy constructor
         SolarSystemObject(const SolarSystemObject& obj);
 
+        //copy operator
+        SolarSystemObject& operator=(SolarSystemObject obj);
+
         //solar system object type
         enum class SolarSystemObjectType;
 
@@ -25,6 +28,9 @@ namespace SolarSystem {
         //base data
         struct SolarObjectData;
         SolarObjectData* solarObjectData;
+
+        //swap for copy operator
+        friend void swap(SolarSystemObject& ls, SolarSystemObject& rs);
 
     public:
 
@@ -65,6 +71,9 @@ namespace SolarSystem {
         void setOrbitalPeriod(double period);
         double orbitalPeriod() const;
     };
+
+    //swap two solar objects
+    void swap(SolarSystemObject& ls, SolarSystemObject& rs);
 
 }
 

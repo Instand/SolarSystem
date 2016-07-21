@@ -8,7 +8,6 @@
 #include "solarsystemobject.h"
 #include "solarsystemcore.h"
 
-
 namespace SolarSystem {
 
     //class for connection and receive data from database (default SQLite 3)

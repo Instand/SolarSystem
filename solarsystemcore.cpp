@@ -28,8 +28,6 @@ const QString SolarSystem::SolarStrings::all = "*";
 //values
 const int SolarSystem::SolarValues::zero = 0;
 
-
-
 QString SolarSystem::SolarStrings::likeObject(const QString &object)
 {
     return "'" + object + "'";

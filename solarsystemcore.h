@@ -61,6 +61,7 @@ namespace SolarSystem {
         Description
     };
 
+    //depredecated
     template<typename Query, typename SolarF>
     const QString& dbValue(Query& query, SolarF type) {
         return query.value(type);
