@@ -21,7 +21,16 @@ namespace SolarSystem {
         SolarSystemObject& operator=(SolarSystemObject obj);
 
         //solar system object type
-        enum class SolarSystemObjectType;
+        enum class SolarSystemObjectType {
+            SolarSystemBody,
+            Planet,
+            DwarfPlanet,
+            Moon,
+            Ring,
+            Star,
+            Asteroid,
+            Galaxy
+        };
 
     private:
 

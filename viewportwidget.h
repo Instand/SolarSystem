@@ -7,9 +7,9 @@
 namespace SolarSystem {
 
     //a widget for convert 3D window to widget style
-    class ViewPortWidget : public QWidget
-    {
+    class ViewPortWidget : public QWidget {
         Q_OBJECT
+
     public:
         explicit ViewPortWidget(QWidget *parent = 0);
         void set3dViewPort(QWindow* viewPort);

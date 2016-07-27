@@ -1,18 +1,9 @@
 #include "solarsystemobject.h"
 
-enum class SolarSystem::SolarSystemObject::SolarSystemObjectType {
-    SolarSystemBody,
-    Planet,
-    DwarfPlanet,
-    Moon,
-    Ring,
-    Star
-};
-
 struct SolarSystem::SolarSystemObject::SolarObjectData {
 
     //base parameters
-    QString _stringType;            //solar object type: Planet, Sattelite (Moon), Ring, Dwarf Planet, Solar System Body, Star
+    QString _stringType;            //solar object type: Planet, Sattelite (Moon), Ring, Dwarf Planet, Solar System Body, Star, Asteroid, Galaxy
     QString _name;                  //base name
     float _orbitalSpeed;            //base orbital speed, km/s
     double _mass;                   //base mass, kg

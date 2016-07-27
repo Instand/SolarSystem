@@ -27,6 +27,12 @@ namespace SolarSystem {
         //get a full info about object
         const SolarSystem::SolarSystemObject&& info(const QString& objectName) const;
 
+        //get all solar object names
+        QStringList allSolarObjects() const;
+
+        //get names of all planets
+        QStringList allPlanetsNames() const;
+
     private:
         QSqlDatabase _database;
 

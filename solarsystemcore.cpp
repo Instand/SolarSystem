@@ -25,6 +25,16 @@ const QString SolarSystem::SolarStrings::where = " WHERE ";
 const QString SolarSystem::SolarStrings::like = " LIKE";
 const QString SolarSystem::SolarStrings::all = "*";
 
+//types
+const QString SolarSystem::SolarStrings::planet = "Planet";
+const QString SolarSystem::SolarStrings::dwarfPlanet = "Dwarf planet";
+const QString SolarSystem::SolarStrings::star = "Star";
+const QString SolarSystem::SolarStrings::moon = "Moon";
+const QString SolarSystem::SolarStrings::ring = "Ring";
+const QString SolarSystem::SolarStrings::solarSystemBody = "Solar system body";
+const QString SolarSystem::SolarStrings::galaxy = "Galaxy";
+const QString SolarSystem::SolarStrings::asteroid = "Asteroid";
+
 //values
 const int SolarSystem::SolarValues::zero = 0;
 

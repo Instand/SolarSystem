@@ -1,4 +1,5 @@
 #include "solarsystemdbconnector.h"
+#include <Parser/solarparser.h>
 
 //pseydo name
 using SolarS = SolarSystem::SolarStrings;
@@ -62,6 +63,42 @@ const SolarSystem::SolarSystemObject&& SolarSystem::SolarSystemDBConnector::info
     return std::move(object);
 }
 
+QStringList SolarSystem::SolarSystemDBConnector::allSolarObjects() const
+{
+    QStringList objectList;
+
+    if (_database.isOpen()) {
+
+        //make a query
+        QSqlQuery query(SolarS::select + SolarS::nameField + SolarS::from + SolarS::dbName);
+
+        while (query.next()) {
+            objectList << query.value(SolarV::zero).toString();
+        }
+
+    }
+
+    return objectList;
+}
+
+QStringList SolarSystem::SolarSystemDBConnector::allPlanetsNames() const
+{
+    QStringList list;
+
+    if (_database.isOpen()) {
+
+        //make a query
+        QSqlQuery query(SolarS::select + SolarS::nameField + SolarS::from + SolarS::dbName + SolarS::where +SolarS::type +
+                        SolarS::like + SolarS::likeObject(SolarStrings::planet));
+
+        while (query.next()) {
+            list << query.value(SolarV::zero).toString();
+        }
+    }
+
+    return list;
+}
+
 void SolarSystem::SolarSystemDBConnector::createObjectFromQuery(QSqlQuery &query, SolarSystem::SolarSystemObject &object) const
 {
     object.setStringType(query.value(Types::SolarType).toString());
@@ -75,4 +112,7 @@ void SolarSystem::SolarSystemDBConnector::createObjectFromQuery(QSqlQuery &query
     object.setSiderealPeriod(query.value(Types::SiderealPeriod).toDouble());
     object.setOrbitalPeriod(query.value(Types::OrbitalPeriod).toDouble());
     object.setDescription(query.value(Types::Description).toString());
+
+    //programming type
+    object.setSolarType(SolarParser::parseString(object.stringType()));
 }

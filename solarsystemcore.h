@@ -29,7 +29,6 @@ namespace SolarSystem {
         static const QString orbitalPeriod;
         static const QString description;
 
-
         //SQL commands
         static const QString select;
         static const QString from;
@@ -37,6 +36,18 @@ namespace SolarSystem {
         static const QString like;
         static const QString all;
         static QString likeObject(const QString& object);
+
+        //string representation of object type
+        static const QString planet;
+        static const QString dwarfPlanet;
+        static const QString star;
+        static const QString moon;
+        static const QString ring;
+        static const QString solarSystemBody;
+        static const QString galaxy;
+        static const QString asteroid;
+
+        //add object types
     };
 
     //store different values for code help
