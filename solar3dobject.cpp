@@ -53,10 +53,24 @@ Qt3DRender::QTextureImage &SolarSystem::Solar3dObject::normal() const
     return *_normalImage;
 }
 
+void SolarSystem::Solar3dObject::addLogic(SolarSystem::LogicPtr func)
+{
+    additionalLogic.push_back(func);
+}
+
+void SolarSystem::Solar3dObject::clearLogic()
+{
+    additionalLogic.clear();
+}
+
 void SolarSystem::Solar3dObject::frameTick(float deltaTime)
 {
     //polymorphic call
     update(deltaTime);
+
+    //additional actions
+    for (auto elem : additionalLogic)
+        elem(deltaTime);
 
     //tick signal
     emit tick(deltaTime);

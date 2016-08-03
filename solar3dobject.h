@@ -9,8 +9,14 @@
 #include <Qt3DLogic/QFrameAction>
 #include <Qt3DRender/QObjectPicker>
 #include <memory>
+#include <functional>
+#include <vector>
 
 namespace SolarSystem {
+
+    //types
+    using LogicPtr = std::function<void(float)>;
+    using Logic = std::vector<LogicPtr>;
 
     //class for rendering base 3d object in solar system
     class Solar3dObject : public Qt3DCore::QEntity {
@@ -27,6 +33,10 @@ namespace SolarSystem {
         Qt3DExtras::QNormalDiffuseSpecularMapMaterial& material() const;
         Qt3DRender::QTextureImage& diffuse() const;
         Qt3DRender::QTextureImage& normal() const;
+
+        //add logic
+        void addLogic(LogicPtr func);
+        void clearLogic();
 
     protected:
 
@@ -47,6 +57,9 @@ namespace SolarSystem {
         std::unique_ptr<Qt3DExtras::QNormalDiffuseSpecularMapMaterial> _material;
         std::unique_ptr<Qt3DRender::QTextureImage> _diffuseImage;
         std::unique_ptr<Qt3DRender::QTextureImage> _normalImage;
+
+        //additional logic
+        Logic additionalLogic;
 
     private slots:
         void frameTick(float deltaTime);
