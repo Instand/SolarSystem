@@ -26,7 +26,7 @@ namespace SolarSystem {
         std::unique_ptr<ViewPortWidget> viewPortWidget;
         std::unique_ptr<Solar3dViewPort> solar3dViewer;
 
-        //pointer to 3d subviwer
+        //pointer to 3d subviewer
         QMdiSubWindow* baseViewer;
     };
 }
