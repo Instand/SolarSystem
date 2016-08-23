@@ -20,6 +20,12 @@ SolarSystem::SolarSystemDBConnector::~SolarSystemDBConnector()
         _database.close();
 }
 
+SolarSystem::SolarSystemDBConnector &SolarSystem::SolarSystemDBConnector::instance(const QString &str)
+{
+    static SolarSystemDBConnector connector(str);
+    return connector;
+}
+
 bool SolarSystem::SolarSystemDBConnector::isOpen()
 {
     return _database.isOpen();

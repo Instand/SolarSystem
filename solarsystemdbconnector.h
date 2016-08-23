@@ -10,13 +10,23 @@
 
 namespace SolarSystem {
 
-    //class for connection and receive data from database (default SQLite 3)
+    //class for connection and receive data from database (default SQLite 3) Singleton
     class SolarSystemDBConnector final : public QObject {
         Q_OBJECT
 
-    public:
+    private:
         explicit SolarSystemDBConnector(const QString& dbName, QObject* parent = 0);
         ~SolarSystemDBConnector();
+
+        //for singleton
+        SolarSystemDBConnector(const SolarSystemDBConnector& dbc) = delete;
+        SolarSystemDBConnector(SolarSystemDBConnector&& dbc) = delete;
+        SolarSystemDBConnector& operator= (const SolarSystemDBConnector& dbc) = delete;
+
+    public:
+
+        //get object
+        static SolarSystemDBConnector& instance(const QString& str = "");
 
         //check db state
         bool isOpen();
