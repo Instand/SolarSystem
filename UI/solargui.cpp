@@ -12,7 +12,7 @@ SolarSystem::SolarGUI::SolarGUI(QWidget *parent):
     //mdi a central widget
     setCentralWidget(mainViewer.get());
 
-    //conver 3dViwer to viewPort
+    //convert 3dViwer to viewPort
     viewPortWidget->set3dViewPort(solar3dViewer.get());
 
     //add converted 3d window
