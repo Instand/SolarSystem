@@ -65,13 +65,11 @@ void SolarSystem::Solar3dObject::clearLogic()
 
 void SolarSystem::Solar3dObject::frameTick(float deltaTime)
 {
-    //polymorphic call
     update(deltaTime);
 
     //additional actions
     for (auto elem : additionalLogic)
         elem(deltaTime);
 
-    //tick signal
     emit tick(deltaTime);
 }
