@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     Interface/isolarsystemobject.cpp \
     Interface/ivisualsolarobject.cpp \
     Scene/visualsolarobject.cpp \
-    Scene/basevisualsolarobject.cpp
+    Scene/basevisualsolarobject.cpp \
+    Scene/SceneObjects/emptysolarobject.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -36,4 +37,5 @@ HEADERS += \
     Interface/isolarsystemobject.h \
     Interface/ivisualsolarobject.h \
     Scene/visualsolarobject.h \
-    Scene/basevisualsolarobject.h
+    Scene/basevisualsolarobject.h \
+    Scene/SceneObjects/emptysolarobject.h
