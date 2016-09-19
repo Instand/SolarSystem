@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     solar3dviewport.cpp \
     UI/solargui.cpp \
     Parser/solarparser.cpp \
-    Interface/isolarsystemobject.cpp
+    Interface/isolarsystemobject.cpp \
+    Interface/ivisualsolarobject.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -30,4 +31,5 @@ HEADERS += \
     solar3dviewport.h \
     UI/solargui.h \
     Parser/solarparser.h \
-    Interface/isolarsystemobject.h
+    Interface/isolarsystemobject.h \
+    Interface/ivisualsolarobject.h

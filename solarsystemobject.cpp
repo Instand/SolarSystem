@@ -24,7 +24,7 @@ struct SolarSystem::SolarSystemObject::SolarObjectData {
 };
 
 SolarSystem::SolarSystemObject::SolarSystemObject(QObject *parent):
-    QObject(parent), solarObjectData(new SolarObjectData)
+    ISolarSystemObject(parent), solarObjectData(new SolarObjectData)
 {
     solarObjectData->_solarType = SolarSystemObjectType::SolarSystemBody;
 }
@@ -35,7 +35,7 @@ SolarSystem::SolarSystemObject::~SolarSystemObject()
 }
 
 SolarSystem::SolarSystemObject::SolarSystemObject(const SolarSystem::SolarSystemObject &obj):
-    QObject(nullptr)
+    ISolarSystemObject(nullptr)
 {
     solarObjectData = new SolarSystem::SolarSystemObject::SolarObjectData();
 

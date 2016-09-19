@@ -48,9 +48,9 @@ int SolarSystem::SolarSystemDBConnector::elementsCount()
     return list.size();
 }
 
-const SolarSystem::SolarSystemObject&& SolarSystem::SolarSystemDBConnector::info(const QString& objectName) const
+const SolarSystem::SolarSystemObjectPtr SolarSystem::SolarSystemDBConnector::info(const QString& objectName) const
 {
-    SolarSystem::SolarSystemObject object;
+    SolarSystem::SolarSystemObjectPtr object(new SolarSystem::SolarSystemObject());
 
     if (_database.isOpen()) {
 
@@ -66,7 +66,7 @@ const SolarSystem::SolarSystemObject&& SolarSystem::SolarSystemDBConnector::info
         }
     }
 
-    return std::move(object);
+    return object;
 }
 
 QStringList SolarSystem::SolarSystemDBConnector::allSolarObjects() const
@@ -105,20 +105,20 @@ QStringList SolarSystem::SolarSystemDBConnector::allPlanetsNames() const
     return list;
 }
 
-void SolarSystem::SolarSystemDBConnector::createObjectFromQuery(QSqlQuery &query, SolarSystem::SolarSystemObject &object) const
+void SolarSystem::SolarSystemDBConnector::createObjectFromQuery(QSqlQuery &query, SolarSystemObjectPtr &object) const
 {
-    object.setStringType(query.value(Types::SolarType).toString());
-    object.setSolarObjectName(query.value(Types::Name).toString());
-    object.setOrbitalSpeed(query.value(Types::OrbitalSpeed).toFloat());
-    object.setMass(query.value(Types::Mass).toDouble());
-    object.setMeanRadius(query.value(Types::MeanRadius).toFloat());
-    object.setSurfaceTemperature(query.value(Types::Temperature).toInt());
-    object.setSurfaceGravity(query.value(Types::Gravity).toFloat());
-    object.setVolume(query.value(Types::Volume).toDouble());
-    object.setSiderealPeriod(query.value(Types::SiderealPeriod).toDouble());
-    object.setOrbitalPeriod(query.value(Types::OrbitalPeriod).toDouble());
-    object.setDescription(query.value(Types::Description).toString());
+    object->setStringType(query.value(Types::SolarType).toString());
+    object->setSolarObjectName(query.value(Types::Name).toString());
+    object->setOrbitalSpeed(query.value(Types::OrbitalSpeed).toFloat());
+    object->setMass(query.value(Types::Mass).toDouble());
+    object->setMeanRadius(query.value(Types::MeanRadius).toFloat());
+    object->setSurfaceTemperature(query.value(Types::Temperature).toInt());
+    object->setSurfaceGravity(query.value(Types::Gravity).toFloat());
+    object->setVolume(query.value(Types::Volume).toDouble());
+    object->setSiderealPeriod(query.value(Types::SiderealPeriod).toDouble());
+    object->setOrbitalPeriod(query.value(Types::OrbitalPeriod).toDouble());
+    object->setDescription(query.value(Types::Description).toString());
 
     //programming type
-    object.setSolarType(SolarParser::parseString(object.stringType()));
+    object->setSolarType(SolarParser::parseString(object->stringType()));
 }

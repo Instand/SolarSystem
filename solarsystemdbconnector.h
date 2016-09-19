@@ -35,7 +35,7 @@ namespace SolarSystem {
         int elementsCount();
 
         //get a full info about object
-        const SolarSystem::SolarSystemObject&& info(const QString& objectName) const;
+        const SolarSystemObjectPtr info(const QString& objectName) const;
 
         //get all solar object names
         QStringList allSolarObjects() const;
@@ -47,7 +47,7 @@ namespace SolarSystem {
         QSqlDatabase _database;
 
         //create object
-        void createObjectFromQuery(QSqlQuery& query, SolarSystem::SolarSystemObject& object) const;
+        void createObjectFromQuery(QSqlQuery& query, SolarSystemObjectPtr& object) const;
     };
 
 }
