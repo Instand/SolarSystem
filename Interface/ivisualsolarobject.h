@@ -26,9 +26,11 @@ namespace SolarSystem {
         //frame tick for solar object logic programming
         virtual void update(float deltaTime) = 0;
 
+    public:
+
         //logic
         virtual void addLogic(LogicPtr func) = 0;
-        virtual void cleatLogic() = 0;
+        virtual void clearLogic() = 0;
 
         //position in space
         virtual Qt3DCore::QTransform& transform() const = 0;
