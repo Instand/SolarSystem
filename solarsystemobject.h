@@ -4,15 +4,17 @@
 #include <QObject>
 #include <QString>
 #include "solarsystemcore.h"
+#include "Interface/isolarsystemobject.h"
 
 namespace SolarSystem {
 
     //base object of solar system for storing info from database
-    class SolarSystemObject : public QObject {
+    class SolarSystemObject : public ISolarSystemObject {
+
         Q_OBJECT
 
     public:
-        SolarSystemObject(QObject* parent = 0);
+        explicit SolarSystemObject(QObject* parent = 0);
         ~SolarSystemObject();
 
         //copy constructor
@@ -33,41 +35,41 @@ namespace SolarSystem {
     public:
 
         //interface
-        void setDescription(const QString& description);
-        QString& description() const;
+        virtual void setDescription(const QString& description) override;
+        virtual QString& description() const override;
 
-        void setStringType(const QString& type);
-        QString stringType() const;
+        virtual void setStringType(const QString& type) override;
+        virtual QString stringType() const override;
 
-        void setSolarObjectName(const QString& name);
-        QString solarObjectName() const;
+        virtual void setSolarObjectName(const QString& name) override;
+        virtual QString solarObjectName() const override;
 
-        void setOrbitalSpeed(float speed);
-        float orbitalSpeed() const;
+        virtual void setOrbitalSpeed(float speed) override;
+        virtual float orbitalSpeed() const override;
 
-        void setMass(double mass);
-        double mass() const;
+        virtual void setMass(double mass) override;
+        virtual double mass() const override;
 
-        void setMeanRadius(float radius);
-        float meanRadius() const;
+        virtual void setMeanRadius(float radius) override;
+        virtual float meanRadius() const override;
 
-        void setSurfaceTemperature(int temperature);
-        int surfaceTemperature() const;
+        virtual void setSurfaceTemperature(int temperature) override;
+        virtual int surfaceTemperature() const override;
 
-        void setSurfaceGravity(float gravity);
-        float surfaceGravity() const;
+        virtual void setSurfaceGravity(float gravity) override;
+        virtual float surfaceGravity() const override;
 
-        void setVolume(double volume);
-        double volume() const;
+        virtual void setVolume(double volume) override;
+        virtual double volume() const override;
 
-        void setSolarType(SolarSystemObjectType type);
-        SolarSystemObjectType solarType() const;
+        virtual void setSolarType(SolarSystemObjectType type) override;
+        virtual SolarSystemObjectType solarType() const override;
 
-        void setSiderealPeriod(double period);
-        double siderealPeriod() const;
+        virtual void setSiderealPeriod(double period) override;
+        virtual double siderealPeriod() const override;
 
-        void setOrbitalPeriod(double period);
-        double orbitalPeriod() const;
+        virtual void setOrbitalPeriod(double period) override;
+        virtual double orbitalPeriod() const override;
     };
 
     //swap two solar objects
