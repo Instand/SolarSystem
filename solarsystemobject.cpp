@@ -13,7 +13,7 @@ struct SolarSystem::SolarSystemObject::SolarObjectData {
     double _volume;                 //base volume, km^3
 
     //programming type
-    SolarSystemObject::SolarSystemObjectType _solarType;
+    SolarSystemObjectType _solarType;
 
     //periods
     double _siderealPeriod;         //sidereal rotation period (around of axis)
@@ -140,12 +140,12 @@ double SolarSystem::SolarSystemObject::volume() const
     return solarObjectData->_volume;
 }
 
-void SolarSystem::SolarSystemObject::setSolarType(SolarSystemObject::SolarSystemObjectType type)
+void SolarSystem::SolarSystemObject::setSolarType(SolarSystemObjectType type)
 {
     solarObjectData->_solarType = type;
 }
 
-SolarSystem::SolarSystemObject::SolarSystemObjectType SolarSystem::SolarSystemObject::solarType() const
+SolarSystem::SolarSystemObjectType SolarSystem::SolarSystemObject::solarType() const
 {
     return solarObjectData->_solarType;
 }

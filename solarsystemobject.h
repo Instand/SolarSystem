@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include "solarsystemcore.h"
 
 namespace SolarSystem {
 
@@ -19,18 +20,6 @@ namespace SolarSystem {
 
         //copy operator
         SolarSystemObject& operator=(SolarSystemObject obj);
-
-        //solar system object type
-        enum class SolarSystemObjectType {
-            SolarSystemBody,
-            Planet,
-            DwarfPlanet,
-            Moon,
-            Ring,
-            Star,
-            Asteroid,
-            Galaxy
-        };
 
     private:
 

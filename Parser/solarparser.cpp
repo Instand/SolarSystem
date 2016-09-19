@@ -1,29 +1,29 @@
 #include "solarparser.h"
 
-SolarSystem::SolarSystemObject::SolarSystemObjectType SolarSystem::SolarParser::parseString(const QString &str)
+SolarSystem::SolarSystemObjectType SolarSystem::SolarParser::parseString(const QString &str)
 {
-    SolarSystemObject::SolarSystemObjectType objectType = SolarSystemObject::SolarSystemObjectType::SolarSystemBody;
+    SolarSystemObjectType objectType = SolarSystemObjectType::SolarSystemBody;
 
     if (str == SolarStrings::planet)
-        objectType = SolarSystemObject::SolarSystemObjectType::Planet;
+        objectType = SolarSystemObjectType::Planet;
 
     if (str == SolarStrings::dwarfPlanet)
-        objectType = SolarSystemObject::SolarSystemObjectType::DwarfPlanet;
+        objectType = SolarSystemObjectType::DwarfPlanet;
 
     if (str == SolarStrings::star)
-        objectType = SolarSystemObject::SolarSystemObjectType::Star;
+        objectType = SolarSystemObjectType::Star;
 
     if (str == SolarStrings::moon)
-        objectType = SolarSystemObject::SolarSystemObjectType::Moon;
+        objectType = SolarSystemObjectType::Moon;
 
     if (str == SolarStrings::asteroid)
-        objectType = SolarSystemObject::SolarSystemObjectType::Asteroid;
+        objectType = SolarSystemObjectType::Asteroid;
 
     if (str == SolarStrings::galaxy)
-        objectType = SolarSystemObject::SolarSystemObjectType::Galaxy;
+        objectType = SolarSystemObjectType::Galaxy;
 
     if (str == SolarStrings::ring)
-        objectType = SolarSystemObject::SolarSystemObjectType::Ring;
+        objectType = SolarSystemObjectType::Ring;
 
     return objectType;
 }

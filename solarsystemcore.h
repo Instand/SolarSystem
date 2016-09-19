@@ -72,6 +72,18 @@ namespace SolarSystem {
         Description
     };
 
+    //solar system object type
+    enum class SolarSystemObjectType {
+        SolarSystemBody,
+        Planet,
+        DwarfPlanet,
+        Moon,
+        Ring,
+        Star,
+        Asteroid,
+        Galaxy
+    };
+
     //depredecated
     template<typename Query, typename SolarF>
     const QString& dbValue(Query& query, SolarF type) {
