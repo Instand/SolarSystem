@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     Interface/ivisualsolarobject.cpp \
     Scene/visualsolarobject.cpp \
     Scene/basevisualsolarobject.cpp \
-    Scene/SceneObjects/emptysolarobject.cpp
+    Scene/SceneObjects/emptysolarobject.cpp \
+    Scene/SceneObjects/solarskybox.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -38,4 +39,8 @@ HEADERS += \
     Interface/ivisualsolarobject.h \
     Scene/visualsolarobject.h \
     Scene/basevisualsolarobject.h \
-    Scene/SceneObjects/emptysolarobject.h
+    Scene/SceneObjects/emptysolarobject.h \
+    Scene/SceneObjects/solarskybox.h
+
+RESOURCES += \
+    res.qrc
