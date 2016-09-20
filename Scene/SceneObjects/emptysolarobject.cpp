@@ -1,7 +1,7 @@
 #include "emptysolarobject.h"
 
 SolarSystem::EmptySolarObject::EmptySolarObject(Qt3DCore::QNode* parent):
-    BaseVisualSolarObject(parent)
+    Solar3dObject(parent)
 {
 
 }

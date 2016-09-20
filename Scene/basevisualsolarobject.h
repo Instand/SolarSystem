@@ -17,6 +17,7 @@ namespace SolarSystem {
         virtual void update(float deltaTime) = 0;
 
     public:
+        virtual Qt3DRender::QObjectPicker& picker() const = 0;
 
         //realize base visual methods
         virtual Qt3DCore::QTransform& transform() const override final;

@@ -4,6 +4,7 @@
 #include <Qt3DCore/QEntity>
 #include <Qt3DCore/QTransform>
 #include <Qt3DRender/QMesh>
+#include <Qt3DRender/QObjectPicker>
 #include <vector>
 #include <functional>
 
@@ -37,6 +38,9 @@ namespace SolarSystem {
 
         //get mesh
         virtual Qt3DRender::QMesh& mesh() const =0;
+
+        //get picker
+        virtual Qt3DRender::QObjectPicker& picker() const = 0;
     };
 
 }

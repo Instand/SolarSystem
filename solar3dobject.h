@@ -2,7 +2,6 @@
 #define SOLAR3DOBJECT_H
 
 #include <Qt3DExtras/QNormalDiffuseSpecularMapMaterial>
-#include <Qt3DRender/QObjectPicker>
 #include <Qt3DRender/QTextureImage>
 #include "Scene/basevisualsolarobject.h"
 
@@ -17,13 +16,13 @@ namespace SolarSystem {
         Solar3dObject(Qt3DCore::QNode* parent = 0);
 
         //get object properties
-        Qt3DRender::QObjectPicker& picker() const;
+        virtual Qt3DRender::QObjectPicker& picker() const override;
         Qt3DExtras::QNormalDiffuseSpecularMapMaterial& material() const;
         Qt3DRender::QTextureImage& diffuse() const;
         Qt3DRender::QTextureImage& normal() const;
 
     protected:
-        virtual void update(float deltaTime) override;
+        virtual void update(float deltaTime) = 0;
 
     private:
         Qt3DRender::QObjectPicker* _picker;

@@ -34,10 +34,3 @@ Qt3DRender::QTextureImage &SolarSystem::Solar3dObject::normal() const
 {
     return *_normalImage;
 }
-
-void SolarSystem::Solar3dObject::update(float deltaTime)
-{
-    Q_UNUSED(deltaTime)
-
-    //mb we need something logic
-}

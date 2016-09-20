@@ -1,12 +1,12 @@
 #ifndef EMPTYSOLAROBJECT_H
 #define EMPTYSOLAROBJECT_H
 
-#include "Scene/basevisualsolarobject.h"
+#include "solar3dobject.h"
 
 namespace SolarSystem {
 
     //empty object can be placed on the scene without any rendering, but with some interesting features
-    class EmptySolarObject: public BaseVisualSolarObject {
+    class EmptySolarObject: public Solar3dObject {
 
         Q_OBJECT
 
