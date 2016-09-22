@@ -21,6 +21,7 @@ namespace SolarSystem {
 
     public:
         IVisualSolarObject(Qt3DCore::QNode* parent = 0);
+        virtual ~IVisualSolarObject();
 
     protected:
 

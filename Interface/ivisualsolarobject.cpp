@@ -5,3 +5,8 @@ SolarSystem::IVisualSolarObject::IVisualSolarObject(Qt3DCore::QNode* parent):
 {
 
 }
+
+SolarSystem::IVisualSolarObject::~IVisualSolarObject()
+{
+
+}
