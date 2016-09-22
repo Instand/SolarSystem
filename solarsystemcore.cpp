@@ -38,7 +38,9 @@ const QString SolarSystem::SolarStrings::asteroid = "Asteroid";
 //values
 const int SolarSystem::SolarValues::zero = 0;
 const int SolarSystem::SolarValues::solarDistance = 2600000;
-const float SolarSystem::SolarValues::auScale = 149597.870700;
+const float SolarSystem::SolarValues::auScale = 149597.870700f;
+const float SolarSystem::SolarValues::saturnOuterRadius = 120.700f;
+const float SolarSystem::SolarValues::uranusOuterRadius = 40.0f;
 
 QString SolarSystem::SolarStrings::likeObject(const QString &object)
 {

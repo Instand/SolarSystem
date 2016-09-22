@@ -56,6 +56,8 @@ namespace SolarSystem {
         static const int zero;
         static const int solarDistance;
         static const float auScale;
+        static const float saturnOuterRadius;
+        static const float uranusOuterRadius;
 
         //db fields
     };
