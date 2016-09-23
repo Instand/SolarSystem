@@ -44,7 +44,8 @@ HEADERS += \
     Scene/SceneObjects/emptysolarobject.h \
     Scene/SceneObjects/solarskybox.h \
     SolarCore/isolarmathcore.h \
-    SolarCore/solarmathcore.h
+    SolarCore/solarmathcore.h \
+    SolarCore/SolarObjects/abstractsolarobject.h
 
 RESOURCES += \
     res.qrc
