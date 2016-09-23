@@ -4,6 +4,7 @@
 #include <Qt3DExtras/Qt3DWindow>
 #include <Qt3DRender/QCamera>
 #include <Qt3DCore/QEntity>
+#include "solarsystemcore.h"
 #include <memory>
 
 namespace SolarSystem {
