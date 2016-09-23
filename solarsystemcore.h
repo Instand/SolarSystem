@@ -154,9 +154,9 @@ namespace SolarSystem {
             const double radius = 694.439;
             const double tilt = 63.87;
             const double period = 25.05;
-            const int x = 0;
-            const int y = 0;
-            const int z = 0;
+            const double x = 0;
+            const double y = 0;
+            const double z = 0;
             const double roll = 0;
         }
 
@@ -177,9 +177,9 @@ namespace SolarSystem {
             const double M1 = 168.6562;
             const double M2 = 4.0923344368;
             const double period = 58.646;
-            const int x = 0;
-            const int y = 0;
-            const int z = 0;
+            const double x = 0;
+            const double y = 0;
+            const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
         }
@@ -201,9 +201,9 @@ namespace SolarSystem {
             const double M1 = 48.0052;
             const double M2 = 1.6021302244;
             const double period = 243.0185;
-            const int x = 0;
-            const int y = 0;
-            const int z = 0;
+            const double x = 0;
+            const double y = 0;
+            const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
         }
@@ -225,9 +225,9 @@ namespace SolarSystem {
             const double M1 = 357.529;
             const double M2 = 0.985608;
             const double period = 0.997;
-            const int x = 0;
-            const int y = 0;
-            const int z = 0;
+            const double x = 0;
+            const double y = 0;
+            const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
         }
@@ -249,9 +249,9 @@ namespace SolarSystem {
             const double M1 = 18.6021;
             const double M2 = 0.5240207766;
             const double period = 1.025957;
-            const int x = 0;
-            const int y = 0;
-            const int z = 0;
+            const double x = 0;
+            const double y = 0;
+            const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
         }
@@ -273,9 +273,9 @@ namespace SolarSystem {
             const double M1 = 19.8950;
             const double M2 = 0.0830853001;
             const double period = 0.4135;
-            const int x = 0;
-            const int y = 0;
-            const int z = 0;
+            const double x = 0;
+            const double y = 0;
+            const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
         }
@@ -297,9 +297,9 @@ namespace SolarSystem {
             const double M1 = 316.9670;
             const double M2 = 0.0334442282;
             const double period = 0.4395;
-            const int x = 0;
-            const int y = 0;
-            const int z = 0;
+            const double x = 0;
+            const double y = 0;
+            const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
         }
@@ -321,9 +321,9 @@ namespace SolarSystem {
             const double M1 = 142.5905;
             const double M2 = 0.011725806;
             const double period = 0.71833;
-            const int x = 0;
-            const int y = 0;
-            const int z = 0;
+            const double x = 0;
+            const double y = 0;
+            const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
         }
@@ -345,9 +345,9 @@ namespace SolarSystem {
             const double M1 = 260.2471;
             const double M2 = 0.005995147;
             const double period = 0.6713;
-            const int x = 0;
-            const int y = 0;
-            const int z = 0;
+            const double x = 0;
+            const double y = 0;
+            const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
         }
@@ -369,9 +369,9 @@ namespace SolarSystem {
             const double M1 = 115.3654;
             const double M2 = 13.0649929509;
             const double period = 27.321582;
-            const int x = 0;
-            const int y =0;
-            const int z = 0;
+            const double x = 0;
+            const double y = 0;
+            const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Earth;
         }
