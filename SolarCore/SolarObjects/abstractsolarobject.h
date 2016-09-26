@@ -12,45 +12,43 @@ namespace SolarSystem {
         Q_OBJECT
 
     public:
-        AbstractSolarObject(QObject* parent = nullptr):QObject(parent){}
-        virtual ~AbstractSolarObject(){}
-
-        //interface
+        AbstractSolarObject(QObject* parent = nullptr);
+        virtual ~AbstractSolarObject();
 
         //getters + setters
-        virtual double radius() const = 0;
-        virtual void setRadius(double radius) = 0;
+        double radius() const;
+        void setRadius(double radius);
 
-        virtual double tilt() const = 0;
-        virtual void setTilt(double tilt) = 0;
+        double tilt() const;
+        void setTilt(double tilt);
 
-        virtual double roll() const = 0;
-        virtual setRoll(double roll) = 0;
+        double roll() const;
+        void setRoll(double roll);
 
-        virtual double x() const = 0;
-        virtual void setX(double x) = 0;
+        double x() const;
+        void setX(double x);
 
-        virtual double y() const = 0;
-        virtual void setY(double y) = 0;
+        double y() const;
+        void setY(double y);
 
-        virtual double z() const = 0;
-        virtual void setZ(double z) = 0;
+        double z() const;
+        void setZ(double z);
 
         //only getters
-        virtual double N1() const = 0;
-        virtual double N2() const = 0;
-        virtual double i1() const = 0;
-        virtual double i2() const = 0;
-        virtual double w1() const = 0;
-        virtual double w2() const = 0;
-        virtual double a1() const = 0;
-        virtual double a2() const = 0;
-        virtual double e1() const = 0;
-        virtual double e2() const = 0;
-        virtual double M1() const = 0;
-        virtual double M2() const = 0;
-        virtual double period() = 0;
-        virtual SolarObjects centerOfOrbit() = 0;
+        double N1() const;
+        double N2() const;
+        double i1() const;
+        double i2() const;
+        double w1() const;
+        double w2() const;
+        double a1() const;
+        double a2() const;
+        double e1() const;
+        double e2() const;
+        double M1() const;
+        double M2() const;
+        double period() const;
+        SolarObjects centerOfOrbit() const;
 
     protected:
 
@@ -75,6 +73,8 @@ namespace SolarSystem {
         double _z;
         double _roll;
         SolarObjects _centerOfOrbit;
+
+        virtual void initialize() = 0;
 
     };
 
