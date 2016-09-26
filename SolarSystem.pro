@@ -26,7 +26,9 @@ SOURCES += main.cpp \
     Scene/SceneObjects/emptysolarobject.cpp \
     Scene/SceneObjects/solarskybox.cpp \
     SolarCore/isolarmathcore.cpp \
-    SolarCore/solarmathcore.cpp
+    SolarCore/solarmathcore.cpp \
+    SolarCore/SolarObjects/solarobjects.cpp \
+    SolarCore/SolarObjects/abstractsolarobject.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -45,7 +47,8 @@ HEADERS += \
     Scene/SceneObjects/solarskybox.h \
     SolarCore/isolarmathcore.h \
     SolarCore/solarmathcore.h \
-    SolarCore/SolarObjects/abstractsolarobject.h
+    SolarCore/SolarObjects/abstractsolarobject.h \
+    SolarCore/SolarObjects/solarobjects.h
 
 RESOURCES += \
     res.qrc
