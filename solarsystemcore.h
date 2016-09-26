@@ -134,7 +134,7 @@ namespace SolarSystem {
     }
 
     //planets math values
-    namespace PlanetsValues {
+    namespace SolarObjectsValues {
 
         // Planet Data
         // radius - planet radius

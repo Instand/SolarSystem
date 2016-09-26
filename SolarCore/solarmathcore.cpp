@@ -18,43 +18,43 @@ float SolarSystem::SolarMathCore::getOuterRadius(SolarSystem::SolarObjects objec
     switch (object) {
 
         case SolarObjects::Mercury:
-            outerRadius += PlanetsValues::Mercury::radius;
+            outerRadius += SolarObjectsValues::Mercury::radius;
             break;
 
         case SolarObjects::Venus:
-            outerRadius += PlanetsValues::Venus::radius;
+            outerRadius += SolarObjectsValues::Venus::radius;
             break;
 
         case SolarObjects::Earth:
-            outerRadius += PlanetsValues::Earth::radius;
+            outerRadius += SolarObjectsValues::Earth::radius;
             break;
 
         case SolarObjects::Mars:
-            outerRadius += PlanetsValues::Mars::radius;
+            outerRadius += SolarObjectsValues::Mars::radius;
             break;
 
         case SolarObjects::Jupiter:
-            outerRadius += PlanetsValues::Jupier::radius;
+            outerRadius += SolarObjectsValues::Jupier::radius;
             break;
 
         case SolarObjects::Neptune:
-            outerRadius += PlanetsValues::Neptune::radius;
+            outerRadius += SolarObjectsValues::Neptune::radius;
             break;
 
         case SolarObjects::Saturn:
-            outerRadius += PlanetsValues::Saturn::radius + SolarValues::saturnOuterRadius;
+            outerRadius += SolarObjectsValues::Saturn::radius + SolarValues::saturnOuterRadius;
             break;
 
         case SolarObjects::Uranus:
-            outerRadius += PlanetsValues::Uranus::radius + SolarValues::uranusOuterRadius;
+            outerRadius += SolarObjectsValues::Uranus::radius + SolarValues::uranusOuterRadius;
             break;
 
         case SolarObjects::Moon:
-            outerRadius += PlanetsValues::Moon::radius;
+            outerRadius += SolarObjectsValues::Moon::radius;
             break;
 
         case SolarObjects::Sun:
-            outerRadius = PlanetsValues::Sun::radius / 100.0;
+            outerRadius = SolarObjectsValues::Sun::radius / 100.0;
             break;
 
         default:
