@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QVector3D>
+#include <vector>
 
 namespace SolarSystem {
 

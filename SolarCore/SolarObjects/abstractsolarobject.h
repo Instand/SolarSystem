@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "solarsystemcore.h"
+#include <memory>
 
 namespace SolarSystem {
 
@@ -77,6 +78,10 @@ namespace SolarSystem {
         virtual void initialize() = 0;
 
     };
+
+    //solar objects type
+    using SolarObjectPtr = std::shared_ptr < AbstractSolarObject >;
+    using SolarObjectsArray = std::vector < SolarObjectPtr >;
 
 }
 

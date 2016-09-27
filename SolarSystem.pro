@@ -48,7 +48,8 @@ HEADERS += \
     SolarCore/isolarmathcore.h \
     SolarCore/solarmathcore.h \
     SolarCore/SolarObjects/abstractsolarobject.h \
-    SolarCore/SolarObjects/solarobjects.h
+    SolarCore/SolarObjects/solarobjects.h \
+    SolarCore/solarobjectsfactory.h
 
 RESOURCES += \
     res.qrc
