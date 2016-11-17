@@ -16,6 +16,12 @@ SolarSystem::SolarSkyBox::SolarSkyBox(Qt3DCore::QNode *parent):
     });
 }
 
+SolarSystem::SolarSkyBox::~SolarSkyBox()
+{
+    if (_camera)
+        positionTimer->stop();
+}
+
 void SolarSystem::SolarSkyBox::setCamera(Qt3DRender::QCamera *camera)
 {
     _camera = camera;

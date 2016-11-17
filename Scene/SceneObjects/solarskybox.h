@@ -14,6 +14,7 @@ namespace SolarSystem {
 
     public:
         explicit SolarSkyBox(Qt3DCore::QNode *parent = nullptr);
+        ~SolarSkyBox();
         void setCamera(Qt3DRender::QCamera* camera);
 
     private:
