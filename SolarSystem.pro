@@ -28,7 +28,8 @@ SOURCES += main.cpp \
     SolarCore/isolarmathcore.cpp \
     SolarCore/solarmathcore.cpp \
     SolarCore/SolarObjects/solarobjects.cpp \
-    SolarCore/SolarObjects/abstractsolarobject.cpp
+    SolarCore/SolarObjects/abstractsolarobject.cpp \
+    SolarCore/solarobjectscontainer.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -49,7 +50,8 @@ HEADERS += \
     SolarCore/solarmathcore.h \
     SolarCore/SolarObjects/abstractsolarobject.h \
     SolarCore/SolarObjects/solarobjects.h \
-    SolarCore/solarobjectsfactory.h
+    SolarCore/solarobjectsfactory.h \
+    SolarCore/solarobjectscontainer.h
 
 RESOURCES += \
     res.qrc

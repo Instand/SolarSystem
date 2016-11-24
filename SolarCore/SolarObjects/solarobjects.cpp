@@ -28,6 +28,7 @@ void SolarSystem::Stars::Sun::initialize()
     _z = SolarObjectsValues::Sun::z;
     _roll = SolarObjectsValues::Sun::roll;
     _centerOfOrbit = SolarObjects::Sun;
+    _objectType = SolarObjects::Sun;
 }
 
 SolarSystem::Planets::Mercury::Mercury(QObject *parent):
@@ -58,6 +59,7 @@ void SolarSystem::Planets::Mercury::initialize()
     _z = SolarObjectsValues::Mercury::z;
     _roll = SolarObjectsValues::Mercury::roll;
     _centerOfOrbit = SolarObjectsValues::Mercury::centerOfOrbit;
+    _objectType = SolarObjects::Mercury;
 }
 
 SolarSystem::Planets::Venus::Venus(QObject *parent):
@@ -88,6 +90,7 @@ void SolarSystem::Planets::Venus::initialize()
     _z = SolarObjectsValues::Venus::z;
     _roll = SolarObjectsValues::Venus::roll;
     _centerOfOrbit = SolarObjectsValues::Venus::centerOfOrbit;
+    _objectType = SolarObjects::Venus;
 }
 
 SolarSystem::Planets::Earth::Earth(QObject *parent):
@@ -118,6 +121,7 @@ void SolarSystem::Planets::Earth::initialize()
     _z = SolarObjectsValues::Earth::z;
     _roll = SolarObjectsValues::Earth::roll;
     _centerOfOrbit = SolarObjectsValues::Earth::centerOfOrbit;
+    _objectType = SolarObjects::Earth;
 }
 
 SolarSystem::Planets::Mars::Mars(QObject *parent):
@@ -148,6 +152,7 @@ void SolarSystem::Planets::Mars::initialize()
     _z = SolarObjectsValues::Mars::z;
     _roll = SolarObjectsValues::Mars::roll;
     _centerOfOrbit = SolarObjectsValues::Mars::centerOfOrbit;
+    _objectType = SolarObjects::Mars;
 }
 
 SolarSystem::Planets::Jupiter::Jupiter(QObject *parent):
@@ -178,6 +183,7 @@ void SolarSystem::Planets::Jupiter::initialize()
     _z = SolarObjectsValues::Jupier::z;
     _roll = SolarObjectsValues::Jupier::roll;
     _centerOfOrbit = SolarObjectsValues::Jupier::centerOfOrbit;
+    _objectType = SolarObjects::Jupiter;
 }
 
 SolarSystem::Planets::Saturn::Saturn(QObject *parent):
@@ -208,6 +214,7 @@ void SolarSystem::Planets::Saturn::initialize()
     _z = SolarObjectsValues::Saturn::z;
     _roll = SolarObjectsValues::Saturn::roll;
     _centerOfOrbit = SolarObjectsValues::Saturn::centerOfOrbit;
+    _objectType = SolarObjects::Saturn;
 }
 
 SolarSystem::Planets::Uranus::Uranus(QObject *parent):
@@ -238,6 +245,7 @@ void SolarSystem::Planets::Uranus::initialize()
     _z = SolarObjectsValues::Uranus::z;
     _roll = SolarObjectsValues::Uranus::roll;
     _centerOfOrbit = SolarObjectsValues::Uranus::centerOfOrbit;
+    _objectType = SolarObjects::Uranus;
 }
 
 SolarSystem::Planets::Neptune::Neptune(QObject *parent):
@@ -268,6 +276,7 @@ void SolarSystem::Planets::Neptune::initialize()
     _z = SolarObjectsValues::Neptune::z;
     _roll = SolarObjectsValues::Neptune::roll;
     _centerOfOrbit = SolarObjectsValues::Neptune::centerOfOrbit;
+    _objectType = SolarObjects::Neptune;
 }
 
 SolarSystem::Moons::Moon::Moon(QObject *parent):
@@ -298,4 +307,5 @@ void SolarSystem::Moons::Moon::initialize()
     _z = SolarObjectsValues::Moon::z;
     _roll = SolarObjectsValues::Moon::roll;
     _centerOfOrbit = SolarObjectsValues::Moon::centerOfOrbit;
+    _objectType = SolarObjects::Moon;
 }
