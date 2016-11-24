@@ -140,3 +140,8 @@ SolarSystem::SolarObjects SolarSystem::AbstractSolarObject::centerOfOrbit() cons
 {
     return _centerOfOrbit;
 }
+
+SolarSystem::SolarObjects SolarSystem::AbstractSolarObject::object() const
+{
+    return _objectType;
+}

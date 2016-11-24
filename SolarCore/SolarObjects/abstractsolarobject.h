@@ -50,6 +50,7 @@ namespace SolarSystem {
         double M2() const;
         double period() const;
         SolarObjects centerOfOrbit() const;
+        SolarObjects object() const;
 
     protected:
 
@@ -74,6 +75,7 @@ namespace SolarSystem {
         double _z;
         double _roll;
         SolarObjects _centerOfOrbit;
+        SolarObjects _objectType;
 
         virtual void initialize() = 0;
 
