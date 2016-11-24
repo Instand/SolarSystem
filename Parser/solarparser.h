@@ -8,7 +8,12 @@ namespace SolarSystem {
     //static realization of string solar object parser
     class SolarParser {
     public:
+
+        //parse string to get solar object type
         static SolarSystemObjectType parseString(const QString& str);
+
+        //get string from SolarObejcts type
+        static QString parseSolarObjectToString(SolarObjects object);
     };
 
 }
