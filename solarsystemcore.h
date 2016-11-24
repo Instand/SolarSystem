@@ -159,6 +159,7 @@ namespace SolarSystem {
             const double y = 0;
             const double z = 0;
             const double roll = 0;
+            const QString toString = "Sun";
         }
 
         //mercury values
@@ -183,6 +184,7 @@ namespace SolarSystem {
             const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
+            const QString toString = "Mercury";
         }
 
         //venus values
@@ -207,6 +209,7 @@ namespace SolarSystem {
             const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
+            const QString toString = "Venus";
         }
 
         //earth values
@@ -231,6 +234,7 @@ namespace SolarSystem {
             const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
+            const QString toString = "Earth";
         }
 
         //mars values
@@ -255,6 +259,7 @@ namespace SolarSystem {
             const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
+            const QString toString = "Mars";
         }
 
         //jupiter values
@@ -279,6 +284,7 @@ namespace SolarSystem {
             const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
+            const QString toString = "Jupiter";
         }
 
         //saturn values
@@ -303,6 +309,7 @@ namespace SolarSystem {
             const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
+            const QString toString = "Saturn";
         }
 
         //uranus values
@@ -327,6 +334,7 @@ namespace SolarSystem {
             const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
+            const QString toString = "Uranus";
         }
 
         //neptune values
@@ -351,6 +359,7 @@ namespace SolarSystem {
             const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
+            const QString toString = "Neptune";
         }
 
         //moon values
@@ -375,6 +384,7 @@ namespace SolarSystem {
             const double z = 0;
             const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Earth;
+            const QString toString = "Moon";
         }
     }
 }
