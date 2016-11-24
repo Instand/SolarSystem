@@ -6,6 +6,12 @@ SolarSystem::SolarMathCore::SolarMathCore(QObject* parent):
 
 }
 
+SolarSystem::SolarMathCore::~ISolarMathCore()
+{
+    if (camera)
+        camera = nullptr;
+}
+
 void SolarSystem::SolarMathCore::setSolarView(Qt3DRender::QCamera *camera)
 {
     this->camera = camera;

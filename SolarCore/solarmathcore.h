@@ -13,6 +13,7 @@ namespace SolarSystem {
 
     public:
         SolarMathCore(QObject* parent = nullptr);
+        ~ISolarMathCore();
 
         //realize interface
         virtual void setSolarView(Qt3DRender::QCamera *camera) override;
