@@ -4,6 +4,11 @@
 //Main Math data
 struct SolarSystem::SolarMathCore::Data
 {
+    //?
+    float cameraDistance = 1.0f;
+    QVector3D oldCameraPosition;
+    QVector3D oldFocusedPlanetPosition;
+
     //Time variables
     int year = 2000;
     int month = 1;
@@ -154,5 +159,22 @@ QVector3D SolarSystem::SolarMathCore::getNewSolarViewPosition(SolarSystem::Solar
     if (object == SolarObjects::Sun)
     {
         pos = QVector3D(radius * data->planetScale * 2, radius * data->planetScale * 2, radius * data->planetScale * 2);
+        pos *= data->cameraDistance;
     }
+    else
+    {
+        auto solarObj = solarContainer.solarObject(object);
+        auto vec1 = QVector3D(solarObj->x(), solarObj->y(), solarObj->z());
+        auto vec2 = CameraSettings::defaultUp;
+
+        vec1 = vec1.normalized();
+        vec2 = QVector3D::crossProduct(vec1, vec2);
+        vec2 *= radius * data->planetScale * data->cameraDistance * 4;
+        vec2 += QVector3D(solarObj->x(), solarObj->y(), solarObj->z());
+
+        vec1 = QVector3D(0, radius * data->planetScale, 0);
+        vec2 += vec1;
+    }
+
+    return pos;
 }
