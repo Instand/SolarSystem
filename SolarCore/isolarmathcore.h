@@ -44,6 +44,9 @@ namespace SolarSystem {
 
         //change camera distance
         virtual void changeSolarViewDistance(double distance) = 0;
+
+        //calculate time
+        virtual void advanceTime(SolarObjects object) = 0;
     };
 
 }
