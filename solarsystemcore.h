@@ -108,7 +108,7 @@ namespace SolarSystem {
 
 
         //calculate number
-        NumberOfObjects
+        SolarSystemView
     };
 
     //depredecated

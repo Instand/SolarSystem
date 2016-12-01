@@ -156,7 +156,12 @@ QVector3D SolarSystem::SolarMathCore::getNewSolarViewPosition(SolarSystem::Solar
 {
     QVector3D pos;
 
-    if (object == SolarObjects::Sun)
+    if (object == SolarObjects::SolarSystemView)
+    {
+        pos = CameraSettings::defaultCameraPosition;
+        pos *= data->cameraDistance;
+    }
+    else if (object == SolarObjects::Sun)
     {
         pos = QVector3D(radius * data->planetScale * 2, radius * data->planetScale * 2, radius * data->planetScale * 2);
         pos *= data->cameraDistance;
