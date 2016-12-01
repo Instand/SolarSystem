@@ -9,7 +9,7 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen) :
     _root(new Qt3DCore::QEntity)
 {
     //3d viewport setup
-    defaultFramegraph()->setClearColor(Qt::black);
+    //defaultFramegraph()->setClearColor(Qt::black);
 
     //scene camera setup
     _camera->setProjectionType(Qt3DRender::QCameraLens::PerspectiveProjection);
@@ -19,6 +19,12 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen) :
     _camera->setPosition(QVector3D(0.0f, 0.5f, 35.0f));
     _camera->setNearPlane(0.01f);
     _camera->setFarPlane(2000.0f);
+
+    _camera->setFieldOfView(CameraSettings::fieldOfView);
+    /*_camera->setNearPlane(CameraSettings::nearPlane);
+    _camera->setFarPlane(CameraSettings::farPlane);
+    _camera->setUpVector(CameraSettings::defaultUp);
+    _camera->setPosition(CameraSettings::defaultCameraPosition);*/
 
     //solar rendering
     SolarSkyBox* skybox = new SolarSkyBox(_root.get());
