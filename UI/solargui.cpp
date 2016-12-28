@@ -6,7 +6,7 @@ SolarSystem::SolarGUI::SolarGUI(QWidget *parent):
     viewPortWidget(new ViewPortWidget),
     solar3dViewer(new Solar3dViewPort)
 {
-    mainViewer->setViewMode(QMdiArea::ViewMode::TabbedView);
+    mainViewer->setViewMode(QMdiArea::ViewMode::SubWindowView);
     mainViewer->setTabShape(QTabWidget::TabShape::Rounded);
 
     //mdi a central widget

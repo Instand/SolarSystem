@@ -2,6 +2,7 @@
 #include <Qt3DExtras/QForwardRenderer>
 #include "Scene/SceneObjects/solarskybox.h"
 #include <Qt3DExtras/QFirstPersonCameraController>
+#include <SolarCore/planetscontainer.h>
 
 SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen) :
     Qt3DExtras::Qt3DWindow(screen),
@@ -9,7 +10,7 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen) :
     _root(new Qt3DCore::QEntity)
 {
     //3d viewport setup
-    //defaultFramegraph()->setClearColor(Qt::black);
+    defaultFramegraph()->setClearColor(Qt::black);
 
     //scene camera setup
     _camera->setProjectionType(Qt3DRender::QCameraLens::PerspectiveProjection);
@@ -29,6 +30,9 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen) :
     //solar rendering
     SolarSkyBox* skybox = new SolarSkyBox(_root.get());
     skybox->setCamera(_camera.get());
+
+    //create all planets
+    PlanetsContainer::initialize(_root.get());
 
     //set root
     setRootEntity(_root.get());
