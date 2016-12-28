@@ -36,6 +36,9 @@ namespace SolarSystem {
         //set solar object current scale
         virtual float setSolarObjectScale(float scale, bool focused = false) = 0;
 
+        //check solar object scale
+        virtual void checkSolarObjectScaling(SolarObjects object) = 0;
+
         //dynamic change solar object scale
         virtual void changeSolarObjectScale(float scale, bool focused = false) = 0;
 

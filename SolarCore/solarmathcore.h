@@ -21,6 +21,10 @@ namespace SolarSystem {
         virtual float getOuterRadius(SolarObjects object) override;
         virtual QVector3D solarObjectPosition(SolarObjects object) override;
         virtual QVector3D getNewSolarViewPosition(SolarObjects object, double radius) override;
+        virtual void advanceTime(SolarObjects object) override;
+        virtual float setSolarObjectScale(float scale, bool focused) override;
+        virtual void checkSolarObjectScaling(SolarObjects object) override;
+        virtual void changeSolarObjectScale(float scale, bool focused) override;
 
     private:
 

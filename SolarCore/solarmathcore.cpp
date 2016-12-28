@@ -4,7 +4,8 @@
 //Main Math data
 struct SolarSystem::SolarMathCore::Data
 {
-    //?
+    //
+    bool ready = false;
     float cameraDistance = 1.0f;
     QVector3D oldCameraPosition;
     QVector3D oldFocusedPlanetPosition;
@@ -182,4 +183,61 @@ QVector3D SolarSystem::SolarMathCore::getNewSolarViewPosition(SolarSystem::Solar
     }
 
     return pos;
+}
+
+void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
+{
+    if (object == SolarObjects::SolarSystemView)
+        data->daysPerFrame = data->daysPerFrameScale * 10;
+    else
+        data->daysPerFrame = data->daysPerFrameScale * solarContainer.solarObject(object)->period()/100.0;
+
+    //Advance the time in days
+    data->oldTimeD = data->currentTimeD;
+    data->currentTimeD = data->currentTimeD + data->daysPerFrame;
+    data->deltaTimeD = data->currentTimeD - data->oldTimeD;
+}
+
+float SolarSystem::SolarMathCore::setSolarObjectScale(float scale, bool focused)
+{
+    // Save actual scale
+    if (!focused)
+        data->actualScale = scale;
+
+    // Limit minimum scaling in focus mode to avoid jitter caused by rounding errors
+    if (scale <= data->focusedMinimumScale && (data->focusedScaling || focused))
+        data->planetScale = data->focusedMinimumScale;
+    else
+        data->planetScale = data->actualScale;
+
+    return data->planetScale;
+}
+
+void SolarSystem::SolarMathCore::checkSolarObjectScaling(SolarSystem::SolarObjects object)
+{
+    if (object != SolarObjects::SolarSystemView)
+    {
+        // Limit minimum scaling in focus mode to avoid jitter caused by rounding errors
+        if (data->actualScale <= data->focusedMinimumScale)
+        {
+            data->planetScale = data->focusedMinimumScale;
+            changeSolarObjectScale(data->focusedMinimumScale, true);
+        }
+
+        data->focusedScaling = true;
+    }
+    else if (data->focusedScaling == true)
+    {
+        // Restore normal scaling
+        data->focusedScaling = false;
+        changeSolarObjectScale(data->actualScale, false);
+    }
+}
+
+void SolarSystem::SolarMathCore::changeSolarObjectScale(float scale, bool focused)
+{
+    if (!data->ready)
+        return;
+
+    auto scaling = setSolarObjectScale(scale, focused);
 }
