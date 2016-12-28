@@ -29,7 +29,9 @@ SOURCES += main.cpp \
     SolarCore/solarmathcore.cpp \
     SolarCore/SolarObjects/solarobjects.cpp \
     SolarCore/SolarObjects/abstractsolarobject.cpp \
-    SolarCore/solarobjectscontainer.cpp
+    SolarCore/solarobjectscontainer.cpp \
+    Scene/SceneObjects/planet.cpp \
+    SolarCore/planetscontainer.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -51,7 +53,9 @@ HEADERS += \
     SolarCore/SolarObjects/abstractsolarobject.h \
     SolarCore/SolarObjects/solarobjects.h \
     SolarCore/solarobjectsfactory.h \
-    SolarCore/solarobjectscontainer.h
+    SolarCore/solarobjectscontainer.h \
+    Scene/SceneObjects/planet.h \
+    SolarCore/planetscontainer.h
 
 RESOURCES += \
     res.qrc
