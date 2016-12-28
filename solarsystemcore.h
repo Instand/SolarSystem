@@ -134,6 +134,14 @@ namespace SolarSystem {
         const int fieldOfView = 45;
     }
 
+    //for planet class
+    namespace PlanetSettings {
+        const float radius = 1.0f;
+        const bool generateTangents = true;
+        const int rings = 64;
+        const int slices = 64;
+    }
+
     //planets math values
     namespace SolarObjectsValues {
 
