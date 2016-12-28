@@ -16,10 +16,11 @@ namespace SolarSystem {
         Solar3dObject(Qt3DCore::QNode* parent = 0);
 
         //get object properties
-        virtual Qt3DRender::QObjectPicker& picker() const override;
+        virtual Qt3DRender::QObjectPicker& picker() const override final;
         Qt3DExtras::QNormalDiffuseSpecularMapMaterial& material() const;
         Qt3DRender::QTextureImage& diffuse() const;
         Qt3DRender::QTextureImage& normal() const;
+        Qt3DRender::QTextureImage& specular() const;
 
     protected:
         virtual void update(float deltaTime) = 0;
@@ -31,6 +32,7 @@ namespace SolarSystem {
         Qt3DExtras::QNormalDiffuseSpecularMapMaterial* _material;
         Qt3DRender::QTextureImage* _diffuseImage;
         Qt3DRender::QTextureImage* _normalImage;
+        Qt3DRender::QTextureImage* _specularImage;
 
     };
 

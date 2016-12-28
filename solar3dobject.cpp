@@ -1,15 +1,16 @@
 #include "solar3dobject.h"
 
-SolarSystem::Solar3dObject::Solar3dObject(Qt3DCore::QNode *parent) :
+SolarSystem::Solar3dObject::Solar3dObject(Qt3DCore::QNode *parent):
     BaseVisualSolarObject(parent),
     _picker(new Qt3DRender::QObjectPicker),
     _material(new Qt3DExtras::QNormalDiffuseSpecularMapMaterial),
     _diffuseImage(new Qt3DRender::QTextureImage),
-    _normalImage(new Qt3DRender::QTextureImage)
+    _normalImage(new Qt3DRender::QTextureImage),
+    _specularImage(new Qt3DRender::QTextureImage)
 {
-
     _material->diffuse()->addTextureImage(_diffuseImage);
     _material->normal()->addTextureImage(_normalImage);
+    _material->specular()->addTextureImage(_specularImage);
 
     addComponent(_material);
     addComponent(_picker);
@@ -33,4 +34,9 @@ Qt3DRender::QTextureImage &SolarSystem::Solar3dObject::diffuse() const
 Qt3DRender::QTextureImage &SolarSystem::Solar3dObject::normal() const
 {
     return *_normalImage;
+}
+
+Qt3DRender::QTextureImage &SolarSystem::Solar3dObject::specular() const
+{
+    return *_specularImage;
 }
