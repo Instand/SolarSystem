@@ -5,7 +5,6 @@
 #include <Qt3DRender/QCamera>
 #include <Qt3DCore/QEntity>
 #include "solarsystemcore.h"
-#include <memory>
 
 namespace SolarSystem {
 
@@ -20,10 +19,10 @@ namespace SolarSystem {
     private:
 
         //scene camera
-        std::unique_ptr<Qt3DRender::QCamera> _camera;
+        Qt3DRender::QCamera* _camera;
 
         //root entity
-        std::unique_ptr<Qt3DCore::QEntity> _root;
+        Qt3DCore::QEntity* _root;
     };
 }
 

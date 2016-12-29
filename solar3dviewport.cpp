@@ -4,7 +4,7 @@
 #include <Qt3DExtras/QFirstPersonCameraController>
 #include <SolarCore/planetscontainer.h>
 
-SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen) :
+SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen):
     Qt3DExtras::Qt3DWindow(screen),
     _camera(camera()),
     _root(new Qt3DCore::QEntity)
@@ -28,12 +28,13 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen) :
     _camera->setPosition(CameraSettings::defaultCameraPosition);*/
 
     //solar rendering
-    SolarSkyBox* skybox = new SolarSkyBox(_root.get());
-    skybox->setCamera(_camera.get());
+    SolarSkyBox* skybox = new SolarSkyBox(_root);
+    skybox->setCamera(_camera);
 
     //create all planets
-    PlanetsContainer::initialize(_root.get());
+    PlanetsContainer::initialize(_root);
 
     //set root
-    setRootEntity(_root.get());
+    setRootEntity(_root);
 }
+
