@@ -5,7 +5,7 @@ SolarSystem::SolarSkyBox::SolarSkyBox(Qt3DCore::QNode *parent):
     positionTimer(new QTimer(this))
 {
     //create skybox from file
-    setBaseName(QStringLiteral("qrc:/Resourses/Skybox/stars"));
+    setBaseName(QStringLiteral("qrc:/Resources/Skybox/stars"));
     setExtension(QStringLiteral(".webp"));
 
     QObject::connect(positionTimer, &QTimer::timeout, [&] {
