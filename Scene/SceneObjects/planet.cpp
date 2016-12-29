@@ -5,7 +5,7 @@
 SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
     Solar3dObject(parent)
 {
-    auto sphereGeometry = new Qt3DExtras::QSphereGeometry();
+    Qt3DExtras::QSphereGeometry* sphereGeometry = new Qt3DExtras::QSphereGeometry();
 
     //setup geometry
     sphereGeometry->setRadius(PlanetSettings::radius);

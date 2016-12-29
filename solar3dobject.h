@@ -19,8 +19,6 @@ namespace SolarSystem {
         virtual Qt3DRender::QObjectPicker& picker() const override final;
         Qt3DExtras::QNormalDiffuseSpecularMapMaterial& material() const;
         Qt3DRender::QTextureImage& diffuse() const;
-        Qt3DRender::QTextureImage& normal() const;
-        Qt3DRender::QTextureImage& specular() const;
 
     protected:
         virtual void update(float deltaTime) = 0;
@@ -30,10 +28,9 @@ namespace SolarSystem {
 
         //vizibility
         Qt3DExtras::QNormalDiffuseSpecularMapMaterial* _material;
-        Qt3DRender::QTextureImage* _diffuseImage;
-        Qt3DRender::QTextureImage* _normalImage;
-        Qt3DRender::QTextureImage* _specularImage;
 
+        //main default texture
+        Qt3DRender::QTextureImage* _diffuse;
     };
 
 }
