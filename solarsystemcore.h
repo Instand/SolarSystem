@@ -131,7 +131,7 @@ namespace SolarSystem {
         const float farPlane = 20000000.0;
 
         //fov
-        const int fieldOfView = 45;
+        const int fieldOfView = 60;
     }
 
     //for planet class
