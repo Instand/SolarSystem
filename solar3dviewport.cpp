@@ -3,14 +3,20 @@
 #include "Scene/SceneObjects/solarskybox.h"
 #include <Qt3DExtras/QFirstPersonCameraController>
 #include <SolarCore/planetscontainer.h>
+#include <SolarCore/solarmathcore.h>
 
 SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen):
     Qt3DExtras::Qt3DWindow(screen),
     _camera(camera()),
-    _root(new Qt3DCore::QEntity)
+    _root(new Qt3DCore::QEntity),
+    mathCore(new SolarMathCore())
 {
     //3d viewport setup
     defaultFramegraph()->setClearColor(Qt::black);
+
+    //create root frame tick
+    Qt3DLogic::QFrameAction* rootAction = new Qt3DLogic::QFrameAction(_root);
+    _root->addComponent(rootAction);
 
     //scene camera setup
     _camera->setProjectionType(Qt3DRender::QCameraLens::PerspectiveProjection);
@@ -31,10 +37,27 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen):
     SolarSkyBox* skybox = new SolarSkyBox(_root);
     skybox->setCamera(_camera);
 
+    //for test the scene
+    Qt3DExtras::QFirstPersonCameraController* controller = new Qt3DExtras::QFirstPersonCameraController(_root);
+    controller->setCamera(_camera);
+    controller->setLookSpeed(controller->lookSpeed() * 2.0f);
+
     //create all planets
     PlanetsContainer::initialize(_root);
+    mathCore->setPlanetsContainer(PlanetsContainer::planets());
 
     //set root
     setRootEntity(_root);
+
+    //animate scene on tick
+    QObject::connect(rootAction, &Qt3DLogic::QFrameAction::triggered, this, &Solar3dViewPort::animate);
+}
+
+void SolarSystem::Solar3dViewPort::animate()
+{
+    mathCore->advanceTime(SolarObjects::SolarSystemView);
+
+    for (int i = 0; i < PlanetsContainer::planetsNumber(); ++i)
+        mathCore->solarObjectPosition((SolarObjects)i);
 }
 

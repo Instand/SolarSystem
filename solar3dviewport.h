@@ -5,6 +5,7 @@
 #include <Qt3DRender/QCamera>
 #include <Qt3DCore/QEntity>
 #include "solarsystemcore.h"
+#include <SolarCore/isolarmathcore.h>
 
 namespace SolarSystem {
 
@@ -23,6 +24,12 @@ namespace SolarSystem {
 
         //root entity
         Qt3DCore::QEntity* _root;
+
+        //math core interface
+        ISolarMathCore* mathCore;
+
+    private slots:
+        void animate();
     };
 }
 
