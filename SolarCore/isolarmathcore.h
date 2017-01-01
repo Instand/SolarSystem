@@ -4,6 +4,7 @@
 #include <QObject>
 #include "solarsystemcore.h"
 #include <Qt3DRender/QCamera>
+#include <SolarCore/planetscontainer.h>
 
 namespace SolarSystem {
 
@@ -31,7 +32,7 @@ namespace SolarSystem {
         virtual float getOuterRadius(SolarObjects object) = 0;
 
         //calculate current solar object position in space
-        virtual QVector3D solarObjectPosition(SolarObjects object) = 0;
+        virtual void solarObjectPosition(SolarObjects object) = 0;
 
         //set solar object current scale
         virtual float setSolarObjectScale(float scale, bool focused = false) = 0;
@@ -50,6 +51,9 @@ namespace SolarSystem {
 
         //calculate time
         virtual void advanceTime(SolarObjects object) = 0;
+
+        //add 3d container to math core
+        virtual void setPlanetsContainer(PlanetArray array) = 0;
     };
 
 }
