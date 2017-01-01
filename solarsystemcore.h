@@ -101,8 +101,8 @@ namespace SolarSystem {
         Saturn,
         Uranus,
         Neptune,
-        Pluto,
         Moon,
+        Pluto,
 
         //add here
 
