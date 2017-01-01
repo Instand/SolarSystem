@@ -22,6 +22,12 @@ namespace SolarSystem {
 
         //call before class using
         static void initialize(Qt3DCore::QNode* root = nullptr);
+
+        //get planets number
+        static int planetsNumber();
+
+        //get all planets
+        static PlanetArray planets();
     };
 }
 

@@ -1,4 +1,5 @@
 #include "planetscontainer.h"
+#include <Qt3DRender/QPointLight>
 
 void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
 {
@@ -8,6 +9,11 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
         //create sun
         Planet* sun = new Planet(root);
         sun->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/sunmap.jpg"));
+        sun->material().setShininess(sun->material().shininess() * 1000.0f);
+
+        Qt3DRender::QPointLight* sunLight = new Qt3DRender::QPointLight();
+        sunLight->setIntensity(1.7f);
+        sun->addComponent(sunLight);
 
         //create mercury
         Planet* mercury = new Planet(root);
@@ -83,6 +89,16 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
 
         initialized = true;
     }
+}
+
+int SolarSystem::PlanetsContainer::planetsNumber()
+{
+    return (int)planetContainer.size();
+}
+
+SolarSystem::PlanetArray SolarSystem::PlanetsContainer::planets()
+{
+    return planetContainer;
 }
 
 //create static values
