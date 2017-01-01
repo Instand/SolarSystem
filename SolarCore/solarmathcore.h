@@ -19,12 +19,16 @@ namespace SolarSystem {
         //realize interface
         virtual void setSolarView(Qt3DRender::QCamera *camera) override;
         virtual float getOuterRadius(SolarObjects object) override;
-        virtual QVector3D solarObjectPosition(SolarObjects object) override;
+        virtual void solarObjectPosition(SolarObjects object) override;
         virtual QVector3D getNewSolarViewPosition(SolarObjects object, double radius) override;
         virtual void advanceTime(SolarObjects object) override;
         virtual float setSolarObjectScale(float scale, bool focused) override;
         virtual void checkSolarObjectScaling(SolarObjects object) override;
         virtual void changeSolarObjectScale(float scale, bool focused) override;
+        virtual void updateSolarView(SolarObjects object) override;
+        virtual void changeSolarObjectsSpeed(float speed) override;
+        virtual void changeSolarViewDistance(double distance) override;
+        virtual void setPlanetsContainer(PlanetArray array) override;
 
     private:
 
@@ -39,6 +43,9 @@ namespace SolarSystem {
 
         //math solar objects
         SolarObjectsContainer solarContainer;
+
+        //planet container elements
+        PlanetArray planetContainer;
     };
 
 }

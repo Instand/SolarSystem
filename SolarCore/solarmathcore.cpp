@@ -32,7 +32,10 @@ SolarSystem::SolarMathCore::SolarMathCore(QObject* parent):
     ISolarMathCore(parent),
     data(new Data())
 {
-
+    //calculating start time
+    data->startD = 367 * data->year - 7 * (data->year + (data->month + 9) / 12) / 4 + 275 * data->month / 9 + data->day - 730530;
+    data->oldTimeD = data->startD;
+    data->currentTimeD = data->startD;
 }
 
 SolarSystem::SolarMathCore::~SolarMathCore()
@@ -102,7 +105,7 @@ float SolarSystem::SolarMathCore::getOuterRadius(SolarSystem::SolarObjects objec
     return outerRadius;
 }
 
-QVector3D SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects object)
+void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects object)
 {
     //get planet
     auto solarObj = solarContainer.solarObject(object);
@@ -150,7 +153,12 @@ QVector3D SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObje
 
     solarObj->setRoll(data->deltaTimeD/ solarObj->period() * 360);
 
-    return QVector3D(solarObj->x(), solarObj->y(), solarObj->z());
+    //recalculation to 3D objects
+    Planet* planet = planetContainer[object];
+    planet->setX(solarObj->x());
+    planet->setY(solarObj->y());
+    planet->setZ(solarObj->z());
+    planet->setRoll(solarObj->roll());
 }
 
 QVector3D SolarSystem::SolarMathCore::getNewSolarViewPosition(SolarSystem::SolarObjects object, double radius)
@@ -240,4 +248,25 @@ void SolarSystem::SolarMathCore::changeSolarObjectScale(float scale, bool focuse
         return;
 
     auto scaling = setSolarObjectScale(scale, focused);
+    Q_UNUSED(scaling)
+}
+
+void SolarSystem::SolarMathCore::updateSolarView(SolarSystem::SolarObjects object)
+{
+    Q_UNUSED(object)
+}
+
+void SolarSystem::SolarMathCore::changeSolarObjectsSpeed(float speed)
+{
+    Q_UNUSED(speed)
+}
+
+void SolarSystem::SolarMathCore::changeSolarViewDistance(double distance)
+{
+    Q_UNUSED(distance)
+}
+
+void SolarSystem::SolarMathCore::setPlanetsContainer(SolarSystem::PlanetArray array)
+{
+    planetContainer = array;
 }
