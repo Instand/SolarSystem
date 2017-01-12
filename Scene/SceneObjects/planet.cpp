@@ -29,6 +29,8 @@ void SolarSystem::Planet::setSolarType(SolarSystem::SolarObjects type)
 void SolarSystem::Planet::update(float deltaTime)
 {
     Q_UNUSED(deltaTime)
+
+    transform().setTranslation(QVector3D(_x, _y, _z));
 }
 
 float SolarSystem::Planet::tilt() const
