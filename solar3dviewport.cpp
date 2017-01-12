@@ -40,7 +40,7 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen):
     //for test the scene
     Qt3DExtras::QFirstPersonCameraController* controller = new Qt3DExtras::QFirstPersonCameraController(_root);
     controller->setCamera(_camera);
-    controller->setLookSpeed(controller->lookSpeed() * 2.0f);
+    controller->setLookSpeed(controller->lookSpeed() * 1.5f);
 
     //create all planets
     PlanetsContainer::initialize(_root);
