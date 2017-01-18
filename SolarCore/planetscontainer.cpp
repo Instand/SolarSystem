@@ -88,6 +88,19 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
         planetContainer[SolarObjects::Neptune] = neptune;
 
         initialized = true;
+        rootNode = root;
+    }
+}
+
+void SolarSystem::PlanetsContainer::destruct()
+{
+    if (rootNode == nullptr && initialized)
+    {
+        for (auto& elem : planetContainer)
+        {
+            if (elem.second)
+                delete elem.second;
+        }
     }
 }
 
@@ -104,3 +117,4 @@ SolarSystem::PlanetArray SolarSystem::PlanetsContainer::planets()
 //create static values
 SolarSystem::PlanetArray SolarSystem::PlanetsContainer::planetContainer;
 bool SolarSystem::PlanetsContainer::initialized = false;
+Qt3DCore::QNode* SolarSystem::PlanetsContainer::rootNode = nullptr;

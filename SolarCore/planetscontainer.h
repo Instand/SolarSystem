@@ -17,11 +17,15 @@ namespace SolarSystem {
 
         static PlanetArray planetContainer;
         static bool initialized;
+        static Qt3DCore::QNode* rootNode;
 
     public:
 
         //call before class using
         static void initialize(Qt3DCore::QNode* root = nullptr);
+
+        //destroy container objects
+        static void destruct();
 
         //get planets number
         static int planetsNumber();
