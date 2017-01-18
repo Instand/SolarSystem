@@ -16,6 +16,7 @@ namespace SolarSystem {
 
     public:
         Solar3dViewPort(QScreen* screen = nullptr);
+        ~Solar3dViewPort();
 
     private:
 

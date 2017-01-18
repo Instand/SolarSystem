@@ -28,14 +28,14 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen):
     _camera->setFarPlane(2000.0f);
 
     _camera->setFieldOfView(CameraSettings::fieldOfView);
-    /*_camera->setNearPlane(CameraSettings::nearPlane);
+    _camera->setNearPlane(CameraSettings::nearPlane);
     _camera->setFarPlane(CameraSettings::farPlane);
     _camera->setUpVector(CameraSettings::defaultUp);
-    _camera->setPosition(CameraSettings::defaultCameraPosition);*/
+    _camera->setPosition(CameraSettings::defaultCameraPosition);
 
     //solar rendering
-    SolarSkyBox* skybox = new SolarSkyBox(_root);
-    skybox->setCamera(_camera);
+    /*SolarSkyBox* skybox = new SolarSkyBox(_root);
+    skybox->setCamera(_camera);*/
 
     //for test the scene
     Qt3DExtras::QFirstPersonCameraController* controller = new Qt3DExtras::QFirstPersonCameraController(_root);
@@ -51,6 +51,11 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen):
 
     //animate scene on tick
     QObject::connect(rootAction, &Qt3DLogic::QFrameAction::triggered, this, &Solar3dViewPort::animate);
+}
+
+SolarSystem::Solar3dViewPort::~Solar3dViewPort()
+{
+    PlanetsContainer::destruct();
 }
 
 void SolarSystem::Solar3dViewPort::animate()
