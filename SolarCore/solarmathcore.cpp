@@ -258,7 +258,7 @@ void SolarSystem::SolarMathCore::updateSolarView(SolarSystem::SolarObjects objec
 
 void SolarSystem::SolarMathCore::changeSolarObjectsSpeed(float speed)
 {
-    Q_UNUSED(speed)
+    data->daysPerFrameScale = speed;
 }
 
 void SolarSystem::SolarMathCore::changeSolarViewDistance(double distance)
