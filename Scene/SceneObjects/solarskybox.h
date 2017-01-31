@@ -2,8 +2,6 @@
 #define SOLARSKYBOX_H
 
 #include <Qt3DExtras/QSkyboxEntity>
-#include <Qt3DRender/QCamera>
-#include <QTimer>
 
 namespace SolarSystem {
 
@@ -14,13 +12,6 @@ namespace SolarSystem {
 
     public:
         explicit SolarSkyBox(Qt3DCore::QNode *parent = nullptr);
-        ~SolarSkyBox();
-        void setCamera(Qt3DRender::QCamera* camera);
-
-    private:
-        Qt3DRender::QCamera* _camera = nullptr;
-        QTimer* positionTimer;
-        uint updateInterval = 15;
     };
 
 }
