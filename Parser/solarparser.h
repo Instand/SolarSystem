@@ -18,6 +18,9 @@ namespace SolarSystem {
 
         //returns tilt of solar object
         static float parseSolarObjectTilt(SolarObjects object);
+
+        //returns radius of solar object
+        static float parseSolarObjectRadius(SolarObjects object);
     };
 
 }

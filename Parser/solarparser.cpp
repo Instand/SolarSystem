@@ -134,3 +134,52 @@ float SolarSystem::SolarParser::parseSolarObjectTilt(SolarSystem::SolarObjects o
 
     return tilt;
 }
+
+float SolarSystem::SolarParser::parseSolarObjectRadius(SolarSystem::SolarObjects object)
+{
+    float radius = 0;
+
+    switch (object)
+    {
+    case SolarObjects::Sun:
+        radius = SolarObjectsValues::Sun::radius;
+        break;
+
+    case SolarObjects::Mercury:
+        radius = SolarObjectsValues::Mercury::radius;
+        break;
+
+    case SolarObjects::Venus:
+        radius = SolarObjectsValues::Venus::radius;
+        break;
+
+    case SolarObjects::Earth:
+        radius = SolarObjectsValues::Earth::radius;
+        break;
+
+    case SolarObjects::Mars:
+        radius = SolarObjectsValues::Mars::radius;
+        break;
+
+    case SolarObjects::Jupiter:
+        radius = SolarObjectsValues::Jupier::radius;
+        break;
+
+    case SolarObjects::Saturn:
+        radius = SolarObjectsValues::Saturn::radius;
+        break;
+
+    case SolarObjects::Uranus:
+        radius = SolarObjectsValues::Uranus::radius;
+        break;
+
+    case SolarObjects::Neptune:
+        radius = SolarObjectsValues::Neptune::radius;
+        break;
+
+    default:
+        break;
+    }
+
+    return radius;
+}
