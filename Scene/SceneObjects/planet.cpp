@@ -1,6 +1,7 @@
 #include "planet.h"
 #include <Qt3DExtras/QSphereGeometry>
 #include <solarsystemcore.h>
+#include <Parser/solarparser.h>
 
 SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
     Solar3dObject(parent)
@@ -31,6 +32,14 @@ void SolarSystem::Planet::update(float deltaTime)
     Q_UNUSED(deltaTime)
 
     transform().setTranslation(QVector3D(_x, _y, _z));
+
+    //_tilt = SolarParser::parseSolarObjectTilt(_solarType);
+
+    QMatrix4x4 m = transform().matrix();
+    m.rotate(_roll, QVector3D(0, 1, 0));
+    m.rotate(_tilt, QVector3D(0, 0, 1));
+
+    transform().setMatrix(m);
 }
 
 float SolarSystem::Planet::tilt() const
