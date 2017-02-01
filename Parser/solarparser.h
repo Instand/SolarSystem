@@ -2,6 +2,7 @@
 #define SOLARPARSER_H
 
 #include <solarsystemcore.h>
+#include <SolarCore/SolarObjects/abstractsolarobject.h>
 
 namespace SolarSystem {
 
@@ -14,6 +15,9 @@ namespace SolarSystem {
 
         //get string from SolarObejcts type
         static QString parseSolarObjectToString(SolarObjects object);
+
+        //returns tilt of solar object
+        static float parseSolarObjectTilt(SolarObjects object);
     };
 
 }

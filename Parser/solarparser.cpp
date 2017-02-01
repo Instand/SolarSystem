@@ -84,3 +84,53 @@ QString SolarSystem::SolarParser::parseSolarObjectToString(SolarSystem::SolarObj
 
     return str;
 }
+
+float SolarSystem::SolarParser::parseSolarObjectTilt(SolarSystem::SolarObjects object)
+{
+    float tilt = 0;
+
+    switch (object)
+    {
+
+    case SolarObjects::Sun:
+        tilt = SolarObjectsValues::Sun::tilt;
+        break;
+
+    case SolarObjects::Mercury:
+        tilt = SolarObjectsValues::Mercury::tilt;
+        break;
+
+    case SolarObjects::Venus:
+        tilt = SolarObjectsValues::Venus::tilt;
+        break;
+
+    case SolarObjects::Earth:
+        tilt = SolarObjectsValues::Earth::tilt;
+        break;
+
+    case SolarObjects::Mars:
+        tilt = SolarObjectsValues::Mars::tilt;
+        break;
+
+    case SolarObjects::Jupiter:
+        tilt = SolarObjectsValues::Jupier::tilt;
+        break;
+
+    case SolarObjects::Saturn:
+        tilt = SolarObjectsValues::Saturn::tilt;
+        break;
+
+    case SolarObjects::Uranus:
+        tilt = SolarObjectsValues::Uranus::tilt;
+        break;
+
+    case SolarObjects::Neptune:
+        tilt = SolarObjectsValues::Neptune::tilt;
+        break;
+
+    default:
+        break;
+    }
+
+    return tilt;
+}
