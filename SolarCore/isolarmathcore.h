@@ -54,6 +54,9 @@ namespace SolarSystem {
 
         //add 3d container to math core
         virtual void setPlanetsContainer(PlanetArray array) = 0;
+
+        //set all solar objects scale
+        virtual void changeSolarSystemScale(float scale, bool focused = false) = 0;
     };
 
 }
