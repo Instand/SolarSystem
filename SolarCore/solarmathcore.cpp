@@ -1,4 +1,5 @@
 #include "solarmathcore.h"
+#include <Parser/solarparser.h>
 #include <QtMath>
 
 //Main Math data
@@ -20,8 +21,8 @@ struct SolarSystem::SolarMathCore::Data
     float oldTimeD;
     float currentTimeD;
     float deltaTimeD = 0;
-    float daysPerFrame;
-    float daysPerFrameScale;
+    float daysPerFrame = 0;
+    float daysPerFrameScale = 0;
     float planetScale;
     bool focusedScaling = false;
     int focusedMinimumScale = 20;
@@ -151,7 +152,7 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
 
     }
 
-    solarObj->setRoll(data->deltaTimeD/ solarObj->period() * 360);
+    solarObj->setRoll(solarObj->roll() + data->deltaTimeD/ solarObj->period() * 360);
 
     //recalculation to 3D objects
     Planet* planet = planetContainer[object];
@@ -244,11 +245,13 @@ void SolarSystem::SolarMathCore::checkSolarObjectScaling(SolarSystem::SolarObjec
 
 void SolarSystem::SolarMathCore::changeSolarObjectScale(float scale, bool focused)
 {
-    if (!data->ready)
-        return;
+    if (!focused)
+        data->actualScale = scale;
 
-    auto scaling = setSolarObjectScale(scale, focused);
-    Q_UNUSED(scaling)
+    if (scale <= data->focusedMinimumScale && (data->focusedScaling || focused))
+        data->planetScale = data->focusedMinimumScale;
+    else
+        data->planetScale = data->actualScale;
 }
 
 void SolarSystem::SolarMathCore::updateSolarView(SolarSystem::SolarObjects object)
@@ -269,4 +272,35 @@ void SolarSystem::SolarMathCore::changeSolarViewDistance(double distance)
 void SolarSystem::SolarMathCore::setPlanetsContainer(SolarSystem::PlanetArray array)
 {
     planetContainer = array;
+}
+
+void SolarSystem::SolarMathCore::changeSolarSystemScale(float scale, bool focused)
+{
+    changeSolarObjectScale(scale, focused);
+
+    auto scaling = data->planetScale;
+
+    for (auto& planet : planetContainer)
+    {
+        switch (planet.first)
+        {
+        case SolarObjects::Sun:
+            planet.second->setR(SolarParser::parseSolarObjectRadius(planet.first) * scaling / 99.0f);
+            break;
+
+        case SolarObjects::Mercury:
+        case SolarObjects::Venus:
+        case SolarObjects::Earth:
+        case SolarObjects::Mars:
+        case SolarObjects::Jupiter:
+        case SolarObjects::Saturn:
+        case SolarObjects::Uranus:
+        case SolarObjects::Neptune:
+        case SolarObjects::Moon:
+            planet.second->setR(SolarParser::parseSolarObjectRadius(planet.first) * scaling);
+            break;
+        default:
+            break;
+        }
+    }
 }

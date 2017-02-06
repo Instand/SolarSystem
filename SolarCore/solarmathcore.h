@@ -29,6 +29,7 @@ namespace SolarSystem {
         virtual void changeSolarObjectsSpeed(float speed) override;
         virtual void changeSolarViewDistance(double distance) override;
         virtual void setPlanetsContainer(PlanetArray array) override;
+        virtual void changeSolarSystemScale(float scale, bool focused) override;
 
     private:
 
