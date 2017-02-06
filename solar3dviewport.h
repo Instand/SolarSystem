@@ -5,7 +5,7 @@
 #include <Qt3DRender/QCamera>
 #include <Qt3DCore/QEntity>
 #include "solarsystemcore.h"
-#include <SolarCore/isolarmathcore.h>
+#include <SolarCore/solaranimator.h>
 
 namespace SolarSystem {
 
@@ -15,8 +15,12 @@ namespace SolarSystem {
         Q_OBJECT
 
     public:
+
         Solar3dViewPort(QScreen* screen = nullptr);
         ~Solar3dViewPort();
+
+        //returns animator
+        SolarAnimator* animator() const;
 
     private:
 
@@ -24,13 +28,10 @@ namespace SolarSystem {
         Qt3DRender::QCamera* _camera;
 
         //root entity
-        Qt3DCore::QEntity* _root;
+        Qt3DCore::QEntity* root;
 
-        //math core interface
-        ISolarMathCore* mathCore;
-
-    private slots:
-        void animate();
+        //system animator
+        SolarAnimator* solarAnimator;
     };
 }
 
