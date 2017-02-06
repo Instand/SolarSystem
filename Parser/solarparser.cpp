@@ -177,6 +177,10 @@ float SolarSystem::SolarParser::parseSolarObjectRadius(SolarSystem::SolarObjects
         radius = SolarObjectsValues::Neptune::radius;
         break;
 
+    case SolarObjects::Moon:
+        radius = SolarObjectsValues::Moon::radius;
+        break;
+
     default:
         break;
     }
