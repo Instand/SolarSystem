@@ -1,7 +1,6 @@
 #ifndef SOLARANIMATOR_H
 #define SOLARANIMATOR_H
 
-#include <QObject>
 #include <SolarCore/isolarmathcore.h>
 
 namespace SolarSystem {
@@ -26,8 +25,17 @@ namespace SolarSystem {
 
     public slots:
 
+        //reset values
+        void setDefaultValues();
+
         //main call for solar system animation
         void animate();
+
+        //set current solar speed, in percents
+        void setSolarSpeed(int value);
+
+        //set current planets size, in percents
+        void setSolarSize(int value);
     };
 
 }
