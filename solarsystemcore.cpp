@@ -41,6 +41,8 @@ const int SolarSystem::SolarValues::solarDistance = 2600000;
 const float SolarSystem::SolarValues::auScale = 149597.870700f;
 const float SolarSystem::SolarValues::saturnOuterRadius = 120.700f;
 const float SolarSystem::SolarValues::uranusOuterRadius = 40.0f;
+const float SolarSystem::SolarValues::startSize = 1200;
+const float SolarSystem::SolarValues::startSpeed = 0.2f; //0.05f / 5.0f
 
 QString SolarSystem::SolarStrings::likeObject(const QString &object)
 {

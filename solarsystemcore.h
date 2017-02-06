@@ -54,11 +54,14 @@ namespace SolarSystem {
 
     //store different values for code help
     struct SolarValues {
+
         static const int zero;
         static const int solarDistance;
         static const float auScale;
         static const float saturnOuterRadius;
         static const float uranusOuterRadius;
+        static const float startSize;
+        static const float startSpeed;
 
         //db fields
     };
