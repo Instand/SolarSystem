@@ -8,14 +8,15 @@
 SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen):
     Qt3DExtras::Qt3DWindow(screen),
     _camera(camera()),
-    root(new Qt3DCore::QEntity),
-    solarAnimator(new SolarAnimator(this))
+    root(new Qt3DCore::QEntity()),
+    solarAnimator(new SolarAnimator())
 {
     //create root frame tick
-    Qt3DLogic::QFrameAction* rootAction = new Qt3DLogic::QFrameAction(root);
+    Qt3DLogic::QFrameAction* rootAction = new Qt3DLogic::QFrameAction();
     root->addComponent(rootAction);
 
     //scene camera setup
+    _camera = new Qt3DRender::QCamera(root);
     _camera->setProjectionType(Qt3DRender::QCameraLens::PerspectiveProjection);
     _camera->setAspectRatio(width() / height());
     _camera->setViewCenter(QVector3D(0.0f, 3.5f, 0.0f));
@@ -28,15 +29,7 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen):
 
     //solar rendering
     SolarSkyBox* skybox = new SolarSkyBox(root);
-
     Q_UNUSED(skybox)
-
-    //for test the scene
-    /*Qt3DExtras::QOrbitCameraController* controller = new Qt3DExtras::QOrbitCameraController(root);
-    controller->setCamera(_camera);
-    controller->setLookSpeed(controller->lookSpeed() * 1.5f);
-    controller->setLinearSpeed(controller->linearSpeed() * 150000.0f);*/
-    //controller->set
 
     Qt3DExtras::QFirstPersonCameraController* controller = new Qt3DExtras::QFirstPersonCameraController(root);
     controller->setCamera(_camera);
@@ -66,6 +59,8 @@ SolarSystem::SolarAnimator *SolarSystem::Solar3dViewPort::animator() const
 {
     return solarAnimator;
 }
+
+
 
 
 
