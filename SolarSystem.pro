@@ -1,6 +1,8 @@
 QT += core
 QT += gui widgets sql concurrent
-QT += 3dcore 3drender 3dextras
+QT += 3dcore 3drender 3dextras 3dinput
+QT += qml quick
+QT += 3dquickextras
 
 CONFIG += c++14
 
@@ -33,7 +35,9 @@ SOURCES += main.cpp \
     Scene/SceneObjects/planet.cpp \
     SolarCore/planetscontainer.cpp \
     SolarCore/solaranimator.cpp \
-    UI/solarcontrollerui.cpp
+    UI/solarcontrollerui.cpp \
+    Scene/solarentity.cpp \
+    UI/solarquickui.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -59,7 +63,13 @@ HEADERS += \
     Scene/SceneObjects/planet.h \
     SolarCore/planetscontainer.h \
     SolarCore/solaranimator.h \
-    UI/solarcontrollerui.h
+    UI/solarcontrollerui.h \
+    Scene/solarentity.h \
+    UI/solarquickui.h
 
 RESOURCES += \
     res.qrc
+
+DISTFILES += \
+    QML/SolarEntityMain.qml \
+    QML/SolarSystemMain.qml
