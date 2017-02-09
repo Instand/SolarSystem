@@ -152,7 +152,7 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
 
     }
 
-    solarObj->setRoll(solarObj->roll() + data->deltaTimeD/ solarObj->period() * 360);
+    solarObj->setRoll((solarObj->roll() + data->deltaTimeD/ solarObj->period() * 360 / 10));
 
     //recalculation to 3D objects
     Planet* planet = planetContainer[object];
