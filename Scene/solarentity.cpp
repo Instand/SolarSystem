@@ -27,9 +27,6 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     controller->setLookSpeed(controller->lookSpeed() * 1.5f);
     controller->setLinearSpeed(controller->linearSpeed() * 150000.0f);
 
-    //solar rendering
-    //skybox = new SolarSkyBox(this);
-
     //render
     filter = new Qt3DRender::QTechniqueFilter();
 
