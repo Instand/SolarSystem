@@ -22,6 +22,8 @@ namespace SolarSystem {
 
         Q_OBJECT
 
+        Q_PROPERTY(SolarAnimator* animator READ animator)
+
     public:
 
         //constructor
