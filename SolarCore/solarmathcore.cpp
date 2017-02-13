@@ -1,6 +1,7 @@
 #include "solarmathcore.h"
 #include <Parser/solarparser.h>
 #include <QtMath>
+#include <QDateTime>
 
 //Main Math data
 struct SolarSystem::SolarMathCore::Data
@@ -12,9 +13,9 @@ struct SolarSystem::SolarMathCore::Data
     QVector3D oldFocusedPlanetPosition;
 
     //Time variables
-    int year = 2000;
-    int month = 1;
-    int day = 1;
+    int year = SolarValues::year;
+    int month = SolarValues::month;
+    int day = SolarValues::day;
 
     // Time scale formula based on http://www.stjarnhimlen.se/comp/ppcomp.html
     float startD;
@@ -152,7 +153,10 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
 
     }
 
-    solarObj->setRoll((solarObj->roll() + data->deltaTimeD/ solarObj->period() * 360 / 10));
+    solarObj->setRoll((solarObj->roll() + data->deltaTimeD/ solarObj->period() * 360));
+
+    //tilt calculation
+    auto radians = solarObj->tilt() * M_PI/180;
 
     //recalculation to 3D objects
     Planet* planet = planetContainer[object];
@@ -160,6 +164,7 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
     planet->setY(solarObj->y());
     planet->setZ(solarObj->z());
     planet->setRoll(solarObj->roll());
+    planet->setTilt(radians);
 }
 
 QVector3D SolarSystem::SolarMathCore::getNewSolarViewPosition(SolarSystem::SolarObjects object, double radius)

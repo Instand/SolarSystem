@@ -7,7 +7,7 @@
 namespace SolarSystem {
 
     //base solar math model
-    //some realizations get from Qt QML Planets example
+    //some realizations got from Qt QML Planets example
     class SolarMathCore : public ISolarMathCore {
 
         Q_OBJECT
