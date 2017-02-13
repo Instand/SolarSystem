@@ -63,6 +63,11 @@ namespace SolarSystem {
         static const float startSize;
         static const float startSpeed;
 
+        //time scale values
+        static const int year;
+        static const int month;
+        static const int day;
+
         //db fields
     };
 
