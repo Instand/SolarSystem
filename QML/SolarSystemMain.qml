@@ -6,6 +6,10 @@ Item {
     width: 1280
     height: 640
 
+    Keys.onPressed: {
+        scene.focus = true;
+    }
+
     Scene3D {
         id: scene
         anchors.fill: parent
@@ -17,16 +21,15 @@ Item {
         }
     }
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            scene.focus = true
-        }
-    }
-
     Slider {
         orientation: Qt.Vertical
         anchors.right: parent.right
         height: 500
+        from: 0
+        to: 100
+        value: 50
+        onValueChanged: {
+            solarSystem.animator.setSolarSpeed(value);
+        }
     }
 }

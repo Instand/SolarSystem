@@ -5,6 +5,9 @@ import SolarSystem 1.0
 Entity {
     id: rootEntity
 
+    //Solar Animator ref
+    property alias animator: solarSystem.animator
+
     SolarEntity {
         id: solarSystem
 
