@@ -33,12 +33,10 @@ void SolarSystem::Planet::update(float deltaTime)
 
     //position
     transform().setTranslation(QVector3D(_x, _y, _z));
-    transform().setRotationY(_roll);
+
     //rotation
-    //QMatrix4x4 m = transform().matrix();
-    //m.rotate(_roll, QVector3D(0, 1, 0));
-    //m.rotate(_tilt, QVector3D(0, 0, 1));
-    //transform().setMatrix(m);
+    transform().setRotationY(_roll);
+    transform().setRotationZ(_tilt);
 
     //scale
     transform().setScale(_r);
