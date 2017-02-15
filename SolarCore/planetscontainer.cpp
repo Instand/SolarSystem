@@ -19,17 +19,17 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
         Planet* mercury = new Planet(root);
         mercury->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/mercurymap.jpg"));
 
-        Qt3DRender::QTextureImage* mercuryNormal = new Qt3DRender::QTextureImage();
+        /*Qt3DRender::QTextureImage* mercuryNormal = new Qt3DRender::QTextureImage();
         mercuryNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/mercurynormal.jpg"));
-        mercury->material().normal()->addTextureImage(mercuryNormal);
+        mercury->material().normal()->addTextureImage(mercuryNormal);*/
 
         //create venus
         Planet* venus = new Planet(root);
         venus->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/venusmap.jpg"));
 
-        Qt3DRender::QTextureImage* venusNormal = new Qt3DRender::QTextureImage();
+        /*Qt3DRender::QTextureImage* venusNormal = new Qt3DRender::QTextureImage();
         venusNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/venusnormal.jpg"));
-        venus->material().normal()->addTextureImage(venusNormal);
+        venus->material().normal()->addTextureImage(venusNormal);*/
 
         //create earth
         Planet* earth = new Planet(root);
