@@ -10,6 +10,8 @@ namespace SolarSystem {
     {
         Q_OBJECT
 
+        Q_PROPERTY(QDateTime solarTime READ solarTime NOTIFY solarTimeChanged)
+
     public:
 
         explicit SolarAnimator(QObject *parent = 0);
@@ -17,6 +19,9 @@ namespace SolarSystem {
 
         //for math core ref
         ISolarMathCore* mathCore() const;
+
+        //get solar time
+        QDateTime solarTime() const;
 
     private:
 
@@ -29,13 +34,16 @@ namespace SolarSystem {
         void setDefaultValues();
 
         //main call for solar system animation
-        void animate();
+        void animate(float deltaTime);
 
         //set current solar speed, in percents
         void setSolarSpeed(int value);
 
         //set current planets size, in percents
         void setSolarSize(int value);
+
+    signals:
+        void solarTimeChanged(QDateTime time);
     };
 
 }
