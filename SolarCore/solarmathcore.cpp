@@ -1,12 +1,10 @@
 #include "solarmathcore.h"
 #include <Parser/solarparser.h>
 #include <QtMath>
-#include <QDateTime>
 
 //Main Math data
 struct SolarSystem::SolarMathCore::Data
 {
-    //
     bool ready = false;
     float cameraDistance = 1.0f;
     QVector3D oldCameraPosition;
@@ -16,6 +14,15 @@ struct SolarSystem::SolarMathCore::Data
     int year = SolarValues::year;
     int month = SolarValues::month;
     int day = SolarValues::day;
+    int hours = 0;
+    int minutes = 0;
+    float seconds = 0;
+
+    //main date and time
+    QDateTime solarTime = QDateTime(QDate(year, month, day), QTime(hours, minutes));
+
+    //frame dt
+    float deltaTime = 0;
 
     // Time scale formula based on http://www.stjarnhimlen.se/comp/ppcomp.html
     float startD;
@@ -36,6 +43,7 @@ SolarSystem::SolarMathCore::SolarMathCore(QObject* parent):
 {
     //calculating start time
     data->startD = 367 * data->year - 7 * (data->year + (data->month + 9) / 12) / 4 + 275 * data->month / 9 + data->day - 730530;
+    data->startD += calculateUT(data->hours, data->minutes, data->seconds);
     data->oldTimeD = data->startD;
     data->currentTimeD = data->startD;
 }
@@ -206,9 +214,27 @@ void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
     else
         data->daysPerFrame = data->daysPerFrameScale * solarContainer.solarObject(object)->period()/100.0;
 
+    //add solar time
+    data->solarTime = data->solarTime.addMSecs(data->deltaTime * 1000 * data->daysPerFrameScale);
+
+    //save helpers values
+    data->hours = data->solarTime.time().hour();
+    data->minutes = data->solarTime.time().minute();
+    data->seconds = data->solarTime.time().second();
+    data->year = data->solarTime.date().year();
+    data->month = data->solarTime.date().month();
+    data->day = data->solarTime.date().day();
+
     //Advance the time in days
     data->oldTimeD = data->currentTimeD;
-    data->currentTimeD = data->currentTimeD + data->daysPerFrame;
+
+    //update currentTimeD
+    data->currentTimeD = calculateTimeScale(data->year, data->month, data->day);
+    data->currentTimeD += calculateUT(data->hours, data->minutes, data->seconds);
+
+    //data->currentTimeD = data->currentTimeD + data->daysPerFrame;
+
+    //get deltaD
     data->deltaTimeD = data->currentTimeD - data->oldTimeD;
 }
 
@@ -308,4 +334,24 @@ void SolarSystem::SolarMathCore::changeSolarSystemScale(float scale, bool focuse
             break;
         }
     }
+}
+
+void SolarSystem::SolarMathCore::setDeltaTime(float dt)
+{
+    data->deltaTime = dt;
+}
+
+QDateTime SolarSystem::SolarMathCore::getTime() const
+{
+    return data->solarTime;
+}
+
+float SolarSystem::SolarMathCore::calculateUT(int h, int m, float s)
+{
+    return (h + m/60.0f + s/3600.0f)/24.0f;
+}
+
+float SolarSystem::SolarMathCore::calculateTimeScale(int year, int month, int day)
+{
+    return 367 * year - 7 * (year + (month + 9) / 12) / 4 + 275 * month / 9 + day - 730530;
 }

@@ -30,6 +30,8 @@ namespace SolarSystem {
         virtual void changeSolarViewDistance(double distance) override;
         virtual void setPlanetsContainer(PlanetArray array) override;
         virtual void changeSolarSystemScale(float scale, bool focused) override;
+        virtual void setDeltaTime(float dt) override;
+        virtual QDateTime getTime() const override;
 
     private:
 
@@ -47,6 +49,14 @@ namespace SolarSystem {
 
         //planet container elements
         PlanetArray planetContainer;
+
+        ///helper methods
+
+        //days time scale calculation
+        float calculateUT(int h, int m = 0, float s = 0);
+
+        //time scale calculation
+        float calculateTimeScale(int year, int month, int day);
     };
 
 }
