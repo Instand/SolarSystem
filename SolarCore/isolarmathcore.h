@@ -2,6 +2,7 @@
 #define ISOLARMATHCORE_H
 
 #include <QObject>
+#include <QDateTime>
 #include "solarsystemcore.h"
 #include <Qt3DRender/QCamera>
 #include <SolarCore/planetscontainer.h>
@@ -57,6 +58,12 @@ namespace SolarSystem {
 
         //set all solar objects scale
         virtual void changeSolarSystemScale(float scale, bool focused = false) = 0;
+
+        //set time between frames
+        virtual void setDeltaTime(float dt) = 0;
+
+        //get solar time
+        virtual QDateTime getTime() const = 0;
     };
 
 }
