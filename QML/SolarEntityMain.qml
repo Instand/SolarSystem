@@ -8,6 +8,9 @@ Entity {
     //Solar Animator ref
     property alias animator: solarSystem.animator
 
+    //Solar time ref
+    property date solarDate: animator.solarTime
+
     SolarEntity {
         id: solarSystem
 
