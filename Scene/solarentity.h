@@ -44,9 +44,6 @@ namespace SolarSystem {
         //tick
         Qt3DLogic::QFrameAction* rootAction;
 
-        //stars
-        SolarSkyBox* skybox;
-
         //render frame graph elements
         Qt3DRender::QSortPolicy* sortPolicy;
         Qt3DRender::QClearBuffers* clearBuffers;
