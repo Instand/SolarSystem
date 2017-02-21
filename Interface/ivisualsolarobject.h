@@ -7,6 +7,7 @@
 #include <Qt3DRender/QObjectPicker>
 #include <vector>
 #include <functional>
+#include <solarsystemcore.h>
 
 namespace SolarSystem {
 
@@ -20,6 +21,8 @@ namespace SolarSystem {
         Q_OBJECT
 
     public:
+
+        //constructors
         IVisualSolarObject(Qt3DCore::QNode* parent = 0);
         virtual ~IVisualSolarObject();
 
@@ -42,6 +45,31 @@ namespace SolarSystem {
 
         //get picker
         virtual Qt3DRender::QObjectPicker& picker() const = 0;
+
+        //returns current object type
+        virtual SolarObjects solarType() const = 0;
+
+        //set solar type
+        virtual void setSolarType(SolarObjects type) = 0;
+
+        //control
+        virtual float r() const = 0;
+        virtual void setR(float r) = 0;
+
+        virtual float x() const = 0;
+        virtual void setX(float x) = 0;
+
+        virtual float y() const = 0;
+        virtual void setY(float y) = 0;
+
+        virtual float z() const = 0;
+        virtual void setZ(float z) = 0;
+
+        virtual float roll() const = 0;
+        virtual void setRoll(float roll) = 0;
+
+        virtual float tilt() const = 0;
+        virtual void setTilt(float tilt) = 0;
     };
 
 }
