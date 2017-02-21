@@ -46,29 +46,30 @@ namespace SolarSystem {
         //get picker
         virtual Qt3DRender::QObjectPicker& picker() const = 0;
 
-        /*//returns current object type
+        //returns current object type
         virtual SolarObjects solarType() const = 0;
 
         //set solar type
         virtual void setSolarType(SolarObjects type) = 0;
 
-        float r() const;
-        void setR(float r);
+        //control
+        virtual float r() const = 0;
+        virtual void setR(float r) = 0;
 
-        float x() const;
-        void setX(float x);
+        virtual float x() const = 0;
+        virtual void setX(float x) = 0;
 
-        float y() const;
-        void setY(float y);
+        virtual float y() const = 0;
+        virtual void setY(float y) = 0;
 
-        float z() const;
-        void setZ(float z);
+        virtual float z() const = 0;
+        virtual void setZ(float z) = 0;
 
-        float roll() const;
-        void setRoll(float roll);
+        virtual float roll() const = 0;
+        virtual void setRoll(float roll) = 0;
 
-        float tilt() const;
-        void setTilt(float tilt);*/
+        virtual float tilt() const = 0;
+        virtual void setTilt(float tilt) = 0;
     };
 
 }
