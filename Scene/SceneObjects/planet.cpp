@@ -17,16 +17,6 @@ SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
     mesh().setGeometry(sphereGeometry);
 }
 
-SolarSystem::SolarObjects SolarSystem::Planet::solarType() const
-{
-    return _solarType;
-}
-
-void SolarSystem::Planet::setSolarType(SolarSystem::SolarObjects type)
-{
-    _solarType = type;
-}
-
 void SolarSystem::Planet::update(float deltaTime)
 {
     Q_UNUSED(deltaTime)
@@ -40,64 +30,4 @@ void SolarSystem::Planet::update(float deltaTime)
 
     //scale
     transform().setScale(_r);
-}
-
-float SolarSystem::Planet::tilt() const
-{
-    return _tilt;
-}
-
-void SolarSystem::Planet::setTilt(float tilt)
-{
-    _tilt = tilt;
-}
-
-float SolarSystem::Planet::roll() const
-{
-    return _roll;
-}
-
-void SolarSystem::Planet::setRoll(float roll)
-{
-    _roll = roll;
-}
-
-float SolarSystem::Planet::z() const
-{
-    return _z;
-}
-
-void SolarSystem::Planet::setZ(float z)
-{
-    _z = z;
-}
-
-float SolarSystem::Planet::y() const
-{
-    return _y;
-}
-
-void SolarSystem::Planet::setY(float y)
-{
-    _y = y;
-}
-
-float SolarSystem::Planet::x() const
-{
-    return _x;
-}
-
-void SolarSystem::Planet::setX(float x)
-{
-    _x = x;
-}
-
-float SolarSystem::Planet::r() const
-{
-    return _r;
-}
-
-void SolarSystem::Planet::setR(float r)
-{
-    _r = r;
 }
