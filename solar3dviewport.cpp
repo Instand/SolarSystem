@@ -10,7 +10,8 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen):
     Qt3DExtras::Qt3DWindow(screen),
     _camera(camera()),
     root(new Qt3DCore::QEntity()),
-    solarAnimator(new SolarAnimator())
+    solarAnimator(new SolarAnimator()),
+    planetsContainer(new PlanetsContainer(root))
 {
     //create root frame tick
     Qt3DLogic::QFrameAction* rootAction = new Qt3DLogic::QFrameAction();
@@ -37,11 +38,8 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen):
     controller->setLookSpeed(controller->lookSpeed() * 1.5f);
     controller->setLinearSpeed(controller->linearSpeed() * 150000.0f);
 
-    //create all planets
-    PlanetsContainer::initialize(root);
-
     //math core control
-    solarAnimator->mathCore()->setPlanetsContainer(PlanetsContainer::planets());
+    solarAnimator->mathCore()->setPlanetsContainer(planetsContainer->planets());
     solarAnimator->setDefaultValues();
 
     //set root
@@ -53,7 +51,7 @@ SolarSystem::Solar3dViewPort::Solar3dViewPort(QScreen* screen):
 
 SolarSystem::Solar3dViewPort::~Solar3dViewPort()
 {
-    PlanetsContainer::destruct();
+    delete planetsContainer;
 }
 
 SolarSystem::SolarAnimator *SolarSystem::Solar3dViewPort::animator() const
