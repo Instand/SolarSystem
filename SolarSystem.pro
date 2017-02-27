@@ -37,7 +37,9 @@ SOURCES += main.cpp \
     SolarCore/solaranimator.cpp \
     UI/solarcontrollerui.cpp \
     Scene/solarentity.cpp \
-    UI/solarquickui.cpp
+    UI/solarquickui.cpp \
+    Scene/SceneObjects/planetring.cpp \
+    SolarCore/cameracontroller.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -65,7 +67,9 @@ HEADERS += \
     SolarCore/solaranimator.h \
     UI/solarcontrollerui.h \
     Scene/solarentity.h \
-    UI/solarquickui.h
+    UI/solarquickui.h \
+    Scene/SceneObjects/planetring.h \
+    SolarCore/cameracontroller.h
 
 RESOURCES += \
     res.qrc
