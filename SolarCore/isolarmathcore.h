@@ -64,6 +64,9 @@ namespace SolarSystem {
 
         //get solar time
         virtual QDateTime getTime() const = 0;
+
+        //calcualte planet rings
+        virtual void ringsCalculation() = 0;
     };
 
 }
