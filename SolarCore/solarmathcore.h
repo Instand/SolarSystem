@@ -32,6 +32,7 @@ namespace SolarSystem {
         virtual void changeSolarSystemScale(float scale, bool focused) override;
         virtual void setDeltaTime(float dt) override;
         virtual QDateTime getTime() const override;
+        virtual void ringsCalculation() override;
 
     private:
 
@@ -57,6 +58,9 @@ namespace SolarSystem {
 
         //time scale calculation
         float calculateTimeScale(int year, int month, int day);
+
+        //rings setup
+        void setupPlanetRings();
     };
 
 }

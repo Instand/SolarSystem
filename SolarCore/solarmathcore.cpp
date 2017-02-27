@@ -35,6 +35,12 @@ struct SolarSystem::SolarMathCore::Data
     bool focusedScaling = false;
     int focusedMinimumScale = 20;
     float actualScale;
+
+    //inner and outer radius
+    double saturnRingInnerRadius = 0;
+    double saturnRingOuterRadius = 0;
+    double uranusRingInnerRadius = 0;
+    double uranusRingOuterRadius = 0;
 };
 
 SolarSystem::SolarMathCore::SolarMathCore(QObject* parent):
@@ -46,6 +52,15 @@ SolarSystem::SolarMathCore::SolarMathCore(QObject* parent):
     data->startD += calculateUT(data->hours, data->minutes, data->seconds);
     data->oldTimeD = data->startD;
     data->currentTimeD = data->startD;
+
+    //calcualting saturn and uranus rings
+    auto saturn = solarContainer.solarObject(SolarObjects::Saturn);
+    data->saturnRingOuterRadius = saturn->radius() + SolarValues::saturnOuterRadius;
+    data->saturnRingInnerRadius = saturn->radius() + 6.630;
+
+    auto uranus = solarContainer.solarObject(SolarObjects::Uranus);
+    data->uranusRingOuterRadius = uranus->radius() + SolarValues::uranusOuterRadius;
+    data->uranusRingInnerRadius = uranus->radius() + 2.0;
 }
 
 SolarSystem::SolarMathCore::~SolarMathCore()
@@ -120,11 +135,11 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
     //get planet
     auto solarObj = solarContainer.solarObject(object);
 
-    //calculation only for solar system planets
-    if (object != SolarObjects::Sun)
+    //object exists
+    if (solarObj)
     {
-        //we have an object
-        if (solarObj)
+        //calculation only for solar system planets
+        if (object != SolarObjects::Sun)
         {
             // Calculate the planet orbital elements from the current time in days
             auto N = (solarObj->N1() + solarObj->N2() * data->currentTimeD) * M_PI/ 180;
@@ -145,9 +160,9 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
             // From http://www.davidcolarusso.com/astro/
             // Modified to compensate for the right handed coordinate system of OpenGL
             auto xh = r * (std::cos(N) * std::cos(v + w)
-                          - std::sin(N) * std::sin(v + w) * std::cos(iPlanet));
+                           - std::sin(N) * std::sin(v + w) * std::cos(iPlanet));
             auto zh = -r * (std::sin(N) * std::cos(v + w)
-                           + std::cos(N) * std::sin(v + w) * std::cos(iPlanet));
+                            + std::cos(N) * std::sin(v + w) * std::cos(iPlanet));
             auto yh = r * (std::sin(w + v) * std::sin(iPlanet));
 
             // Apply the position offset from the center of orbit to the bodies
@@ -159,20 +174,15 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
             solarObj->setZ(centerObj->z() + zh * SolarValues::auScale);
         }
 
+        solarObj->setRoll((solarObj->roll() + data->deltaTimeD/ solarObj->period() * 360));
+
+        //recalculation to 3D objects
+        IVisualSolarObject* visualSolarObject = planetContainer[object];
+        visualSolarObject->setX(solarObj->x());
+        visualSolarObject->setY(solarObj->y());
+        visualSolarObject->setZ(solarObj->z());
+        visualSolarObject->setRoll(solarObj->roll());
     }
-
-    solarObj->setRoll((solarObj->roll() + data->deltaTimeD/ solarObj->period() * 360));
-
-    //tilt calculation
-    auto radians = solarObj->tilt() * M_PI/180;
-
-    //recalculation to 3D objects
-    Planet* planet = planetContainer[object];
-    planet->setX(solarObj->x());
-    planet->setY(solarObj->y());
-    planet->setZ(solarObj->z());
-    planet->setRoll(solarObj->roll());
-    planet->setTilt(radians);
 }
 
 QVector3D SolarSystem::SolarMathCore::getNewSolarViewPosition(SolarSystem::SolarObjects object, double radius)
@@ -330,6 +340,16 @@ void SolarSystem::SolarMathCore::changeSolarSystemScale(float scale, bool focuse
         case SolarObjects::Moon:
             planet.second->setR(SolarParser::parseSolarObjectRadius(planet.first) * scaling);
             break;
+
+        case SolarObjects::SaturnRing:
+            data->saturnRingOuterRadius = data->saturnRingOuterRadius * scaling;
+            data->saturnRingInnerRadius = data->saturnRingInnerRadius * scaling;
+            break;
+
+        case SolarObjects::UranusRing:
+            data->uranusRingInnerRadius = data->uranusRingInnerRadius * scaling;
+            data->uranusRingOuterRadius = data->uranusRingOuterRadius * scaling;
+            break;
         default:
             break;
         }
@@ -346,6 +366,11 @@ QDateTime SolarSystem::SolarMathCore::getTime() const
     return data->solarTime;
 }
 
+void SolarSystem::SolarMathCore::ringsCalculation()
+{
+    setupPlanetRings();
+}
+
 float SolarSystem::SolarMathCore::calculateUT(int h, int m, float s)
 {
     return (h + m/60.0f + s/3600.0f)/24.0f;
@@ -354,4 +379,27 @@ float SolarSystem::SolarMathCore::calculateUT(int h, int m, float s)
 float SolarSystem::SolarMathCore::calculateTimeScale(int year, int month, int day)
 {
     return 367 * year - 7 * (year + (month + 9) / 12) / 4 + 275 * month / 9 + day - 730530;
+}
+
+void SolarSystem::SolarMathCore::setupPlanetRings()
+{
+    IVisualSolarObject* saturn = planetContainer[SolarObjects::Saturn];
+    IVisualSolarObject* saturnRing = planetContainer[SolarObjects::SaturnRing];
+
+    saturnRing->setX(saturn->x());
+    saturnRing->setY(saturn->y());
+    saturnRing->setZ(saturn->z());
+    saturnRing->setTilt(saturn->tilt());
+    saturnRing->setRoll(saturn->roll()/10.0f);
+    saturnRing->setR((data->saturnRingInnerRadius + data->saturnRingOuterRadius)/1.75);
+
+    IVisualSolarObject* uranus = planetContainer[SolarObjects::Uranus];
+    IVisualSolarObject* uranusRings = planetContainer[SolarObjects::UranusRing];
+
+    uranusRings->setX(uranus->x());
+    uranusRings->setY(uranus->y());
+    uranusRings->setZ(uranus->z());
+    uranusRings->setTilt(uranus->tilt());
+    uranusRings->setRoll(uranus->roll()/10.0f);
+    uranusRings->setR((data->uranusRingInnerRadius + data->uranusRingOuterRadius)/1.75);
 }
