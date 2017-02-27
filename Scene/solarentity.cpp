@@ -1,7 +1,7 @@
 #include "solarentity.h"
 #include <Qt3DRender/QFilterKey>
 #include <Qt3DExtras/QFirstPersonCameraController>
-#include <Qt3DExtras/QOrbitCameraController>
+#include <SolarCore/cameracontroller.h>
 
 SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),
@@ -22,10 +22,16 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     mainCamera->setUpVector(CameraSettings::defaultUp);
     mainCamera->setPosition(CameraSettings::defaultCameraPosition);
 
-    Qt3DExtras::QFirstPersonCameraController* controller = new Qt3DExtras::QFirstPersonCameraController(this);
+    /*Qt3DExtras::QFirstPersonCameraController* controller = new Qt3DExtras::QFirstPersonCameraController(this);
     controller->setCamera(mainCamera);
     controller->setLookSpeed(controller->lookSpeed() * 1.5f);
-    controller->setLinearSpeed(controller->linearSpeed() * 150000.0f);
+    controller->setLinearSpeed(controller->linearSpeed() * 150000.0f);*/
+
+    //orbit test
+    SolarSystem::CameraController* controller = new SolarSystem::CameraController(this);
+    controller->setCamera(mainCamera);
+    controller->setLookSpeed(controller->lookSpeed() * 1.2f);
+    //controller->setLinearSpeed(controller->linearSpeed() * 150000.0f);
 
     //render
     filter = new Qt3DRender::QTechniqueFilter();

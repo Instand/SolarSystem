@@ -4,7 +4,6 @@
 #include <Qt3DRender/QCamera>
 #include <Qt3DCore/QEntity>
 #include <solarsystemcore.h>
-#include <Scene/SceneObjects/solarskybox.h>
 #include <SolarCore/solaranimator.h>
 #include <Qt3DRender/QSortPolicy>
 #include <Qt3DRender/QClearBuffers>
@@ -14,6 +13,7 @@
 #include <Qt3DRender/QTechniqueFilter>
 #include <Qt3DRender/QRenderSettings>
 #include <Qt3DInput/QInputSettings>
+#include <Qt3DLogic/QFrameAction>
 
 namespace SolarSystem {
 
