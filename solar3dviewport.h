@@ -32,6 +32,9 @@ namespace SolarSystem {
 
         //system animator
         SolarAnimator* solarAnimator;
+
+        //container
+        PlanetsContainer* planetsContainer;
     };
 }
 

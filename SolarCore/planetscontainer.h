@@ -1,6 +1,7 @@
 #ifndef PLANETSCONTAINER_H
 #define PLANETSCONTAINER_H
 
+#include <QObject>
 #include <Interface/ivisualsolarobject.h>
 #include <map>
 
@@ -10,28 +11,44 @@ namespace SolarSystem {
     using PlanetArray = std::map<SolarObjects, IVisualSolarObject*>;
 
     //contains all 3D planets
-    class PlanetsContainer
+    class PlanetsContainer : public QObject
     {
-        PlanetsContainer(QObject *parent = 0) = delete;
-        PlanetsContainer(const PlanetsContainer& container) = delete;
-
-        static PlanetArray planetContainer;
-        static bool initialized;
-        static Qt3DCore::QNode* rootNode;
+        Q_OBJECT
 
     public:
 
-        //call before class using
-        static void initialize(Qt3DCore::QNode* root = nullptr);
+        explicit PlanetsContainer(Qt3DCore::QNode* root = nullptr, QObject *parent = 0);
+        ~PlanetsContainer();
 
-        //destroy container objects
-        static void destruct();
+    private:
+
+        //main fields
+        PlanetArray planetContainer;
+        Qt3DCore::QNode* rootNode;
+
+        //helper
+        void initialize(Qt3DCore::QNode *root);
+
+    public:
 
         //get planets number
-        static int planetsNumber();
+        int planetsNumber() const;
 
         //get all planets
-        static PlanetArray planets();
+        PlanetArray planets() const;
+
+    signals:
+
+        //if we pressed on planet
+        void planetClicked(IVisualSolarObject*);
+
+        //pressed coords
+        void coordClicked(QVector3D);
+
+    private slots:
+
+        //on planet pick
+        void onPressed(Qt3DRender::QPickEvent* pick);
     };
 }
 
