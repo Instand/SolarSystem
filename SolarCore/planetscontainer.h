@@ -1,13 +1,13 @@
 #ifndef PLANETSCONTAINER_H
 #define PLANETSCONTAINER_H
 
-#include <Scene/SceneObjects/planet.h>
+#include <Interface/ivisualsolarobject.h>
 #include <map>
 
 namespace SolarSystem {
 
     //array type
-    using PlanetArray = std::map<SolarObjects, Planet*>;
+    using PlanetArray = std::map<SolarObjects, IVisualSolarObject*>;
 
     //contains all 3D planets
     class PlanetsContainer
