@@ -47,9 +47,13 @@ namespace SolarSystem {
 
     private:
 
-        //data
+        //Qt3D components
         Qt3DCore::QTransform* _transform;
         Qt3DRender::QMesh* _mesh;
+
+    protected:
+
+        //main data
         SolarObjects _solarType;
         float _r = 0;
         float _x = 0;
