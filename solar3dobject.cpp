@@ -8,6 +8,10 @@ SolarSystem::Solar3dObject::Solar3dObject(Qt3DCore::QNode *parent):
 {
     _material->diffuse()->addTextureImage(_diffuse);
 
+    _picker->setDragEnabled(false);
+    _picker->setHoverEnabled(false);
+    _picker->setEnabled(true);
+
     addComponent(_material);
     addComponent(_picker);
 }
