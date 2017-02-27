@@ -46,6 +46,8 @@ const float SolarSystem::SolarValues::startSpeed = 1000000.0f;
 const int SolarSystem::SolarValues::year = 2000;
 const int SolarSystem::SolarValues::month = 1;
 const int SolarSystem::SolarValues::day = 1;
+const QVector3D SolarSystem::SolarValues::rollAxis = QVector3D(0, 1, 0);
+const QVector3D SolarSystem::SolarValues::tiltAxis = QVector3D(0, 0, 1);
 
 QString SolarSystem::SolarStrings::likeObject(const QString &object)
 {

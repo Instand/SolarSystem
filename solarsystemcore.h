@@ -68,6 +68,10 @@ namespace SolarSystem {
         static const int month;
         static const int day;
 
+        //vector values
+        static const QVector3D rollAxis;
+        static const QVector3D tiltAxis;
+
         //db fields
     };
 
@@ -113,7 +117,8 @@ namespace SolarSystem {
         Pluto,
 
         //add here
-
+        SaturnRing,
+        UranusRing,
 
         //calculate number
         SolarSystemView
