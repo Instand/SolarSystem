@@ -1,6 +1,7 @@
 #include "solar3dviewport.h"
 #include <Qt3DExtras/QForwardRenderer>
-#include "Scene/SceneObjects/solarskybox.h"
+#include <Scene/SceneObjects/solarskybox.h>
+#include <Qt3DLogic/QFrameAction>
 #include <Qt3DExtras/QOrbitCameraController>
 #include <SolarCore/planetscontainer.h>
 #include <Qt3DExtras/QFirstPersonCameraController>
