@@ -21,13 +21,18 @@ void SolarSystem::Planet::update(float deltaTime)
 {
     Q_UNUSED(deltaTime)
 
-    //position
-    transform().setTranslation(QVector3D(_x, _y, _z));
+    //create matrix
+    auto matrix = QMatrix4x4();
 
-    //rotation
-    transform().setRotationY(_roll);
-    transform().setRotationZ(_tilt);
+    //set position
+    matrix.translate(QVector3D(_x, _y, _z));
 
-    //scale
-    transform().setScale(_r);
+    //rotate
+    matrix.rotate(_tilt, SolarValues::tiltAxis);
+    matrix.rotate(_roll, SolarValues::rollAxis);
+
+    //planet scale
+    matrix.scale(_r);
+
+    transform().setMatrix(matrix);
 }

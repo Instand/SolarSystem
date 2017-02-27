@@ -11,8 +11,7 @@ namespace SolarSystem {
         Q_OBJECT
 
     public:
-
-        Planet(Qt3DCore::QNode* parent = 0);
+        Planet(Qt3DCore::QNode* parent = nullptr);
 
     protected:
         virtual void update(float deltaTime) override;
