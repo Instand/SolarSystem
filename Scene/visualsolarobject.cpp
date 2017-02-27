@@ -20,11 +20,11 @@ void SolarSystem::VisualSolarObject::clearLogic()
 
 void SolarSystem::VisualSolarObject::frameTick(float deltaTime)
 {
-    update(deltaTime);
-
     //additional actions
     for (auto elem : logic)
         elem(deltaTime);
+
+    update(deltaTime);
 
     emit tick(deltaTime);
 }

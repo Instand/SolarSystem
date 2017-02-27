@@ -36,10 +36,13 @@ void SolarSystem::SolarAnimator::animate(float deltaTime)
     //calculate time
     _mathCore->advanceTime(SolarObjects::SolarSystemView);
 
-
     //update solar objects position
-    for (int i = 0; i < PlanetsContainer::planetsNumber(); ++i)
+    auto updateCount = static_cast<int>(SolarObjects::Pluto);
+
+    for (int i = 0; i < updateCount; ++i)
         _mathCore->solarObjectPosition((SolarObjects)i);
+
+    _mathCore->ringsCalculation();
 
     emit solarTimeChanged(_mathCore->getTime());
 }
