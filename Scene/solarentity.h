@@ -16,6 +16,10 @@
 #include <Qt3DLogic/QFrameAction>
 
 namespace SolarSystem {
+    class PlanetsContainer;
+}
+
+namespace SolarSystem {
 
     //represents chain of solar objects (root entity)
     class SolarEntity : public Qt3DCore::QEntity {
@@ -23,6 +27,7 @@ namespace SolarSystem {
         Q_OBJECT
 
         Q_PROPERTY(SolarAnimator* animator READ animator)
+        Q_PROPERTY(Qt3DRender::QCamera* camera READ camera)
 
     public:
 
@@ -32,6 +37,9 @@ namespace SolarSystem {
 
         //returns animator
         SolarAnimator* animator() const;
+
+        //returns camera
+        Qt3DRender::QCamera* camera() const;
 
     private:
 
@@ -43,6 +51,9 @@ namespace SolarSystem {
 
         //tick
         Qt3DLogic::QFrameAction* rootAction;
+
+        //planets container
+        PlanetsContainer* planetsContainer;
 
         //render frame graph elements
         Qt3DRender::QSortPolicy* sortPolicy;

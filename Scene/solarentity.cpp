@@ -1,12 +1,12 @@
 #include "solarentity.h"
 #include <Qt3DRender/QFilterKey>
-#include <Qt3DExtras/QFirstPersonCameraController>
 #include <SolarCore/cameracontroller.h>
 
 SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),
     solarAnimator(new SolarAnimator()),
-    rootAction(new Qt3DLogic::QFrameAction())
+    rootAction(new Qt3DLogic::QFrameAction()),
+    planetsContainer(new PlanetsContainer(this))
 {
     addComponent(rootAction);
 
@@ -22,16 +22,10 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     mainCamera->setUpVector(CameraSettings::defaultUp);
     mainCamera->setPosition(CameraSettings::defaultCameraPosition);
 
-    /*Qt3DExtras::QFirstPersonCameraController* controller = new Qt3DExtras::QFirstPersonCameraController(this);
-    controller->setCamera(mainCamera);
-    controller->setLookSpeed(controller->lookSpeed() * 1.5f);
-    controller->setLinearSpeed(controller->linearSpeed() * 150000.0f);*/
-
-    //orbit test
+    //orbit camera controller
     SolarSystem::CameraController* controller = new SolarSystem::CameraController(this);
     controller->setCamera(mainCamera);
     controller->setLookSpeed(controller->lookSpeed() * 1.2f);
-    //controller->setLinearSpeed(controller->linearSpeed() * 150000.0f);
 
     //render
     filter = new Qt3DRender::QTechniqueFilter();
@@ -70,24 +64,27 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     addComponent(settings);
     addComponent(input);
 
-    //create all planets
-    PlanetsContainer::initialize(this);
-
     //math core control
-    solarAnimator->mathCore()->setPlanetsContainer(PlanetsContainer::planets());
+    solarAnimator->mathCore()->setPlanetsContainer(planetsContainer->planets());
     solarAnimator->setDefaultValues();
 
     //animate scene on tick
     QObject::connect(rootAction, &Qt3DLogic::QFrameAction::triggered, solarAnimator, &SolarAnimator::animate);
+    QObject::connect(planetsContainer, &PlanetsContainer::coordClicked, controller, &CameraController::changeViewCenter);
 }
 
 SolarSystem::SolarEntity::~SolarEntity()
 {
-    PlanetsContainer::destruct();
+    delete planetsContainer;
     delete solarAnimator;
 }
 
 SolarSystem::SolarAnimator *SolarSystem::SolarEntity::animator() const
 {
     return solarAnimator;
+}
+
+Qt3DRender::QCamera *SolarSystem::SolarEntity::camera() const
+{
+    return mainCamera;
 }
