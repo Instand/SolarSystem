@@ -69,7 +69,7 @@ SolarSystem::CameraController::CameraController(Qt3DCore::QNode *parent):
 
 SolarSystem::CameraController::~CameraController()
 {
-    delete mouseDevice;
+    //delete mouseDevice;
 }
 
 void SolarSystem::CameraController::setCamera(Qt3DRender::QCamera *camera)
@@ -92,6 +92,26 @@ float SolarSystem::CameraController::lookSpeed() const
     return lookSpeedValue;
 }
 
+void SolarSystem::CameraController::setZoomLimit(float limit)
+{
+    zoomLimitValue = limit;
+}
+
+float SolarSystem::CameraController::zoomLimit() const
+{
+    return zoomLimitValue;
+}
+
+void SolarSystem::CameraController::setZoomSpeed(float zoomSpeed)
+{
+    zoomSpeedValue = zoomSpeed;
+}
+
+float SolarSystem::CameraController::zoomSpeed() const
+{
+    return zoomSpeedValue;
+}
+
 void SolarSystem::CameraController::onFrameAction(float deltaTime)
 {
     if (viewCamera != nullptr)
@@ -99,8 +119,39 @@ void SolarSystem::CameraController::onFrameAction(float deltaTime)
         //right mouse button is pressed
         if (rightMouseButtonAction->isActive())
         {
-            viewCamera->panAboutViewCenter(mouseX_Axis->value() * lookSpeedValue * deltaTime);
+            viewCamera->panAboutViewCenter(mouseX_Axis->value() * lookSpeedValue * deltaTime, cameraUp);
             viewCamera->tiltAboutViewCenter(mouseY_Axis->value() * lookSpeedValue * deltaTime);
         }
+
+        //zoom check in
+        if ((viewCamera->viewCenter() - viewCamera->position()).lengthSquared() > (zoomLimitValue * zoomLimitValue))
+        {
+            if (mouseWheelY_Axis->value() > 0)
+            {
+                viewCamera->translate(QVector3D(0, 0, mouseWheelY_Axis->value() * deltaTime * zoomSpeedValue),
+                                      Qt3DRender::QCamera::CameraTranslationOption::DontTranslateViewCenter);
+            }
+        }
+
+        //zoom check out
+        if ((viewCamera->viewCenter() - viewCamera->position()).lengthSquared() < (zoomOutLimitValue * zoomOutLimitValue * 1000.0f))
+        {
+            if (mouseWheelY_Axis->value() < 0)
+            {
+                viewCamera->translate(QVector3D(0, 0, mouseWheelY_Axis->value() * deltaTime * zoomSpeedValue),
+                                      Qt3DRender::QCamera::CameraTranslationOption::DontTranslateViewCenter);
+            }
+        }
     }
+}
+
+void SolarSystem::CameraController::changeViewCenter(QVector3D center)
+{
+    if (viewCamera != nullptr)
+    {
+        viewCamera->setViewCenter(center);
+        //viewCamera->setPosition(center);
+    }
+    else
+        qDebug() << "Camera is null";
 }
