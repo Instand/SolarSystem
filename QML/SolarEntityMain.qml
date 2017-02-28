@@ -11,13 +11,16 @@ Entity {
     //Solar time ref
     property date solarDate: animator.solarTime
 
+    //Camera
+    property alias camera: solarSystem.camera
+
     SolarEntity {
         id: solarSystem
+    }
 
-        // Skybox
-        SkyboxEntity {
-            baseName: "qrc:/Resources/Skybox/stars"
-            extension: ".webp"
-        }
+    // Skybox
+    SkyboxEntity {
+        baseName: "qrc:/Resources/Skybox/stars"
+        extension: ".webp"
     }
 }
