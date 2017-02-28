@@ -178,10 +178,14 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
 
         //recalculation to 3D objects
         IVisualSolarObject* visualSolarObject = planetContainer[object];
-        visualSolarObject->setX(solarObj->x());
-        visualSolarObject->setY(solarObj->y());
-        visualSolarObject->setZ(solarObj->z());
-        visualSolarObject->setRoll(solarObj->roll());
+
+        if (visualSolarObject != nullptr)
+        {
+            visualSolarObject->setX(solarObj->x());
+            visualSolarObject->setY(solarObj->y());
+            visualSolarObject->setZ(solarObj->z());
+            visualSolarObject->setRoll(solarObj->roll());
+        }
     }
 }
 
@@ -241,8 +245,6 @@ void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
     //update currentTimeD
     data->currentTimeD = calculateTimeScale(data->year, data->month, data->day);
     data->currentTimeD += calculateUT(data->hours, data->minutes, data->seconds);
-
-    //data->currentTimeD = data->currentTimeD + data->daysPerFrame;
 
     //get deltaD
     data->deltaTimeD = data->currentTimeD - data->oldTimeD;
@@ -326,7 +328,7 @@ void SolarSystem::SolarMathCore::changeSolarSystemScale(float scale, bool focuse
         switch (planet.first)
         {
         case SolarObjects::Sun:
-            planet.second->setR(SolarParser::parseSolarObjectRadius(planet.first) * scaling / 99.0f);
+            planet.second->setR(SolarParser::parseSolarObjectRadius(planet.first) * scaling/80.0f);
             break;
 
         case SolarObjects::Mercury:
