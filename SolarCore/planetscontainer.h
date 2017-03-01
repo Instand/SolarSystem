@@ -48,7 +48,7 @@ namespace SolarSystem {
     private slots:
 
         //on planet pick
-        void onPressed(Qt3DRender::QPickEvent* pick);
+        void onObjectPick(Qt3DRender::QPickEvent* pick);
     };
 }
 
