@@ -77,4 +77,6 @@ RESOURCES += \
 DISTFILES += \
     QML/SolarEntityMain.qml \
     QML/SolarSystemMain.qml \
-    QML/DateText.qml
+    QML/DateText.qml \
+    QML/TransparentButton.qml \
+    QML/Controls.qml
