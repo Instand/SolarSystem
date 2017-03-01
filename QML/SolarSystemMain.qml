@@ -24,6 +24,7 @@ Item {
     Slider {
         orientation: Qt.Vertical
         anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
         height: 500
         from: 0
         to: 100
@@ -32,6 +33,18 @@ Item {
             solarSystem.animator.setSolarSpeed(value);
         }
     }
+
+    /*//date label
+    Rectangle {
+        id: dateLabel
+        color: "transparent"
+        border.color: "white"
+
+        Rectangle {
+
+        }
+
+    }*/
 
     //time label
     DateText {
@@ -85,4 +98,13 @@ Item {
 
         text: showTime()
     }
+
+    //left side controls
+    Controls {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        elementWidth: 80
+        elementHeght: 100
+    }
+
 }
