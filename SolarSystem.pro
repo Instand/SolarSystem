@@ -1,7 +1,7 @@
 QT += core
 QT += gui widgets sql concurrent
 QT += 3dcore 3drender 3dextras 3dinput
-QT += qml quick
+QT += qml quick quickcontrols2
 QT += 3dquickextras
 
 CONFIG += c++14
@@ -39,7 +39,8 @@ SOURCES += main.cpp \
     Scene/solarentity.cpp \
     UI/solarquickui.cpp \
     Scene/SceneObjects/planetring.cpp \
-    SolarCore/cameracontroller.cpp
+    SolarCore/cameracontroller.cpp \
+    Scene/SceneObjects/planetringalpha.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -69,7 +70,8 @@ HEADERS += \
     Scene/solarentity.h \
     UI/solarquickui.h \
     Scene/SceneObjects/planetring.h \
-    SolarCore/cameracontroller.h
+    SolarCore/cameracontroller.h \
+    Scene/SceneObjects/planetringalpha.h
 
 RESOURCES += \
     res.qrc
@@ -79,4 +81,7 @@ DISTFILES += \
     QML/SolarSystemMain.qml \
     QML/DateText.qml \
     QML/TransparentButton.qml \
-    QML/Controls.qml
+    QML/Controls.qml \
+    QML/SolarFrame.qml \
+    QML/PlanetList.qml \
+    QML/PlanetButton.qml
