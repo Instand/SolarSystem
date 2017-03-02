@@ -23,7 +23,7 @@ namespace SolarSystem {
     protected:
         virtual void update(float deltaTime) = 0;
 
-    private:
+    protected:
         Qt3DRender::QObjectPicker* _picker;
 
         //vizibility
