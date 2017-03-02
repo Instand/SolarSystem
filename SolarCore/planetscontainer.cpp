@@ -1,6 +1,6 @@
 #include "planetscontainer.h"
 #include <Scene/SceneObjects/planet.h>
-#include <Scene/SceneObjects/planetring.h>
+#include <Scene/SceneObjects/planetringalpha.h>
 #include <Qt3DRender/QPointLight>
 #include <Qt3DRender/QPickEvent>
 
@@ -132,7 +132,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
     neptune->material().normal()->addTextureImage(neptuneNormal);
 
     //create planet rings
-    PlanetRing* saturnRing = new PlanetRing(root);
+    PlanetRingAlpha* saturnRing = new PlanetRingAlpha(root);
     saturnRing->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/saturnringcolortrans.png"));
     saturnRing->setTilt(SolarObjectsValues::Saturn::tilt);
 
@@ -140,7 +140,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
     saturnRingNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/saturnringcolortransnormal.png"));
     saturnRing->material().normal()->addTextureImage(saturnRingNormal);
 
-    PlanetRing* uranusRing = new PlanetRing(root);
+    PlanetRingAlpha* uranusRing = new PlanetRingAlpha(root);
     uranusRing->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/uranusringcolortrans.png"));
     uranusRing->setTilt(SolarObjectsValues::Uranus::tilt);
 
