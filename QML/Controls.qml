@@ -8,6 +8,9 @@ Column {
     property int elementWidth: 10
     property int elementHeght: 20
 
+    //signals
+    signal planetButtonClicked;
+
     //planet list button
     TransparentButton {
         id: planetButton
@@ -19,6 +22,8 @@ Column {
         toolTipWidth: 120
         toolTipHeight: 30
         toolTipVisibility: true
+
+        onClicked: root.planetButtonClicked()
     }
 
     //calendar button
