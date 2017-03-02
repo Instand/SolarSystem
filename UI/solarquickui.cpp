@@ -20,6 +20,9 @@ SolarSystem::SolarQuickUI::SolarQuickUI(QObject* parent):
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     view.setSource(QUrl("qrc:/QML/SolarSystemMain.qml"));
     view.setColor("#000000");
+
+    view.setMinimumWidth(1280);
+    view.setMinimumHeight(700);
 }
 
 void SolarSystem::SolarQuickUI::show()
