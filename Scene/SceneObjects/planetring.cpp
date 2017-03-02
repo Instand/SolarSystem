@@ -1,4 +1,5 @@
 #include "planetring.h"
+#include <Qt3DExtras/QNormalDiffuseMapAlphaMaterial>
 
 SolarSystem::PlanetRing::PlanetRing(Qt3DCore::QNode* parent):
     Solar3dObject(parent)
