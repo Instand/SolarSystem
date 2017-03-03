@@ -25,16 +25,16 @@ struct SolarSystem::SolarMathCore::Data
     float deltaTime = 0;
 
     // Time scale formula based on http://www.stjarnhimlen.se/comp/ppcomp.html
-    float startD;
-    float oldTimeD;
-    float currentTimeD;
-    float deltaTimeD = 0;
-    float daysPerFrame = 0;
-    float daysPerFrameScale = 0;
+    double startD;
+    double oldTimeD;
+    double currentTimeD;
+    double deltaTimeD = 0;
+    double daysPerFrame = 0;
+    double daysPerFrameScale = 0;
     float planetScale;
     bool focusedScaling = false;
     int focusedMinimumScale = 20;
-    float actualScale;
+    double actualScale;
 
     //inner and outer radius
     double saturnRingInnerRadius = 0;
@@ -174,7 +174,7 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
             solarObj->setZ(centerObj->z() + zh * SolarValues::auScale);
         }
 
-        solarObj->setRoll((solarObj->roll() + data->deltaTimeD/ solarObj->period() * 360));
+        solarObj->setRoll((solarObj->roll() + data->deltaTimeD/ solarObj->period() * 360.0));
 
         //recalculation to 3D objects
         IVisualSolarObject* visualSolarObject = planetContainer[object];
@@ -224,12 +224,12 @@ QVector3D SolarSystem::SolarMathCore::getNewSolarViewPosition(SolarSystem::Solar
 void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
 {
     if (object == SolarObjects::SolarSystemView)
-        data->daysPerFrame = data->daysPerFrameScale * 10;
+        data->daysPerFrame = data->daysPerFrameScale; //*10
     else
         data->daysPerFrame = data->daysPerFrameScale * solarContainer.solarObject(object)->period()/100.0;
 
     //add solar time
-    data->solarTime = data->solarTime.addMSecs(data->deltaTime * 1000 * data->daysPerFrameScale);
+    data->solarTime = data->solarTime.addMSecs(data->deltaTime * 1000 * data->daysPerFrame);
 
     //save helpers values
     data->hours = data->solarTime.time().hour();
@@ -299,7 +299,18 @@ void SolarSystem::SolarMathCore::changeSolarObjectScale(float scale, bool focuse
 
 void SolarSystem::SolarMathCore::updateSolarView(SolarSystem::SolarObjects object)
 {
-    Q_UNUSED(object)
+    IVisualSolarObject* solarObj = nullptr;
+
+    if (object != SolarObjects::SolarSystemView)
+        solarObj = planetContainer[object];
+    else
+        solarObj = planetContainer[SolarObjects::Sun];
+
+    if (solarObj != nullptr)
+    {
+        camera->setViewCenter(QVector3D(solarObj->x(), solarObj->y(), solarObj->z()));
+        camera->rotateAboutViewCenter(camera->rollRotation(0));
+    }
 }
 
 void SolarSystem::SolarMathCore::changeSolarObjectsSpeed(float speed)
@@ -404,4 +415,19 @@ void SolarSystem::SolarMathCore::setupPlanetRings()
     uranusRings->setTilt(uranus->tilt());
     uranusRings->setRoll(uranus->roll()/10.0f);
     uranusRings->setR((data->uranusRingInnerRadius + data->uranusRingOuterRadius)/1.75);
+
+    additionalCalculations();
+}
+
+void SolarSystem::SolarMathCore::additionalCalculations()
+{
+    IVisualSolarObject* earth = planetContainer[SolarObjects::Earth];
+    IVisualSolarObject* earthCloud = planetContainer[SolarObjects::EarthCloud];
+
+    earthCloud->setX(earth->x());
+    earthCloud->setY(earth->y());
+    earthCloud->setZ(earth->z());
+    earthCloud->setTilt(earth->tilt());
+    earthCloud->setRoll(earth->roll()/1.2f);
+    earthCloud->setR(earth->r() * 1.015f);
 }

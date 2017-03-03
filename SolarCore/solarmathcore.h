@@ -61,6 +61,9 @@ namespace SolarSystem {
 
         //rings setup
         void setupPlanetRings();
+
+        //earth cloud calculation
+        void additionalCalculations();
     };
 
 }
