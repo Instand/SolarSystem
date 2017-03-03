@@ -187,3 +187,66 @@ float SolarSystem::SolarParser::parseSolarObjectRadius(SolarSystem::SolarObjects
 
     return radius;
 }
+
+SolarSystem::SolarObjects SolarSystem::SolarParser::parsePlanetListIndex(int index)
+{
+    SolarObjects object = SolarObjects::SolarSystemView;
+
+    switch (index) {
+
+    //Solar system
+    case 0:
+        object = SolarObjects::SolarSystemView;
+        break;
+
+    //Sun
+    case 1:
+        object = SolarObjects::Sun;
+        break;
+
+    //Mercury
+    case 2:
+        object = SolarObjects::Mercury;
+        break;
+
+    //Venus
+    case 3:
+        object = SolarObjects::Venus;
+        break;
+
+    //Earth
+    case 4:
+        object = SolarObjects::Earth;
+        break;
+
+    //Mars
+    case 5:
+        object = SolarObjects::Mars;
+        break;
+
+    //Jupiter
+    case 6:
+        object = SolarObjects::Jupiter;
+        break;
+
+    //Saturn
+    case 7:
+        object = SolarObjects::Saturn;
+        break;
+
+    //Uranus
+    case 8:
+        object = SolarObjects::Uranus;
+        break;
+
+    //Neptune
+    case 9:
+        object = SolarObjects::Neptune;
+        break;
+
+    default:
+        break;
+    }
+
+    return object;
+}

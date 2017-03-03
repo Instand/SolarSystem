@@ -21,6 +21,9 @@ namespace SolarSystem {
 
         //returns radius of solar object
         static float parseSolarObjectRadius(SolarObjects object);
+
+        //returns solar object from planet list index
+        static SolarObjects parsePlanetListIndex(int index);
     };
 
 }
