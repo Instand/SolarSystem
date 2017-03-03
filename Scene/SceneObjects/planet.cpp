@@ -1,7 +1,6 @@
 #include "planet.h"
 #include <Qt3DExtras/QSphereGeometry>
 #include <solarsystemcore.h>
-#include <Parser/solarparser.h>
 
 SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
     Solar3dObject(parent)
