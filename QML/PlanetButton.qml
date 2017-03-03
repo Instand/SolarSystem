@@ -10,6 +10,9 @@ Rectangle {
     property int buttonSize: 70
     property int fontSize: 16
 
+    //click signal
+    signal clicked;
+
     width: buttonSize
     height: buttonSize
     color: "transparent"
@@ -23,6 +26,10 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
+            onClicked: {
+                planetSelector.focusedPlanet = focusPlanet;
+                planetButton.clicked();
+            }
             onEntered: PropertyAnimation { target: planetText; property: "opacity"; to: 1 }
             onExited: PropertyAnimation {
                 target: planetText
