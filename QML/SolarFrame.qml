@@ -1,6 +1,6 @@
 import QtQuick 2.0
 
-//date label
+//just a white frame
 Rectangle {
     color: "transparent"
     border.color: "white"
