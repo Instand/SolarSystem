@@ -27,23 +27,23 @@ namespace SolarSystem {
         virtual SolarObjects solarType() const override final;
         virtual void setSolarType(SolarObjects type) override final;
 
-        virtual float r() const override final;
-        virtual void setR(float r) override final;
+        virtual double r() const override final;
+        virtual void setR(double r) override final;
 
-        virtual float x() const override final;
-        virtual void setX(float x) override final;
+        virtual double x() const override final;
+        virtual void setX(double x) override final;
 
-        virtual float y() const override final;
-        virtual void setY(float y) override final;
+        virtual double y() const override final;
+        virtual void setY(double y) override final;
 
-        virtual float z() const override final;
-        virtual void setZ(float z) override final;
+        virtual double z() const override final;
+        virtual void setZ(double z) override final;
 
-        virtual float roll() const override final;
-        virtual void setRoll(float roll) override final;
+        virtual double roll() const override final;
+        virtual void setRoll(double roll) override final;
 
-        virtual float tilt() const override final;
-        virtual void setTilt(float tilt) override final;
+        virtual double tilt() const override final;
+        virtual void setTilt(double tilt) override final;
 
     private:
 
@@ -55,12 +55,12 @@ namespace SolarSystem {
 
         //main data
         SolarObjects _solarType;
-        float _r = 0;
-        float _x = 0;
-        float _y = 0;
-        float _z = 0;
-        float _roll = 0;
-        float _tilt = 0;
+        double _r = 0;
+        double _x = 0;
+        double _y = 0;
+        double _z = 0;
+        double _roll = 0;
+        double _tilt = 0;
     };
 
 }

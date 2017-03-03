@@ -29,62 +29,62 @@ void SolarSystem::BaseVisualSolarObject::setSolarType(SolarSystem::SolarObjects 
     _solarType = type;
 }
 
-float SolarSystem::BaseVisualSolarObject::tilt() const
+double SolarSystem::BaseVisualSolarObject::tilt() const
 {
     return _tilt;
 }
 
-void SolarSystem::BaseVisualSolarObject::setTilt(float tilt)
+void SolarSystem::BaseVisualSolarObject::setTilt(double tilt)
 {
     _tilt = tilt;
 }
 
-float SolarSystem::BaseVisualSolarObject::roll() const
+double SolarSystem::BaseVisualSolarObject::roll() const
 {
     return _roll;
 }
 
-void SolarSystem::BaseVisualSolarObject::setRoll(float roll)
+void SolarSystem::BaseVisualSolarObject::setRoll(double roll)
 {
     _roll = roll;
 }
 
-float SolarSystem::BaseVisualSolarObject::z() const
+double SolarSystem::BaseVisualSolarObject::z() const
 {
     return _z;
 }
 
-void SolarSystem::BaseVisualSolarObject::setZ(float z)
+void SolarSystem::BaseVisualSolarObject::setZ(double z)
 {
     _z = z;
 }
 
-float SolarSystem::BaseVisualSolarObject::y() const
+double SolarSystem::BaseVisualSolarObject::y() const
 {
     return _y;
 }
 
-void SolarSystem::BaseVisualSolarObject::setY(float y)
+void SolarSystem::BaseVisualSolarObject::setY(double y)
 {
     _y = y;
 }
 
-float SolarSystem::BaseVisualSolarObject::x() const
+double SolarSystem::BaseVisualSolarObject::x() const
 {
     return _x;
 }
 
-void SolarSystem::BaseVisualSolarObject::setX(float x)
+void SolarSystem::BaseVisualSolarObject::setX(double x)
 {
     _x = x;
 }
 
-float SolarSystem::BaseVisualSolarObject::r() const
+double SolarSystem::BaseVisualSolarObject::r() const
 {
     return _r;
 }
 
-void SolarSystem::BaseVisualSolarObject::setR(float r)
+void SolarSystem::BaseVisualSolarObject::setR(double r)
 {
     _r = r;
 }
