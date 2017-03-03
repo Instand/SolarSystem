@@ -10,6 +10,7 @@ Column {
 
     //signals
     signal planetButtonClicked;
+    signal infoButtonClicked;
 
     //planet list button
     TransparentButton {
@@ -63,5 +64,7 @@ Column {
         toolTipWidth: 120
         toolTipHeight: 30
         toolTipVisibility: true
+
+        onClicked: root.infoButtonClicked()
     }
 }
