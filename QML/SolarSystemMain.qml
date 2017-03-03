@@ -3,6 +3,7 @@ import QtQuick.Scene3D 2.0
 import QtQuick.Controls 2.1
 
 Item {
+    id: root
     width: 1280
     height: 700
 
@@ -10,8 +11,17 @@ Item {
         scene.focus = true;
     }
 
+    //version property
+    property string version: "2.1"
+
     //planet list show flag
     property bool showPlanetList: false
+
+    //frame propery
+    property bool showDataFrameInfo: false
+
+    //focused planet
+    property int currentSelectedObject: 0
 
     //3d viewport
     Scene3D {
@@ -50,6 +60,7 @@ Item {
 
     //date label
     SolarFrame {
+        id: timeFrame
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.topMargin: 5
@@ -114,6 +125,7 @@ Item {
 
     //left side controls
     Controls {
+        id: controlElements
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: 5
@@ -124,11 +136,27 @@ Item {
         onPlanetButtonClicked: {
             showPlanetList = !showPlanetList;
 
-            if (showPlanetList)
-                planetsList.visible = true
-            else
-                planetsList.visible = false
+            if (showPlanetList) {
+                showAnimation.start();
+                planetsView.visible = true;
+            }
+            else {
+                unshowAnimation.start()
+            }
         }
+
+        //slot
+        onInfoButtonClicked: showDataFrameInfoFunc();
+    }
+
+    //functions
+    function showDataFrameInfoFunc() {
+        showDataFrameInfo = !showDataFrameInfo;
+
+        if (showDataFrameInfo)
+            dataFrameShowAnimation.start()
+        else
+            dataFrameUnShowAnimation.start()
     }
 
     //planets icons
@@ -142,13 +170,91 @@ Item {
         anchors.bottomMargin: 10
         anchors.rightMargin: 5
         radius: 4
-        visible: false
+        opacity: 0
+
+        //show list
+        PropertyAnimation {
+            id: showAnimation
+            target: planetsList
+            property: "opacity"
+            to: 1
+            duration: 500
+        }
+
+        //show list
+        PropertyAnimation {
+            id: unshowAnimation
+            target: planetsList
+            property: "opacity"
+            to: 0
+            duration: 500
+            onStopped: planetsView.visible = false
+        }
 
         //all planets
         PlanetList {
             id: planetsView
             anchors.fill: parent
             buttonSize: height - 5
+            visible: false
+            onClicked:  {
+                solarSystem.animator.setCameraViewCenter(planetsView.focusedPlanet);
+            }
         }
+    }
+
+    //left frame with data
+    SolarFrame {
+        id: dataFrame
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: controlElements.right
+        anchors.leftMargin: 10
+        width: controlElements.height
+        height: controlElements.height
+        radius: 4
+        opacity: 0
+
+        //show list
+        PropertyAnimation {
+            id: dataFrameShowAnimation
+            target: dataFrame
+            property: "opacity"
+            to: 1
+            duration: 500
+        }
+
+        //show list
+        PropertyAnimation {
+            id: dataFrameUnShowAnimation
+            target: dataFrame
+            property: "opacity"
+            to: 0
+            duration: 500
+        }
+
+        //info text
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            color: "#ffffff"
+            font.italic: true
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pointSize: 14
+            styleColor: "#ffffff"
+            text: qsTr("Solar System v. ") + version +
+                  qsTr("\n") +
+                  qsTr("\n") +
+                  qsTr("Based on Qt Framework with Qt3D technology.\n") +
+                  qsTr("For education only.\n") +
+                  qsTr("Some features used from\nQt Planet QML example.") +
+                  qsTr("\n") +
+                  qsTr("Big thanks to Qt Company") +
+                  qsTr("\n") +
+                  qsTr("\n") +
+                  qsTr("Created by Nikita Chernyaev\naka Instand in 2017,\n") +
+                  qsTr("Source code available at:\nhttps://github.com/Instand/SolarSystem");
+        }
+
     }
 }
