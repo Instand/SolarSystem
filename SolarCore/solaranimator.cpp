@@ -1,5 +1,6 @@
 #include "solaranimator.h"
 #include <SolarCore/solarmathcore.h>
+#include <Parser/solarparser.h>
 
 SolarSystem::SolarAnimator::SolarAnimator(QObject *parent):
     QObject(parent)
@@ -34,7 +35,7 @@ void SolarSystem::SolarAnimator::animate(float deltaTime)
     _mathCore->setDeltaTime(deltaTime);
 
     //calculate time
-    _mathCore->advanceTime(SolarObjects::SolarSystemView);
+    _mathCore->advanceTime(currentSolarObject);
 
     //update solar objects position
     auto updateCount = static_cast<int>(SolarObjects::Pluto);
@@ -43,6 +44,8 @@ void SolarSystem::SolarAnimator::animate(float deltaTime)
         _mathCore->solarObjectPosition((SolarObjects)i);
 
     _mathCore->ringsCalculation();
+
+    _mathCore->updateSolarView(currentSolarObject);
 
     emit solarTimeChanged(_mathCore->getTime());
 }
@@ -65,4 +68,9 @@ void SolarSystem::SolarAnimator::setSolarSize(int value)
 {
     float coeff = value/50.0f;
     _mathCore->changeSolarSystemScale(SolarValues::startSize * coeff);
+}
+
+void SolarSystem::SolarAnimator::setCameraViewCenter(int index)
+{
+    currentSolarObject = SolarParser::parsePlanetListIndex(index);
 }

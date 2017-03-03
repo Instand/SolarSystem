@@ -28,6 +28,9 @@ namespace SolarSystem {
         //math core interface
         ISolarMathCore* _mathCore = nullptr;
 
+        //selected solar object
+        SolarObjects currentSolarObject = SolarObjects::SolarSystemView;
+
     public slots:
 
         //reset values
@@ -41,6 +44,9 @@ namespace SolarSystem {
 
         //set current planets size, in percents
         void setSolarSize(int value);
+
+        //set cam view center
+        void setCameraViewCenter(int index);
 
     signals:
         void solarTimeChanged(QDateTime time);
