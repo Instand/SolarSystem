@@ -1,6 +1,6 @@
 #include "solarentity.h"
-#include <Qt3DRender/QFilterKey>
 #include <SolarCore/cameracontroller.h>
+#include <Qt3DRender/QFilterKey>
 
 SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),
@@ -46,6 +46,8 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     clearBuffers->setBuffers(Qt3DRender::QClearBuffers::ColorDepthBuffer);
     clearBuffers->setClearColor(QColor(Qt::black));
 
+    frustum = new Qt3DRender::QFrustumCulling(clearBuffers);
+
     sortPolicy = new Qt3DRender::QSortPolicy(clearBuffers);
 
     QVector<Qt3DRender::QSortPolicy::SortType> sortedVector;
@@ -66,6 +68,7 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
 
     //math core control
     solarAnimator->mathCore()->setPlanetsContainer(planetsContainer->planets());
+    solarAnimator->mathCore()->setSolarView(mainCamera);
     solarAnimator->setDefaultValues();
 
     //animate scene on tick

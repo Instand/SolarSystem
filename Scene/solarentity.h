@@ -13,6 +13,7 @@
 #include <Qt3DRender/QTechniqueFilter>
 #include <Qt3DRender/QRenderSettings>
 #include <Qt3DInput/QInputSettings>
+#include <Qt3DRender/QFrustumCulling>
 #include <Qt3DLogic/QFrameAction>
 
 namespace SolarSystem {
@@ -62,6 +63,7 @@ namespace SolarSystem {
         Qt3DRender::QViewport* viewPort;
         Qt3DRender::QRenderSurfaceSelector* surfaceSelector;
         Qt3DRender::QTechniqueFilter* filter;
+        Qt3DRender::QFrustumCulling* frustum;
         Qt3DRender::QRenderSettings* settings;
         Qt3DInput::QInputSettings* input;
     };
