@@ -53,23 +53,23 @@ namespace SolarSystem {
         virtual void setSolarType(SolarObjects type) = 0;
 
         //control
-        virtual float r() const = 0;
-        virtual void setR(float r) = 0;
+        virtual double r() const = 0;
+        virtual void setR(double r) = 0;
 
-        virtual float x() const = 0;
-        virtual void setX(float x) = 0;
+        virtual double x() const = 0;
+        virtual void setX(double x) = 0;
 
-        virtual float y() const = 0;
-        virtual void setY(float y) = 0;
+        virtual double y() const = 0;
+        virtual void setY(double y) = 0;
 
-        virtual float z() const = 0;
-        virtual void setZ(float z) = 0;
+        virtual double z() const = 0;
+        virtual void setZ(double z) = 0;
 
-        virtual float roll() const = 0;
-        virtual void setRoll(float roll) = 0;
+        virtual double roll() const = 0;
+        virtual void setRoll(double roll) = 0;
 
-        virtual float tilt() const = 0;
-        virtual void setTilt(float tilt) = 0;
+        virtual double tilt() const = 0;
+        virtual void setTilt(double tilt) = 0;
     };
 
 }
