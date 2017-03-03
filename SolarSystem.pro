@@ -40,7 +40,9 @@ SOURCES += main.cpp \
     UI/solarquickui.cpp \
     Scene/SceneObjects/planetring.cpp \
     SolarCore/cameracontroller.cpp \
-    Scene/SceneObjects/planetringalpha.cpp
+    Scene/SceneObjects/planetringalpha.cpp \
+    solar3dalphaobject.cpp \
+    Scene/SceneObjects/earthcloud.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -71,7 +73,9 @@ HEADERS += \
     UI/solarquickui.h \
     Scene/SceneObjects/planetring.h \
     SolarCore/cameracontroller.h \
-    Scene/SceneObjects/planetringalpha.h
+    Scene/SceneObjects/planetringalpha.h \
+    solar3dalphaobject.h \
+    Scene/SceneObjects/earthcloud.h
 
 RESOURCES += \
     res.qrc
