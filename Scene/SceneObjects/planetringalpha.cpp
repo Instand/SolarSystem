@@ -9,12 +9,24 @@ SolarSystem::PlanetRingAlpha::PlanetRingAlpha(Qt3DCore::QNode* parent):
 {
     wrapMode.setX(Qt3DRender::QTextureWrapMode::WrapMode::Repeat);
     wrapMode.setY(Qt3DRender::QTextureWrapMode::WrapMode::Repeat);
+    wrapMode.setZ(Qt3DRender::QTextureWrapMode::WrapMode::Repeat);
 
     _material->diffuse()->setWrapMode(wrapMode);
     _material->diffuse()->setGenerateMipMaps(true);
     _material->diffuse()->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
-    _material->diffuse()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
+    _material->diffuse()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapNearest);
     _material->diffuse()->setMaximumAnisotropy(16.0f);
+
+    _material->normal()->setWrapMode(wrapMode);
+    _material->normal()->setGenerateMipMaps(true);
+    _material->normal()->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
+    _material->normal()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapNearest);
+    _material->normal()->setMaximumAnisotropy(16.0f);
+
+    _material->setShininess(0);
+    _material->setSpecular(QColor(qRgba(0,0,0,255)));
+    _material->setAmbient(QColor(qRgba(10,10,10,255)));
+    _material->setTextureScale(1.0f);
 
     _material->diffuse()->addTextureImage(_diffuse);
 
