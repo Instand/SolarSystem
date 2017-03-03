@@ -119,16 +119,11 @@ namespace SolarSystem {
         //add here
         SaturnRing,
         UranusRing,
+        EarthCloud,
 
         //calculate number
         SolarSystemView
     };
-
-    //depredecated
-    template<typename Query, typename SolarF>
-    const QString& dbValue(Query& query, SolarF type) {
-        return query.value(type);
-    }
 
     //store default camera settings
     namespace CameraSettings {
