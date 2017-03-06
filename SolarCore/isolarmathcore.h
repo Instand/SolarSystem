@@ -9,6 +9,9 @@
 
 namespace SolarSystem {
 
+    //forward
+    class CameraController;
+
     //mathcore interface
     class ISolarMathCore : public QObject {
 
@@ -67,6 +70,12 @@ namespace SolarSystem {
 
         //calcualte planet rings
         virtual void ringsCalculation() = 0;
+
+        //add camera controller
+        virtual void setCameraController(CameraController* controller) = 0;
+
+        //zoom limit update
+        virtual void updateSolarViewZoomLimit(SolarObjects object) = 0;
     };
 
 }
