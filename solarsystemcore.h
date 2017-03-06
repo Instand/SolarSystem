@@ -166,6 +166,11 @@ namespace SolarSystem {
         // centerOfOrbit - the planet in the center of the orbit
         // (orbital elements based on http://www.stjarnhimlen.se/comp/ppcomp.html)
 
+        //solar system values
+        namespace SolarSystem {
+            const QString toString = "Solar System";
+        }
+
         //sun values
         namespace Sun {
             const double radius = 694.439;
