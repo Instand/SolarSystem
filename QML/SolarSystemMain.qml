@@ -29,6 +29,7 @@ Item {
         anchors.fill: parent
         aspects: ["render", "logic", "input"]
         focus: true
+        onAspectsChanged: solarSystem.inputSettings.setEventSource(scene)
 
         //from c++ code
         SolarEntityMain {
@@ -130,7 +131,7 @@ Item {
         anchors.left: parent.left
         anchors.leftMargin: 5
         elementWidth: 80
-        elementHeght: 100
+        elementHeight: 100
 
         //slot
         onPlanetButtonClicked: {
@@ -203,6 +204,20 @@ Item {
         }
     }
 
+    //exit button
+    TransparentButton {
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.rightMargin: 5
+        anchors.topMargin: 5
+        toolTipVisibility: false
+        radius: 4
+        source: "qrc:/Resources/Images/exit_icon.png"
+        width: 60
+        height: 80
+        onClicked: Qt.quit();
+    }
+
     //left frame with data
     SolarFrame {
         id: dataFrame
@@ -256,5 +271,24 @@ Item {
                   qsTr("Source code available at:\nhttps://github.com/Instand/SolarSystem");
         }
 
+    }
+
+    //object text
+    Text {
+        id: planetText
+        anchors.top: timeFrame.bottom
+        anchors.topMargin: 10
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: 200
+        height: 60
+        font.pointSize: 30
+        font.wordSpacing: 2
+        font.bold: true
+        font.italic: true
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        color: "white"
+        text: solarSystem.animator.solarObjectString
+        font.family: "Century Gothic"
     }
 }
