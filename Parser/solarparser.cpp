@@ -34,6 +34,10 @@ QString SolarSystem::SolarParser::parseSolarObjectToString(SolarSystem::SolarObj
 
     switch (object)
     {
+    case SolarObjects::SolarSystemView:
+        str = SolarObjectsValues::SolarSystem::toString;
+        break;
+
     case SolarObjects::Sun:
         str = SolarObjectsValues::Sun::toString;
         break;
@@ -48,6 +52,7 @@ QString SolarSystem::SolarParser::parseSolarObjectToString(SolarSystem::SolarObj
 
     case SolarObjects::Earth:
         str = SolarObjectsValues::Earth::toString;
+        break;
 
     case SolarObjects::Mars:
         str = SolarObjectsValues::Mars::toString;
