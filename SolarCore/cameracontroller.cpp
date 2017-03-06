@@ -112,6 +112,26 @@ float SolarSystem::CameraController::zoomSpeed() const
     return zoomSpeedValue;
 }
 
+void SolarSystem::CameraController::setDefaultZoomLimit()
+{
+    zoomLimitValue = defaultZoomLimitValue;
+}
+
+float SolarSystem::CameraController::defaultZoomLimit() const
+{
+    return defaultZoomLimitValue;
+}
+
+void SolarSystem::CameraController::setDefaultZoomSpeed()
+{
+    zoomSpeedValue = defaultZoomSpeedValue;
+}
+
+float SolarSystem::CameraController::defaultZoomSpeed() const
+{
+    return defaultZoomSpeedValue;
+}
+
 void SolarSystem::CameraController::onFrameAction(float deltaTime)
 {
     if (viewCamera != nullptr)

@@ -47,6 +47,12 @@ namespace SolarSystem {
         void setZoomSpeed(float zoomSpeed);
         float zoomSpeed() const;
 
+        void setDefaultZoomLimit();
+        float defaultZoomLimit() const;
+
+        void setDefaultZoomSpeed();
+        float defaultZoomSpeed() const;
+
     private:
 
         //camera ref
@@ -77,9 +83,11 @@ namespace SolarSystem {
 
         //values
         float lookSpeedValue = 180.0f;
-        float zoomLimitValue = 200000.0f;
+        float defaultZoomLimitValue = 200000.0f;
+        float defaultZoomSpeedValue = 5000000.0f;
+        float zoomLimitValue = defaultZoomLimitValue;
         float zoomOutLimitValue = zoomLimitValue;
-        float zoomSpeedValue = 5000000.0f;
+        float zoomSpeedValue = defaultZoomSpeedValue;
 
         //up
         QVector3D cameraUp = QVector3D(0.0f, 1.0f, 0.0f);
