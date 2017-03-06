@@ -21,6 +21,9 @@ namespace SolarSystem {
         //show QQuick
         void show();
 
+        //show full size
+        void showFullScreen();
+
     private:
 
         //screen format
@@ -28,6 +31,9 @@ namespace SolarSystem {
 
         //main quick view
         QQuickView view;
+
+    private slots:
+        void quit();
     };
 }
 

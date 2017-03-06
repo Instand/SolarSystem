@@ -1,4 +1,5 @@
 #include "solarquickui.h"
+#include <QApplication>
 #include <Scene/solarentity.h>
 
 SolarSystem::SolarQuickUI::SolarQuickUI(QObject* parent):
@@ -23,9 +24,23 @@ SolarSystem::SolarQuickUI::SolarQuickUI(QObject* parent):
 
     view.setMinimumWidth(1280);
     view.setMinimumHeight(700);
+
+    view.setIcon(QIcon(QStringLiteral(":/Resources/Images/solarsystem_icon.png")));
+
+    QObject::connect(view.engine(), SIGNAL(quit()), this, SLOT(quit()));
 }
 
 void SolarSystem::SolarQuickUI::show()
 {
     view.show();
+}
+
+void SolarSystem::SolarQuickUI::showFullScreen()
+{
+    view.showFullScreen();
+}
+
+void SolarSystem::SolarQuickUI::quit()
+{
+    qApp->exit();
 }
