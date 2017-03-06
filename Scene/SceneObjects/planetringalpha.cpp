@@ -14,13 +14,13 @@ SolarSystem::PlanetRingAlpha::PlanetRingAlpha(Qt3DCore::QNode* parent):
     _material->diffuse()->setWrapMode(wrapMode);
     _material->diffuse()->setGenerateMipMaps(true);
     _material->diffuse()->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
-    _material->diffuse()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapNearest);
+    _material->diffuse()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
     _material->diffuse()->setMaximumAnisotropy(16.0f);
 
     _material->normal()->setWrapMode(wrapMode);
     _material->normal()->setGenerateMipMaps(true);
     _material->normal()->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
-    _material->normal()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapNearest);
+    _material->normal()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
     _material->normal()->setMaximumAnisotropy(16.0f);
 
     _material->setShininess(0);
