@@ -29,12 +29,13 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
 
     //create sun
     Planet* sun = new Planet(root);
-    sun->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/sunmap.jpg"));
+    sun->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/sun_map.jpg"));
     sun->material().setShininess(sun->material().shininess() * shiness);
     sun->setTilt(SolarObjectsValues::Sun::tilt);
+    //sun->material().setAmbient(QColor(255,255,255, 128));
 
     Qt3DRender::QPointLight* sunLight = new Qt3DRender::QPointLight();
-    sunLight->setIntensity(1.65f);
+    sunLight->setIntensity(1.35f);
     //sunLight->setIntensity(0.0001f);
     sun->addComponent(sunLight);
     sun->setObjectName(SolarObjectsValues::Sun::toString);
@@ -166,8 +167,8 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
 
     rootNode = root;
 
-    //auto sunPicker = planetContainer[SolarObjects::Sun];
-    //QObject::connect(&sunPicker->picker(), &Qt3DRender::QObjectPicker::clicked, this, &PlanetsContainer::onObjectPick);
+    auto sunPicker = planetContainer[SolarObjects::Jupiter];
+    QObject::connect(&sunPicker->picker(), &Qt3DRender::QObjectPicker::clicked, this, &PlanetsContainer::onObjectPick);
 }
 
 int SolarSystem::PlanetsContainer::planetsNumber() const
@@ -185,7 +186,7 @@ void SolarSystem::PlanetsContainer::onObjectPick(Qt3DRender::QPickEvent *pick)
     if (pick->button() == Qt3DRender::QPickEvent::LeftButton)
     {
         qDebug() << "Clicked";
-
-        emit coordClicked(pick->worldIntersection());
+        qDebug() << pick->worldIntersection();
+        //emit coordClicked(pick->worldIntersection());
     }
 }
