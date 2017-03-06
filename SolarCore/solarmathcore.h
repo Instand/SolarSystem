@@ -17,22 +17,24 @@ namespace SolarSystem {
         ~SolarMathCore();
 
         //realize interface
-        virtual void setSolarView(Qt3DRender::QCamera *camera) override;
-        virtual float getOuterRadius(SolarObjects object) override;
-        virtual void solarObjectPosition(SolarObjects object) override;
-        virtual QVector3D getNewSolarViewPosition(SolarObjects object, double radius) override;
-        virtual void advanceTime(SolarObjects object) override;
-        virtual float setSolarObjectScale(float scale, bool focused) override;
-        virtual void checkSolarObjectScaling(SolarObjects object) override;
-        virtual void changeSolarObjectScale(float scale, bool focused) override;
-        virtual void updateSolarView(SolarObjects object) override;
-        virtual void changeSolarObjectsSpeed(float speed) override;
-        virtual void changeSolarViewDistance(double distance) override;
-        virtual void setPlanetsContainer(PlanetArray array) override;
-        virtual void changeSolarSystemScale(float scale, bool focused) override;
-        virtual void setDeltaTime(float dt) override;
-        virtual QDateTime getTime() const override;
-        virtual void ringsCalculation() override;
+        virtual void setSolarView(Qt3DRender::QCamera *camera) override final;
+        virtual float getOuterRadius(SolarObjects object) override final;
+        virtual void solarObjectPosition(SolarObjects object) override final;
+        virtual QVector3D getNewSolarViewPosition(SolarObjects object, double radius) override final;
+        virtual void advanceTime(SolarObjects object) override final;
+        virtual float setSolarObjectScale(float scale, bool focused) override final;
+        virtual void checkSolarObjectScaling(SolarObjects object) override final;
+        virtual void changeSolarObjectScale(float scale, bool focused) override final;
+        virtual void updateSolarView(SolarObjects object) override final;
+        virtual void changeSolarObjectsSpeed(float speed) override final;
+        virtual void changeSolarViewDistance(double distance) override final;
+        virtual void setPlanetsContainer(PlanetArray array) override final;
+        virtual void changeSolarSystemScale(float scale, bool focused) override final;
+        virtual void setDeltaTime(float dt) override final;
+        virtual QDateTime getTime() const override final;
+        virtual void ringsCalculation() override final;
+        virtual void setCameraController(CameraController *controller) override final;
+        virtual void updateSolarViewZoomLimit(SolarObjects object) override final;
 
     private:
 
@@ -51,6 +53,9 @@ namespace SolarSystem {
         //planet container elements
         PlanetArray planetContainer;
 
+        //orbit camera controller
+        CameraController* cameraController = nullptr;
+
         ///helper methods
 
         //days time scale calculation
@@ -64,6 +69,9 @@ namespace SolarSystem {
 
         //earth cloud calculation
         void additionalCalculations();
+
+        //zoom limit calculation
+        float calculateZoomLimit(SolarObjects object, float limit);
     };
 
 }

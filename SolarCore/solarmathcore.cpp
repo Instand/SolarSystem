@@ -1,5 +1,6 @@
 #include "solarmathcore.h"
 #include <Parser/solarparser.h>
+#include <SolarCore/cameracontroller.h>
 #include <QtMath>
 
 //Main Math data
@@ -67,6 +68,9 @@ SolarSystem::SolarMathCore::~SolarMathCore()
 {
     if (camera)
         camera = nullptr;
+
+    if (cameraController)
+        cameraController = nullptr;
 
     delete data;
 }
@@ -225,11 +229,13 @@ void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
 {
     if (object == SolarObjects::SolarSystemView)
         data->daysPerFrame = data->daysPerFrameScale; //*10
+    else if (object == SolarObjects::Mercury || object == SolarObjects::Venus)
+        data->daysPerFrame = data->daysPerFrameScale * solarContainer.solarObject(object)->period()/25000.0;
     else
         data->daysPerFrame = data->daysPerFrameScale * solarContainer.solarObject(object)->period()/100.0;
 
     //add solar time
-    data->solarTime = data->solarTime.addMSecs(data->deltaTime * 1000 * data->daysPerFrame);
+    data->solarTime = data->solarTime.addMSecs(data->deltaTime * 1000.0f * data->daysPerFrame);
 
     //save helpers values
     data->hours = data->solarTime.time().hour();
@@ -384,6 +390,38 @@ void SolarSystem::SolarMathCore::ringsCalculation()
     setupPlanetRings();
 }
 
+void SolarSystem::SolarMathCore::setCameraController(SolarSystem::CameraController *controller)
+{
+    cameraController = controller;
+}
+
+void SolarSystem::SolarMathCore::updateSolarViewZoomLimit(SolarSystem::SolarObjects object)
+{
+    if (object == SolarObjects::SolarSystemView)
+    {
+        if (cameraController)
+        {
+            cameraController->setDefaultZoomLimit();
+            cameraController->setDefaultZoomSpeed();
+        }
+    }
+    else
+    {
+        //get radius
+        auto solarObjRadius = SolarParser::parseSolarObjectRadius(object);
+        auto zoomLimit = data->planetScale * solarObjRadius * 4.0f;
+
+        //empiricic calculations
+        zoomLimit = calculateZoomLimit(object, zoomLimit);
+
+        if (cameraController)
+        {
+            cameraController->setZoomLimit(zoomLimit);
+            cameraController->setZoomSpeed(cameraController->defaultZoomSpeed()/3.0f);
+        }
+    }
+}
+
 float SolarSystem::SolarMathCore::calculateUT(int h, int m, float s)
 {
     return (h + m/60.0f + s/3600.0f)/24.0f;
@@ -430,4 +468,28 @@ void SolarSystem::SolarMathCore::additionalCalculations()
     earthCloud->setTilt(earth->tilt());
     earthCloud->setRoll(earth->roll()/1.2f);
     earthCloud->setR(earth->r() * 1.015f);
+}
+
+float SolarSystem::SolarMathCore::calculateZoomLimit(SolarSystem::SolarObjects object, float limit)
+{
+    float finalLimit = limit;
+
+    switch (object) {
+    case SolarObjects::Sun:
+        finalLimit = cameraController->defaultZoomLimit();
+        break;
+
+    case SolarObjects::Mercury:
+        finalLimit *= 2.0f;
+        break;
+
+    case SolarObjects::Jupiter:
+        finalLimit /= 1.5f;
+        break;
+
+    default:
+        break;
+    }
+
+    return finalLimit;
 }
