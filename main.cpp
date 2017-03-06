@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 
     //show our beautiful solar system to us
     SolarSystem::SolarQuickUI ui;
-    ui.showFullScreen();
+    ui.show();
 
     return a.exec();
 }
