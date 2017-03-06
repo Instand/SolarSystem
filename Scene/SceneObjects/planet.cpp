@@ -14,6 +14,16 @@ SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
     sphereGeometry->setSlices(PlanetSettings::slices);
 
     mesh().setGeometry(sphereGeometry);
+
+    _material->diffuse()->setGenerateMipMaps(true);
+    _material->diffuse()->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
+    _material->diffuse()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
+    _material->diffuse()->setMaximumAnisotropy(16.0f);
+
+    _material->normal()->setGenerateMipMaps(true);
+    _material->normal()->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
+    _material->normal()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
+    _material->normal()->setMaximumAnisotropy(16.0f);
 }
 
 void SolarSystem::Planet::update(float deltaTime)
