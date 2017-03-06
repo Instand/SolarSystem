@@ -316,7 +316,7 @@ void SolarSystem::SolarMathCore::updateSolarView(SolarSystem::SolarObjects objec
     {
         camera->setViewCenter(QVector3D(solarObj->x(), solarObj->y(), solarObj->z()));
         //camera->rotateAboutViewCenter(camera->rollRotation(0));
-        camera->rotate(camera->rollRotation(0));
+        //camera->rotate(camera->rollRotation(0));
     }
 }
 
