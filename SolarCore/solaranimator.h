@@ -11,6 +11,7 @@ namespace SolarSystem {
         Q_OBJECT
 
         Q_PROPERTY(QDateTime solarTime READ solarTime NOTIFY solarTimeChanged)
+        Q_PROPERTY(QString solarObjectString READ viewSolarObjectString NOTIFY solarObjectStringChanged)
 
     public:
 
@@ -23,6 +24,9 @@ namespace SolarSystem {
         //get solar time
         QDateTime solarTime() const;
 
+        //get planet string
+        QString viewSolarObjectString() const;
+
     private:
 
         //math core interface
@@ -30,6 +34,9 @@ namespace SolarSystem {
 
         //selected solar object
         SolarObjects currentSolarObject = SolarObjects::SolarSystemView;
+
+        //stores string
+        QString solarObjStr = SolarObjectsValues::SolarSystem::toString;
 
     public slots:
 
@@ -50,6 +57,7 @@ namespace SolarSystem {
 
     signals:
         void solarTimeChanged(QDateTime time);
+        void solarObjectStringChanged(QString str);
     };
 
 }

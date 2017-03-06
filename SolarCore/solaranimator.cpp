@@ -23,6 +23,11 @@ QDateTime SolarSystem::SolarAnimator::solarTime() const
     return _mathCore->getTime();
 }
 
+QString SolarSystem::SolarAnimator::viewSolarObjectString() const
+{
+    return solarObjStr;
+}
+
 void SolarSystem::SolarAnimator::setDefaultValues()
 {
     _mathCore->changeSolarObjectsSpeed(SolarSystem::SolarValues::startSpeed);
@@ -72,5 +77,15 @@ void SolarSystem::SolarAnimator::setSolarSize(int value)
 
 void SolarSystem::SolarAnimator::setCameraViewCenter(int index)
 {
-    currentSolarObject = SolarParser::parsePlanetListIndex(index);
+    auto obj = SolarParser::parsePlanetListIndex(index);
+
+    if (obj != currentSolarObject)
+    {
+        currentSolarObject = obj;
+        solarObjStr = SolarParser::parseSolarObjectToString(currentSolarObject);
+
+        emit solarObjectStringChanged(solarObjStr);
+    }
+
+    _mathCore->updateSolarViewZoomLimit(currentSolarObject);
 }
