@@ -18,15 +18,15 @@ SolarSystem::Solar3DAlphaObject::Solar3DAlphaObject(Qt3DCore::QNode *parent):
 
 Qt3DRender::QObjectPicker &SolarSystem::Solar3DAlphaObject::picker() const
 {
-  return *_picker;
+    return *_picker;
 }
 
 Qt3DExtras::QNormalDiffuseMapAlphaMaterial &SolarSystem::Solar3DAlphaObject::material() const
 {
-  return *_material;
+    return *_material;
 }
 
 Qt3DRender::QTextureImage& SolarSystem::Solar3DAlphaObject::diffuse() const
 {
-  return *_diffuse;
+    return *_diffuse;
 }
