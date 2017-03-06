@@ -43,7 +43,7 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     cameraSelector = new Qt3DRender::QCameraSelector(viewPort);
 
     clearBuffers = new Qt3DRender::QClearBuffers(cameraSelector);
-    clearBuffers->setBuffers(Qt3DRender::QClearBuffers::ColorDepthBuffer);
+    clearBuffers->setBuffers(Qt3DRender::QClearBuffers::AllBuffers);
     clearBuffers->setClearColor(QColor(Qt::black));
 
     frustum = new Qt3DRender::QFrustumCulling(clearBuffers);
@@ -53,6 +53,7 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     QVector<Qt3DRender::QSortPolicy::SortType> sortedVector;
     sortedVector.push_back(Qt3DRender::QSortPolicy::StateChangeCost);
     sortedVector.push_back(Qt3DRender::QSortPolicy::Material);
+    sortedVector.push_back(Qt3DRender::QSortPolicy::BackToFront);
 
     sortPolicy->setSortTypes(sortedVector);
 
