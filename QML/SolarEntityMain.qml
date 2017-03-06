@@ -15,6 +15,9 @@ Entity {
     //Camera
     property alias camera: solarSystem.camera
 
+    //Input settings ref
+    property alias inputSettings: solarSystem.inputSettings
+
     SolarEntity {
         id: solarSystem
     }
