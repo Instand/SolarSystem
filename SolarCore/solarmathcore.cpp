@@ -315,7 +315,8 @@ void SolarSystem::SolarMathCore::updateSolarView(SolarSystem::SolarObjects objec
     if (solarObj != nullptr)
     {
         camera->setViewCenter(QVector3D(solarObj->x(), solarObj->y(), solarObj->z()));
-        camera->rotateAboutViewCenter(camera->rollRotation(0));
+        //camera->rotateAboutViewCenter(camera->rollRotation(0));
+        camera->rotate(camera->rollRotation(0));
     }
 }
 
@@ -467,7 +468,7 @@ void SolarSystem::SolarMathCore::additionalCalculations()
     earthCloud->setZ(earth->z());
     earthCloud->setTilt(earth->tilt());
     earthCloud->setRoll(earth->roll()/1.2f);
-    earthCloud->setR(earth->r() * 1.015f);
+    earthCloud->setR(earth->r() * 1.010f);
 }
 
 float SolarSystem::SolarMathCore::calculateZoomLimit(SolarSystem::SolarObjects object, float limit)
