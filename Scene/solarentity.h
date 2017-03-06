@@ -29,6 +29,7 @@ namespace SolarSystem {
 
         Q_PROPERTY(SolarAnimator* animator READ animator)
         Q_PROPERTY(Qt3DRender::QCamera* camera READ camera)
+        Q_PROPERTY(Qt3DInput::QInputSettings* inputSettings READ inputSettings)
 
     public:
 
@@ -41,6 +42,9 @@ namespace SolarSystem {
 
         //returns camera
         Qt3DRender::QCamera* camera() const;
+
+        //returns input settings
+        Qt3DInput::QInputSettings* inputSettings() const;
 
     private:
 

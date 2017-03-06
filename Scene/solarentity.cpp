@@ -69,6 +69,7 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     //math core control
     solarAnimator->mathCore()->setPlanetsContainer(planetsContainer->planets());
     solarAnimator->mathCore()->setSolarView(mainCamera);
+    solarAnimator->mathCore()->setCameraController(controller);
     solarAnimator->setDefaultValues();
 
     //animate scene on tick
@@ -90,4 +91,9 @@ SolarSystem::SolarAnimator *SolarSystem::SolarEntity::animator() const
 Qt3DRender::QCamera *SolarSystem::SolarEntity::camera() const
 {
     return mainCamera;
+}
+
+Qt3DInput::QInputSettings *SolarSystem::SolarEntity::inputSettings() const
+{
+    return input;
 }
