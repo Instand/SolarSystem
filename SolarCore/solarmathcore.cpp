@@ -423,6 +423,29 @@ void SolarSystem::SolarMathCore::updateSolarViewZoomLimit(SolarSystem::SolarObje
     }
 }
 
+void SolarSystem::SolarMathCore::setSolarViewCenter(QVector3D center)
+{
+    camera->setViewCenter(center);
+}
+
+QVector3D SolarSystem::SolarMathCore::viewCenter() const
+{
+    return camera->viewCenter();
+}
+
+QVector3D SolarSystem::SolarMathCore::objectPosition(SolarSystem::SolarObjects object)
+{
+    QVector3D pos {0, 0, 0};
+
+    if (object != SolarObjects::SolarSystemView)
+    {
+        auto* obj = planetContainer[object];
+        pos = QVector3D(obj->x(), obj->y(), obj->z());
+    }
+
+    return pos;
+}
+
 float SolarSystem::SolarMathCore::calculateUT(int h, int m, float s)
 {
     return (h + m/60.0f + s/3600.0f)/24.0f;

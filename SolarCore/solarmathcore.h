@@ -35,6 +35,9 @@ namespace SolarSystem {
         virtual void ringsCalculation() override final;
         virtual void setCameraController(CameraController *controller) override final;
         virtual void updateSolarViewZoomLimit(SolarObjects object) override final;
+        virtual void setSolarViewCenter(QVector3D center) override final;
+        virtual QVector3D viewCenter() const override final;
+        virtual QVector3D objectPosition(SolarObjects object) override final;
 
     private:
 
