@@ -76,6 +76,15 @@ namespace SolarSystem {
 
         //zoom limit update
         virtual void updateSolarViewZoomLimit(SolarObjects object) = 0;
+
+        //set solar camera view center
+        virtual void setSolarViewCenter(QVector3D center) = 0;
+
+        //get current view center
+        virtual QVector3D viewCenter() const = 0;
+
+        //return coords of solar object
+        virtual QVector3D objectPosition(SolarObjects object) = 0;
     };
 
 }
