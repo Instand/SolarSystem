@@ -6,6 +6,9 @@ SolarSystem::SolarAnimator::SolarAnimator(QObject *parent):
     QObject(parent)
 {
     _mathCore = new SolarMathCore();
+    viewCenterAnimation = new QPropertyAnimation(this);
+
+    QObject::connect(viewCenterAnimation, &QPropertyAnimation::finished, this, &SolarAnimator::onAnimationFinished);
 }
 
 SolarSystem::SolarAnimator::~SolarAnimator()
@@ -26,6 +29,11 @@ QDateTime SolarSystem::SolarAnimator::solarTime() const
 QString SolarSystem::SolarAnimator::viewSolarObjectString() const
 {
     return solarObjStr;
+}
+
+QVector3D SolarSystem::SolarAnimator::cameraViewCenter() const
+{
+    return _mathCore->viewCenter();
 }
 
 void SolarSystem::SolarAnimator::setDefaultValues()
@@ -50,7 +58,8 @@ void SolarSystem::SolarAnimator::animate(float deltaTime)
 
     _mathCore->ringsCalculation();
 
-    _mathCore->updateSolarView(currentSolarObject);
+    if (!animated)
+        _mathCore->updateSolarView(currentSolarObject);
 
     emit solarTimeChanged(_mathCore->getTime());
 }
@@ -77,15 +86,40 @@ void SolarSystem::SolarAnimator::setSolarSize(int value)
 
 void SolarSystem::SolarAnimator::setCameraViewCenter(int index)
 {
-    auto obj = SolarParser::parsePlanetListIndex(index);
-
-    if (obj != currentSolarObject)
+    if (!animated)
     {
-        currentSolarObject = obj;
-        solarObjStr = SolarParser::parseSolarObjectToString(currentSolarObject);
+        auto obj = SolarParser::parsePlanetListIndex(index);
 
-        emit solarObjectStringChanged(solarObjStr);
+        if (obj != currentSolarObject)
+        {
+            currentSolarObject = obj;
+            solarObjStr = SolarParser::parseSolarObjectToString(currentSolarObject);
+
+            emit solarObjectStringChanged(solarObjStr);
+        }
+
+        _mathCore->updateSolarViewZoomLimit(currentSolarObject);
+
+        animated = true;
+        viewCenterAnimation->setTargetObject(this);
+        viewCenterAnimation->setPropertyName("viewCenter");
+        viewCenterAnimation->setDuration(1500);
+        viewCenterAnimation->setStartValue(_mathCore->viewCenter());
+        viewCenterAnimation->setEndValue(_mathCore->objectPosition(currentSolarObject));
+        viewCenterAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InOutQuint));
+
+        viewCenterAnimation->start();
     }
+}
 
-    _mathCore->updateSolarViewZoomLimit(currentSolarObject);
+void SolarSystem::SolarAnimator::setCameraViewCenter(QVector3D position)
+{
+    _mathCore->setSolarViewCenter(position);
+
+    emit cameraViewCenterChanged(position);
+}
+
+void SolarSystem::SolarAnimator::onAnimationFinished()
+{
+    animated = false;
 }

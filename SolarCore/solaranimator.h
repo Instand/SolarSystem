@@ -2,6 +2,7 @@
 #define SOLARANIMATOR_H
 
 #include <SolarCore/isolarmathcore.h>
+#include <QPropertyAnimation>
 
 namespace SolarSystem {
 
@@ -12,6 +13,7 @@ namespace SolarSystem {
 
         Q_PROPERTY(QDateTime solarTime READ solarTime NOTIFY solarTimeChanged)
         Q_PROPERTY(QString solarObjectString READ viewSolarObjectString NOTIFY solarObjectStringChanged)
+        Q_PROPERTY(QVector3D viewCenter READ cameraViewCenter WRITE setCameraViewCenter NOTIFY cameraViewCenterChanged)
 
     public:
 
@@ -27,6 +29,9 @@ namespace SolarSystem {
         //get planet string
         QString viewSolarObjectString() const;
 
+        //get cam view center
+        QVector3D cameraViewCenter() const;
+
     private:
 
         //math core interface
@@ -37,6 +42,14 @@ namespace SolarSystem {
 
         //stores string
         QString solarObjStr = SolarObjectsValues::SolarSystem::toString;
+
+        //for camera animation
+        QVector3D currentCamViewCenter;
+
+        //animation flag
+        bool animated = false;
+
+        QPropertyAnimation* viewCenterAnimation;
 
     public slots:
 
@@ -55,9 +68,16 @@ namespace SolarSystem {
         //set cam view center
         void setCameraViewCenter(int index);
 
+        //set camera view center
+        void setCameraViewCenter(QVector3D position);
+
     signals:
         void solarTimeChanged(QDateTime time);
         void solarObjectStringChanged(QString str);
+        void cameraViewCenterChanged(QVector3D);
+
+    private slots:
+        void onAnimationFinished();
     };
 
 }
