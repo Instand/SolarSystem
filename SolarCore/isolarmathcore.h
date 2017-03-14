@@ -83,8 +83,23 @@ namespace SolarSystem {
         //get current view center
         virtual QVector3D viewCenter() const = 0;
 
-        //return coords of solar object
+        //returns coords of solar object
         virtual QVector3D objectPosition(SolarObjects object) = 0;
+
+        //returns coords of camera to solar object
+        virtual QVector3D viewPositionOfObject(SolarObjects object) = 0;
+
+        //returns camera position
+        virtual QVector3D viewPosition() const = 0;
+
+        //set solar camera view position
+        virtual void setSolarViewPosition(QVector3D positon) = 0;
+
+        //get current solar delta time
+        virtual float solarSystemSpeed() const = 0;
+
+        //returns start cam pos
+        virtual QVector3D solarViewStartPositon() const = 0;
     };
 
 }
