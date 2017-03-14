@@ -1,4 +1,4 @@
-import QtQuick 2.7
+import QtQuick 2.0
 import QtQuick.Controls 2.1
 
 //root element
@@ -33,7 +33,6 @@ Rectangle {
         width: parent.width/1.7
         height: parent.width/1.7
         smooth: true
-        mipmap: true
     }
 
     //opacity white rectangle
