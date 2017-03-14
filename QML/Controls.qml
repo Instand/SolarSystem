@@ -53,7 +53,7 @@ Column {
         toolTipVisibility: true
     }
 
-    //options button
+    //info button
     TransparentButton {
         id: infoButton
         width: root.elementWidth
