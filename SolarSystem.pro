@@ -1,14 +1,14 @@
-QT += core
-QT += gui widgets sql concurrent
+QT += core gui sql
 QT += 3dcore 3drender 3dextras 3dinput
-QT += qml quick quickcontrols2
+QT += qml quick
 QT += 3dquickextras
 
 CONFIG += c++14
+CONFIG += mobility
 
 TARGET = SolarSystem
 
-CONFIG -= app_bundle
+CONFIG += resources_big
 
 TEMPLATE = app
 
@@ -17,9 +17,6 @@ SOURCES += main.cpp \
     solarsystemdbconnector.cpp \
     solarsystemcore.cpp \
     solar3dobject.cpp \
-    viewportwidget.cpp \
-    solar3dviewport.cpp \
-    UI/solargui.cpp \
     Parser/solarparser.cpp \
     Interface/isolarsystemobject.cpp \
     Interface/ivisualsolarobject.cpp \
@@ -35,7 +32,6 @@ SOURCES += main.cpp \
     Scene/SceneObjects/planet.cpp \
     SolarCore/planetscontainer.cpp \
     SolarCore/solaranimator.cpp \
-    UI/solarcontrollerui.cpp \
     Scene/solarentity.cpp \
     UI/solarquickui.cpp \
     Scene/SceneObjects/planetring.cpp \
@@ -49,9 +45,6 @@ HEADERS += \
     solarsystemdbconnector.h \
     solarsystemcore.h \
     solar3dobject.h \
-    viewportwidget.h \
-    solar3dviewport.h \
-    UI/solargui.h \
     Parser/solarparser.h \
     Interface/isolarsystemobject.h \
     Interface/ivisualsolarobject.h \
@@ -68,7 +61,6 @@ HEADERS += \
     Scene/SceneObjects/planet.h \
     SolarCore/planetscontainer.h \
     SolarCore/solaranimator.h \
-    UI/solarcontrollerui.h \
     Scene/solarentity.h \
     UI/solarquickui.h \
     Scene/SceneObjects/planetring.h \
@@ -89,3 +81,14 @@ DISTFILES += \
     QML/SolarFrame.qml \
     QML/PlanetList.qml \
     QML/PlanetButton.qml
+
+
+#for app icon
+win32:RC_ICONS += Resources/Images/solarsystem_icon.ico
+
+#ANDROID_PACKAGE_SOURCE_DIR = $$PWD/../SolarSystemAndroidBuild2/android-build
+
+
+
+
+
