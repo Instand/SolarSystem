@@ -38,6 +38,11 @@ namespace SolarSystem {
         virtual void setSolarViewCenter(QVector3D center) override final;
         virtual QVector3D viewCenter() const override final;
         virtual QVector3D objectPosition(SolarObjects object) override final;
+        virtual QVector3D viewPositionOfObject(SolarObjects object) override final;
+        virtual QVector3D viewPosition() const override final;
+        virtual void setSolarViewPosition(QVector3D position) override final;
+        virtual float solarSystemSpeed() const override final;
+        virtual QVector3D solarViewStartPositon() const override final;
 
     private:
 
@@ -75,6 +80,9 @@ namespace SolarSystem {
 
         //zoom limit calculation
         float calculateZoomLimit(SolarObjects object, float limit);
+
+        //zoom limit calcualtion base
+        float calculateZoomLimit(SolarObjects object);
     };
 
 }

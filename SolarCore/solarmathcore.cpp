@@ -10,6 +10,7 @@ struct SolarSystem::SolarMathCore::Data
     float cameraDistance = 1.0f;
     QVector3D oldCameraPosition;
     QVector3D oldFocusedPlanetPosition;
+    QVector3D startPos;
 
     //Time variables
     int year = SolarValues::year;
@@ -440,10 +441,63 @@ QVector3D SolarSystem::SolarMathCore::objectPosition(SolarSystem::SolarObjects o
     if (object != SolarObjects::SolarSystemView)
     {
         auto* obj = planetContainer[object];
-        pos = QVector3D(obj->x(), obj->y(), obj->z());
+        pos = QVector3D(obj->transform().translation());
     }
 
     return pos;
+}
+
+QVector3D SolarSystem::SolarMathCore::viewPositionOfObject(SolarSystem::SolarObjects object)
+{
+    //IVisualSolarObject
+    auto* solarObj = planetContainer[object];
+    auto pos = QVector3D {0, 0, 0};
+
+    if (solarObj != nullptr)
+    {
+        auto solarObjPos = QVector3D(solarObj->x(), solarObj->y(), solarObj->z());
+
+        //vector on object
+        auto onTarget = solarObjPos - camera->position();
+
+        //get dist
+        auto dist = onTarget.length();
+
+        //calculate need dist to camera
+        auto limit = calculateZoomLimit(object);
+        auto needDist = dist - limit;
+
+        if (needDist <= 0)
+            needDist = limit - dist;
+
+        //get position
+        auto onTargetLimit = onTarget.normalized() * needDist;
+
+        //get need cam pos
+        pos = onTargetLimit + camera->position();
+    }
+
+    return pos;
+}
+
+QVector3D SolarSystem::SolarMathCore::viewPosition() const
+{
+    return camera->position();
+}
+
+void SolarSystem::SolarMathCore::setSolarViewPosition(QVector3D position)
+{
+    camera->setPosition(position);
+}
+
+float SolarSystem::SolarMathCore::solarSystemSpeed() const
+{
+    return data->daysPerFrameScale;
+}
+
+QVector3D SolarSystem::SolarMathCore::solarViewStartPositon() const
+{
+    return CameraSettings::defaultCameraPosition;
 }
 
 float SolarSystem::SolarMathCore::calculateUT(int h, int m, float s)
@@ -516,4 +570,16 @@ float SolarSystem::SolarMathCore::calculateZoomLimit(SolarSystem::SolarObjects o
     }
 
     return finalLimit;
+}
+
+float SolarSystem::SolarMathCore::calculateZoomLimit(SolarSystem::SolarObjects object)
+{
+    //get radius
+    auto solarObjRadius = SolarParser::parseSolarObjectRadius(object);
+    auto zoomLimit = data->planetScale * solarObjRadius * 4.0f;
+
+    //empiricic calculations
+    zoomLimit = calculateZoomLimit(object, zoomLimit);
+
+    return zoomLimit;
 }
