@@ -2,7 +2,10 @@
 #define SOLARANIMATOR_H
 
 #include <SolarCore/isolarmathcore.h>
-#include <QPropertyAnimation>
+#include <QTimer>
+
+class QPropertyAnimation;
+class QParallelAnimationGroup;
 
 namespace SolarSystem {
 
@@ -14,6 +17,8 @@ namespace SolarSystem {
         Q_PROPERTY(QDateTime solarTime READ solarTime NOTIFY solarTimeChanged)
         Q_PROPERTY(QString solarObjectString READ viewSolarObjectString NOTIFY solarObjectStringChanged)
         Q_PROPERTY(QVector3D viewCenter READ cameraViewCenter WRITE setCameraViewCenter NOTIFY cameraViewCenterChanged)
+        Q_PROPERTY(QVector3D viewPosition READ cameraPosition WRITE setCameraPositon NOTIFY cameraPositionChanged)
+        Q_PROPERTY(float solarSystemSpeed READ solarSystemSpeed WRITE setSolarSystemSpeed NOTIFY solarSystemSpeedChanged)
 
     public:
 
@@ -32,6 +37,12 @@ namespace SolarSystem {
         //get cam view center
         QVector3D cameraViewCenter() const;
 
+        //get cam position
+        QVector3D cameraPosition() const;
+
+        //get solar system speed
+        float solarSystemSpeed() const;
+
     private:
 
         //math core interface
@@ -43,13 +54,23 @@ namespace SolarSystem {
         //stores string
         QString solarObjStr = SolarObjectsValues::SolarSystem::toString;
 
-        //for camera animation
-        QVector3D currentCamViewCenter;
-
         //animation flag
         bool animated = false;
 
+        //animation for view center
         QPropertyAnimation* viewCenterAnimation;
+
+        //animation for position
+        QPropertyAnimation* viewPositionAnimation;
+
+        //group animation
+        QParallelAnimationGroup* cameraAnimation;
+
+        //speed animation
+        QPropertyAnimation* solarSpeedAnimation;
+
+        //store solar systme speed
+        float solarSpeed = 0;
 
     public slots:
 
@@ -71,10 +92,18 @@ namespace SolarSystem {
         //set camera view center
         void setCameraViewCenter(QVector3D position);
 
+        //set camera view position
+        void setCameraPositon(QVector3D position);
+
+        //set solar system speed
+        void setSolarSystemSpeed(float speed);
+
     signals:
         void solarTimeChanged(QDateTime time);
         void solarObjectStringChanged(QString str);
         void cameraViewCenterChanged(QVector3D);
+        void cameraPositionChanged(QVector3D);
+        void solarSystemSpeedChanged(float);
 
     private slots:
         void onAnimationFinished();
