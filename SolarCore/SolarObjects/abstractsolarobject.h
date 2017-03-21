@@ -55,25 +55,25 @@ namespace SolarSystem {
     protected:
 
         //main data
-        double _radius;
-        double _tilt;
-        double _N1;
-        double _N2;
-        double _i1;
-        double _i2;
-        double _w1;
-        double _w2;
-        double _a1;
-        double _a2;
-        double _e1;
-        double _e2;
-        double _M1;
-        double _M2;
-        double _period;
-        double _x;
-        double _y;
-        double _z;
-        double _roll;
+        double _radius = 0;
+        double _tilt = 0;
+        double _N1 = 0;
+        double _N2 = 0;
+        double _i1 = 0;
+        double _i2 = 0;
+        double _w1 = 0;
+        double _w2 = 0;
+        double _a1 = 0;
+        double _a2 = 0;
+        double _e1 = 0;
+        double _e2 = 0;
+        double _M1 = 0;
+        double _M2 = 0;
+        double _period = 0;
+        double _x = 0;
+        double _y = 0;
+        double _z = 0;
+        double _roll = 0;
         SolarObjects _centerOfOrbit;
         SolarObjects _objectType;
 
