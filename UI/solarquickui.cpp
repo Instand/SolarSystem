@@ -1,5 +1,5 @@
 #include "solarquickui.h"
-#include <QApplication>
+#include <QGuiApplication>
 #include <Scene/solarentity.h>
 
 SolarSystem::SolarQuickUI::SolarQuickUI(QObject* parent):
@@ -9,7 +9,7 @@ SolarSystem::SolarQuickUI::SolarQuickUI(QObject* parent):
 
     if (QOpenGLContext::openGLModuleType() == QOpenGLContext::LibGL)
     {
-        format.setVersion(3, 2);
+        format.setVersion(4, 0);
         format.setProfile(QSurfaceFormat::CoreProfile);
     }
 
