@@ -75,7 +75,7 @@ QString SolarSystem::SolarParser::parseSolarObjectToString(SolarSystem::SolarObj
         break;
 
     case SolarObjects::Pluto:
-        str = "Not realized";
+        str = SolarObjectsValues::Pluto::toString;
         break;
 
     case SolarObjects::Moon:
@@ -133,6 +133,14 @@ float SolarSystem::SolarParser::parseSolarObjectTilt(SolarSystem::SolarObjects o
         tilt = SolarObjectsValues::Neptune::tilt;
         break;
 
+    case SolarObjects::Pluto:
+        tilt = SolarObjectsValues::Pluto::tilt;
+        break;
+
+    case SolarObjects::Moon:
+        tilt = SolarObjectsValues::Moon::tilt;
+        break;
+
     default:
         break;
     }
@@ -180,6 +188,10 @@ float SolarSystem::SolarParser::parseSolarObjectRadius(SolarSystem::SolarObjects
 
     case SolarObjects::Neptune:
         radius = SolarObjectsValues::Neptune::radius;
+        break;
+
+    case SolarObjects::Pluto:
+        radius = SolarObjectsValues::Pluto::radius;
         break;
 
     case SolarObjects::Moon:
@@ -247,6 +259,11 @@ SolarSystem::SolarObjects SolarSystem::SolarParser::parsePlanetListIndex(int ind
     //Neptune
     case 9:
         object = SolarObjects::Neptune;
+        break;
+
+    //Pluto
+    case 10:
+        object = SolarObjects::Pluto;
         break;
 
     default:
