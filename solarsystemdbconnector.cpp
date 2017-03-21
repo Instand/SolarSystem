@@ -1,4 +1,5 @@
 #include "solarsystemdbconnector.h"
+#include <QGuiApplication>
 #include <Parser/solarparser.h>
 
 //pseydo name
@@ -10,7 +11,7 @@ SolarSystem::SolarSystemDBConnector::SolarSystemDBConnector(const QString &dbNam
     QObject(parent),
     _database(QSqlDatabase::addDatabase(SolarS::qSqlLite))
 {
-    _database.setDatabaseName(QApplication::applicationDirPath() + SolarS::dbFolder + dbName);
+    _database.setDatabaseName(QGuiApplication::applicationDirPath() + SolarS::dbFolder + dbName);
     _database.open();
 }
 

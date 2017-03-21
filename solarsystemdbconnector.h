@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QString>
 #include <QtSql>
-#include <QApplication>
 #include "solarsystemobject.h"
 #include "solarsystemcore.h"
 
