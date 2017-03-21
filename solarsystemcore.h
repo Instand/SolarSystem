@@ -176,10 +176,6 @@ namespace SolarSystem {
             const double radius = 694.439;
             const double tilt = 63.87;
             const double period = 25.05;
-            const double x = 0;
-            const double y = 0;
-            const double z = 0;
-            const double roll = 0;
             const QString toString = "Sun";
         }
 
@@ -200,10 +196,6 @@ namespace SolarSystem {
             const double M1 = 168.6562;
             const double M2 = 4.0923344368;
             const double period = 58.646;
-            const double x = 0;
-            const double y = 0;
-            const double z = 0;
-            const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
             const QString toString = "Mercury";
         }
@@ -225,10 +217,6 @@ namespace SolarSystem {
             const double M1 = 48.0052;
             const double M2 = 1.6021302244;
             const double period = 243.0185;
-            const double x = 0;
-            const double y = 0;
-            const double z = 0;
-            const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
             const QString toString = "Venus";
         }
@@ -250,10 +238,6 @@ namespace SolarSystem {
             const double M1 = 357.529;
             const double M2 = 0.985608;
             const double period = 0.997;
-            const double x = 0;
-            const double y = 0;
-            const double z = 0;
-            const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
             const QString toString = "Earth";
         }
@@ -275,10 +259,6 @@ namespace SolarSystem {
             const double M1 = 18.6021;
             const double M2 = 0.5240207766;
             const double period = 1.025957;
-            const double x = 0;
-            const double y = 0;
-            const double z = 0;
-            const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
             const QString toString = "Mars";
         }
@@ -300,10 +280,6 @@ namespace SolarSystem {
             const double M1 = 19.8950;
             const double M2 = 0.0830853001;
             const double period = 0.4135;
-            const double x = 0;
-            const double y = 0;
-            const double z = 0;
-            const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
             const QString toString = "Jupiter";
         }
@@ -325,10 +301,6 @@ namespace SolarSystem {
             const double M1 = 316.9670;
             const double M2 = 0.0334442282;
             const double period = 0.4395;
-            const double x = 0;
-            const double y = 0;
-            const double z = 0;
-            const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
             const QString toString = "Saturn";
         }
@@ -350,10 +322,6 @@ namespace SolarSystem {
             const double M1 = 142.5905;
             const double M2 = 0.011725806;
             const double period = 0.71833;
-            const double x = 0;
-            const double y = 0;
-            const double z = 0;
-            const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
             const QString toString = "Uranus";
         }
@@ -375,12 +343,29 @@ namespace SolarSystem {
             const double M1 = 260.2471;
             const double M2 = 0.005995147;
             const double period = 0.6713;
-            const double x = 0;
-            const double y = 0;
-            const double z = 0;
-            const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Sun;
             const QString toString = "Neptune";
+        }
+
+        //pluto values
+        namespace Pluto {
+            const double radius = 1.187;            //radius
+            const double tilt = 120.00;
+            const double N1 = 110.30347;            //longitude
+            const double N2 = 0;
+            const double i1 = 17.14175;             //inclination
+            const double i2 = 0;
+            const double w1 = 113.834;              //perihelion
+            const double w2 = 0;
+            const double a1 = 39.48168677;          //semi-major axis
+            const double a2 = 0;
+            const double e1 = 0.24880766;           //eccentricity
+            const double e2 = 0;
+            const double M1 = 14.53;                //mean anomaly
+            const double M2 = 0;
+            const double period = 6.387230;         //siderial rotation period
+            const SolarObjects centerOfOrbit = SolarObjects::Sun;
+            const QString toString = "Pluto";
         }
 
         //moon values
@@ -400,10 +385,6 @@ namespace SolarSystem {
             const double M1 = 115.3654;
             const double M2 = 13.0649929509;
             const double period = 27.321582;
-            const double x = 0;
-            const double y = 0;
-            const double z = 0;
-            const double roll = 0;
             const SolarObjects centerOfOrbit = SolarObjects::Earth;
             const QString toString = "Moon";
         }
