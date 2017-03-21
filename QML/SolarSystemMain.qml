@@ -29,7 +29,7 @@ Item {
         anchors.fill: parent
         aspects: ["render", "logic", "input"]
         focus: true
-        onAspectsChanged: solarSystem.inputSettings.setEventSource(scene)
+        onAspectsChanged: solarSystem.inputSettings.setEventSource(root)
 
         //from c++ code
         SolarEntityMain {
