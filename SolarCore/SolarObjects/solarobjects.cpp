@@ -23,10 +23,6 @@ void SolarSystem::Stars::Sun::initialize()
     _M1 = SolarValues::zero;
     _M2 = SolarValues::zero;
     _period = SolarObjectsValues::Sun::period;
-    _x = SolarObjectsValues::Sun::x;
-    _y = SolarObjectsValues::Sun::y;
-    _z = SolarObjectsValues::Sun::z;
-    _roll = SolarObjectsValues::Sun::roll;
     _centerOfOrbit = SolarObjects::Sun;
     _objectType = SolarObjects::Sun;
 }
@@ -54,10 +50,6 @@ void SolarSystem::Planets::Mercury::initialize()
     _M1 = SolarObjectsValues::Mercury::M1;
     _M2 = SolarObjectsValues::Mercury::M2;
     _period = SolarObjectsValues::Mercury::period;
-    _x = SolarObjectsValues::Mercury::x;
-    _y = SolarObjectsValues::Mercury::y;
-    _z = SolarObjectsValues::Mercury::z;
-    _roll = SolarObjectsValues::Mercury::roll;
     _centerOfOrbit = SolarObjectsValues::Mercury::centerOfOrbit;
     _objectType = SolarObjects::Mercury;
 }
@@ -85,10 +77,6 @@ void SolarSystem::Planets::Venus::initialize()
     _M1 = SolarObjectsValues::Venus::M1;
     _M2 = SolarObjectsValues::Venus::M2;
     _period = SolarObjectsValues::Venus::period;
-    _x = SolarObjectsValues::Venus::x;
-    _y = SolarObjectsValues::Venus::y;
-    _z = SolarObjectsValues::Venus::z;
-    _roll = SolarObjectsValues::Venus::roll;
     _centerOfOrbit = SolarObjectsValues::Venus::centerOfOrbit;
     _objectType = SolarObjects::Venus;
 }
@@ -116,10 +104,6 @@ void SolarSystem::Planets::Earth::initialize()
     _M1 = SolarObjectsValues::Earth::M1;
     _M2 = SolarObjectsValues::Earth::M2;
     _period = SolarObjectsValues::Earth::period;
-    _x = SolarObjectsValues::Earth::x;
-    _y = SolarObjectsValues::Earth::y;
-    _z = SolarObjectsValues::Earth::z;
-    _roll = SolarObjectsValues::Earth::roll;
     _centerOfOrbit = SolarObjectsValues::Earth::centerOfOrbit;
     _objectType = SolarObjects::Earth;
 }
@@ -147,10 +131,6 @@ void SolarSystem::Planets::Mars::initialize()
     _M1 = SolarObjectsValues::Mars::M1;
     _M2 = SolarObjectsValues::Mars::M2;
     _period = SolarObjectsValues::Mars::period;
-    _x = SolarObjectsValues::Mars::x;
-    _y = SolarObjectsValues::Mars::y;
-    _z = SolarObjectsValues::Mars::z;
-    _roll = SolarObjectsValues::Mars::roll;
     _centerOfOrbit = SolarObjectsValues::Mars::centerOfOrbit;
     _objectType = SolarObjects::Mars;
 }
@@ -178,10 +158,6 @@ void SolarSystem::Planets::Jupiter::initialize()
     _M1 = SolarObjectsValues::Jupier::M1;
     _M2 = SolarObjectsValues::Jupier::M2;
     _period = SolarObjectsValues::Jupier::period;
-    _x = SolarObjectsValues::Jupier::x;
-    _y = SolarObjectsValues::Jupier::y;
-    _z = SolarObjectsValues::Jupier::z;
-    _roll = SolarObjectsValues::Jupier::roll;
     _centerOfOrbit = SolarObjectsValues::Jupier::centerOfOrbit;
     _objectType = SolarObjects::Jupiter;
 }
@@ -209,10 +185,6 @@ void SolarSystem::Planets::Saturn::initialize()
     _M1 = SolarObjectsValues::Saturn::M1;
     _M2 = SolarObjectsValues::Saturn::M2;
     _period = SolarObjectsValues::Saturn::period;
-    _x = SolarObjectsValues::Saturn::x;
-    _y = SolarObjectsValues::Saturn::y;
-    _z = SolarObjectsValues::Saturn::z;
-    _roll = SolarObjectsValues::Saturn::roll;
     _centerOfOrbit = SolarObjectsValues::Saturn::centerOfOrbit;
     _objectType = SolarObjects::Saturn;
 }
@@ -240,10 +212,6 @@ void SolarSystem::Planets::Uranus::initialize()
     _M1 = SolarObjectsValues::Uranus::M1;
     _M2 = SolarObjectsValues::Uranus::M2;
     _period = SolarObjectsValues::Uranus::period;
-    _x = SolarObjectsValues::Uranus::x;
-    _y = SolarObjectsValues::Uranus::y;
-    _z = SolarObjectsValues::Uranus::z;
-    _roll = SolarObjectsValues::Uranus::roll;
     _centerOfOrbit = SolarObjectsValues::Uranus::centerOfOrbit;
     _objectType = SolarObjects::Uranus;
 }
@@ -271,10 +239,6 @@ void SolarSystem::Planets::Neptune::initialize()
     _M1 = SolarObjectsValues::Neptune::M1;
     _M2 = SolarObjectsValues::Neptune::M2;
     _period = SolarObjectsValues::Neptune::period;
-    _x = SolarObjectsValues::Neptune::x;
-    _y = SolarObjectsValues::Neptune::y;
-    _z = SolarObjectsValues::Neptune::z;
-    _roll = SolarObjectsValues::Neptune::roll;
     _centerOfOrbit = SolarObjectsValues::Neptune::centerOfOrbit;
     _objectType = SolarObjects::Neptune;
 }
@@ -302,10 +266,33 @@ void SolarSystem::Moons::Moon::initialize()
     _M1 = SolarObjectsValues::Moon::M1;
     _M2 = SolarObjectsValues::Moon::M2;
     _period = SolarObjectsValues::Moon::period;
-    _x = SolarObjectsValues::Moon::x;
-    _y = SolarObjectsValues::Moon::y;
-    _z = SolarObjectsValues::Moon::z;
-    _roll = SolarObjectsValues::Moon::roll;
     _centerOfOrbit = SolarObjectsValues::Moon::centerOfOrbit;
     _objectType = SolarObjects::Moon;
+}
+
+SolarSystem::Planets::Pluto::Pluto(QObject *parent):
+    AbstractSolarObject(parent)
+{
+    initialize();
+}
+
+void SolarSystem::Planets::Pluto::initialize()
+{
+    _radius = SolarObjectsValues::Pluto::radius;
+    _tilt = SolarObjectsValues::Pluto::tilt;
+    _N1 = SolarObjectsValues::Pluto::N1;
+    _N2 = SolarObjectsValues::Pluto::N2;
+    _i1 = SolarObjectsValues::Pluto::i1;
+    _i2 = SolarObjectsValues::Pluto::i2;
+    _w1 = SolarObjectsValues::Pluto::w1;
+    _w2 = SolarObjectsValues::Pluto::w2;
+    _a1 = SolarObjectsValues::Pluto::a1;
+    _a2 = SolarObjectsValues::Pluto::a2;
+    _e1 = SolarObjectsValues::Pluto::e1;
+    _e2 = SolarObjectsValues::Pluto::e2;
+    _M1 = SolarObjectsValues::Pluto::M1;
+    _M2 = SolarObjectsValues::Pluto::M2;
+    _period = SolarObjectsValues::Pluto::period;
+    _centerOfOrbit = SolarObjectsValues::Pluto::centerOfOrbit;
+    _objectType = SolarObjects::Pluto;
 }

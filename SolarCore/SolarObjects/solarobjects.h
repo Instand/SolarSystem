@@ -119,6 +119,18 @@ namespace SolarSystem {
             virtual void initialize() override;
         };
 
+        //Pluto
+        class Pluto final : public AbstractSolarObject {
+
+            Q_OBJECT
+
+        public:
+            Pluto(QObject* parent = nullptr);
+
+        protected:
+            virtual void initialize() override;
+        };
+
     }
 
     namespace Moons {
