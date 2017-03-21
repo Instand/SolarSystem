@@ -13,7 +13,6 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     //scene camera setup
     mainCamera = new Qt3DRender::QCamera(this);
     mainCamera->setProjectionType(Qt3DRender::QCameraLens::PerspectiveProjection);
-    //_camera->setAspectRatio(width() / height());
     mainCamera->setViewCenter(QVector3D(0.0f, 3.5f, 0.0f));
 
     mainCamera->setFieldOfView(CameraSettings::fieldOfView);
@@ -43,7 +42,7 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     cameraSelector = new Qt3DRender::QCameraSelector(viewPort);
 
     clearBuffers = new Qt3DRender::QClearBuffers(cameraSelector);
-    clearBuffers->setBuffers(Qt3DRender::QClearBuffers::AllBuffers);
+    clearBuffers->setBuffers(Qt3DRender::QClearBuffers::ColorDepthBuffer);
     clearBuffers->setClearColor(QColor(Qt::black));
 
     frustum = new Qt3DRender::QFrustumCulling(clearBuffers);
