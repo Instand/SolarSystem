@@ -130,6 +130,16 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
     neptuneNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/neptunenormal.jpg"));
     neptune->material().normal()->addTextureImage(neptuneNormal);
 
+    //create pluto
+    Planet* pluto = new Planet(root);
+    pluto->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/plutomap.jpg"));
+    pluto->material().setShininess(pluto->material().shininess() * shiness);
+    pluto->setTilt(SolarObjectsValues::Pluto::tilt);
+
+    Qt3DRender::QTextureImage* plutoNormal = new Qt3DRender::QTextureImage();
+    plutoNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/plutonormal.jpg"));
+    pluto->material().normal()->addTextureImage(plutoNormal);
+
     //create planet rings
     PlanetRingAlpha* saturnRing = new PlanetRingAlpha(root);
     saturnRing->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/saturnringcolortrans.png"));
@@ -161,6 +171,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
     planetContainer[SolarObjects::Saturn] = saturn;
     planetContainer[SolarObjects::Uranus] = uranus;
     planetContainer[SolarObjects::Neptune] = neptune;
+    planetContainer[SolarObjects::Pluto] = pluto;
     planetContainer[SolarObjects::SaturnRing] = saturnRing;
     planetContainer[SolarObjects::UranusRing] = uranusRing;
     planetContainer[SolarObjects::EarthCloud] = earthClouds;
