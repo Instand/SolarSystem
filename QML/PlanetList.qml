@@ -84,6 +84,13 @@ Item {
             planetImageSource: "qrc:/Resources/Images/neptune.png"
             planetNumber: 9
         }
+
+        //pluto
+        ListElement {
+            name: "Pluto"
+            planetImageSource: "qrc:/Resources/Images/pluto.png"
+            planetNumber: 10
+        }
     }
 
     //model delegate

@@ -39,6 +39,7 @@ Item {
 
     //slider frame
     SolarFrame {
+        id: speedSliderFrame
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         anchors.rightMargin: 5
@@ -57,6 +58,36 @@ Item {
                 solarSystem.animator.setSolarSpeed(value);
             }
         }
+    }
+
+    //extra speed button
+    TransparentButton {
+        id: extraButton
+        anchors.right: parent.right
+        anchors.bottom: speedSliderFrame.top
+        anchors.rightMargin: 5
+        anchors.bottomMargin: 5
+        toolTipVisibility: true
+        toolTipText: "Extra Speed"
+        radius: 4
+        height: 50
+        width: 50
+
+        Text {
+            id: extraText
+            color: "#ffffff"
+            anchors.fill: parent
+            font.family: "Comic Sans MS"
+            font.bold: true
+            font.italic: true
+            font.pointSize: 12
+            styleColor: "#ffffff"
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            text: qsTr("x") + solarSystem.animator.extraSpeed.toString()
+        }
+
+        onClicked: solarSystem.animator.changeExtraSpeed()
     }
 
     //date label
