@@ -37,6 +37,9 @@ struct SolarSystem::SolarMathCore::Data
     bool focusedScaling = false;
     int focusedMinimumScale = 20;
     double actualScale;
+    double ultraSpeed = 1.0;
+    float ultraSpeedStep = 2.0f;
+    double ultraSpeedMax = 64.0;
 
     //inner and outer radius
     double saturnRingInnerRadius = 0;
@@ -123,6 +126,10 @@ float SolarSystem::SolarMathCore::getOuterRadius(SolarSystem::SolarObjects objec
             outerRadius += SolarObjectsValues::Moon::radius;
             break;
 
+        case SolarObjects::Pluto:
+            outerRadius += SolarObjectsValues::Pluto::radius;
+            break;
+
         case SolarObjects::Sun:
             outerRadius = SolarObjectsValues::Sun::radius / 100.0;
             break;
@@ -184,6 +191,7 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
         //recalculation to 3D objects
         IVisualSolarObject* visualSolarObject = planetContainer[object];
 
+        //if interface in container
         if (visualSolarObject != nullptr)
         {
             visualSolarObject->setX(solarObj->x());
@@ -236,7 +244,7 @@ void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
         data->daysPerFrame = data->daysPerFrameScale * solarContainer.solarObject(object)->period()/100.0;
 
     //add solar time
-    data->solarTime = data->solarTime.addMSecs(data->deltaTime * 1000.0f * data->daysPerFrame);
+    data->solarTime = data->solarTime.addMSecs(data->deltaTime * 1000.0f * data->daysPerFrame * data->ultraSpeed);
 
     //save helpers values
     data->hours = data->solarTime.time().hour();
@@ -358,6 +366,7 @@ void SolarSystem::SolarMathCore::changeSolarSystemScale(float scale, bool focuse
         case SolarObjects::Saturn:
         case SolarObjects::Uranus:
         case SolarObjects::Neptune:
+        case SolarObjects::Pluto:
         case SolarObjects::Moon:
             planet.second->setR(SolarParser::parseSolarObjectRadius(planet.first) * scaling);
             break;
@@ -498,6 +507,19 @@ float SolarSystem::SolarMathCore::solarSystemSpeed() const
 QVector3D SolarSystem::SolarMathCore::solarViewStartPositon() const
 {
     return CameraSettings::defaultCameraPosition;
+}
+
+void SolarSystem::SolarMathCore::changeExtraSpeed() const
+{
+    if (data->ultraSpeed * data->ultraSpeedStep <= data->ultraSpeedMax)
+        data->ultraSpeed *= data->ultraSpeedStep;
+    else
+        data->ultraSpeed = 1.0;
+}
+
+double SolarSystem::SolarMathCore::extraSpeed() const
+{
+    return data->ultraSpeed;
 }
 
 float SolarSystem::SolarMathCore::calculateUT(int h, int m, float s)

@@ -43,6 +43,8 @@ namespace SolarSystem {
         virtual void setSolarViewPosition(QVector3D position) override final;
         virtual float solarSystemSpeed() const override final;
         virtual QVector3D solarViewStartPositon() const override final;
+        virtual void changeExtraSpeed() const override final;
+        virtual double extraSpeed() const override final;
 
     private:
 
