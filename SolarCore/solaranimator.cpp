@@ -65,6 +65,11 @@ float SolarSystem::SolarAnimator::solarSystemSpeed() const
     return _mathCore->solarSystemSpeed();
 }
 
+double SolarSystem::SolarAnimator::solarSystemExtraSpeed() const
+{
+    return _mathCore->extraSpeed();
+}
+
 void SolarSystem::SolarAnimator::setDefaultValues()
 {
     _mathCore->changeSolarObjectsSpeed(SolarSystem::SolarValues::startSpeed);
@@ -80,7 +85,7 @@ void SolarSystem::SolarAnimator::animate(float deltaTime)
     _mathCore->advanceTime(currentSolarObject);
 
     //update solar objects position
-    auto updateCount = static_cast<int>(SolarObjects::Pluto);
+    auto updateCount = static_cast<int>(SolarObjects::Pluto) + 1;
 
     for (int i = 0; i < updateCount; ++i)
         _mathCore->solarObjectPosition((SolarObjects)i);
@@ -159,7 +164,7 @@ void SolarSystem::SolarAnimator::setCameraViewCenter(int index)
 
             QTimer::singleShot(1500, Qt::TimerType::PreciseTimer, [&]{
                 solarSpeedAnimation->setPropertyName("solarSystemSpeed");
-                solarSpeedAnimation->setDuration(1000);
+                solarSpeedAnimation->setDuration(1500);
                 solarSpeedAnimation->setStartValue(0);
                 solarSpeedAnimation->setEndValue(solarSpeed);
                 solarSpeedAnimation->start();
@@ -192,6 +197,13 @@ void SolarSystem::SolarAnimator::setSolarSystemSpeed(float speed)
     _mathCore->changeSolarObjectsSpeed(speed);
 
     emit solarSystemSpeedChanged(speed);
+}
+
+void SolarSystem::SolarAnimator::changeExtraSpeed()
+{
+    _mathCore->changeExtraSpeed();
+
+    emit extraSpeedChanged(_mathCore->extraSpeed());
 }
 
 void SolarSystem::SolarAnimator::onAnimationFinished()

@@ -19,6 +19,7 @@ namespace SolarSystem {
         Q_PROPERTY(QVector3D viewCenter READ cameraViewCenter WRITE setCameraViewCenter NOTIFY cameraViewCenterChanged)
         Q_PROPERTY(QVector3D viewPosition READ cameraPosition WRITE setCameraPositon NOTIFY cameraPositionChanged)
         Q_PROPERTY(float solarSystemSpeed READ solarSystemSpeed WRITE setSolarSystemSpeed NOTIFY solarSystemSpeedChanged)
+        Q_PROPERTY(double extraSpeed READ solarSystemExtraSpeed NOTIFY extraSpeedChanged)
 
     public:
 
@@ -42,6 +43,9 @@ namespace SolarSystem {
 
         //get solar system speed
         float solarSystemSpeed() const;
+
+        //get solar extra speed
+        double solarSystemExtraSpeed() const;
 
     private:
 
@@ -98,12 +102,16 @@ namespace SolarSystem {
         //set solar system speed
         void setSolarSystemSpeed(float speed);
 
+        //change solar system extra speed
+        void changeExtraSpeed();
+
     signals:
-        void solarTimeChanged(QDateTime time);
-        void solarObjectStringChanged(QString str);
+        void solarTimeChanged(QDateTime);
+        void solarObjectStringChanged(QString);
         void cameraViewCenterChanged(QVector3D);
         void cameraPositionChanged(QVector3D);
         void solarSystemSpeedChanged(float);
+        void extraSpeedChanged(double);
 
     private slots:
         void onAnimationFinished();
