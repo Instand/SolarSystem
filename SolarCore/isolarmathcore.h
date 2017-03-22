@@ -100,6 +100,12 @@ namespace SolarSystem {
 
         //returns start cam pos
         virtual QVector3D solarViewStartPositon() const = 0;
+
+        //changes extra solar speed to x1,x2,x3,x4
+        virtual void changeExtraSpeed() const = 0;
+
+        //returns extra speed
+        virtual double extraSpeed() const = 0;
     };
 
 }
