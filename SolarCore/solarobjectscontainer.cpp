@@ -21,6 +21,7 @@ SolarSystem::SolarObjectsContainer::SolarObjectsContainer(QObject *parent):
     _solarObjects.push_back(SolarObjectsFactory::create<Planets::Saturn>());
     _solarObjects.push_back(SolarObjectsFactory::create<Planets::Neptune>());
     _solarObjects.push_back(SolarObjectsFactory::create<Planets::Uranus>());
+    _solarObjects.push_back(SolarObjectsFactory::create<Planets::Pluto>());
 
     //moons
     _solarObjects.push_back(SolarObjectsFactory::create<Moons::Moon>());
