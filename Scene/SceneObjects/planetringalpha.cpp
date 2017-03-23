@@ -32,7 +32,7 @@ SolarSystem::PlanetRingAlpha::PlanetRingAlpha(Qt3DCore::QNode* parent):
 
     _picker->setDragEnabled(false);
     _picker->setHoverEnabled(false);
-    _picker->setEnabled(true);
+    _picker->setEnabled(false);
 
     addComponent(_material);
     addComponent(_picker);
