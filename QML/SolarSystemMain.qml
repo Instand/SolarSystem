@@ -12,7 +12,7 @@ Item {
     }
 
     //version property
-    property string version: "2.1"
+    property string version: "2.3"
 
     //planet list show flag
     property bool showPlanetList: false
@@ -230,6 +230,12 @@ Item {
             buttonSize: height - 5
             visible: false
             onClicked:  {
+                if (planetsView.focusedPlanet == 0)
+                    extraButton.visible = true
+                else
+                    extraButton.visible = false;
+
+                solarSystem.animator.resetExtraSpeed();
                 solarSystem.animator.setCameraViewCenter(planetsView.focusedPlanet);
             }
         }
@@ -295,11 +301,12 @@ Item {
                   qsTr("For education only.\n") +
                   qsTr("Some features used from\nQt Planet QML example.") +
                   qsTr("\n") +
-                  qsTr("Big thanks to Qt Company") +
+                  qsTr("Some textures used from:\nhttp://www.solarsystemscope.com.") +
                   qsTr("\n") +
                   qsTr("\n") +
                   qsTr("Created by Nikita Chernyaev\naka Instand in 2017,\n") +
-                  qsTr("Source code available at:\nhttps://github.com/Instand/SolarSystem");
+                  qsTr("Source code available at:\nhttps://github.com/Instand/SolarSystem\n") +
+                  qsTr("\nThanks to Qt Company.")
         }
 
     }
