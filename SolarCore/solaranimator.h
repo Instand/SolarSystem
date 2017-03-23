@@ -105,6 +105,9 @@ namespace SolarSystem {
         //change solar system extra speed
         void changeExtraSpeed();
 
+        //reset to x1
+        void resetExtraSpeed();
+
     signals:
         void solarTimeChanged(QDateTime);
         void solarObjectStringChanged(QString);

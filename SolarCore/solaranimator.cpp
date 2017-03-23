@@ -129,6 +129,12 @@ void SolarSystem::SolarAnimator::setCameraViewCenter(int index)
             currentSolarObject = obj;
             solarObjStr = SolarParser::parseSolarObjectToString(currentSolarObject);
 
+            //save speed
+            solarSpeed = _mathCore->solarSystemSpeed();
+
+            //reset solar system speed
+            _mathCore->changeSolarObjectsSpeed(0);
+
             emit solarObjectStringChanged(solarObjStr);
 
             _mathCore->updateSolarViewZoomLimit(currentSolarObject);
@@ -158,20 +164,6 @@ void SolarSystem::SolarAnimator::setCameraViewCenter(int index)
                 viewPositionAnimation->setDuration(2500);
                 viewPositionAnimation->setEndValue(_mathCore->solarViewStartPositon());
             }
-
-            //save speed
-            solarSpeed = _mathCore->solarSystemSpeed();
-
-            QTimer::singleShot(1500, Qt::TimerType::PreciseTimer, [&]{
-                solarSpeedAnimation->setPropertyName("solarSystemSpeed");
-                solarSpeedAnimation->setDuration(1500);
-                solarSpeedAnimation->setStartValue(0);
-                solarSpeedAnimation->setEndValue(solarSpeed);
-                solarSpeedAnimation->start();
-            });
-
-            //reset soalr system speed
-            _mathCore->changeSolarObjectsSpeed(0);
 
             cameraAnimation->start();
         }
@@ -206,7 +198,22 @@ void SolarSystem::SolarAnimator::changeExtraSpeed()
     emit extraSpeedChanged(_mathCore->extraSpeed());
 }
 
+void SolarSystem::SolarAnimator::resetExtraSpeed()
+{
+    _mathCore->resetExtraSpeed();
+
+    emit extraSpeedChanged(_mathCore->extraSpeed());
+}
+
 void SolarSystem::SolarAnimator::onAnimationFinished()
 {
     animated = false;
+
+    //speed animation
+    /*solarSpeedAnimation->setPropertyName("solarSystemSpeed");
+    solarSpeedAnimation->setDuration(1000);
+    solarSpeedAnimation->setStartValue(0);
+    solarSpeedAnimation->setEndValue(solarSpeed);
+    solarSpeedAnimation->start();*/
+    _mathCore->changeSolarObjectsSpeed(solarSpeed);
 }
