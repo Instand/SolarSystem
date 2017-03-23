@@ -106,6 +106,9 @@ namespace SolarSystem {
 
         //returns extra speed
         virtual double extraSpeed() const = 0;
+
+        //resets extra speed to x1
+        virtual void resetExtraSpeed() const = 0;
     };
 
 }
