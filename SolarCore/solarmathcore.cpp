@@ -522,6 +522,11 @@ double SolarSystem::SolarMathCore::extraSpeed() const
     return data->ultraSpeed;
 }
 
+void SolarSystem::SolarMathCore::resetExtraSpeed() const
+{
+    data->ultraSpeed = 1.0;
+}
+
 float SolarSystem::SolarMathCore::calculateUT(int h, int m, float s)
 {
     return (h + m/60.0f + s/3600.0f)/24.0f;
