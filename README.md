@@ -1,4 +1,4 @@
-# SolarSystem v 2.3
+# SolarSystem v. 2.3.
 Solar system model based on Qt3D framework.
 For education only.
 Some features used from Qt Planet QML example.
