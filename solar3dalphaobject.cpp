@@ -6,14 +6,14 @@ SolarSystem::Solar3DAlphaObject::Solar3DAlphaObject(Qt3DCore::QNode *parent):
   _material(new Qt3DExtras::QNormalDiffuseMapAlphaMaterial()),
   _diffuse(new Qt3DRender::QTextureImage())
 {
-  _material->diffuse()->addTextureImage(_diffuse);
+    _material->diffuse()->addTextureImage(_diffuse);
 
-  _picker->setDragEnabled(false);
-  _picker->setHoverEnabled(false);
-  _picker->setEnabled(true);
+    _picker->setDragEnabled(false);
+    _picker->setHoverEnabled(false);
+    _picker->setEnabled(true);
 
-  addComponent(_material);
-  addComponent(_picker);
+    addComponent(_material);
+    addComponent(_picker);
 }
 
 Qt3DRender::QObjectPicker &SolarSystem::Solar3DAlphaObject::picker() const
