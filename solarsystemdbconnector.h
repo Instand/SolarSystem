@@ -14,7 +14,7 @@ namespace SolarSystem {
         Q_OBJECT
 
     private:
-        explicit SolarSystemDBConnector(const QString& dbName, QObject* parent = 0);
+        explicit SolarSystemDBConnector(QObject* parent = nullptr);
         ~SolarSystemDBConnector();
 
         //for singleton
@@ -25,7 +25,7 @@ namespace SolarSystem {
     public:
 
         //get object
-        static SolarSystemDBConnector& instance(const QString& str = "");
+        static SolarSystemDBConnector& instance();
 
         //check db state
         bool isOpen();
@@ -41,6 +41,12 @@ namespace SolarSystem {
 
         //get names of all planets
         QStringList allPlanetsNames() const;
+
+        //get names of all columns
+        QStringList columnNames() const;
+
+        //get a full info about solar object from solarObject type
+        QStringList info(SolarObjects object) const;
 
     private:
         QSqlDatabase _database;
