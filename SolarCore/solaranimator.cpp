@@ -1,4 +1,5 @@
 #include "solaranimator.h"
+#include <solarsystemdbconnector.h>
 #include <SolarCore/solarmathcore.h>
 #include <Parser/solarparser.h>
 #include <QPropertyAnimation>
@@ -70,6 +71,26 @@ double SolarSystem::SolarAnimator::solarSystemExtraSpeed() const
     return _mathCore->extraSpeed();
 }
 
+QString SolarSystem::SolarAnimator::info() const
+{
+    auto columnNames = SolarSystemDBConnector::instance().columnNames();
+    auto objParameters = SolarSystemDBConnector::instance().info(currentSolarObject);
+    auto str = QString();
+
+    if (columnNames.size() != objParameters.size())
+    {
+        qDebug() << "Something wrong in DB connector";
+        qDebug() << columnNames.size() << " != " << objParameters.size();
+        return str;
+    }
+
+    //fill info sheet
+    for (int i = 0; i < columnNames.size(); ++i)
+        str.append(columnNames[i] + ":  " + objParameters[i] + "\n\n");
+
+    return str;
+}
+
 void SolarSystem::SolarAnimator::setDefaultValues()
 {
     _mathCore->changeSolarObjectsSpeed(SolarSystem::SolarValues::startSpeed);
@@ -78,24 +99,26 @@ void SolarSystem::SolarAnimator::setDefaultValues()
 
 void SolarSystem::SolarAnimator::animate(float deltaTime)
 {
-    //set delta time to math core
-    _mathCore->setDeltaTime(deltaTime);
-
-    //calculate time
-    _mathCore->advanceTime(currentSolarObject);
-
-    //update solar objects position
-    auto updateCount = static_cast<int>(SolarObjects::Pluto) + 1;
-
-    for (int i = 0; i < updateCount; ++i)
-        _mathCore->solarObjectPosition((SolarObjects)i);
-
-    _mathCore->ringsCalculation();
-
     if (!animated)
+    {
+        //set delta time to math core
+        _mathCore->setDeltaTime(deltaTime);
+
+        //calculate time
+        _mathCore->advanceTime(currentSolarObject);
+
+        //update solar objects position
+        auto updateCount = static_cast<int>(SolarObjects::Pluto) + 1;
+
+        for (int i = 0; i < updateCount; ++i)
+            _mathCore->solarObjectPosition((SolarObjects)i);
+
+        _mathCore->ringsCalculation();
+
         _mathCore->updateSolarView(currentSolarObject);
 
-    emit solarTimeChanged(_mathCore->getTime());
+        emit solarTimeChanged(_mathCore->getTime());
+    }
 }
 
 void SolarSystem::SolarAnimator::setSolarSpeed(int value)
@@ -131,6 +154,10 @@ void SolarSystem::SolarAnimator::setCameraViewCenter(int index)
 
             //save speed
             solarSpeed = _mathCore->solarSystemSpeed();
+
+            //stop speed animation
+            if (solarSpeedAnimation->state() == QAbstractAnimation::State::Running)
+                solarSpeedAnimation->stop();
 
             //reset solar system speed
             _mathCore->changeSolarObjectsSpeed(0);
@@ -210,10 +237,10 @@ void SolarSystem::SolarAnimator::onAnimationFinished()
     animated = false;
 
     //speed animation
-    /*solarSpeedAnimation->setPropertyName("solarSystemSpeed");
+    solarSpeedAnimation->setPropertyName("solarSystemSpeed");
     solarSpeedAnimation->setDuration(1000);
     solarSpeedAnimation->setStartValue(0);
     solarSpeedAnimation->setEndValue(solarSpeed);
-    solarSpeedAnimation->start();*/
-    _mathCore->changeSolarObjectsSpeed(solarSpeed);
+    solarSpeedAnimation->start();
+    //_mathCore->changeSolarObjectsSpeed(solarSpeed);
 }
