@@ -29,6 +29,7 @@ Item {
         anchors.fill: parent
         aspects: ["render", "logic", "input"]
         focus: true
+        cameraAspectRatioMode: Scene3D.AutomaticAspectRatio
         onAspectsChanged: solarSystem.inputSettings.setEventSource(root)
 
         //from c++ code
@@ -58,6 +59,36 @@ Item {
                 solarSystem.animator.setSolarSpeed(value);
             }
         }
+    }
+
+    //take a solar screenshot
+    TransparentButton {
+        id: screenButton
+        anchors.right: parent.right
+        anchors.top: speedSliderFrame.bottom
+        anchors.topMargin: 5
+        anchors.rightMargin: 5
+        radius: 4
+        height: 50
+        width: 50
+        toolTipVisibility: true
+        toolTipText: "Screenshot"
+        source: "qrc:/Resources/Images/screen_icon.png"
+        onClicked: {
+            root.grabToImage(function(result) {
+                result.saveToFile("SolarSystemScreen.png");
+            });
+        }
+    }
+
+    //solar object info
+    Info {
+        id: infoText
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: speedSliderFrame.left
+        anchors.rightMargin: 5
+        width: 600
+        height: speedSliderFrame.height + 100
     }
 
     //extra speed button
@@ -230,13 +261,20 @@ Item {
             buttonSize: height - 5
             visible: false
             onClicked:  {
-                if (planetsView.focusedPlanet == 0)
+                if (planetsView.focusedPlanet == 0) {
                     extraButton.visible = true
-                else
+                    infoText.unshowInfo.start()
+                }
+                else {
                     extraButton.visible = false;
+                    infoText.showInfo.start()
+                }
 
                 solarSystem.animator.resetExtraSpeed();
                 solarSystem.animator.setCameraViewCenter(planetsView.focusedPlanet);
+
+                if (planetsView.focusedPlanet != 0)
+                    infoText.text = solarSystem.animator.info;
             }
         }
     }
