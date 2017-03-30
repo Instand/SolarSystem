@@ -10,6 +10,6 @@ aka Instand in 2017
 
 Thanks to Qt Company.
 
-![alt tag](http://ipic.su/img/img7/fs/SolarSystemScreenshot.1490272721.png)
+![alt tag](http://ipic.su/img/img7/fs/SolarSystemScreen.1490859421.png)
 
-Binary available at https://ru.files.fm/u/fc7twcfa
+Binary available at https://ru.files.fm/u/xfaumr4y
