@@ -592,6 +592,10 @@ float SolarSystem::SolarMathCore::calculateZoomLimit(SolarSystem::SolarObjects o
         finalLimit /= 1.5f;
         break;
 
+    case SolarObjects::Pluto:
+        finalLimit *= 1.5f;
+        break;
+
     default:
         break;
     }
