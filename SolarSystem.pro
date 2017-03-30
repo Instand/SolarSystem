@@ -80,7 +80,8 @@ DISTFILES += \
     QML/Controls.qml \
     QML/SolarFrame.qml \
     QML/PlanetList.qml \
-    QML/PlanetButton.qml
+    QML/PlanetButton.qml \
+    QML/Info.qml
 
 
 #for app icon
