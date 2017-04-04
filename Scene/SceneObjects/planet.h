@@ -2,6 +2,7 @@
 #define PLANET_H
 
 #include <solar3dobject.h>
+#include <Qt3DRender/QTextureWrapMode>
 
 namespace SolarSystem {
 
@@ -15,6 +16,11 @@ namespace SolarSystem {
 
     protected:
         virtual void update(float deltaTime) override;
+
+    private:
+
+        //texture setup
+        Qt3DRender::QTextureWrapMode wrapMode;
     };
 }
 

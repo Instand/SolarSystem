@@ -7,6 +7,10 @@ SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
 {
     Qt3DExtras::QSphereGeometry* sphereGeometry = new Qt3DExtras::QSphereGeometry();
 
+    wrapMode.setX(Qt3DRender::QTextureWrapMode::WrapMode::Repeat);
+    wrapMode.setY(Qt3DRender::QTextureWrapMode::WrapMode::Repeat);
+    wrapMode.setZ(Qt3DRender::QTextureWrapMode::WrapMode::Repeat);
+
     //setup geometry
     sphereGeometry->setRadius(PlanetSettings::radius);
     sphereGeometry->setGenerateTangents(PlanetSettings::generateTangents);
@@ -15,14 +19,15 @@ SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
 
     mesh().setGeometry(sphereGeometry);
 
+    _material->diffuse()->setWrapMode(wrapMode);
     _material->diffuse()->setGenerateMipMaps(true);
     _material->diffuse()->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
     _material->diffuse()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
     _material->diffuse()->setMaximumAnisotropy(16.0f);
 
-    _material->normal()->setGenerateMipMaps(true);
+    _material->normal()->setWrapMode(wrapMode);
     _material->normal()->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
-    _material->normal()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
+    _material->normal()->setMinificationFilter(Qt3DRender::QAbstractTexture::Linear);
     _material->normal()->setMaximumAnisotropy(16.0f);
 }
 
