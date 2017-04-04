@@ -2,6 +2,7 @@
 #define SOLARSYSTEMCORE_H
 
 #include <QString>
+#include <QStringList>
 #include <QVector3D>
 #include <vector>
 
@@ -148,6 +149,11 @@ namespace SolarSystem {
         const bool generateTangents = true;
         const int rings = 64;
         const int slices = 64;
+    }
+
+    //params for DB fields
+    namespace DbParams {
+        const QStringList paramList = {"", "", "km/s", "kg", "km", "K", "m/s2", "km3", "d", "d", ""};
     }
 
     //planets math values
