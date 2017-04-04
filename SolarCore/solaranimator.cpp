@@ -75,9 +75,11 @@ QString SolarSystem::SolarAnimator::info() const
 {
     auto columnNames = SolarSystemDBConnector::instance().columnNames();
     auto objParameters = SolarSystemDBConnector::instance().info(currentSolarObject);
+    auto dbFieldsParamsCount = DbParams::paramList.size();
     auto str = QString();
 
-    if (columnNames.size() != objParameters.size())
+    if (columnNames.size() != objParameters.size() || columnNames.size() != dbFieldsParamsCount
+            || dbFieldsParamsCount != objParameters.size())
     {
         qDebug() << "Something wrong in DB connector";
         qDebug() << columnNames.size() << " != " << objParameters.size();
@@ -86,7 +88,7 @@ QString SolarSystem::SolarAnimator::info() const
 
     //fill info sheet
     for (int i = 0; i < columnNames.size(); ++i)
-        str.append(columnNames[i] + ":  " + objParameters[i] + "\n\n");
+        str.append(columnNames[i] + ":  " + objParameters[i] + " " + DbParams::paramList[i] + "\n\n");
 
     return str;
 }
