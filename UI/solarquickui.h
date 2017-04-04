@@ -3,10 +3,7 @@
 
 #include <QQuickView>
 #include <QOpenGLContext>
-#include <Qt3DQuick/QQmlAspectEngine>
-#include <QGuiApplication>
 #include <QQmlEngine>
-#include <QQmlContext>
 
 namespace SolarSystem {
 
