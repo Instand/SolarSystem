@@ -12,4 +12,4 @@ Thanks to Qt Company.
 
 ![alt tag](http://ipic.su/img/img7/fs/SolarSystemScreen.1490859421.png)
 
-Binary available at https://ru.files.fm/u/xfaumr4y
+Binary for Windows are available at https://ru.files.fm/u/xfaumr4y
