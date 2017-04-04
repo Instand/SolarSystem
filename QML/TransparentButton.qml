@@ -6,6 +6,7 @@ Rectangle {
     id: root
     border.color: "white"
     color: "transparent"
+    antialiasing: true
 
     //source ref
     property alias source: image.source
@@ -33,6 +34,7 @@ Rectangle {
         width: parent.width/1.7
         height: parent.width/1.7
         smooth: true
+        antialiasing: true
     }
 
     //opacity white rectangle
