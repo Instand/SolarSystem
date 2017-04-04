@@ -1,6 +1,6 @@
 #include "planetscontainer.h"
 #include <Scene/SceneObjects/planet.h>
-#include <Scene/SceneObjects/planetringalpha.h>
+#include <Scene/SceneObjects/planetring.h>
 #include <Scene/SceneObjects/earthcloud.h>
 #include <Qt3DRender/QPointLight>
 #include <Qt3DRender/QPickEvent>
@@ -115,6 +115,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
     uranus->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/uranusmap.jpg"));
     uranus->material().setShininess(uranus->material().shininess() * shiness);
     uranus->setTilt(SolarObjectsValues::Uranus::tilt);
+    //uranus->setEnabled(false);
 
     Qt3DRender::QTextureImage* uranusNormal = new Qt3DRender::QTextureImage();
     uranusNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/uranusnormal.jpg"));
@@ -141,7 +142,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
     pluto->material().normal()->addTextureImage(plutoNormal);
 
     //create planet rings
-    PlanetRingAlpha* saturnRing = new PlanetRingAlpha(root);
+    PlanetRing* saturnRing = new PlanetRing(root);
     saturnRing->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/saturnringcolortrans.png"));
     saturnRing->setTilt(SolarObjectsValues::Saturn::tilt);
 
@@ -149,7 +150,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode *root)
     saturnRingNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/saturnringcolortransnormal.png"));
     saturnRing->material().normal()->addTextureImage(saturnRingNormal);
 
-    PlanetRingAlpha* uranusRing = new PlanetRingAlpha(root);
+    PlanetRing* uranusRing = new PlanetRing(root);
     uranusRing->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/uranusringcolortrans.png"));
     uranusRing->setTilt(SolarObjectsValues::Uranus::tilt);
 
