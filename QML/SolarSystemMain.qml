@@ -344,7 +344,7 @@ Item {
                   qsTr("\n") +
                   qsTr("Created by Nikita Chernyaev\naka Instand in 2017,\n") +
                   qsTr("Source code available at:\nhttps://github.com/Instand/SolarSystem\n") +
-                  qsTr("\nThanks to Qt Company.")
+                  qsTr("\nThanks to Emerald for advises\nand Qt Company for Qt.")
         }
 
     }
