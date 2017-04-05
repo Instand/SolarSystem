@@ -168,10 +168,7 @@ void SolarSystem::CameraController::onFrameAction(float deltaTime)
 void SolarSystem::CameraController::changeViewCenter(QVector3D center)
 {
     if (viewCamera != nullptr)
-    {
         viewCamera->setViewCenter(center);
-        //viewCamera->setPosition(center);
-    }
     else
         qDebug() << "Camera is null";
 }
