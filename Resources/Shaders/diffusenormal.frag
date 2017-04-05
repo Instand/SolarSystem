@@ -38,6 +38,7 @@ void dbModel(const in vec3 norm, const in vec2 flipYTexCoord, out vec3 ambientAn
 
     // Calculate the specular highlight contribution
     spec = vec3(0.0);
+
     if (sDotN > 0.0)
         spec = (lightIntensity * ks) * pow(max(dot(r, viewDir), 0.0), shininess);
 }
