@@ -88,7 +88,8 @@ DISTFILES += \
     Resources/Shaders/shadowmap.frag \
     Resources/Shaders/diffusenormal.vert \
     Resources/Shaders/diffusenormal.frag \
-    Resources/Shaders/diffuseshadow.vert
+    Resources/Shaders/diffuseshadow.vert \
+    Resources/Shaders/diffuseshadow.frag
 
 
 #for app icon
