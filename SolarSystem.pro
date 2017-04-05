@@ -82,7 +82,8 @@ DISTFILES += \
     QML/PlanetList.qml \
     QML/PlanetButton.qml \
     QML/Info.qml \
-    Resources/Shaders/shadowmap.vert
+    Resources/Shaders/shadowmap.vert \
+    Resources/Shaders/shadowmap.frag
 
 
 #for app icon
