@@ -84,7 +84,8 @@ DISTFILES += \
     QML/Info.qml \
     Resources/Shaders/shadowmap.vert \
     Resources/Shaders/shadowmap.frag \
-    Resources/Shaders/diffusenormal.vert
+    Resources/Shaders/diffusenormal.vert \
+    Resources/Shaders/diffusenormal.frag
 
 
 #for app icon
