@@ -38,7 +38,8 @@ SOURCES += main.cpp \
     SolarCore/cameracontroller.cpp \
     solar3dalphaobject.cpp \
     Scene/SceneObjects/earthcloud.cpp \
-    SolarCore/SolarRender/solarlight.cpp
+    SolarCore/SolarRender/solarlight.cpp \
+    SolarCore/SolarRender/solarshadoweffect.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -67,7 +68,8 @@ HEADERS += \
     SolarCore/cameracontroller.h \
     solar3dalphaobject.h \
     Scene/SceneObjects/earthcloud.h \
-    SolarCore/SolarRender/solarlight.h
+    SolarCore/SolarRender/solarlight.h \
+    SolarCore/SolarRender/solarshadoweffect.h
 
 RESOURCES += \
     res.qrc
@@ -85,7 +87,8 @@ DISTFILES += \
     Resources/Shaders/shadowmap.vert \
     Resources/Shaders/shadowmap.frag \
     Resources/Shaders/diffusenormal.vert \
-    Resources/Shaders/diffusenormal.frag
+    Resources/Shaders/diffusenormal.frag \
+    Resources/Shaders/diffuseshadow.vert
 
 
 #for app icon
