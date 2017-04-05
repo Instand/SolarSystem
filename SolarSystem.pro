@@ -81,7 +81,8 @@ DISTFILES += \
     QML/SolarFrame.qml \
     QML/PlanetList.qml \
     QML/PlanetButton.qml \
-    QML/Info.qml
+    QML/Info.qml \
+    Resources/Shaders/shadowmap.vert
 
 
 #for app icon
