@@ -83,7 +83,8 @@ DISTFILES += \
     QML/PlanetButton.qml \
     QML/Info.qml \
     Resources/Shaders/shadowmap.vert \
-    Resources/Shaders/shadowmap.frag
+    Resources/Shaders/shadowmap.frag \
+    Resources/Shaders/diffusenormal.vert
 
 
 #for app icon
