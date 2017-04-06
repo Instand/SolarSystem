@@ -40,7 +40,8 @@ SOURCES += main.cpp \
     Scene/SceneObjects/earthcloud.cpp \
     SolarCore/SolarRender/solarlight.cpp \
     SolarCore/SolarRender/solarshadoweffect.cpp \
-    SolarCore/SolarRender/solarobjecteffect.cpp
+    SolarCore/SolarRender/solarobjecteffect.cpp \
+    SolarCore/SolarRender/solarmaterial.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -71,7 +72,8 @@ HEADERS += \
     Scene/SceneObjects/earthcloud.h \
     SolarCore/SolarRender/solarlight.h \
     SolarCore/SolarRender/solarshadoweffect.h \
-    SolarCore/SolarRender/solarobjecteffect.h
+    SolarCore/SolarRender/solarobjecteffect.h \
+    SolarCore/SolarRender/solarmaterial.h
 
 RESOURCES += \
     res.qrc
