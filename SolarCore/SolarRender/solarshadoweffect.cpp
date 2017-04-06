@@ -124,8 +124,8 @@ void SolarSystem::SolarShadowEffect::initialization()
         auto* api = openglTechnique->graphicsApiFilter();
         api->setApi(Qt3DRender::QGraphicsApiFilter::OpenGL);
         api->setProfile(Qt3DRender::QGraphicsApiFilter::CoreProfile);
-        api->setMajorVersion(3);
-        api->setMinorVersion(2);
+        api->setMajorVersion(4);
+        api->setMinorVersion(0);
 
         openglTechnique->addFilterKey(desktopKey);
         openglTechnique->addRenderPass(shadowPass);
