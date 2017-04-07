@@ -41,7 +41,9 @@ SOURCES += main.cpp \
     SolarCore/SolarRender/solarlight.cpp \
     SolarCore/SolarRender/solarshadoweffect.cpp \
     SolarCore/SolarRender/solarobjecteffect.cpp \
-    SolarCore/SolarRender/solarmaterial.cpp
+    SolarCore/SolarRender/solarmaterial.cpp \
+    SolarCore/SolarRender/solarframegraph.cpp \
+    SolarCore/SolarRender/solarforwardframegraph.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -73,7 +75,9 @@ HEADERS += \
     SolarCore/SolarRender/solarlight.h \
     SolarCore/SolarRender/solarshadoweffect.h \
     SolarCore/SolarRender/solarobjecteffect.h \
-    SolarCore/SolarRender/solarmaterial.h
+    SolarCore/SolarRender/solarmaterial.h \
+    SolarCore/SolarRender/solarframegraph.h \
+    SolarCore/SolarRender/solarforwardframegraph.h
 
 RESOURCES += \
     res.qrc
