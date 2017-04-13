@@ -1,30 +1,21 @@
 #include "solarlight.h"
-#include <Qt3DCore/QTransform>
 #include <Qt3DRender/QCamera>
 #include <solarsystemcore.h>
 
 SolarSystem::SolarLight::SolarLight(Qt3DCore::QNode* parent):
     Qt3DCore::QEntity(parent),
-    transformation(new Qt3DCore::QTransform),
     lightCamera(new Qt3DRender::QCamera(this)),
     _intensity(1.0f, 1.0f, 1.0f)
 {
-    transformation->setTranslation(QVector3D(0, 0, 0));
-
     //setup camera
+    lightCamera->setObjectName("lightCameraLens");
     lightCamera->setProjectionType(Qt3DRender::QCameraLens::ProjectionType::PerspectiveProjection);
-    lightCamera->setFieldOfView(30);
+    lightCamera->setFieldOfView(45);
     lightCamera->setNearPlane(CameraSettings::nearPlane * 0.0001f);
-    lightCamera->setFarPlane(CameraSettings::farPlane);
+    lightCamera->setFarPlane(10000000.0f);
+    lightCamera->setPosition(QVector3D(0, 0, 0));
     lightCamera->setViewCenter(QVector3D(0, 0, 0));
     lightCamera->setUpVector(CameraSettings::defaultUp);
-
-    addComponent(transformation);
-}
-
-Qt3DCore::QTransform* SolarSystem::SolarLight::transform() const
-{
-    return transformation;
 }
 
 Qt3DRender::QCamera* SolarSystem::SolarLight::camera() const
@@ -42,7 +33,7 @@ QVector3D SolarSystem::SolarLight::intensity() const
     return _intensity;
 }
 
-void SolarSystem::SolarLight::setIntensity(QVector3D intensity)
+void SolarSystem::SolarLight::setIntensity(const QVector3D &intensity)
 {
     _intensity = intensity;
 }
