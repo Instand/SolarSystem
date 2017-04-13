@@ -43,7 +43,8 @@ SOURCES += main.cpp \
     SolarCore/SolarRender/solarobjecteffect.cpp \
     SolarCore/SolarRender/solarmaterial.cpp \
     SolarCore/SolarRender/solarframegraph.cpp \
-    SolarCore/SolarRender/solarforwardframegraph.cpp
+    SolarCore/SolarRender/solarforwardframegraph.cpp \
+    SolarCore/SolarRender/solardiffuseeffect.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -77,7 +78,8 @@ HEADERS += \
     SolarCore/SolarRender/solarobjecteffect.h \
     SolarCore/SolarRender/solarmaterial.h \
     SolarCore/SolarRender/solarframegraph.h \
-    SolarCore/SolarRender/solarforwardframegraph.h
+    SolarCore/SolarRender/solarforwardframegraph.h \
+    SolarCore/SolarRender/solardiffuseeffect.h
 
 RESOURCES += \
     res.qrc
@@ -97,7 +99,11 @@ DISTFILES += \
     Resources/Shaders/diffusenormal.vert \
     Resources/Shaders/diffusenormal.frag \
     Resources/Shaders/diffuseshadow.vert \
-    Resources/Shaders/diffuseshadow.frag
+    Resources/Shaders/diffuseshadow.frag \
+    Resources/Shaders/diffuse.vert \
+    Resources/Shaders/diffuse.frag \
+    Resources/Shaders/skybox.vert \
+    Resources/Shaders/skybox.frag
 
 
 #for app icon
