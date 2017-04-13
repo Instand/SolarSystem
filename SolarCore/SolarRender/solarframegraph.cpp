@@ -79,6 +79,7 @@ SolarSystem::SolarFrameGraph::SolarFrameGraph(Qt3DCore::QNode* parent):
     //buffer
     auto* forwardClearBuffer = new Qt3DRender::QClearBuffers(renderPassForwardFilter);
     forwardClearBuffer->setBuffers(Qt3DRender::QClearBuffers::ColorDepthBuffer);
+
     viewCameraSelector = new Qt3DRender::QCameraSelector(forwardClearBuffer);
 
     setActiveFrameGraph(viewPort);
