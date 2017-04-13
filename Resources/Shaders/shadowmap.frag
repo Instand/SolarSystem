@@ -1,10 +1,8 @@
 #version 150 core
 
-precision mediump float;
+out float fragmentdepth;
 
-out float fragmentDepth;
-
-void main(void)
+void main()
 {
-    fragmentDepth = gl_FragCoord.z;
+    fragmentdepth = gl_FragCoord.z;
 }
