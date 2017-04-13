@@ -6,7 +6,7 @@
 #include <Qt3DRender/QPolygonOffset>
 #include <Qt3DRender/QDepthTest>
 #include <Qt3DRender/QGraphicsApiFilter>
-#include <Qt3DCore/QTransform>
+#include <Qt3DRender/QCamera>
 
 SolarSystem::SolarShadowEffect::SolarShadowEffect(Qt3DCore::QNode* parent):
     Qt3DRender::QEffect(parent)
@@ -44,7 +44,7 @@ void SolarSystem::SolarShadowEffect::initialization()
 
         auto* lightPos = new Qt3DRender::QParameter(this);
         lightPos->setName("lightPosition");
-        lightPos->setValue(lightObject->transform()->translation());
+        lightPos->setValue(lightObject->camera()->position());
 
         auto* lightInt = new Qt3DRender::QParameter(this);
         lightInt->setName("lightIntensity");
@@ -124,8 +124,8 @@ void SolarSystem::SolarShadowEffect::initialization()
         auto* api = openglTechnique->graphicsApiFilter();
         api->setApi(Qt3DRender::QGraphicsApiFilter::OpenGL);
         api->setProfile(Qt3DRender::QGraphicsApiFilter::CoreProfile);
-        api->setMajorVersion(4);
-        api->setMinorVersion(0);
+        api->setMajorVersion(3);
+        api->setMinorVersion(2);
 
         openglTechnique->addFilterKey(desktopKey);
         openglTechnique->addRenderPass(shadowPass);
