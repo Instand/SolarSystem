@@ -4,7 +4,7 @@
 #include <Qt3DRender/QTechnique>
 #include <Qt3DRender/QShaderProgram>
 #include <Qt3DRender/QGraphicsApiFilter>
-#include <Qt3DCore/QTransform>
+#include <Qt3DRender/QCamera>
 #include <QUrl>
 
 SolarSystem::SolarObjectEffect::SolarObjectEffect(Qt3DCore::QNode* parent):
@@ -35,7 +35,7 @@ void SolarSystem::SolarObjectEffect::initialization()
 
         auto* lightPos = new Qt3DRender::QParameter(this);
         lightPos->setName("lightPosition");
-        lightPos->setValue(lightObject->transform()->translation());
+        lightPos->setValue(lightObject->camera()->position());
 
         auto* lightInt = new Qt3DRender::QParameter(this);
         lightInt->setName("lightIntensity");
@@ -79,8 +79,8 @@ void SolarSystem::SolarObjectEffect::initialization()
         auto* api = openglTechnique->graphicsApiFilter();
         api->setApi(Qt3DRender::QGraphicsApiFilter::OpenGL);
         api->setProfile(Qt3DRender::QGraphicsApiFilter::CoreProfile);
-        api->setMajorVersion(4);
-        api->setMinorVersion(0);
+        api->setMajorVersion(3);
+        api->setMinorVersion(2);
 
         openglTechnique->addFilterKey(desktopKey);
         openglTechnique->addRenderPass(glPass);
