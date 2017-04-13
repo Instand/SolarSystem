@@ -24,7 +24,6 @@ namespace SolarSystem {
         QColor specularColor() const;
         QString diffuseTextureSource() const;
         QString normalTextureSource() const;
-        QString specularTextureSource() const;
         float shininess() const;
         float textureScale() const;
         float opacity() const;
@@ -33,7 +32,6 @@ namespace SolarSystem {
         void setAmbient(QColor color);
         void setSpecular(QColor color);
         void setDiffuseTextureSource(const QString& source);
-        void setSpecularTextureSource(const QString& source);
         void setNormalTextureSource(const QString& source);
         void setSnininess(float value);
         void setTextureScale(float scale);
@@ -46,7 +44,6 @@ namespace SolarSystem {
         Qt3DRender::QParameter* specularColorParam;
         Qt3DRender::QParameter* shininessParam;
         Qt3DRender::QParameter* diffuseTextureParam;
-        Qt3DRender::QParameter* specularTextureParam;
         Qt3DRender::QParameter* normalTextureParam;
         Qt3DRender::QParameter* textureScaleParam;
         Qt3DRender::QParameter* opacityParam;
@@ -57,17 +54,14 @@ namespace SolarSystem {
         float _shininess = 150.0f;
         QString _diffuseTextureSource;
         QString _normalTextureSource;
-        QString _specularTextureSource;
         float _textureScale = 1.0f;
         float _opacity = 1.0f;
 
         //textures
         Qt3DRender::QTexture2D* diffuseTexture2D;
         Qt3DRender::QTexture2D* normalTexture2D;
-        Qt3DRender::QTexture2D* specularTexture2D;
         Qt3DRender::QTextureImage* diffuseImage;
         Qt3DRender::QTextureImage* normalImage;
-        Qt3DRender::QTextureImage* specularImage;
 
     };
 }

@@ -56,22 +56,13 @@ SolarSystem::SolarMaterial::SolarMaterial(Qt3DCore::QNode* parent):
     normalTexture2D->addTextureImage(normalImage);
     normalTextureParam = new Qt3DRender::QParameter("normalTexture", normalTexture2D, this);
 
-    //create specular texture
-    specularTexture2D = new Qt3DRender::QTexture2D();
-    specularTexture2D->setMinificationFilter(Qt3DRender::QAbstractTexture::Linear);
-    specularTexture2D->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
-    specularTexture2D->wrapMode()->setX(Qt3DRender::QTextureWrapMode::Repeat);
-    specularTexture2D->wrapMode()->setY(Qt3DRender::QTextureWrapMode::Repeat);
-    specularTexture2D->setGenerateMipMaps(true);
-    specularTexture2D->setMaximumAnisotropy(16.0f);
-
-    //create normal image
-    specularImage = new Qt3DRender::QTextureImage(specularTexture2D);
-    specularImage->setSource(_specularTextureSource);
-
-    //create specular parameter
-    specularTexture2D->addTextureImage(specularImage);
-    specularTextureParam = new Qt3DRender::QParameter("specularTexture", specularTexture2D, this);
+    addParameter(ambientColorParam);
+    addParameter(specularColorParam);
+    addParameter(shininessParam);
+    addParameter(textureScaleParam);
+    addParameter(opacityParam);
+    addParameter(diffuseTextureParam);
+    addParameter(normalTextureParam);
 }
 
 QColor SolarSystem::SolarMaterial::ambientColor() const
@@ -92,11 +83,6 @@ QString SolarSystem::SolarMaterial::diffuseTextureSource() const
 QString SolarSystem::SolarMaterial::normalTextureSource() const
 {
     return _normalTextureSource;
-}
-
-QString SolarSystem::SolarMaterial::specularTextureSource() const
-{
-    return _specularTextureSource;
 }
 
 float SolarSystem::SolarMaterial::shininess() const
@@ -129,19 +115,13 @@ void SolarSystem::SolarMaterial::setSpecular(QColor color)
 void SolarSystem::SolarMaterial::setDiffuseTextureSource(const QString& source)
 {
     _diffuseTextureSource = source;
-    diffuseImage->setSource(source);
-}
-
-void SolarSystem::SolarMaterial::setSpecularTextureSource(const QString& source)
-{
-    _specularTextureSource = source;
-    specularImage->setSource(source);
+    diffuseImage->setSource(QUrl::fromLocalFile(source));
 }
 
 void SolarSystem::SolarMaterial::setNormalTextureSource(const QString &source)
 {
     _normalTextureSource = source;
-    normalImage->setSource(source);
+    normalImage->setSource(QUrl::fromLocalFile(source));
 }
 
 void SolarSystem::SolarMaterial::setSnininess(float value)
