@@ -1,15 +1,16 @@
-#version 300 core
+#version 330 core
 
-uniform mat4 viewMatrix;
-
+//light
 uniform vec3 lightPosition;
 uniform vec3 lightIntensity;
 
-uniform vec3 ka;            // Ambient reflectivity
-uniform vec3 ks;            // Specular reflectivity
-uniform float shininess;    // Specular shininess factor
-uniform float opacity;      // Alpha channel
+//material color data
+uniform vec3 ambient;
+uniform vec3 specular;
+uniform float shininess;
+uniform float opacity;
 
+//textures
 uniform sampler2D diffuseTexture;
 uniform sampler2D normalTexture;
 
@@ -21,43 +22,32 @@ out vec4 fragColor;
 
 void dbModel(const in vec3 norm, const in vec2 flipYTexCoord, out vec3 ambientAndDiff, out vec3 spec)
 {
-    // Reflection of light direction about normal
     vec3 r = reflect(-lightDir, norm);
-
     vec3 diffuseColor = texture2D(diffuseTexture, flipYTexCoord).rgb;
-
-    // Calculate the ambient contribution
-    vec3 ambient = lightIntensity * ka * diffuseColor;
-
-    // Calculate the diffuse contribution
+    vec3 kAmbient = lightIntensity * ambient * diffuseColor;
     float sDotN = max(dot(lightDir, norm), 0.0);
     vec3 diffuse = lightIntensity * diffuseColor * sDotN;
 
-    // Sum the ambient and diffuse contributions
-    ambientAndDiff = ambient + diffuse;
+    ambientAndDiff = kAmbient + diffuse;
 
-    // Calculate the specular highlight contribution
     spec = vec3(0.0);
 
     if (sDotN > 0.0)
-        spec = (lightIntensity * ks) * pow(max(dot(r, viewDir), 0.0), shininess);
+        spec = (lightIntensity * specular) * pow(max(dot(r, viewDir), 0.0), shininess);
 }
 
 void main()
 {
     vec2 flipYTexCoord = texCoord;
-    flipYTexCoord.y = 1.0 - texCoord.y;
+    flipYTexCoord.x = 1.0 - texCoord.x;
 
-    // Sample the textures at the interpolated texCoords
     vec4 normal = 2.0 * texture2D(normalTexture, flipYTexCoord) - vec4(1.0);
 
-    vec3 result = lightIntensity * ka * texture2D(diffuseTexture, flipYTexCoord).rgb;
+    vec3 result = lightIntensity * ambient * texture2D(diffuseTexture, flipYTexCoord).rgb;
 
-    // Calculate the lighting model, keeping the specular component separate
     vec3 ambientAndDiff, spec;
     dbModel(normalize(normal.xyz), flipYTexCoord, ambientAndDiff, spec);
     result = ambientAndDiff + spec;
 
-    // Combine spec with ambient+diffuse for final fragment color
     fragColor = vec4(result, opacity);
 }
