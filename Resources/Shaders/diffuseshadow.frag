@@ -1,17 +1,17 @@
-#version 300 core
+#version 330 core
 
 uniform mat4 viewMatrix;
 
 uniform vec3 lightPosition;
 uniform vec3 lightIntensity;
 
-uniform vec3 ka;            // Ambient reflectivity
-uniform vec3 ks;            // Specular reflectivity
-uniform float shininess;    // Specular shininess factor
-uniform float opacity;      // Alpha channel
+//material data
+uniform vec3 ambient;
+uniform vec3 specular;
+uniform float shininess;
+uniform float opacity;
 
 uniform sampler2D diffuseTexture;
-
 uniform sampler2DShadow shadowMapTexture;
 
 in vec4 positionInLightSpace;
@@ -24,30 +24,18 @@ out vec4 fragColor;
 
 vec3 dModel(const in vec2 flipYTexCoord)
 {
-    // Calculate the vector from the light to the fragment
     vec3 s = normalize(vec3(viewMatrix * vec4(lightPosition, 1.0)) - position);
-
-    // Calculate the vector from the fragment to the eye position
-    // (origin since this is in "eye" or "camera" space)
     vec3 v = normalize(-position);
-
-    // Reflect the light beam using the normal at this fragment
     vec3 r = reflect(-s, normal);
-
-    // Calculate the diffuse component
     float diffuse = max(dot(s, normal), 0.0);
-
-    // Calculate the specular component
-    float specular = 0.0;
+    float specularValue = 0.0;
 
     if (dot(s, normal) > 0.0)
-        specular = (shininess / (8.0 * 3.14)) * pow(max(dot(r, v), 0.0), shininess);
+        specularValue = (shininess / (8.0 * 3.14)) * pow(max(dot(r, v), 0.0), shininess);
 
-    // Lookup diffuse and specular factors
     vec3 diffuseColor = texture2D(diffuseTexture, flipYTexCoord).rgb;
 
-    // Combine the ambient, diffuse and specular contributions
-    return lightIntensity * ((ka + diffuse) * diffuseColor + specular * ks);
+    return lightIntensity * ((ambient + diffuse) * diffuseColor + specularValue * specular);
 }
 
 void main()
@@ -55,9 +43,9 @@ void main()
     vec2 flipYTexCoord = texCoord;
     flipYTexCoord.y = 1.0 - texCoord.y;
 
-    float shadowMapSample = texture2DProj(shadowMapTexture, positionInLightSpace);
+    float shadowMapSample = textureProj(shadowMapTexture, positionInLightSpace);
 
-    vec3 result = lightIntensity * ka * texture2D(diffuseTexture, flipYTexCoord).rgb;
+    vec3 result = lightIntensity * ambient * texture2D(diffuseTexture, flipYTexCoord).rgb;
     if (shadowMapSample > 0)
         result += dModel(flipYTexCoord);
 
