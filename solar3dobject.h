@@ -1,8 +1,7 @@
 #ifndef SOLAR3DOBJECT_H
 #define SOLAR3DOBJECT_H
 
-#include <Qt3DExtras/QNormalDiffuseSpecularMapMaterial>
-#include <Qt3DRender/QTextureImage>
+#include <SolarCore/SolarRender/solarmaterial.h>
 #include "Scene/basevisualsolarobject.h"
 
 namespace SolarSystem {
@@ -17,8 +16,7 @@ namespace SolarSystem {
 
         //get object properties
         virtual Qt3DRender::QObjectPicker& picker() const override final;
-        Qt3DExtras::QNormalDiffuseSpecularMapMaterial& material() const;
-        Qt3DRender::QTextureImage& diffuse() const;
+        SolarMaterial& material() const;
 
     protected:
         virtual void update(float deltaTime) = 0;
@@ -27,10 +25,7 @@ namespace SolarSystem {
         Qt3DRender::QObjectPicker* _picker;
 
         //vizibility
-        Qt3DExtras::QNormalDiffuseSpecularMapMaterial* _material;
-
-        //main default texture
-        Qt3DRender::QTextureImage* _diffuse;
+        SolarMaterial* _material;
     };
 
 }
