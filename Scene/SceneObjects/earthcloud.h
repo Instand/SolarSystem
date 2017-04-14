@@ -1,12 +1,12 @@
 #ifndef EARTHCLOUD_H
 #define EARTHCLOUD_H
 
-#include <solar3dalphaobject.h>
+#include <solar3dobject.h>
 
 namespace SolarSystem {
 
     //represents earth cloud mesh
-    class EarthCloud : public Solar3DAlphaObject
+    class EarthCloud : public Solar3dObject
     {
         Q_OBJECT
 
