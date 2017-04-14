@@ -7,6 +7,7 @@
 #include <SolarCore/solaranimator.h>
 #include <Qt3DInput/QInputSettings>
 #include <Qt3DLogic/QFrameAction>
+#include <Qt3DRender/QTexture>
 
 namespace SolarSystem {
     class PlanetsContainer;
@@ -14,13 +15,15 @@ namespace SolarSystem {
 
 namespace SolarSystem {
 
+    class SolarFrameGraph;
+    class SolarSkyBox;
+
     //represents chain of solar objects (root entity)
     class SolarEntity : public Qt3DCore::QEntity
     {
         Q_OBJECT
 
         Q_PROPERTY(SolarAnimator* animator READ animator)
-        Q_PROPERTY(Qt3DRender::QCamera* camera READ camera)
         Q_PROPERTY(Qt3DInput::QInputSettings* inputSettings READ inputSettings)
 
     public:
@@ -38,10 +41,19 @@ namespace SolarSystem {
         //returns input settings
         Qt3DInput::QInputSettings* inputSettings() const;
 
+        //returns shadow texture
+        Qt3DRender::QTexture2D* shadowTexture() const;
+
+        //returns light camera
+        Qt3DRender::QCamera* lightCamera() const;
+
     private:
 
         //scene camera
         Qt3DRender::QCamera* mainCamera;
+
+        //light camera
+        Qt3DRender::QCamera* lightCam;
 
         //system animator
         SolarAnimator* solarAnimator;
@@ -54,6 +66,17 @@ namespace SolarSystem {
 
         //input
         Qt3DInput::QInputSettings* input;
+
+        //main graph
+        SolarFrameGraph* frameGraph;
+
+        //box
+        SolarSkyBox* skybox;
+
+    public slots:
+
+        //call to setup
+        void setSize(int width, int height);
     };
 }
 

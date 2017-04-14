@@ -1,6 +1,8 @@
 #include "solarentity.h"
 #include <SolarCore/cameracontroller.h>
-#include <SolarCore/SolarRender/solarforwardframegraph.h>
+#include <SolarCore/SolarRender/solarframegraph.h>
+#include <SolarCore/SolarRender/solarlight.h>
+#include <Scene/SceneObjects/solarskybox.h>
 
 SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),
@@ -26,8 +28,16 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     controller->setCamera(mainCamera);
     controller->setLookSpeed(controller->lookSpeed() * 1.2f);
 
-    auto* frameGraph = new SolarForwardFrameGraph(this);
-    frameGraph->setCamera(mainCamera);
+    //skybox
+    skybox = new SolarSkyBox(this);
+
+    //light
+    auto* light = new SolarLight(this);
+    lightCam = light->camera();
+
+    frameGraph = new SolarFrameGraph(this);
+    frameGraph->setViewCamera(mainCamera);
+    frameGraph->setLightCamera(light->camera());
 
     input = new Qt3DInput::QInputSettings();
 
@@ -39,6 +49,10 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     solarAnimator->mathCore()->setSolarView(mainCamera);
     solarAnimator->mathCore()->setCameraController(controller);
     solarAnimator->setDefaultValues();
+
+    planetsContainer->setLight(light);
+    planetsContainer->setShadowTexture(frameGraph->shadowTexture());
+    planetsContainer->initEffects();
 
     //animate scene on tick
     QObject::connect(rootAction, &Qt3DLogic::QFrameAction::triggered, solarAnimator, &SolarAnimator::animate);
@@ -64,4 +78,22 @@ Qt3DRender::QCamera *SolarSystem::SolarEntity::camera() const
 Qt3DInput::QInputSettings *SolarSystem::SolarEntity::inputSettings() const
 {
     return input;
+}
+
+Qt3DRender::QTexture2D *SolarSystem::SolarEntity::shadowTexture() const
+{
+    return frameGraph->shadowTexture();
+}
+
+Qt3DRender::QCamera *SolarSystem::SolarEntity::lightCamera() const
+{
+    return lightCam;
+}
+
+void SolarSystem::SolarEntity::setSize(int width, int height)
+{
+    frameGraph->shadowTexture()->setWidth(width);
+    frameGraph->shadowTexture()->setHeight(height);
+    lightCam->setAspectRatio(width/height);
+    mainCamera->setAspectRatio(width/height);
 }
