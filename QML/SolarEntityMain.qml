@@ -12,19 +12,16 @@ Entity {
     //Solar time ref
     property date solarDate: animator.solarTime
 
-    //Camera
-    property alias camera: solarSystem.camera
-
     //Input settings ref
     property alias inputSettings: solarSystem.inputSettings
 
-    SolarEntity {
-        id: solarSystem
+    //setup size in entity
+    function setSize(width, height) {
+        solarSystem.setSize(width, height);
     }
 
-    // Skybox
-    SkyboxEntity {
-        baseName: "qrc:/Resources/Skybox/stars"
-        extension: ".webp"
+    //solar system
+    SolarEntity {
+        id: solarSystem
     }
 }
