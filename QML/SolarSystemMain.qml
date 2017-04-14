@@ -7,12 +7,8 @@ Item {
     width: 1280
     height: 700
 
-    Keys.onPressed: {
-        scene.focus = true;
-    }
-
     //version property
-    property string version: "2.3"
+    property string version: "3.0"
 
     //planet list show flag
     property bool showPlanetList: false
@@ -30,13 +26,16 @@ Item {
         aspects: ["render", "logic", "input"]
         focus: true
         cameraAspectRatioMode: Scene3D.AutomaticAspectRatio
-        onAspectsChanged: solarSystem.inputSettings.setEventSource(root)
 
         //from c++ code
         SolarEntityMain {
             id: solarSystem
+            Component.onCompleted: {
+                solarSystem.setSize(root.width, root.height)
+                solarSystem.inputSettings.setEventSource(root)
+            }
         }
-    }
+    }   
 
     //slider frame
     SolarFrame {
