@@ -14,7 +14,6 @@ uniform mat4 modelMatrix;
 uniform mat4 modelView;
 uniform mat3 modelViewNormal;
 uniform mat4 mvp;
-
 uniform float texCoordScale;
 
 void main()
