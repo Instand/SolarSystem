@@ -109,7 +109,12 @@ DISTFILES += \
 #for app icon
 win32:RC_ICONS += Resources/Images/solarsystem_icon.ico
 
-#ANDROID_PACKAGE_SOURCE_DIR = $$PWD/../SolarSystemAndroidBuild2/android-build
+android {
+    deployment.files += Resources/Database/SolarDB.db
+    deployment.path = /assets
+    INSTALLS += deployment
+}
+
 
 
 
