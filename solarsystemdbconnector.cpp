@@ -10,8 +10,18 @@ using Types = SolarSystem::SolarFields;
 SolarSystem::SolarSystemDBConnector::SolarSystemDBConnector(QObject *parent):
     QObject(parent),
     _database(QSqlDatabase::addDatabase(SolarS::qSqlLite))
-{
+{    
+#ifdef WIN32
     _database.setDatabaseName(QGuiApplication::applicationDirPath() + "/Database/SolarDB.db");
+#endif
+
+#ifdef ANDROID
+    QFile file("assets:/SolarDB.db");
+    file.copy("./SolarDB.db");
+    QFile::setPermissions("./MyFile1",QFile::WriteOwner | QFile::ReadOwner);
+    _database.setDatabaseName("./SolarDB.db");
+#endif
+
     _database.open();
 }
 
