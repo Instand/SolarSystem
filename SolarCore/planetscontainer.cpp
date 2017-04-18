@@ -29,7 +29,8 @@ SolarSystem::PlanetsContainer::~PlanetsContainer()
 
 void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
 {
-    int shininess = 50.0f;
+    float shininess = 50.0f;
+    float giantShininess = 20.0f;
 
     //base effect
     _baseEffect = new SolarObjectEffect(root);
@@ -106,7 +107,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
     jupiter->material().setNormalTextureSource(":/Resources/Images/jupiternormal.jpg");
     jupiter->material().setAmbient(planetAmbient);
     jupiter->material().setSpecular(planetSpecular);
-    jupiter->material().setSnininess(1.0f);
+    jupiter->material().setSnininess(giantShininess);
     jupiter->setTilt(SolarObjectsValues::Jupier::tilt);
 
     //create saturn
@@ -116,7 +117,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
     saturn->material().setNormalTextureSource(":/Resources/Images/saturnnormal.jpg");
     saturn->material().setAmbient(planetAmbient);
     saturn->material().setSpecular(planetSpecular);
-    saturn->material().setSnininess(1.0f);
+    saturn->material().setSnininess(giantShininess);
     saturn->setTilt(SolarObjectsValues::Saturn::tilt);
 
     //create uranus
@@ -126,7 +127,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
     uranus->material().setNormalTextureSource(":/Resources/Images/uranusnormal.jpg");
     uranus->material().setAmbient(planetAmbient);
     uranus->material().setSpecular(planetSpecular);
-    uranus->material().setSnininess(1.0f);
+    uranus->material().setSnininess(giantShininess);
     uranus->setTilt(SolarObjectsValues::Uranus::tilt);
 
     //create neptune
@@ -136,7 +137,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
     neptune->material().setNormalTextureSource(":/Resources/Images/neptunenormal.jpg");
     neptune->material().setAmbient(planetAmbient);
     neptune->material().setSpecular(planetSpecular);
-    neptune->material().setSnininess(1.0f);
+    neptune->material().setSnininess(2000.0);
     neptune->setTilt(SolarObjectsValues::Neptune::tilt);
 
     //create pluto
@@ -146,7 +147,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
     pluto->material().setNormalTextureSource(":/Resources/Images/plutonormal.jpg");
     pluto->material().setAmbient(planetAmbient);
     pluto->material().setSpecular(planetSpecular);
-    pluto->material().setSnininess(1.0f);
+    pluto->material().setSnininess(giantShininess);
     pluto->setTilt(SolarObjectsValues::Pluto::tilt);
 
     //create planet rings
@@ -174,7 +175,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
     earthClouds->material().setOpacity(0.8f);
     earthClouds->material().setSnininess(10.0f);
     earthClouds->material().setAmbient(planetCloudAmbient);
-    earthClouds->material().setSpecular(QColor("#ffffff"));
+    earthClouds->material().setSpecular(QColor("#000000"));
 
     //add planets to map, to interface IVisualSolarObject
     planetContainer[SolarObjects::Sun] = sun;

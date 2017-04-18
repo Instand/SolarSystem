@@ -10,7 +10,7 @@ SolarSystem::SolarLight::SolarLight(Qt3DCore::QNode* parent):
     //setup camera
     lightCamera->setObjectName("lightCameraLens");
     lightCamera->setProjectionType(Qt3DRender::QCameraLens::ProjectionType::PerspectiveProjection);
-    lightCamera->setFieldOfView(45);
+    lightCamera->setFieldOfView(30);
     lightCamera->setNearPlane(CameraSettings::nearPlane * 0.0001f);
     lightCamera->setFarPlane(10000000.0f);
     lightCamera->setPosition(QVector3D(0, 0, 0));
