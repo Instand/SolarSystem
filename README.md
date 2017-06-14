@@ -12,4 +12,5 @@ Thanks to Qt Company.
 
 ![alt tag](http://ipic.su/img/img7/fs/SolarSystemScreen.1490859421.png)
 
-Binary for Windows are available at https://ru.files.fm/u/xfaumr4y
+Full project https://yadi.sk/d/mKuWiLLP3K6t8e
+Binary for Windows is available at release folder
