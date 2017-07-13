@@ -12,6 +12,12 @@ SolarSystem::SolarSystemDBConnector::SolarSystemDBConnector(QObject *parent):
     _database(QSqlDatabase::addDatabase(SolarS::qSqlLite))
 {    
 #ifdef WIN32
+    if (!QFile::exists(QGuiApplication::applicationDirPath() + "/Database/SolarDB.db"))
+    {
+        QFile file(":/Resources/Database/SolarDB.db");
+        file.copy(QGuiApplication::applicationDirPath() + "/Database/SolarDB.db");
+    }
+
     _database.setDatabaseName(QGuiApplication::applicationDirPath() + "/Database/SolarDB.db");
 #endif
 
