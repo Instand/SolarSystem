@@ -14,6 +14,9 @@ SolarSystem::SolarSystemDBConnector::SolarSystemDBConnector(QObject *parent):
 #ifdef WIN32
     if (!QFile::exists(QGuiApplication::applicationDirPath() + "/Database/SolarDB.db"))
     {
+        QDir dir;
+        dir.mkdir(QGuiApplication::applicationDirPath() + "/Database/");
+
         QFile file(":/Resources/Database/SolarDB.db");
         file.copy(QGuiApplication::applicationDirPath() + "/Database/SolarDB.db");
     }
