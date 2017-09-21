@@ -15,11 +15,6 @@ Entity {
     //Input settings ref
     property alias inputSettings: solarSystem.inputSettings
 
-    //setup size in entity
-    function setSize(width, height) {
-        solarSystem.setSize(width, height);
-    }
-
     //solar system
     SolarEntity {
         id: solarSystem
