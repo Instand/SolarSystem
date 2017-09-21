@@ -31,7 +31,6 @@ Item {
         SolarEntityMain {
             id: solarSystem
             Component.onCompleted: {
-                solarSystem.setSize(root.width, root.height)
                 solarSystem.inputSettings.setEventSource(root)
             }
         }
