@@ -7,7 +7,7 @@ using SolarS = SolarSystem::SolarStrings;
 using SolarV = SolarSystem::SolarValues;
 using Types = SolarSystem::SolarFields;
 
-SolarSystem::SolarSystemDBConnector::SolarSystemDBConnector(QObject *parent):
+SolarSystem::SolarSystemDBConnector::SolarSystemDBConnector(QObject* parent):
     QObject(parent),
     _database(QSqlDatabase::addDatabase(SolarS::qSqlLite))
 {    
@@ -40,7 +40,7 @@ SolarSystem::SolarSystemDBConnector::~SolarSystemDBConnector()
         _database.close();
 }
 
-SolarSystem::SolarSystemDBConnector &SolarSystem::SolarSystemDBConnector::instance()
+SolarSystem::SolarSystemDBConnector& SolarSystem::SolarSystemDBConnector::instance()
 {
     static SolarSystemDBConnector connector;
     return connector;
@@ -161,7 +161,7 @@ QStringList SolarSystem::SolarSystemDBConnector::info(SolarSystem::SolarObjects 
     return list;
 }
 
-void SolarSystem::SolarSystemDBConnector::createObjectFromQuery(QSqlQuery &query, SolarSystemObjectPtr &object) const
+void SolarSystem::SolarSystemDBConnector::createObjectFromQuery(QSqlQuery& query, SolarSystemObjectPtr& object) const
 {
     object->setStringType(query.value(Types::SolarType).toString());
     object->setSolarObjectName(query.value(Types::Name).toString());

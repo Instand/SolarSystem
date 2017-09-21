@@ -7,10 +7,11 @@
 #include "solarsystemobject.h"
 #include "solarsystemcore.h"
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //class for connection and receive data from database (default SQLite 3) Singleton
-    class SolarSystemDBConnector final : public QObject {
+    class SolarSystemDBConnector final : public QObject
+    {
         Q_OBJECT
 
     private:
@@ -54,7 +55,6 @@ namespace SolarSystem {
         //create object
         void createObjectFromQuery(QSqlQuery& query, SolarSystemObjectPtr& object) const;
     };
-
 }
 
 #endif // SOLARSYSTEMDBCONNECTOR_H
