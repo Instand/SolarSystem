@@ -5,10 +5,10 @@
 #include "solarsystemcore.h"
 #include <memory>
 
-namespace SolarSystem {
-
-    class ISolarSystemObject : public QObject {
-
+namespace SolarSystem
+{
+    class ISolarSystemObject : public QObject
+    {
         Q_OBJECT
 
     public:
@@ -55,7 +55,6 @@ namespace SolarSystem {
 
     //types
     using SolarSystemObjectPtr = std::shared_ptr<ISolarSystemObject>;
-
 }
 
 #endif // ISOLARSYSTEMOBJECT_H
