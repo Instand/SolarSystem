@@ -1,7 +1,7 @@
 #include "solarsystemobject.h"
 
-struct SolarSystem::SolarSystemObject::SolarObjectData {
-
+struct SolarSystem::SolarSystemObject::SolarObjectData
+{
     //base parameters
     QString _stringType;            //solar object type: Planet, Sattelite (Moon), Ring, Dwarf Planet, Solar System Body, Star, Asteroid, Galaxy
     QString _name;                  //base name
@@ -23,7 +23,7 @@ struct SolarSystem::SolarSystemObject::SolarObjectData {
     QString _description;
 };
 
-SolarSystem::SolarSystemObject::SolarSystemObject(QObject *parent):
+SolarSystem::SolarSystemObject::SolarSystemObject(QObject* parent):
     ISolarSystemObject(parent), solarObjectData(new SolarObjectData)
 {
     solarObjectData->_solarType = SolarSystemObjectType::SolarSystemBody;
@@ -34,7 +34,7 @@ SolarSystem::SolarSystemObject::~SolarSystemObject()
     delete solarObjectData;
 }
 
-SolarSystem::SolarSystemObject::SolarSystemObject(const SolarSystem::SolarSystemObject &obj):
+SolarSystem::SolarSystemObject::SolarSystemObject(const SolarSystem::SolarSystemObject& obj):
     ISolarSystemObject(nullptr)
 {
     solarObjectData = new SolarSystem::SolarSystemObject::SolarObjectData();
@@ -50,7 +50,7 @@ SolarSystem::SolarSystemObject& SolarSystem::SolarSystemObject::operator=(SolarS
 }
 
 //interface realization
-void SolarSystem::SolarSystemObject::setDescription(const QString &description)
+void SolarSystem::SolarSystemObject::setDescription(const QString& description)
 {
     solarObjectData->_description = description;
 }
@@ -60,7 +60,7 @@ QString &SolarSystem::SolarSystemObject::description() const
     return solarObjectData->_description;
 }
 
-void SolarSystem::SolarSystemObject::setStringType(const QString &type)
+void SolarSystem::SolarSystemObject::setStringType(const QString& type)
 {
     solarObjectData->_stringType = type;
 }
@@ -70,7 +70,7 @@ QString SolarSystem::SolarSystemObject::stringType() const
     return solarObjectData->_stringType;
 }
 
-void SolarSystem::SolarSystemObject::setSolarObjectName(const QString &name)
+void SolarSystem::SolarSystemObject::setSolarObjectName(const QString& name)
 {
     solarObjectData->_name = name;
 }
@@ -171,7 +171,7 @@ double SolarSystem::SolarSystemObject::orbitalPeriod() const
 }
 
 //friend
-void SolarSystem::swap(SolarSystem::SolarSystemObject &ls, SolarSystem::SolarSystemObject &rs)
+void SolarSystem::swap(SolarSystem::SolarSystemObject& ls, SolarSystem::SolarSystemObject& rs)
 {
     std::swap(ls.solarObjectData, rs.solarObjectData);
 }

@@ -6,11 +6,11 @@
 #include "solarsystemcore.h"
 #include "Interface/isolarsystemobject.h"
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //base object of solar system for storing info from database
-    class SolarSystemObject : public ISolarSystemObject {
-
+    class SolarSystemObject : public ISolarSystemObject
+    {
         Q_OBJECT
 
     public:
@@ -74,7 +74,6 @@ namespace SolarSystem {
 
     //swap two solar objects
     void swap(SolarSystemObject& ls, SolarSystemObject& rs);
-
 }
 
 #endif // SOLARSYSTEMOBJECT_H
