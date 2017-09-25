@@ -1,8 +1,13 @@
 #include "solarentity.h"
 #include <SolarCore/cameracontroller.h>
-#include <SolarCore/SolarRender/solarframegraph.h>
-#include <SolarCore/SolarRender/solarlight.h>
 #include <Scene/SceneObjects/solarskybox.h>
+
+#ifdef QT3D_MATERIALS
+    #include <SolarCore/SolarRender/solarforwardframegraph.h>
+#else
+    #include <SolarCore/SolarRender/solarframegraph.h>
+    #include <SolarCore/SolarRender/solarlight.h>
+#endif
 
 SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),
@@ -24,20 +29,25 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     mainCamera->setPosition(CameraSettings::defaultCameraPosition);
 
     //orbit camera controller
-    SolarSystem::CameraController* controller = new SolarSystem::CameraController(this);
+    auto controller = new SolarSystem::CameraController(this);
     controller->setCamera(mainCamera);
     controller->setLookSpeed(controller->lookSpeed() * 1.2f);
 
     //skybox
     skybox = new SolarSkyBox(this);
 
+#ifdef QT3D_MATERIALS
+    frameGraph = new SolarForwardFrameGraph(this);
+    frameGraph->setCamera(mainCamera);    
+#else
     //light
-    auto* light = new SolarLight(this);
+    auto light = new SolarLight(this);
     lightCam = light->camera();
 
     frameGraph = new SolarFrameGraph(this);
     frameGraph->setViewCamera(mainCamera);
     frameGraph->setLightCamera(light->camera());
+#endif
 
     input = new Qt3DInput::QInputSettings();
 
@@ -50,9 +60,11 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     solarAnimator->mathCore()->setCameraController(controller);
     solarAnimator->setDefaultValues();
 
+#ifndef QT3D_MATERIALS
     planetsContainer->setLight(light);
     planetsContainer->setShadowTexture(frameGraph->shadowTexture());
     planetsContainer->initEffects();
+#endif
 
     //animate scene on tick
     QObject::connect(rootAction, &Qt3DLogic::QFrameAction::triggered, solarAnimator, &SolarAnimator::animate);
@@ -65,27 +77,28 @@ SolarSystem::SolarEntity::~SolarEntity()
     delete solarAnimator;
 }
 
-SolarSystem::SolarAnimator *SolarSystem::SolarEntity::animator() const
+SolarSystem::SolarAnimator* SolarSystem::SolarEntity::animator() const
 {
     return solarAnimator;
 }
 
-Qt3DRender::QCamera *SolarSystem::SolarEntity::camera() const
+Qt3DRender::QCamera* SolarSystem::SolarEntity::camera() const
 {
     return mainCamera;
 }
 
-Qt3DInput::QInputSettings *SolarSystem::SolarEntity::inputSettings() const
+Qt3DInput::QInputSettings* SolarSystem::SolarEntity::inputSettings() const
 {
     return input;
 }
 
-Qt3DRender::QTexture2D *SolarSystem::SolarEntity::shadowTexture() const
+#ifndef QT3D_MATERIALS
+Qt3DRender::QTexture2D* SolarSystem::SolarEntity::shadowTexture() const
 {
     return frameGraph->shadowTexture();
 }
 
-Qt3DRender::QCamera *SolarSystem::SolarEntity::lightCamera() const
+Qt3DRender::QCamera* SolarSystem::SolarEntity::lightCamera() const
 {
     return lightCam;
 }
@@ -97,3 +110,4 @@ void SolarSystem::SolarEntity::setSize(int width, int height)
     lightCam->setAspectRatio(width/height);
     mainCamera->setAspectRatio(width/height);
 }
+#endif
