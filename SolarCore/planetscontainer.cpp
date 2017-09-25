@@ -2,10 +2,16 @@
 #include <Scene/SceneObjects/planet.h>
 #include <Scene/SceneObjects/planetring.h>
 #include <Scene/SceneObjects/earthcloud.h>
-#include <SolarCore/SolarRender/solarlight.h>
-#include <SolarCore/SolarRender/solarobjecteffect.h>
-#include <SolarCore/SolarRender/solarshadoweffect.h>
-#include <SolarCore/SolarRender/solardiffuseeffect.h>
+
+#ifdef QT3D_MATERIALS
+    #include <Qt3DRender/QPointLight>
+#else
+    #include <SolarCore/SolarRender/solarlight.h>
+    #include <SolarCore/SolarRender/solarobjecteffect.h>
+    #include <SolarCore/SolarRender/solarshadoweffect.h>
+    #include <SolarCore/SolarRender/solardiffuseeffect.h>
+#endif
+
 #include <Qt3DRender/QTexture>
 #include <Qt3DRender/QPickEvent>
 
@@ -29,8 +35,145 @@ SolarSystem::PlanetsContainer::~PlanetsContainer()
 
 void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
 {
-    float shininess = 50.0f;
-    float giantShininess = 20.0f;
+#ifdef QT3D_MATERIALS
+    auto shiness = 10.0f;
+
+    //create sun
+    Planet* sun = new Planet(root);
+    sun->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/sun_map.jpg"));
+    sun->material().setShininess(sun->material().shininess() * shiness);
+    sun->setTilt(SolarObjectsValues::Sun::tilt);
+    //sun->material().setAmbient(QColor(255,255,255, 128));
+
+    Qt3DRender::QPointLight* sunLight = new Qt3DRender::QPointLight();
+    sunLight->setIntensity(1.35f);
+    //sunLight->setIntensity(0.0001f);
+    sun->addComponent(sunLight);
+    sun->setObjectName(SolarObjectsValues::Sun::toString);
+
+    //create mercury
+    Planet* mercury = new Planet(root);
+    mercury->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/mercurymap.jpg"));
+    mercury->material().setShininess(mercury->material().shininess() * shiness);
+    mercury->setTilt(SolarObjectsValues::Mercury::tilt);
+
+    Qt3DRender::QTextureImage* mercuryNormal = new Qt3DRender::QTextureImage();
+    mercuryNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/mercurynormal.jpg"));
+    mercury->material().normal()->addTextureImage(mercuryNormal);
+
+    //create venus
+    Planet* venus = new Planet(root);
+    venus->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/venus_atmo.jpg"));
+    venus->material().setShininess(venus->material().shininess() * shiness);
+    venus->setTilt(SolarObjectsValues::Venus::tilt);
+
+    Qt3DRender::QTextureImage* venusNormal = new Qt3DRender::QTextureImage();
+    venusNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/venus_atmonormal.jpg"));
+    venus->material().normal()->addTextureImage(venusNormal);
+
+    //create earth
+    Planet* earth = new Planet(root);
+    earth->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/earthmap1k.jpg"));
+    earth->material().setShininess(earth->material().shininess() * shiness);
+    earth->setTilt(SolarObjectsValues::Earth::tilt);
+
+    Qt3DRender::QTextureImage* earthNormal = new Qt3DRender::QTextureImage();
+    earthNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/earthnormal1k.jpg"));
+    earth->material().normal()->addTextureImage(earthNormal);
+
+    //create moon
+    Planet* moon = new Planet(root);
+    moon->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/moonmap1k.jpg"));
+    moon->material().setShininess(moon->material().shininess() * shiness);
+    moon->setTilt(SolarObjectsValues::Moon::tilt);
+
+    Qt3DRender::QTextureImage* moonNormal = new Qt3DRender::QTextureImage();
+    moonNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/moonnormal1k.jpg"));
+    moon->material().normal()->addTextureImage(moonNormal);
+
+    //create mars
+    Planet* mars = new Planet(root);
+    mars->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/marsmap1k.jpg"));
+    mars->material().setShininess(mars->material().shininess() * shiness);
+    mars->setTilt(SolarObjectsValues::Mars::tilt);
+
+    Qt3DRender::QTextureImage* marsNormal = new Qt3DRender::QTextureImage();
+    marsNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/marsnormal1k.jpg"));
+    mars->material().normal()->addTextureImage(marsNormal);
+
+    //create jupiter
+    Planet* jupiter = new Planet(root);
+    jupiter->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/jupitermap.jpg"));
+    jupiter->material().setShininess(jupiter->material().shininess());
+    jupiter->setTilt(SolarObjectsValues::Jupier::tilt);
+
+    Qt3DRender::QTextureImage* jupiterNormal = new Qt3DRender::QTextureImage();
+    jupiterNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/jupiternormal.jpg"));
+    jupiter->material().normal()->addTextureImage(jupiterNormal);
+
+    //create saturn
+    Planet* saturn = new Planet(root);
+    saturn->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/saturnmap.jpg"));
+    saturn->material().setShininess(saturn->material().shininess() * shiness);
+    saturn->setTilt(SolarObjectsValues::Saturn::tilt);
+
+    Qt3DRender::QTextureImage* saturnNormal = new Qt3DRender::QTextureImage();
+    saturnNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/saturnnormal.jpg"));
+    saturn->material().normal()->addTextureImage(saturnNormal);
+
+    //create uranus
+    Planet* uranus = new Planet(root);
+    uranus->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/uranusmap.jpg"));
+    uranus->material().setShininess(uranus->material().shininess() * shiness);
+    uranus->setTilt(SolarObjectsValues::Uranus::tilt);
+    //uranus->setEnabled(false);
+
+    Qt3DRender::QTextureImage* uranusNormal = new Qt3DRender::QTextureImage();
+    uranusNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/uranusnormal.jpg"));
+    uranus->material().normal()->addTextureImage(uranusNormal);
+
+    //create neptune
+    Planet* neptune = new Planet(root);
+    neptune->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/neptunemap.jpg"));
+    neptune->material().setShininess(neptune->material().shininess() * shiness);
+    neptune->setTilt(SolarObjectsValues::Neptune::tilt);
+
+    Qt3DRender::QTextureImage* neptuneNormal = new Qt3DRender::QTextureImage();
+    neptuneNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/neptunenormal.jpg"));
+    neptune->material().normal()->addTextureImage(neptuneNormal);
+
+    //create pluto
+    Planet* pluto = new Planet(root);
+    pluto->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/plutomap.jpg"));
+    pluto->material().setShininess(pluto->material().shininess() * shiness);
+    pluto->setTilt(SolarObjectsValues::Pluto::tilt);
+
+    Qt3DRender::QTextureImage* plutoNormal = new Qt3DRender::QTextureImage();
+    plutoNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/plutonormal.jpg"));
+    pluto->material().normal()->addTextureImage(plutoNormal);
+
+    //create planet rings
+    PlanetRing* saturnRing = new PlanetRing(root);
+    saturnRing->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/saturnringcolortrans.png"));
+    saturnRing->setTilt(SolarObjectsValues::Saturn::tilt);
+
+    Qt3DRender::QTextureImage* saturnRingNormal = new Qt3DRender::QTextureImage();
+    saturnRingNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/saturnringcolortransnormal.png"));
+    saturnRing->material().normal()->addTextureImage(saturnRingNormal);
+
+    PlanetRing* uranusRing = new PlanetRing(root);
+    uranusRing->diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/uranusringcolortrans.png"));
+    uranusRing->setTilt(SolarObjectsValues::Uranus::tilt);
+
+    Qt3DRender::QTextureImage* uranusRingNormal = new Qt3DRender::QTextureImage();
+    uranusRingNormal->setSource(QUrl::fromLocalFile(":/Resources/Images/uranusringcolortransnormal.png"));
+    uranusRing->material().normal()->addTextureImage(uranusRingNormal);
+
+    //earth clouds
+    EarthCloud* earthClouds = new EarthCloud(root);
+#else
+    auto shininess = 50.0f;
+    auto giantShininess = 20.0f;
 
     //base effect
     _baseEffect = new SolarObjectEffect(root);
@@ -176,6 +319,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
     earthClouds->material().setSnininess(10.0f);
     earthClouds->material().setAmbient(planetCloudAmbient);
     earthClouds->material().setSpecular(QColor("#000000"));
+#endif
 
     //add planets to map, to interface IVisualSolarObject
     planetContainer[SolarObjects::Sun] = sun;
@@ -209,12 +353,13 @@ SolarSystem::PlanetArray SolarSystem::PlanetsContainer::planets() const
     return planetContainer;
 }
 
-SolarSystem::SolarObjectEffect *SolarSystem::PlanetsContainer::baseEffect() const
+#ifndef QT3D_MATERIALS
+SolarSystem::SolarObjectEffect* SolarSystem::PlanetsContainer::baseEffect() const
 {
     return _baseEffect;
 }
 
-SolarSystem::SolarShadowEffect *SolarSystem::PlanetsContainer::shadowEffect() const
+SolarSystem::SolarShadowEffect* SolarSystem::PlanetsContainer::shadowEffect() const
 {
     return _shadowEffect;
 }
@@ -235,6 +380,7 @@ void SolarSystem::PlanetsContainer::initEffects()
     _baseEffect->initialization();
     _shadowEffect->initialization();
 }
+#endif
 
 void SolarSystem::PlanetsContainer::onObjectPick(Qt3DRender::QPickEvent *pick)
 {

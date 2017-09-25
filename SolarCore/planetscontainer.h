@@ -5,20 +5,23 @@
 #include <Interface/ivisualsolarobject.h>
 #include <map>
 
-namespace Qt3DRender {
+namespace Qt3DRender
+{
     class QTexture2D;
 }
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //array type
     using PlanetArray = std::map<SolarObjects, IVisualSolarObject*>;
 
+#ifndef QT3D_MATERIALS
     //forward
     class SolarLight;
     class SolarObjectEffect;
     class SolarShadowEffect;
     class SolarDiffuseEffect;
+#endif
 
     //contains all 3D planets
     class PlanetsContainer : public QObject
@@ -27,7 +30,7 @@ namespace SolarSystem {
 
     public:
 
-        explicit PlanetsContainer(Qt3DCore::QNode* root = nullptr, QObject *parent = 0);
+        explicit PlanetsContainer(Qt3DCore::QNode* root = nullptr, QObject* parent = nullptr);
         ~PlanetsContainer();
 
     private:
@@ -39,10 +42,12 @@ namespace SolarSystem {
         //helper
         void initialize(Qt3DCore::QNode *root);
 
+#ifndef QT3D_MATERIALS
         //effects
         SolarObjectEffect* _baseEffect;
         SolarShadowEffect* _shadowEffect;
         SolarDiffuseEffect* _diffuseEffect;
+#endif
 
     public:
 
@@ -52,6 +57,7 @@ namespace SolarSystem {
         //get all planets
         PlanetArray planets() const;
 
+#ifndef QT3D_MATERIALS
         //get effects
         SolarObjectEffect* baseEffect() const;
         SolarShadowEffect* shadowEffect() const;
@@ -60,6 +66,7 @@ namespace SolarSystem {
         void setLight(SolarLight* light);
         void setShadowTexture(Qt3DRender::QTexture2D* texture);
         void initEffects();
+#endif
 
     signals:
 
