@@ -16,12 +16,12 @@ SolarSystem::Solar3DAlphaObject::Solar3DAlphaObject(Qt3DCore::QNode *parent):
     addComponent(_picker);
 }
 
-Qt3DRender::QObjectPicker &SolarSystem::Solar3DAlphaObject::picker() const
+Qt3DRender::QObjectPicker& SolarSystem::Solar3DAlphaObject::picker() const
 {
     return *_picker;
 }
 
-Qt3DExtras::QNormalDiffuseMapAlphaMaterial &SolarSystem::Solar3DAlphaObject::material() const
+Qt3DExtras::QNormalDiffuseMapAlphaMaterial& SolarSystem::Solar3DAlphaObject::material() const
 {
     return *_material;
 }

@@ -5,8 +5,8 @@
 #include <Qt3DRender/QTextureImage>
 #include "Scene/basevisualsolarobject.h"
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //just like solar3dobject but with different aplha material
     class Solar3DAlphaObject : public BaseVisualSolarObject
     {
