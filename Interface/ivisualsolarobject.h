@@ -9,15 +9,15 @@
 #include <functional>
 #include <solarsystemcore.h>
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //types
     using LogicPtr = std::function<void(float)>;
     using Logic = std::vector<LogicPtr>;
 
     //interface for base visual object on the scene
-    class IVisualSolarObject : public Qt3DCore::QEntity {
-
+    class IVisualSolarObject : public Qt3DCore::QEntity
+    {
         Q_OBJECT
 
     public:
@@ -71,7 +71,6 @@ namespace SolarSystem {
         virtual double tilt() const = 0;
         virtual void setTilt(double tilt) = 0;
     };
-
 }
 
 #endif // IVISUALSOLAROBJECT_H
