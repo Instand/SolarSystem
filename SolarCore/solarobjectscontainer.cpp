@@ -44,7 +44,7 @@ SolarSystem::SolarObjectPtr SolarSystem::SolarObjectsContainer::solarObject(Sola
     return solarObj;
 }
 
-const SolarSystem::SolarObjectsArray &SolarSystem::SolarObjectsContainer::allSolarObjects() const
+const SolarSystem::SolarObjectsArray& SolarSystem::SolarObjectsContainer::allSolarObjects() const
 {
     return _solarObjects;
 }

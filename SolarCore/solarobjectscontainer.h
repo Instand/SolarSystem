@@ -4,8 +4,8 @@
 #include <QObject>
 #include "SolarCore/SolarObjects/abstractsolarobject.h"
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //class for storage solar math objects
     class SolarObjectsContainer final : public QObject
     {
@@ -25,7 +25,6 @@ namespace SolarSystem {
         //storage
         SolarObjectsArray _solarObjects;
     };
-
 }
 
 #endif // SOLAROBJECTSCONTAINER_H
