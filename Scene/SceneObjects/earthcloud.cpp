@@ -3,9 +3,9 @@
 #include <solarsystemcore.h>
 
 SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
-    Solar3dObject(parent)
+    EarthCloudBase(parent)
 {
-    Qt3DExtras::QSphereGeometry* sphereGeometry = new Qt3DExtras::QSphereGeometry();
+    auto sphereGeometry = new Qt3DExtras::QSphereGeometry();
 
     //setup geometry
     sphereGeometry->setRadius(PlanetSettings::radius);
@@ -15,7 +15,26 @@ SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
 
     mesh().setGeometry(sphereGeometry);
 
+#ifndef QT3D_MATERIALS
     _material->setDiffuseTextureSource(":/Resources/Images/earthcloudmapcolortrans.png");
+#else
+    diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/earthcloudmapcolortrans.png"));
+    _material->diffuse()->setGenerateMipMaps(true);
+
+    Qt3DRender::QTextureImage* normalMap = new Qt3DRender::QTextureImage();
+    normalMap->setSource(QUrl::fromLocalFile(":/Resources/Images/earthcloudmapcolortransnormal.png"));
+    material().normal()->addTextureImage(normalMap);
+
+    _material->diffuse()->setGenerateMipMaps(true);
+    _material->diffuse()->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
+    _material->diffuse()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
+    _material->diffuse()->setMaximumAnisotropy(16.0f);
+
+    _material->normal()->setGenerateMipMaps(true);
+    _material->normal()->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
+    _material->normal()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
+    _material->normal()->setMaximumAnisotropy(16.0f);
+#endif
 }
 
 void SolarSystem::EarthCloud::update(float deltaTime)
