@@ -17,9 +17,10 @@ using namespace Qt3DCore;
 using namespace Qt3DRender;
 using namespace Qt3DExtras;
 
-SolarSystem::SolarSkyBox::SolarSkyBox(Qt3DCore::QNode *parent):
-    QEntity(parent),
-    effect(new Qt3DRender::QEffect()),
+SolarSystem::SolarSkyBox::SolarSkyBox(Qt3DCore::QNode* parent):
+    SkyBoxBase(parent)
+#ifndef QT3D_MATERIALS
+   ,effect(new Qt3DRender::QEffect()),
     material(new Qt3DRender::QMaterial()),
     skyboxTexture(new QTextureCubeMap()),
     shaderProgram(new QShaderProgram()),
@@ -34,7 +35,9 @@ SolarSystem::SolarSkyBox::SolarSkyBox(Qt3DCore::QNode *parent):
     negYImage(new QTextureImage()),
     negZImage(new QTextureImage()),
     extension(QStringLiteral(".png"))
+#endif
 {
+#ifndef QT3D_MATERIALS
     shaderProgram->setVertexShaderCode(QShaderProgram::loadSource(QUrl::fromLocalFile(":/Resources/Shaders/skybox.vert")));
     shaderProgram->setFragmentShaderCode(QShaderProgram::loadSource(QUrl::fromLocalFile(":/Resources/Shaders/skybox.frag")));
 
@@ -103,8 +106,14 @@ SolarSystem::SolarSkyBox::SolarSkyBox(Qt3DCore::QNode *parent):
     extension = QStringLiteral(".webp");
 
     updateTexture();
+#else
+    //create skybox from file
+    setBaseName(QStringLiteral("qrc:/Resources/Skybox/stars"));
+    setExtension(QStringLiteral(".webp"));
+#endif
 }
 
+#ifndef QT3D_MATERIALS
 void SolarSystem::SolarSkyBox::updateTexture()
 {
     posXImage->setSource(QUrl(name + QStringLiteral("_posx") + extension));
@@ -114,4 +123,5 @@ void SolarSystem::SolarSkyBox::updateTexture()
     negYImage->setSource(QUrl(name + QStringLiteral("_negy") + extension));
     negZImage->setSource(QUrl(name + QStringLiteral("_negz") + extension));
 }
+#endif
 

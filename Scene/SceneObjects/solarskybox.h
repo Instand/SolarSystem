@@ -3,9 +3,13 @@
 
 #include <QVector3D>
 #include <Qt3DCore/QEntity>
+#include <Qt3DExtras/QSkyboxEntity>
+#include <solarsystemcore.h>
 
+#ifndef QT3D_MATERIALS
 //forward
-namespace Qt3DRender {
+namespace Qt3DRender
+{
     class QFilterKey;
     class QTextureCubeMap;
     class QShaderProgram;
@@ -18,20 +22,27 @@ namespace Qt3DRender {
     class QEffect;
 }
 
-namespace Qt3DExtras {
+namespace Qt3DExtras
+{
     class QCuboidMesh;
 }
 
-namespace SolarSystem {
+    using SkyBoxBase = Qt3DCore::QEntity;
+#else
+    using SkyBoxBase = Qt3DExtras::QSkyboxEntity;
+#endif
 
-    //represents space
-    class SolarSkyBox : public Qt3DCore::QEntity
+namespace SolarSystem
+{
+    //Represents space
+    class SolarSkyBox : public SkyBoxBase
     {
         Q_OBJECT
 
     public:
         explicit SolarSkyBox(Qt3DCore::QNode* parent = nullptr);
 
+#ifndef QT3D_MATERIALS
     private:
 
         //material + effect + shaders
@@ -59,8 +70,8 @@ namespace SolarSystem {
 
         //helper
         void updateTexture();
+#endif
     };
-
 }
 
 #endif // SOLARSKYBOX_H
