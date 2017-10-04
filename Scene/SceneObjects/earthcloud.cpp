@@ -1,6 +1,5 @@
 #include "earthcloud.h"
 #include <Qt3DExtras/QSphereGeometry>
-#include <solarsystemcore.h>
 
 SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
     EarthCloudBase(parent)

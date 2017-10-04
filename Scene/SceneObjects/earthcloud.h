@@ -1,8 +1,13 @@
 #ifndef EARTHCLOUD_H
 #define EARTHCLOUD_H
 
+#include <solarsystemcore.h>
+
+#ifndef QT3D_MATERIALS
 #include <solar3dobject.h>
+#else
 #include <solar3dalphaobject.h>
+#endif
 
 namespace SolarSystem
 {
