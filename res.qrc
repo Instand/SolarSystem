@@ -79,5 +79,6 @@
         <file>Resources/Shaders/skybox.frag</file>
         <file>Resources/Shaders/skybox.vert</file>
         <file>Resources/Database/SolarDB.db</file>
+        <file>Resources/Info.txt</file>
     </qresource>
 </RCC>
