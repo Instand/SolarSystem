@@ -4,12 +4,12 @@
 #include "SolarCore/isolarmathcore.h"
 #include "SolarCore/solarobjectscontainer.h"
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //base solar math model
-    //some realizations got from Qt QML Planets example
-    class SolarMathCore : public ISolarMathCore {
-
+    //some realizations used from Qt QML Planets example
+    class SolarMathCore : public ISolarMathCore
+    {
         Q_OBJECT
 
     public:
@@ -87,7 +87,6 @@ namespace SolarSystem {
         //zoom limit calcualtion base
         float calculateZoomLimit(SolarObjects object);
     };
-
 }
 
 #endif // SOLARMATHCORE_H
