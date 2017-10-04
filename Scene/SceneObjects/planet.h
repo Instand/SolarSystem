@@ -3,11 +3,11 @@
 
 #include <solar3dobject.h>
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //base class for solar planets
-    class Planet : public Solar3dObject {
-
+    class Planet : public Solar3dObject
+    {
         Q_OBJECT
 
     public:
@@ -17,6 +17,5 @@ namespace SolarSystem {
         virtual void update(float deltaTime) override;
     };
 }
-
 
 #endif // PLANET_H
