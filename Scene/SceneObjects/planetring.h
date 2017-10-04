@@ -1,12 +1,17 @@
 #ifndef PLANETRING_H
 #define PLANETRING_H
 
-#include <solar3dobject.h>
-#include <SolarCore/SolarRender/solarmaterial.h>
+#include <solarsystemcore.h>
+
+#ifdef QT3D_MATERIALS
 #include <Scene/basevisualsolarobject.h>
 #include <Qt3DExtras/QNormalDiffuseMapAlphaMaterial>
 #include <Qt3DRender/QTextureImage>
 #include <Qt3DRender/QTextureWrapMode>
+#else
+#include <SolarCore/SolarRender/solarmaterial.h>
+#include <solar3dobject.h>
+#endif
 
 namespace SolarSystem
 {
