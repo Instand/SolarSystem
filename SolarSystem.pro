@@ -4,7 +4,6 @@ QT += qml quick
 QT += 3dquickextras
 
 CONFIG += c++14
-CONFIG += mobility
 
 TARGET = SolarSystem
 
@@ -44,7 +43,8 @@ SOURCES += main.cpp \
     SolarCore/SolarRender/solarmaterial.cpp \
     SolarCore/SolarRender/solarframegraph.cpp \
     SolarCore/SolarRender/solarforwardframegraph.cpp \
-    SolarCore/SolarRender/solardiffuseeffect.cpp
+    SolarCore/SolarRender/solardiffuseeffect.cpp \
+    Additional/solarinfoloader.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -79,7 +79,8 @@ HEADERS += \
     SolarCore/SolarRender/solarmaterial.h \
     SolarCore/SolarRender/solarframegraph.h \
     SolarCore/SolarRender/solarforwardframegraph.h \
-    SolarCore/SolarRender/solardiffuseeffect.h
+    SolarCore/SolarRender/solardiffuseeffect.h \
+    Additional/solarinfoloader.h
 
 RESOURCES += \
     res.qrc
@@ -113,6 +114,7 @@ android {
     deployment.files += Resources/Database/SolarDB.db
     deployment.path = /assets
     INSTALLS += deployment
+    CONFIG += mobility
 }
 
 

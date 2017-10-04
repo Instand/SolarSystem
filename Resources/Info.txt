@@ -1,0 +1,16 @@
+Solar System v. %%
+
+Based on Qt Framework with Qt3D technology.
+For education only.
+Some features used from
+Qt Planet QML example.
+
+Some textures used from:
+http://www.solarsystemscope.com.
+
+Created by Instand in 2017,
+Source code available at:
+https://github.com/Instand/SolarSystem
+
+Thanks to Emerald for advises
+and Qt Company for Qt.
