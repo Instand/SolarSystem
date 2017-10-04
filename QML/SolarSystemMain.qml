@@ -1,14 +1,13 @@
 import QtQuick 2.0
 import QtQuick.Scene3D 2.0
 import QtQuick.Controls 2.1
+import SolarSystem.InfoLoader 1.0
 
 Item {
     id: root
-    width: 1280
-    height: 700
 
     //version property
-    property string version: "3.0"
+    property string version: "3.5"
 
     //planet list show flag
     property bool showPlanetList: false
@@ -330,19 +329,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.pointSize: 14
             styleColor: "#ffffff"
-            text: qsTr("Solar System v. ") + version +
-                  qsTr("\n") +
-                  qsTr("\n") +
-                  qsTr("Based on Qt Framework with Qt3D technology.\n") +
-                  qsTr("For education only.\n") +
-                  qsTr("Some features used from\nQt Planet QML example.") +
-                  qsTr("\n") +
-                  qsTr("Some textures used from:\nhttp://www.solarsystemscope.com.") +
-                  qsTr("\n") +
-                  qsTr("\n") +
-                  qsTr("Created by Nikita Chernyaev\naka Instand in 2017,\n") +
-                  qsTr("Source code available at:\nhttps://github.com/Instand/SolarSystem\n") +
-                  qsTr("\nThanks to Emerald for advises\nand Qt Company for Qt.")
+            text: InfoLoader.loadInfo(version)
         }
 
     }
