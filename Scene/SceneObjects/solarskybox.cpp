@@ -1,5 +1,6 @@
 #include "solarskybox.h"
 
+#ifndef QT3D_MATERIALS
 #include <Qt3DRender/QFilterKey>
 #include <Qt3DRender/QEffect>
 #include <Qt3DRender/QTexture>
@@ -13,8 +14,10 @@
 #include <Qt3DRender/QGraphicsApiFilter>
 #include <Qt3DRender/QShaderProgram>
 
-using namespace Qt3DCore;
 using namespace Qt3DRender;
+#endif
+
+using namespace Qt3DCore;
 using namespace Qt3DExtras;
 
 SolarSystem::SolarSkyBox::SolarSkyBox(Qt3DCore::QNode* parent):

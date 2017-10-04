@@ -1,10 +1,14 @@
 #ifndef SOLARSKYBOX_H
 #define SOLARSKYBOX_H
 
-#include <QVector3D>
-#include <Qt3DCore/QEntity>
-#include <Qt3DExtras/QSkyboxEntity>
 #include <solarsystemcore.h>
+
+#ifdef QT3D_MATERIALS
+#include <QVector3D>
+#include <Qt3DExtras/QSkyboxEntity>
+#else
+#include <Qt3DCore/QEntity>
+#endif
 
 #ifndef QT3D_MATERIALS
 //forward
