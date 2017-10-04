@@ -16,6 +16,8 @@ namespace SolarSystem
 
         //loads info
         Q_INVOKABLE QString loadInfo() const;
+
+        //loads info and inserts version to it
         Q_INVOKABLE QString loadInfo(const QString& insertVersion) const;
     };
 
