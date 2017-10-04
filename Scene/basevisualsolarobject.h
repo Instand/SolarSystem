@@ -3,15 +3,15 @@
 
 #include "Scene/visualsolarobject.h"
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //this class represets a simple visual object with transform and mesh
-    class BaseVisualSolarObject : public VisualSolarObject {
-
+    class BaseVisualSolarObject : public VisualSolarObject
+    {
         Q_OBJECT
 
     public:
-        BaseVisualSolarObject(Qt3DCore::QNode* parent = 0);
+        BaseVisualSolarObject(Qt3DCore::QNode* parent = nullptr);
 
     protected:
         virtual void update(float deltaTime) = 0;
@@ -62,7 +62,6 @@ namespace SolarSystem {
         double _roll = 0;
         double _tilt = 0;
     };
-
 }
 
 #endif // BASEVISUALSOLAROBJECT_H
