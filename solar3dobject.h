@@ -1,10 +1,14 @@
 #ifndef SOLAR3DOBJECT_H
 #define SOLAR3DOBJECT_H
 
-#include <SolarCore/SolarRender/solarmaterial.h>
+#include "Scene/basevisualsolarobject.h"
+
+#ifdef QT3D_MATERIALS
 #include <Qt3DExtras/QNormalDiffuseSpecularMapMaterial>
 #include <Qt3DRender/QTextureImage>
-#include "Scene/basevisualsolarobject.h"
+#else
+#include <SolarCore/SolarRender/solarmaterial.h>
+#endif
 
 namespace SolarSystem
 {
