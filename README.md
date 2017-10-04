@@ -18,5 +18,10 @@ Binary for Windows is available at release folder <br />
 <br />
 SolarSystem v.3.0 <br />
 Based on created shaders + materials + effects (Core_new branch) <br />
-P.S. project has problems with light rendering/materials, i'll try to fix it
+P.S. project has problems with light rendering/materials, i'll try to fix it <br />
+<br />
+SolarSystem v.3.5 <br />
+Combined Qt3DExtras materials + user defined materials with different builds <br />
+Qt3D materials used as default <br />
+
 
