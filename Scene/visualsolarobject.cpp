@@ -25,6 +25,4 @@ void SolarSystem::VisualSolarObject::frameTick(float deltaTime)
         elem(deltaTime);
 
     update(deltaTime);
-
-    emit tick(deltaTime);
 }

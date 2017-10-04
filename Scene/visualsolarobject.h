@@ -4,15 +4,15 @@
 #include <Qt3DLogic/QFrameAction>
 #include "Interface/ivisualsolarobject.h"
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //class that represents logic programming for visual object on the scene
-    class VisualSolarObject : public IVisualSolarObject {
-
+    class VisualSolarObject : public IVisualSolarObject
+    {
         Q_OBJECT
 
     public:
-        VisualSolarObject(Qt3DCore::QNode* parent = 0);
+        VisualSolarObject(Qt3DCore::QNode* parent = nullptr);
 
     protected:
         virtual void update(float deltaTime) = 0;
@@ -46,11 +46,7 @@ namespace SolarSystem {
 
     private slots:
         void frameTick(float deltaTime);
-
-    signals:
-        void tick(float);
     };
-
 }
 
 #endif // VISUALSOLAROBJECT_H
