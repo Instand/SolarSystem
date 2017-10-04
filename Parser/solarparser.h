@@ -4,10 +4,11 @@
 #include <solarsystemcore.h>
 #include <SolarCore/SolarObjects/abstractsolarobject.h>
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //static realization of string solar object parser
-    class SolarParser {
+    class SolarParser
+    {
     public:
 
         //parse string to get solar object type
@@ -25,7 +26,6 @@ namespace SolarSystem {
         //returns solar object from planet list index
         static SolarObjects parsePlanetListIndex(int index);
     };
-
 }
 
 
