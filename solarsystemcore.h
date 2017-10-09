@@ -132,6 +132,19 @@ namespace SolarSystem
         SolarSystemView
     };
 
+    //all material types used in solar system project
+    enum class SolarMaterials
+    {
+        None,
+        Diffuse,
+        DiffuseSpecular,
+        NormalDiffuse,
+        NormalDiffiseSpecular,
+        NormalDiffuseAplha,
+        Phong,
+        PhongAlpha
+    };
+
     //store default camera settings
     namespace CameraSettings
     {
