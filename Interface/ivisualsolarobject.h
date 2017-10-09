@@ -5,6 +5,7 @@
 #include <Qt3DCore/QTransform>
 #include <Qt3DRender/QMesh>
 #include <Qt3DRender/QObjectPicker>
+#include <QMaterial>
 #include <vector>
 #include <functional>
 #include <solarsystemcore.h>
@@ -38,19 +39,25 @@ namespace SolarSystem
         virtual void clearLogic() = 0;
 
         //position in space
-        virtual Qt3DCore::QTransform& transform() const = 0;
+        virtual Qt3DCore::QTransform* transform() const = 0;
 
         //get mesh
-        virtual Qt3DRender::QMesh& mesh() const =0;
+        virtual Qt3DRender::QMesh* mesh() const = 0;
 
         //get picker
-        virtual Qt3DRender::QObjectPicker& picker() const = 0;
+        virtual Qt3DRender::QObjectPicker* picker() const = 0;
 
         //returns current object type
         virtual SolarObjects solarType() const = 0;
 
         //set solar type
         virtual void setSolarType(SolarObjects type) = 0;
+
+        //returns object material type
+        virtual SolarMaterials materialType() const = 0;
+
+        //returns object material
+        virtual Qt3DRender::QMaterial* material() const = 0;
 
         //control
         virtual double r() const = 0;
