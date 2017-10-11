@@ -16,7 +16,6 @@ namespace SolarSystem
     protected:
         virtual void update(float deltaTime) override;
     };
-
 }
 
 #endif // EMPTYSOLAROBJECT_H
