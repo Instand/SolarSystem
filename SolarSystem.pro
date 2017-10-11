@@ -35,7 +35,6 @@ SOURCES += main.cpp \
     UI/solarquickui.cpp \
     Scene/SceneObjects/planetring.cpp \
     SolarCore/cameracontroller.cpp \
-    solar3dalphaobject.cpp \
     Scene/SceneObjects/earthcloud.cpp \
     SolarCore/SolarRender/solarlight.cpp \
     SolarCore/SolarRender/solarshadoweffect.cpp \
@@ -44,7 +43,11 @@ SOURCES += main.cpp \
     SolarCore/SolarRender/solarframegraph.cpp \
     SolarCore/SolarRender/solarforwardframegraph.cpp \
     SolarCore/SolarRender/solardiffuseeffect.cpp \
-    Additional/solarinfoloader.cpp
+    Additional/solarinfoloader.cpp \
+    Scene/SceneObjects/sun.cpp \
+    Scene/MaterialObjects/normaldiffuseobject.cpp \
+    Scene/MaterialObjects/normaldiffusealphaobject.cpp \
+    Scene/MaterialObjects/diffuseobject.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -71,7 +74,6 @@ HEADERS += \
     UI/solarquickui.h \
     Scene/SceneObjects/planetring.h \
     SolarCore/cameracontroller.h \
-    solar3dalphaobject.h \
     Scene/SceneObjects/earthcloud.h \
     SolarCore/SolarRender/solarlight.h \
     SolarCore/SolarRender/solarshadoweffect.h \
@@ -80,7 +82,11 @@ HEADERS += \
     SolarCore/SolarRender/solarframegraph.h \
     SolarCore/SolarRender/solarforwardframegraph.h \
     SolarCore/SolarRender/solardiffuseeffect.h \
-    Additional/solarinfoloader.h
+    Additional/solarinfoloader.h \
+    Scene/SceneObjects/sun.h \
+    Scene/MaterialObjects/normaldiffuseobject.h \
+    Scene/MaterialObjects/normaldiffusealphaobject.h \
+    Scene/MaterialObjects/diffuseobject.h
 
 RESOURCES += \
     res.qrc
