@@ -6,7 +6,7 @@
 #ifndef QT3D_MATERIALS
 #include <solar3dobject.h>
 #else
-#include <solar3dalphaobject.h>
+#include <Scene/MaterialObjects/normaldiffusealphaobject.h>
 #endif
 
 namespace SolarSystem
@@ -14,7 +14,7 @@ namespace SolarSystem
 #ifndef QT3D_MATERIALS
     using EarthCloudBase = Solar3dObject;
 #else
-    using EarthCloudBase = Solar3DAlphaObject;
+    using EarthCloudBase = NormalDiffuseAlphaObject;
 #endif
 
     //represents earth cloud mesh

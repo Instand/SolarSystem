@@ -1,5 +1,6 @@
 #include "earthcloud.h"
 #include <Qt3DExtras/QSphereGeometry>
+#include <QTextureImage>
 
 SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
     EarthCloudBase(parent)
@@ -12,27 +13,20 @@ SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
     sphereGeometry->setRings(PlanetSettings::rings);
     sphereGeometry->setSlices(PlanetSettings::slices);
 
-    mesh().setGeometry(sphereGeometry);
+    _mesh->setGeometry(sphereGeometry);
 
 #ifndef QT3D_MATERIALS
     _material->setDiffuseTextureSource(":/Resources/Images/earthcloudmapcolortrans.png");
 #else
-    diffuse().setSource(QUrl::fromLocalFile(":/Resources/Images/earthcloudmapcolortrans.png"));
-    _material->diffuse()->setGenerateMipMaps(true);
+    auto mat = qobject_cast<Qt3DExtras::QNormalDiffuseMapAlphaMaterial*>(_material);
+
+    Qt3DRender::QTextureImage* diffuseMap = new Qt3DRender::QTextureImage();
+    diffuseMap->setSource(QUrl::fromLocalFile(":/Resources/Images/earthcloudmapcolortrans.png"));
+    mat->diffuse()->addTextureImage(diffuseMap);
 
     Qt3DRender::QTextureImage* normalMap = new Qt3DRender::QTextureImage();
     normalMap->setSource(QUrl::fromLocalFile(":/Resources/Images/earthcloudmapcolortransnormal.png"));
-    material().normal()->addTextureImage(normalMap);
-
-    _material->diffuse()->setGenerateMipMaps(true);
-    _material->diffuse()->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
-    _material->diffuse()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
-    _material->diffuse()->setMaximumAnisotropy(16.0f);
-
-    _material->normal()->setGenerateMipMaps(true);
-    _material->normal()->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
-    _material->normal()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
-    _material->normal()->setMaximumAnisotropy(16.0f);
+    mat->normal()->addTextureImage(normalMap);
 #endif
 }
 
@@ -53,5 +47,5 @@ void SolarSystem::EarthCloud::update(float deltaTime)
     //ring scale
     matrix.scale(_r);
 
-    transform().setMatrix(matrix);
+    _transform->setMatrix(matrix);
 }
