@@ -16,7 +16,6 @@ namespace SolarSystem
     using PlanetArray = std::map<SolarObjects, IVisualSolarObject*>;
 
 #ifndef QT3D_MATERIALS
-    //forward
     class SolarLight;
     class SolarObjectEffect;
     class SolarShadowEffect;
@@ -67,19 +66,6 @@ namespace SolarSystem
         void setShadowTexture(Qt3DRender::QTexture2D* texture);
         void initEffects();
 #endif
-
-    signals:
-
-        //if we pressed on planet
-        void planetClicked(IVisualSolarObject*);
-
-        //pressed coords
-        void coordClicked(QVector3D);
-
-    private slots:
-
-        //on planet pick
-        void onObjectPick(Qt3DRender::QPickEvent* pick);
     };
 }
 
