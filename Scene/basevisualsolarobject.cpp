@@ -9,14 +9,19 @@ SolarSystem::BaseVisualSolarObject::BaseVisualSolarObject(Qt3DCore::QNode* paren
     addComponent(_mesh);
 }
 
-Qt3DCore::QTransform &SolarSystem::BaseVisualSolarObject::transform() const
+Qt3DCore::QTransform* SolarSystem::BaseVisualSolarObject::transform() const
 {
-    return *_transform;
+    return _transform;
 }
 
-Qt3DRender::QMesh &SolarSystem::BaseVisualSolarObject::mesh() const
+Qt3DRender::QMesh* SolarSystem::BaseVisualSolarObject::mesh() const
 {
-    return *_mesh;
+    return _mesh;
+}
+
+SolarSystem::SolarMaterials SolarSystem::BaseVisualSolarObject::materialType() const
+{
+    return _materialType;
 }
 
 SolarSystem::SolarObjects SolarSystem::BaseVisualSolarObject::solarType() const

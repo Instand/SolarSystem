@@ -17,11 +17,13 @@ namespace SolarSystem
         virtual void update(float deltaTime) = 0;
 
     public:
-        virtual Qt3DRender::QObjectPicker& picker() const = 0;
+        virtual Qt3DRender::QObjectPicker* picker() const = 0;
+        virtual Qt3DRender::QMaterial* material() const = 0;
 
         //realize base visual methods
-        virtual Qt3DCore::QTransform& transform() const override final;
-        virtual Qt3DRender::QMesh& mesh() const override final;
+        virtual Qt3DCore::QTransform* transform() const override final;
+        virtual Qt3DRender::QMesh* mesh() const override final;
+        virtual SolarMaterials materialType() const override final;
 
         //setters/getters
         virtual SolarObjects solarType() const override final;
@@ -45,16 +47,15 @@ namespace SolarSystem
         virtual double tilt() const override final;
         virtual void setTilt(double tilt) override final;
 
-    private:
+    protected:
 
         //Qt3D components
         Qt3DCore::QTransform* _transform;
         Qt3DRender::QMesh* _mesh;
 
-    protected:
-
         //main data
         SolarObjects _solarType;
+        SolarMaterials _materialType = SolarMaterials::None;
         double _r = 0;
         double _x = 0;
         double _y = 0;
