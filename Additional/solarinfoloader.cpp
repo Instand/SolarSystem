@@ -22,7 +22,7 @@ QString SolarSystem::SolarInfoLoader::loadInfo(const QString& insertVersion) con
     return loadInfo().replace("%%", insertVersion);
 }
 
-QObject* SolarSystem::infoLoaderProvider(class QQmlEngine* engine, class QJSEngine* scriptEngine)
+QObject* SolarSystem::infoLoaderProvider(QQmlEngine* engine, QJSEngine* scriptEngine)
 {
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)

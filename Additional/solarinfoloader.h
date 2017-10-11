@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QString>
 
+class QQmlEngine;
+class QJSEngine;
+
 namespace SolarSystem
 {
     ///Loads info from file to QML
@@ -21,7 +24,7 @@ namespace SolarSystem
         Q_INVOKABLE QString loadInfo(const QString& insertVersion) const;
     };
 
-    QObject* infoLoaderProvider(class QQmlEngine* engine, class QJSEngine* scriptEngine);
+    QObject* infoLoaderProvider(QQmlEngine* engine, QJSEngine* scriptEngine);
 }
 
 #endif // SOLARINFOLOADER_H
