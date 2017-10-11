@@ -68,7 +68,6 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
 
     //animate scene on tick
     QObject::connect(rootAction, &Qt3DLogic::QFrameAction::triggered, solarAnimator, &SolarAnimator::animate);
-    QObject::connect(planetsContainer, &PlanetsContainer::coordClicked, controller, &CameraController::changeViewCenter);
 }
 
 SolarSystem::SolarEntity::~SolarEntity()
