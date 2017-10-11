@@ -125,15 +125,10 @@ void SolarSystem::SolarAnimator::animate(float deltaTime)
 
 void SolarSystem::SolarAnimator::setSolarSpeed(int value)
 {
-    float coeff = 1.0f;
+    auto val = value + 50;
 
-    if (value < 50)
-        coeff = value/500.0f;
-    else if (value > 50)
-        coeff = value/10.0f;
-    else
-        coeff = value/50.0f;
-
+    //TO DO FIX solar speed
+    auto coeff = (9 * val - 400)/50.0f;
     _mathCore->changeSolarObjectsSpeed(SolarValues::startSpeed * coeff);
 }
 
