@@ -1,9 +1,8 @@
 #include "planet.h"
 #include <Qt3DExtras/QSphereGeometry>
-#include <solarsystemcore.h>
 
 SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
-    Solar3dObject(parent)
+    NormalDiffuseObject(parent)
 {
     Qt3DExtras::QSphereGeometry* sphereGeometry = new Qt3DExtras::QSphereGeometry(this);
 
@@ -13,7 +12,7 @@ SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
     sphereGeometry->setRings(PlanetSettings::rings);
     sphereGeometry->setSlices(PlanetSettings::slices);
 
-    mesh().setGeometry(sphereGeometry);
+    _mesh->setGeometry(sphereGeometry);
 }
 
 void SolarSystem::Planet::update(float deltaTime)
@@ -33,5 +32,5 @@ void SolarSystem::Planet::update(float deltaTime)
     //planet scale
     matrix.scale(_r);
 
-    transform().setMatrix(matrix);
+    _transform->setMatrix(matrix);
 }

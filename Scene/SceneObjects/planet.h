@@ -1,12 +1,12 @@
 #ifndef PLANET_H
 #define PLANET_H
 
-#include <solar3dobject.h>
+#include <Scene/MaterialObjects/normaldiffuseobject.h>
 
 namespace SolarSystem
 {
     //base class for solar planets
-    class Planet : public Solar3dObject
+    class Planet : public NormalDiffuseObject
     {
         Q_OBJECT
 
