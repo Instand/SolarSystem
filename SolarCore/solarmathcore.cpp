@@ -450,7 +450,7 @@ QVector3D SolarSystem::SolarMathCore::objectPosition(SolarSystem::SolarObjects o
     if (object != SolarObjects::SolarSystemView)
     {
         auto* obj = planetContainer[object];
-        pos = QVector3D(obj->transform().translation());
+        pos = QVector3D(obj->transform()->translation());
     }
 
     return pos;
