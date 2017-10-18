@@ -11,17 +11,17 @@ Thanks to Qt Company. <br />
 <br />
 ![alt tag](http://ipic.su/img/img7/fs/SolarSystemScreen.1490859421.png) <br />
 <br />
-SolarSystem v.2.3 <br />
-Based on Qt3DExtras materials. <br />
+***SolarSystem v.2.3*** <br />
+Based on Qt3DExtras materials and Qt 5.7. <br />
 Full project https://yadi.sk/d/mKuWiLLP3K6t8e <br />
-Binary for Windows is available at release folder <br />
+Binary for Windows is available at release folder<br />
 <br />
-SolarSystem v.3.0 <br />
-Based on created shaders + materials + effects (Core_new branch) <br />
-P.S. project has problems with light rendering/materials, i'll try to fix it <br />
+***SolarSystem v.3.0*** <br />
+Based on created shaders + materials + effects (Core_new branch) and Qt 5.8.<br />
+P.S. project has problems with light rendering/materials, i'll try to fix it<br />
 <br />
-SolarSystem v.3.5 <br />
-Combined Qt3DExtras materials + user defined materials with different builds <br />
-Qt3D materials used as default <br />
+***SolarSystem v.3.5*** <br />
+Combined Qt3DExtras materials + user defined materials with different builds. Based on Qt 5.9.1. <br />
+Qt3D materials used as default. <br />
 
 
