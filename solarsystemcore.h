@@ -142,7 +142,8 @@ namespace SolarSystem
         NormalDiffiseSpecular,
         NormalDiffuseAplha,
         Phong,
-        PhongAlpha
+        PhongAlpha,
+        Unlit
     };
 
     //store default camera settings
