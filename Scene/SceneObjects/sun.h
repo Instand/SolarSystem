@@ -1,12 +1,12 @@
 #ifndef SUN_H
 #define SUN_H
 
-#include <Scene/MaterialObjects/diffuseobject.h>
+#include <Scene/MaterialObjects/unlitobject.h>
 
 namespace SolarSystem
 {
     //Represents sun with diffuse material
-    class Sun final : public DiffuseObject
+    class Sun final : public UnlitObject
     {
         Q_OBJECT
 

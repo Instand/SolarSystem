@@ -1,9 +1,11 @@
 #include "sun.h"
 #include <Qt3DExtras/QSphereGeometry>
+#include <QTextureImage>
+#include <QTexture>
 #include <QPointLight>
 
 SolarSystem::Sun::Sun(Qt3DCore::QNode* parent):
-    DiffuseObject(parent)
+    UnlitObject(parent)
 {
     Qt3DExtras::QSphereGeometry* sphereGeometry = new Qt3DExtras::QSphereGeometry(this);
 
@@ -20,6 +22,15 @@ SolarSystem::Sun::Sun(Qt3DCore::QNode* parent):
 
     addComponent(sunLight);
     setObjectName(SolarObjectsValues::Sun::toString);
+
+    auto mat = qobject_cast<Qt3DExtras::QTextureMaterial*>(_material);
+
+    //sun diffuse
+    Qt3DRender::QTextureImage* sunDiffuse = new Qt3DRender::QTextureImage();
+    sunDiffuse->setSource(QUrl::fromLocalFile(":/Resources/Images/sun_map.jpg"));
+    mat->texture()->addTextureImage(sunDiffuse);
+
+    setTilt(SolarObjectsValues::Sun::tilt);
 }
 
 void SolarSystem::Sun::update(float deltaTime)
