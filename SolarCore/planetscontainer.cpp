@@ -40,16 +40,6 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
 
     ///create sun
     Sun* sun = new Sun(root);
-    auto sunMaterial = qobject_cast<Qt3DExtras::QDiffuseMapMaterial*>(sun->material());
-
-    //sun diffuse
-    Qt3DRender::QTextureImage* sunDiffuse = new Qt3DRender::QTextureImage();
-    sunDiffuse->setSource(QUrl::fromLocalFile(":/Resources/Images/sun_map.jpg"));
-    sunMaterial->diffuse()->addTextureImage(sunDiffuse);
-
-    //sun material setup
-    sunMaterial->setShininess(sunMaterial->shininess() * shiness);
-    sun->setTilt(SolarObjectsValues::Sun::tilt);
 
     ///create mercury
     Planet* mercury = new Planet(root);
