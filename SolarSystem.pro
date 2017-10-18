@@ -47,7 +47,8 @@ SOURCES += main.cpp \
     Scene/SceneObjects/sun.cpp \
     Scene/MaterialObjects/normaldiffuseobject.cpp \
     Scene/MaterialObjects/normaldiffusealphaobject.cpp \
-    Scene/MaterialObjects/diffuseobject.cpp
+    Scene/MaterialObjects/diffuseobject.cpp \
+    Scene/MaterialObjects/unlitobject.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -86,7 +87,8 @@ HEADERS += \
     Scene/SceneObjects/sun.h \
     Scene/MaterialObjects/normaldiffuseobject.h \
     Scene/MaterialObjects/normaldiffusealphaobject.h \
-    Scene/MaterialObjects/diffuseobject.h
+    Scene/MaterialObjects/diffuseobject.h \
+    Scene/MaterialObjects/unlitobject.h
 
 RESOURCES += \
     res.qrc
