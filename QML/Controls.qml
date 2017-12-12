@@ -19,10 +19,6 @@ Column {
         height: root.elementHeight
         radius: 4
         source: "qrc:/Resources/Images/planet_icon.png"
-        toolTipText: qsTr("Planets list")
-        toolTipWidth: 120
-        toolTipHeight: 30
-        toolTipVisibility: true
 
         onClicked: root.planetButtonClicked()
     }
@@ -34,10 +30,6 @@ Column {
         height: root.elementHeight
         radius: 4
         source: "qrc:/Resources/Images/calendar_icon.png"
-        toolTipText: qsTr("Calendar")
-        toolTipWidth: 120
-        toolTipHeight: 30
-        toolTipVisibility: true
     }
 
     //options button
@@ -47,10 +39,6 @@ Column {
         height: root.elementHeight
         radius: 4
         source: "qrc:/Resources/Images/options_icon.png"
-        toolTipText: qsTr("Options")
-        toolTipWidth: 120
-        toolTipHeight: 30
-        toolTipVisibility: true
     }
 
     //info button
@@ -60,10 +48,6 @@ Column {
         height: root.elementHeight
         radius: 4
         source: "qrc:/Resources/Images/info_icon.png"
-        toolTipText: qsTr("Info")
-        toolTipWidth: 120
-        toolTipHeight: 30
-        toolTipVisibility: true
 
         onClicked: root.infoButtonClicked()
     }
