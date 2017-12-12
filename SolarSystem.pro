@@ -48,7 +48,8 @@ SOURCES += main.cpp \
     Scene/MaterialObjects/normaldiffuseobject.cpp \
     Scene/MaterialObjects/normaldiffusealphaobject.cpp \
     Scene/MaterialObjects/diffuseobject.cpp \
-    Scene/MaterialObjects/unlitobject.cpp
+    Scene/MaterialObjects/unlitobject.cpp \
+    Scene/fpscounter.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -88,7 +89,8 @@ HEADERS += \
     Scene/MaterialObjects/normaldiffuseobject.h \
     Scene/MaterialObjects/normaldiffusealphaobject.h \
     Scene/MaterialObjects/diffuseobject.h \
-    Scene/MaterialObjects/unlitobject.h
+    Scene/MaterialObjects/unlitobject.h \
+    Scene/fpscounter.h
 
 RESOURCES += \
     res.qrc
@@ -112,7 +114,9 @@ DISTFILES += \
     Resources/Shaders/diffuse.vert \
     Resources/Shaders/diffuse.frag \
     Resources/Shaders/skybox.vert \
-    Resources/Shaders/skybox.frag
+    Resources/Shaders/skybox.frag \
+    QML/FpsLabel.qml \
+    QML/SpeedSlider.qml
 
 
 #for app icon
