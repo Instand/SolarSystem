@@ -23,5 +23,8 @@ P.S. project has problems with light rendering/materials, i'll try to fix it<br 
 ***SolarSystem v.3.5*** <br />
 Combined Qt3DExtras materials + user defined materials with different builds. Based on Qt 5.9.1. <br />
 Qt3D materials used as default. <br />
+<br />
+***SolarSystem v.3.7*** <br />
+Changed ui and core optimization. Fixed some issues. Based on Qt 5.10. <br />
 
 
