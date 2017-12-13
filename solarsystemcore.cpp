@@ -49,7 +49,7 @@ const int SolarSystem::SolarValues::day = 1;
 const QVector3D SolarSystem::SolarValues::rollAxis = QVector3D(0, 1, 0);
 const QVector3D SolarSystem::SolarValues::tiltAxis = QVector3D(0, 0, 1);
 
-QString SolarSystem::SolarStrings::likeObject(const QString &object)
+QString SolarSystem::SolarStrings::likeObject(const QString& object)
 {
     return "'" + object + "'";
 }
