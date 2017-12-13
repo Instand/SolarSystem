@@ -7,7 +7,7 @@ Item {
     id: root
 
     //version property
-    property string version: "3.5"
+    property string version: "3.7"
 
     //planet list show flag
     property bool showPlanetList: false
@@ -33,7 +33,17 @@ Item {
                 solarSystem.inputSettings.setEventSource(root)
             }
         }
-    }   
+    }
+
+    //shows fps
+    FpsLabel {
+        id: fpsElement
+        anchors.top: root.top
+        anchors.left: root.left
+        width: 100
+        height: 50
+        text: solarSystem.counter.fps
+    }
 
     //slider frame
     SolarFrame {
@@ -45,13 +55,10 @@ Item {
         width: 50
         radius: 4
 
-        Slider {
+        SpeedSlider {
             id: speedSlider
             orientation: Qt.Vertical
             anchors.fill: parent
-            from: 0
-            to: 100
-            value: 50
             onValueChanged: {
                 solarSystem.animator.setSolarSpeed(value);
             }
@@ -68,8 +75,6 @@ Item {
         radius: 4
         height: 50
         width: 50
-        toolTipVisibility: true
-        toolTipText: "Screenshot"
         source: "qrc:/Resources/Images/screen_icon.png"
         onClicked: {
             root.grabToImage(function(result) {
@@ -95,8 +100,6 @@ Item {
         anchors.bottom: speedSliderFrame.top
         anchors.rightMargin: 5
         anchors.bottomMargin: 5
-        toolTipVisibility: true
-        toolTipText: "Extra Speed"
         radius: 4
         height: 50
         width: 50
@@ -119,12 +122,11 @@ Item {
     }
 
     //date label
-    SolarFrame {
+    Item {
         id: timeFrame
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.topMargin: 5
-        radius: 4
         width: 200
         height: 50
 
@@ -282,7 +284,6 @@ Item {
         anchors.right: parent.right
         anchors.rightMargin: 5
         anchors.topMargin: 5
-        toolTipVisibility: false
         radius: 4
         source: "qrc:/Resources/Images/exit_icon.png"
         width: 60
