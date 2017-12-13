@@ -22,7 +22,7 @@ namespace SolarSystem
 
         //realize base visual methods
         virtual Qt3DCore::QTransform* transform() const override final;
-        virtual Qt3DRender::QMesh* mesh() const override final;
+        virtual Qt3DRender::QGeometryRenderer* renderer() const override final;
         virtual SolarMaterials materialType() const override final;
 
         //setters/getters
@@ -51,7 +51,7 @@ namespace SolarSystem
 
         //Qt3D components
         Qt3DCore::QTransform* _transform;
-        Qt3DRender::QMesh* _mesh;
+        Qt3DRender::QGeometryRenderer* _renderer;
 
         //main data
         SolarObjects _solarType;

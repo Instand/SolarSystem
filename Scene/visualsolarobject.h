@@ -19,7 +19,7 @@ namespace SolarSystem
 
     public:
         virtual Qt3DCore::QTransform* transform() const = 0;
-        virtual Qt3DRender::QMesh* mesh() const = 0;
+        virtual Qt3DRender::QGeometryRenderer* renderer() const = 0;
         virtual Qt3DRender::QObjectPicker* picker() const = 0;
         virtual SolarObjects solarType() const = 0;
         virtual void setSolarType(SolarObjects type) = 0;

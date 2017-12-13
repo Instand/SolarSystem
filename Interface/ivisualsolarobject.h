@@ -3,7 +3,7 @@
 
 #include <Qt3DCore/QEntity>
 #include <Qt3DCore/QTransform>
-#include <Qt3DRender/QMesh>
+#include <Qt3DRender/QGeometryRenderer>
 #include <Qt3DRender/QObjectPicker>
 #include <QMaterial>
 #include <vector>
@@ -41,8 +41,8 @@ namespace SolarSystem
         //position in space
         virtual Qt3DCore::QTransform* transform() const = 0;
 
-        //get mesh
-        virtual Qt3DRender::QMesh* mesh() const = 0;
+        //get renderer
+        virtual Qt3DRender::QGeometryRenderer* renderer() const = 0;
 
         //get picker
         virtual Qt3DRender::QObjectPicker* picker() const = 0;
