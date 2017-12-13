@@ -110,12 +110,10 @@ void SolarSystem::SolarAnimator::animate(float deltaTime)
         _mathCore->advanceTime(currentSolarObject);
 
         //update solar objects position
-        auto updateCount = static_cast<int>(SolarObjects::Pluto) + 1;
+        _mathCore->calculateAllSolarObjectsPosiitons();
 
-        for (int i = 0; i < updateCount; ++i)
-            _mathCore->solarObjectPosition((SolarObjects)i);
-
-        _mathCore->ringsCalculation();
+        //additional calculations
+        _mathCore->additionalCalculation();
 
         _mathCore->updateSolarView(currentSolarObject);
 
@@ -125,10 +123,8 @@ void SolarSystem::SolarAnimator::animate(float deltaTime)
 
 void SolarSystem::SolarAnimator::setSolarSpeed(int value)
 {
-    auto val = value + 50;
-
     //TO DO FIX solar speed
-    auto coeff = (9 * val - 400)/50.0f;
+    auto coeff = 0.02f * value;
     _mathCore->changeSolarObjectsSpeed(SolarValues::startSpeed * coeff);
 }
 
