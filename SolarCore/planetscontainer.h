@@ -37,6 +37,7 @@ namespace SolarSystem
         //main fields
         PlanetArray planetContainer;
         Qt3DCore::QNode* rootNode;
+        int calculatedSolarObjectNumber = 0;
 
         //helper
         void initialize(Qt3DCore::QNode *root);
@@ -50,7 +51,7 @@ namespace SolarSystem
 
     public:
 
-        //get planets number
+        //get planets number which should be calculated
         int planetsNumber() const;
 
         //get all planets

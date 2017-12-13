@@ -419,6 +419,10 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
     planetContainer[SolarObjects::Uranus] = uranus;
     planetContainer[SolarObjects::Neptune] = neptune;
     planetContainer[SolarObjects::Pluto] = pluto;
+
+    calculatedSolarObjectNumber = planetContainer.size();
+
+    //add additional solar objects
     planetContainer[SolarObjects::SaturnRing] = saturnRing;
     planetContainer[SolarObjects::UranusRing] = uranusRing;
     planetContainer[SolarObjects::EarthCloud] = earthClouds;
@@ -428,7 +432,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
 
 int SolarSystem::PlanetsContainer::planetsNumber() const
 {
-    return (int)planetContainer.size();
+    return calculatedSolarObjectNumber;
 }
 
 SolarSystem::PlanetArray SolarSystem::PlanetsContainer::planets() const
