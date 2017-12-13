@@ -1,9 +1,14 @@
 #include "planetring.h"
+#include <Qt3DRender/QMesh>
 
 SolarSystem::PlanetRing::PlanetRing(Qt3DCore::QNode* parent):
     NormalDiffuseAlphaObject(parent)
 {
-    _mesh->setSource(QUrl::fromLocalFile(":/Resources/Meshes/planetRing.obj"));
+    auto mesh = new Qt3DRender::QMesh(this);
+    _renderer = mesh;
+    addComponent(_renderer);
+
+    mesh->setSource(QUrl::fromLocalFile(":/Resources/Meshes/ring.obj"));
 }
 
 void SolarSystem::PlanetRing::update(float deltaTime)
