@@ -15,7 +15,7 @@ Qt3DRender::QObjectPicker* SolarSystem::Solar3dObject::picker() const
     return _picker;
 }
 
-Qt3DRender::QMaterial *SolarSystem::Solar3dObject::material() const
+Qt3DRender::QMaterial* SolarSystem::Solar3dObject::material() const
 {
     return _material;
 }

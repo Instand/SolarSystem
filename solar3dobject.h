@@ -11,7 +11,7 @@ namespace SolarSystem
         Q_OBJECT
 
     public:
-        Solar3dObject(Qt3DCore::QNode* parent = 0);
+        Solar3dObject(Qt3DCore::QNode* parent = nullptr);
 
         //get object properties
         virtual Qt3DRender::QObjectPicker* picker() const override final;
