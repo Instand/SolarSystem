@@ -11,6 +11,7 @@ namespace SolarSystem {
 
     //forward
     class CameraController;
+    class PlanetsContainer;
 
     //mathcore interface
     class ISolarMathCore : public QObject {
@@ -57,7 +58,7 @@ namespace SolarSystem {
         virtual void advanceTime(SolarObjects object) = 0;
 
         //add 3d container to math core
-        virtual void setPlanetsContainer(PlanetArray array) = 0;
+        virtual void setPlanetsContainer(PlanetsContainer* planetsContainer) = 0;
 
         //set all solar objects scale
         virtual void changeSolarSystemScale(float scale, bool focused = false) = 0;
@@ -69,7 +70,7 @@ namespace SolarSystem {
         virtual QDateTime getTime() const = 0;
 
         //calcualte planet rings
-        virtual void ringsCalculation() = 0;
+        virtual void additionalCalculation() = 0;
 
         //add camera controller
         virtual void setCameraController(CameraController* controller) = 0;
@@ -109,6 +110,9 @@ namespace SolarSystem {
 
         //resets extra speed to x1
         virtual void resetExtraSpeed() const = 0;
+
+        //calculates object pos for all solar objects
+        virtual void calculateAllSolarObjectsPosiitons() = 0;
     };
 
 }
