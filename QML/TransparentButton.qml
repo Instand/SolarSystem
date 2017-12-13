@@ -14,17 +14,9 @@ Rectangle {
     //click signal
     signal clicked;
 
-    //toolTip help text
-    property alias toolTipText: helpText.text
-    property alias toolTipWidth: help.width
-    property alias toolTipHeight: help.height
-
     //values
     property real lowOpacity: 0.1
     property real maxOpacity: 0.3
-
-    //tooltip visibility
-    property bool toolTipVisibility: false
 
     //image on Rectangle surface
     Image {
@@ -68,33 +60,12 @@ Rectangle {
 
             //enter event
             onEntered: {
-
-                if (root.toolTipVisibility)
-                    help.visible = true
-
                 coloredRECT.opacity = root.maxOpacity
             }
 
             //exit event
             onExited: {
-                help.visible = false
                 coloredRECT.opacity = root.lowOpacity
-            }
-        }
-
-        //help text
-        ToolTip {
-            id: help
-
-            //tooltip item
-            background: Text {
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                id: helpText
-                color: "white"
-                font.pointSize: 12
-                font.family: "Helvetica"
-                font.weight: Font.Light
             }
         }
     }
