@@ -7,7 +7,10 @@
 SolarSystem::Sun::Sun(Qt3DCore::QNode* parent):
     UnlitObject(parent)
 {
-    Qt3DExtras::QSphereGeometry* sphereGeometry = new Qt3DExtras::QSphereGeometry(this);
+    _renderer = new Qt3DRender::QGeometryRenderer(this);
+    addComponent(_renderer);
+
+    auto sphereGeometry = new Qt3DExtras::QSphereGeometry(this);
 
     //setup geometry
     sphereGeometry->setRadius(PlanetSettings::radius);
@@ -15,7 +18,7 @@ SolarSystem::Sun::Sun(Qt3DCore::QNode* parent):
     sphereGeometry->setRings(PlanetSettings::rings);
     sphereGeometry->setSlices(PlanetSettings::slices);
 
-    _mesh->setGeometry(sphereGeometry);
+    _renderer->setGeometry(sphereGeometry);
 
     auto sunLight = new Qt3DRender::QPointLight();
     sunLight->setIntensity(1.35f);

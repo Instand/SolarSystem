@@ -5,6 +5,9 @@
 SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
     EarthCloudBase(parent)
 {
+    _renderer = new Qt3DRender::QGeometryRenderer(this);
+    addComponent(_renderer);
+
     auto sphereGeometry = new Qt3DExtras::QSphereGeometry();
 
     //setup geometry
@@ -13,7 +16,7 @@ SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
     sphereGeometry->setRings(PlanetSettings::rings);
     sphereGeometry->setSlices(PlanetSettings::slices);
 
-    _mesh->setGeometry(sphereGeometry);
+    _renderer->setGeometry(sphereGeometry);
 
 #ifndef QT3D_MATERIALS
     _material->setDiffuseTextureSource(":/Resources/Images/earthcloudmapcolortrans.png");
