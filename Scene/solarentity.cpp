@@ -1,6 +1,7 @@
 #include "solarentity.h"
 #include <SolarCore/cameracontroller.h>
 #include <Scene/SceneObjects/solarskybox.h>
+#include <solarsystemdbconnector.h>
 
 #ifdef QT3D_MATERIALS
     #include <SolarCore/SolarRender/solarforwardframegraph.h>
@@ -13,8 +14,11 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),
     solarAnimator(new SolarAnimator()),
     rootAction(new Qt3DLogic::QFrameAction()),
-    planetsContainer(new PlanetsContainer(this))
+    planetsContainer(new PlanetsContainer(this)),
+    fpsCounter(new FpsCounter(this))
 {
+    SolarSystemDBConnector::instance();
+
     addComponent(rootAction);
 
     //scene camera setup
@@ -55,7 +59,7 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     addComponent(input);
 
     //math core control
-    solarAnimator->mathCore()->setPlanetsContainer(planetsContainer->planets());
+    solarAnimator->mathCore()->setPlanetsContainer(planetsContainer);
     solarAnimator->mathCore()->setSolarView(mainCamera);
     solarAnimator->mathCore()->setCameraController(controller);
     solarAnimator->setDefaultValues();
@@ -89,6 +93,11 @@ Qt3DRender::QCamera* SolarSystem::SolarEntity::camera() const
 Qt3DInput::QInputSettings* SolarSystem::SolarEntity::inputSettings() const
 {
     return input;
+}
+
+SolarSystem::FpsCounter* SolarSystem::SolarEntity::counter() const
+{
+    return fpsCounter;
 }
 
 #ifndef QT3D_MATERIALS

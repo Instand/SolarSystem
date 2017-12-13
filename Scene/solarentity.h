@@ -5,6 +5,7 @@
 #include <Qt3DCore/QEntity>
 #include <solarsystemcore.h>
 #include <SolarCore/solaranimator.h>
+#include <Scene/fpscounter.h>
 #include <Qt3DInput/QInputSettings>
 #include <Qt3DLogic/QFrameAction>
 #include <Qt3DRender/QTexture>
@@ -29,6 +30,7 @@ namespace SolarSystem
         Q_OBJECT
 
         Q_PROPERTY(SolarAnimator* animator READ animator)
+        Q_PROPERTY(FpsCounter* counter READ counter)
         Q_PROPERTY(Qt3DInput::QInputSettings* inputSettings READ inputSettings)
 
     public:
@@ -45,6 +47,9 @@ namespace SolarSystem
 
         //returns input settings
         Qt3DInput::QInputSettings* inputSettings() const;
+
+        //returns fps counter
+        FpsCounter* counter() const;
 
 #ifndef QT3D_MATERIALS
         //returns shadow texture
@@ -73,6 +78,9 @@ namespace SolarSystem
 
         //input
         Qt3DInput::QInputSettings* input;
+
+        //fps
+        FpsCounter* fpsCounter;
 
 #ifdef QT3D_MATERIALS
         //main graph
