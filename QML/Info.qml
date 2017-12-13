@@ -16,7 +16,7 @@ Text {
     lineHeightMode: Text.FixedHeight
     color: "white"
     opacity: 0
-    wrapMode: Text.WordWrap
+    wrapMode: Text.Wrap
     visible: false
 
     //show list
