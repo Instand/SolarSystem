@@ -6,6 +6,8 @@
 
 namespace SolarSystem
 {
+    class PlanetsContainer;
+
     //base solar math model
     //some realizations used from Qt QML Planets example
     class SolarMathCore : public ISolarMathCore
@@ -28,11 +30,11 @@ namespace SolarSystem
         virtual void updateSolarView(SolarObjects object) override final;
         virtual void changeSolarObjectsSpeed(float speed) override final;
         virtual void changeSolarViewDistance(double distance) override final;
-        virtual void setPlanetsContainer(PlanetArray array) override final;
+        virtual void setPlanetsContainer(PlanetsContainer* planetsContainer) override final;
         virtual void changeSolarSystemScale(float scale, bool focused) override final;
         virtual void setDeltaTime(float dt) override final;
         virtual QDateTime getTime() const override final;
-        virtual void ringsCalculation() override final;
+        virtual void additionalCalculation() override final;
         virtual void setCameraController(CameraController *controller) override final;
         virtual void updateSolarViewZoomLimit(SolarObjects object) override final;
         virtual void setSolarViewCenter(QVector3D center) override final;
@@ -46,6 +48,7 @@ namespace SolarSystem
         virtual void changeExtraSpeed() const override final;
         virtual double extraSpeed() const override final;
         virtual void resetExtraSpeed() const override final;
+        virtual void calculateAllSolarObjectsPosiitons() override final;
 
     private:
 
@@ -63,6 +66,7 @@ namespace SolarSystem
 
         //planet container elements
         PlanetArray planetContainer;
+        PlanetsContainer* container;
 
         //orbit camera controller
         CameraController* cameraController = nullptr;
@@ -79,7 +83,7 @@ namespace SolarSystem
         void setupPlanetRings();
 
         //earth cloud calculation
-        void additionalCalculations();
+        void atmosphereCalculations();
 
         //zoom limit calculation
         float calculateZoomLimit(SolarObjects object, float limit);

@@ -1,6 +1,7 @@
 #include "solarmathcore.h"
 #include <Parser/solarparser.h>
 #include <SolarCore/cameracontroller.h>
+#include <SolarCore/planetscontainer.h>
 #include <QtMath>
 
 //Main Math data
@@ -239,7 +240,7 @@ void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
     if (object == SolarObjects::SolarSystemView)
         data->daysPerFrame = data->daysPerFrameScale; //*10
     else if (object == SolarObjects::Mercury || object == SolarObjects::Venus)
-        data->daysPerFrame = data->daysPerFrameScale * solarContainer.solarObject(object)->period()/25000.0;
+        data->daysPerFrame = data->daysPerFrameScale * solarContainer.solarObject(object)->period()/15000.0;
     else
         data->daysPerFrame = data->daysPerFrameScale * solarContainer.solarObject(object)->period()/100.0;
 
@@ -339,9 +340,10 @@ void SolarSystem::SolarMathCore::changeSolarViewDistance(double distance)
     Q_UNUSED(distance)
 }
 
-void SolarSystem::SolarMathCore::setPlanetsContainer(SolarSystem::PlanetArray array)
+void SolarSystem::SolarMathCore::setPlanetsContainer(PlanetsContainer* planetsContainer)
 {
-    planetContainer = array;
+    planetContainer = planetsContainer->planets();
+    container = planetsContainer;
 }
 
 void SolarSystem::SolarMathCore::changeSolarSystemScale(float scale, bool focused)
@@ -396,9 +398,10 @@ QDateTime SolarSystem::SolarMathCore::getTime() const
     return data->solarTime;
 }
 
-void SolarSystem::SolarMathCore::ringsCalculation()
+void SolarSystem::SolarMathCore::additionalCalculation()
 {
     setupPlanetRings();
+    atmosphereCalculations();
 }
 
 void SolarSystem::SolarMathCore::setCameraController(SolarSystem::CameraController *controller)
@@ -527,6 +530,15 @@ void SolarSystem::SolarMathCore::resetExtraSpeed() const
     data->ultraSpeed = 1.0;
 }
 
+void SolarSystem::SolarMathCore::calculateAllSolarObjectsPosiitons()
+{
+    auto updateCount = container->planetsNumber();
+
+    //update solar objects position
+    for (int i = 0; i < updateCount; ++i)
+        solarObjectPosition((SolarObjects)i);
+}
+
 float SolarSystem::SolarMathCore::calculateUT(int h, int m, float s)
 {
     return (h + m/60.0f + s/3600.0f)/24.0f;
@@ -539,40 +551,47 @@ float SolarSystem::SolarMathCore::calculateTimeScale(int year, int month, int da
 
 void SolarSystem::SolarMathCore::setupPlanetRings()
 {
-    IVisualSolarObject* saturn = planetContainer[SolarObjects::Saturn];
-    IVisualSolarObject* saturnRing = planetContainer[SolarObjects::SaturnRing];
+    if (planetContainer.count(SolarObjects::SaturnRing) && planetContainer.count(SolarObjects::Saturn))
+    {
+        IVisualSolarObject* saturn = planetContainer[SolarObjects::Saturn];
+        IVisualSolarObject* saturnRing = planetContainer[SolarObjects::SaturnRing];
 
-    saturnRing->setX(saturn->x());
-    saturnRing->setY(saturn->y());
-    saturnRing->setZ(saturn->z());
-    saturnRing->setTilt(saturn->tilt());
-    saturnRing->setRoll(saturn->roll()/10.0f);
-    saturnRing->setR((data->saturnRingInnerRadius + data->saturnRingOuterRadius)/1.75);
+        saturnRing->setX(saturn->x());
+        saturnRing->setY(saturn->y());
+        saturnRing->setZ(saturn->z());
+        saturnRing->setTilt(saturn->tilt());
+        saturnRing->setRoll(saturn->roll()/10.0f);
+        saturnRing->setR((data->saturnRingInnerRadius + data->saturnRingOuterRadius)/1.75);
+    }
 
-    IVisualSolarObject* uranus = planetContainer[SolarObjects::Uranus];
-    IVisualSolarObject* uranusRings = planetContainer[SolarObjects::UranusRing];
+    if (planetContainer.count(SolarObjects::UranusRing) && planetContainer.count(SolarObjects::Uranus))
+    {
+        IVisualSolarObject* uranus = planetContainer[SolarObjects::Uranus];
+        IVisualSolarObject* uranusRings = planetContainer[SolarObjects::UranusRing];
 
-    uranusRings->setX(uranus->x());
-    uranusRings->setY(uranus->y());
-    uranusRings->setZ(uranus->z());
-    uranusRings->setTilt(uranus->tilt());
-    uranusRings->setRoll(uranus->roll()/10.0f);
-    uranusRings->setR((data->uranusRingInnerRadius + data->uranusRingOuterRadius)/1.75);
-
-    additionalCalculations();
+        uranusRings->setX(uranus->x());
+        uranusRings->setY(uranus->y());
+        uranusRings->setZ(uranus->z());
+        uranusRings->setTilt(uranus->tilt());
+        uranusRings->setRoll(uranus->roll()/10.0f);
+        uranusRings->setR((data->uranusRingInnerRadius + data->uranusRingOuterRadius)/1.75);
+    }
 }
 
-void SolarSystem::SolarMathCore::additionalCalculations()
+void SolarSystem::SolarMathCore::atmosphereCalculations()
 {
-    IVisualSolarObject* earth = planetContainer[SolarObjects::Earth];
-    IVisualSolarObject* earthCloud = planetContainer[SolarObjects::EarthCloud];
+    if (planetContainer.count(SolarObjects::EarthCloud) && planetContainer.count(SolarObjects::Earth))
+    {
+        IVisualSolarObject* earth = planetContainer[SolarObjects::Earth];
+        IVisualSolarObject* earthCloud = planetContainer[SolarObjects::EarthCloud];
 
-    earthCloud->setX(earth->x());
-    earthCloud->setY(earth->y());
-    earthCloud->setZ(earth->z());
-    earthCloud->setTilt(earth->tilt());
-    earthCloud->setRoll(earth->roll()/1.2f);
-    earthCloud->setR(earth->r() * 1.010f);
+        earthCloud->setX(earth->x());
+        earthCloud->setY(earth->y());
+        earthCloud->setZ(earth->z());
+        earthCloud->setTilt(earth->tilt());
+        earthCloud->setRoll(earth->roll()/1.2f);
+        earthCloud->setR(earth->r() * 1.010f);
+    }
 }
 
 float SolarSystem::SolarMathCore::calculateZoomLimit(SolarSystem::SolarObjects object, float limit)
