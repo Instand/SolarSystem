@@ -1,9 +1,7 @@
 #ifndef SOLARSYSTEMCORE_H
 #define SOLARSYSTEMCORE_H
 
-//undef to build with users shader + materials + effects + framegraph, or qt3dextras materials will be used
-#define QT3D_MATERIALS
-
+//only Qt3D materials in use
 #include <QString>
 #include <QStringList>
 #include <QVector3D>
