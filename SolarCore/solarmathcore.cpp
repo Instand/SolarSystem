@@ -47,6 +47,9 @@ struct SolarSystem::SolarMathCore::Data
     double saturnRingOuterRadius = 0;
     double uranusRingInnerRadius = 0;
     double uranusRingOuterRadius = 0;
+
+    //earth cloud
+    float earthCloudRModifier = 1.010f;     //1.010f
 };
 
 SolarSystem::SolarMathCore::SolarMathCore(QObject* parent):
@@ -590,7 +593,7 @@ void SolarSystem::SolarMathCore::atmosphereCalculations()
         earthCloud->setZ(earth->z());
         earthCloud->setTilt(earth->tilt());
         earthCloud->setRoll(earth->roll()/1.2f);
-        earthCloud->setR(earth->r() * 1.010f);
+        earthCloud->setR(earth->r() * data->earthCloudRModifier);
     }
 }
 
