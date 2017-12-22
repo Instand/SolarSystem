@@ -3,7 +3,7 @@
 #include <QTextureImage>
 
 SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
-    EarthCloudBase(parent)
+    NormalDiffuseAlphaObject(parent)
 {
     _renderer = new Qt3DRender::QGeometryRenderer(this);
     addComponent(_renderer);
@@ -12,15 +12,12 @@ SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
 
     //setup geometry
     sphereGeometry->setRadius(PlanetSettings::radius);
-    sphereGeometry->setGenerateTangents(PlanetSettings::generateTangents);
+//    sphereGeometry->setGenerateTangents(PlanetSettings::generateTangents);
     sphereGeometry->setRings(PlanetSettings::rings);
     sphereGeometry->setSlices(PlanetSettings::slices);
 
     _renderer->setGeometry(sphereGeometry);
 
-#ifndef QT3D_MATERIALS
-    _material->setDiffuseTextureSource(":/Resources/Images/earthcloudmapcolortrans.png");
-#else
     auto mat = qobject_cast<Qt3DExtras::QNormalDiffuseMapAlphaMaterial*>(_material);
 
     Qt3DRender::QTextureImage* diffuseMap = new Qt3DRender::QTextureImage();
@@ -30,7 +27,6 @@ SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
     Qt3DRender::QTextureImage* normalMap = new Qt3DRender::QTextureImage();
     normalMap->setSource(QUrl::fromLocalFile(":/Resources/Images/earthcloudmapcolortransnormal.png"));
     mat->normal()->addTextureImage(normalMap);
-#endif
 }
 
 void SolarSystem::EarthCloud::update(float deltaTime)

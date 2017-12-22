@@ -17,11 +17,7 @@ namespace SolarSystem
 
 namespace SolarSystem
 {
-#ifdef QT3D_MATERIALS
     class SolarForwardFrameGraph;
-#else
-    class SolarFrameGraph;
-#endif
     class SolarSkyBox;
 
     //represents chain of solar objects (root entity)
@@ -51,14 +47,6 @@ namespace SolarSystem
         //returns fps counter
         FpsCounter* counter() const;
 
-#ifndef QT3D_MATERIALS
-        //returns shadow texture
-        Qt3DRender::QTexture2D* shadowTexture() const;
-
-        //returns light camera
-        Qt3DRender::QCamera* lightCamera() const;
-#endif
-
     private:
 
         //scene camera
@@ -82,22 +70,11 @@ namespace SolarSystem
         //fps
         FpsCounter* fpsCounter;
 
-#ifdef QT3D_MATERIALS
         //main graph
         SolarForwardFrameGraph* frameGraph;
-#else
-        //main graph
-        SolarFrameGraph* frameGraph;
-#endif
+
         //box
         SolarSkyBox* skybox;
-
-#ifndef QT3D_MATERIALS
-    public slots:
-
-        //call to setup
-        void setSize(int width, int height);
-#endif
     };
 }
 

@@ -2,13 +2,7 @@
 #include <SolarCore/cameracontroller.h>
 #include <Scene/SceneObjects/solarskybox.h>
 #include <solarsystemdbconnector.h>
-
-#ifdef QT3D_MATERIALS
-    #include <SolarCore/SolarRender/solarforwardframegraph.h>
-#else
-    #include <SolarCore/SolarRender/solarframegraph.h>
-    #include <SolarCore/SolarRender/solarlight.h>
-#endif
+#include <SolarCore/SolarRender/solarforwardframegraph.h>
 
 SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),
@@ -40,18 +34,8 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     //skybox
     skybox = new SolarSkyBox(this);
 
-#ifdef QT3D_MATERIALS
     frameGraph = new SolarForwardFrameGraph(this);
     frameGraph->setCamera(mainCamera);    
-#else
-    //light
-    auto light = new SolarLight(this);
-    lightCam = light->camera();
-
-    frameGraph = new SolarFrameGraph(this);
-    frameGraph->setViewCamera(mainCamera);
-    frameGraph->setLightCamera(light->camera());
-#endif
 
     input = new Qt3DInput::QInputSettings();
 
@@ -63,12 +47,6 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     solarAnimator->mathCore()->setSolarView(mainCamera);
     solarAnimator->mathCore()->setCameraController(controller);
     solarAnimator->setDefaultValues();
-
-#ifndef QT3D_MATERIALS
-    planetsContainer->setLight(light);
-    planetsContainer->setShadowTexture(frameGraph->shadowTexture());
-    planetsContainer->initEffects();
-#endif
 
     //animate scene on tick
     QObject::connect(rootAction, &Qt3DLogic::QFrameAction::triggered, solarAnimator, &SolarAnimator::animate);
@@ -99,23 +77,3 @@ SolarSystem::FpsCounter* SolarSystem::SolarEntity::counter() const
 {
     return fpsCounter;
 }
-
-#ifndef QT3D_MATERIALS
-Qt3DRender::QTexture2D* SolarSystem::SolarEntity::shadowTexture() const
-{
-    return frameGraph->shadowTexture();
-}
-
-Qt3DRender::QCamera* SolarSystem::SolarEntity::lightCamera() const
-{
-    return lightCam;
-}
-
-void SolarSystem::SolarEntity::setSize(int width, int height)
-{
-    frameGraph->shadowTexture()->setWidth(width);
-    frameGraph->shadowTexture()->setHeight(height);
-    lightCam->setAspectRatio(width/height);
-    mainCamera->setAspectRatio(width/height);
-}
-#endif
