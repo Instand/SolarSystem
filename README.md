@@ -25,6 +25,7 @@ Combined Qt3DExtras materials + user defined materials with different builds. Ba
 Qt3D materials used as default. <br />
 <br />
 ***SolarSystem v.3.7*** <br />
-Changed ui and core optimization. QT3D_MATERIALS macro removed, use only Extras materials.Fixed some issues. Based on Qt 5.10. <br />
+Changed ui and core optimization. QT3D_MATERIALS macro removed, used only Qt3DExtras materials. Fixed some issues. <br />
+Based on Qt 5.10. <br />
 
 
