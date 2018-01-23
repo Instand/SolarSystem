@@ -119,7 +119,8 @@ DISTFILES += \
     Resources/Shaders/skybox.vert \
     Resources/Shaders/skybox.frag \
     QML/FpsLabel.qml \
-    QML/SpeedSlider.qml
+    QML/SpeedSlider.qml \
+    android/AndroidManifest.xml \
 
 
 #for app icon
@@ -131,6 +132,8 @@ android {
     INSTALLS += deployment
     CONFIG += mobility
 }
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 
 
