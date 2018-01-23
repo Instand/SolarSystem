@@ -49,7 +49,8 @@ SOURCES += main.cpp \
     Scene/MaterialObjects/normaldiffusealphaobject.cpp \
     Scene/MaterialObjects/diffuseobject.cpp \
     Scene/MaterialObjects/unlitobject.cpp \
-    Scene/fpscounter.cpp
+    Scene/fpscounter.cpp \
+    SolarCore/SolarRender/solarstandardframegraph.cpp
 
 HEADERS += \
     solarsystemobject.h \
@@ -90,7 +91,9 @@ HEADERS += \
     Scene/MaterialObjects/normaldiffusealphaobject.h \
     Scene/MaterialObjects/diffuseobject.h \
     Scene/MaterialObjects/unlitobject.h \
-    Scene/fpscounter.h
+    Scene/fpscounter.h \
+    SolarCore/SolarRender/solarstandardframegraph.h \
+    Interface/iframegraph.h
 
 RESOURCES += \
     res.qrc
