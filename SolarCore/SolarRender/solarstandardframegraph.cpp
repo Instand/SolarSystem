@@ -6,7 +6,9 @@ SolarSystem::SolarStandardFrameGraph::SolarStandardFrameGraph(Qt3DCore::QNode* p
     renderer(new Qt3DExtras::QForwardRenderer(parent))
 {
     setActiveFrameGraph(renderer);
+
     renderer->setFrustumCullingEnabled(true);
+    renderer->setClearColor(QColor(Qt::black));
 }
 
 void SolarSystem::SolarStandardFrameGraph::setCamera(Qt3DCore::QEntity* camera)
