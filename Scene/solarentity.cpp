@@ -3,6 +3,7 @@
 #include <Scene/SceneObjects/solarskybox.h>
 #include <solarsystemdbconnector.h>
 #include <SolarCore/SolarRender/solarforwardframegraph.h>
+#include <SolarCore/SolarRender/solarstandardframegraph.h>
 
 SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),
@@ -34,6 +35,7 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     //skybox
     skybox = new SolarSkyBox(this);
 
+    //frame graph
     frameGraph = new SolarForwardFrameGraph(this);
     frameGraph->setCamera(mainCamera);    
 

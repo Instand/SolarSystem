@@ -6,21 +6,18 @@
 #include <solarsystemcore.h>
 #include <SolarCore/solaranimator.h>
 #include <Scene/fpscounter.h>
-#include <Qt3DInput/QInputSettings>
 #include <Qt3DLogic/QFrameAction>
 #include <Qt3DRender/QTexture>
+#include <Qt3DInput/QInputSettings>
 
 namespace SolarSystem
 {
-    class PlanetsContainer;
-}
-
-namespace SolarSystem
-{
-    class SolarForwardFrameGraph;
     class SolarSkyBox;
+    class PlanetsContainer;
+    class SolarAnimator;
+    class IFrameGraph;
 
-    //represents chain of solar objects (root entity)
+    //Represents chain of solar objects (root entity)
     class SolarEntity : public Qt3DCore::QEntity
     {
         Q_OBJECT
@@ -71,7 +68,7 @@ namespace SolarSystem
         FpsCounter* fpsCounter;
 
         //main graph
-        SolarForwardFrameGraph* frameGraph;
+        IFrameGraph* frameGraph;
 
         //box
         SolarSkyBox* skybox;
