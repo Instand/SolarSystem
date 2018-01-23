@@ -11,7 +11,7 @@
 #include <Qt3DRender/QFrustumCulling>
 
 SolarSystem::SolarForwardFrameGraph::SolarForwardFrameGraph(Qt3DCore::QNode* parent):
-    QRenderSettings(parent)
+    IFrameGraph(parent)
 {
     //render
     filter = new Qt3DRender::QTechniqueFilter();
@@ -37,16 +37,16 @@ SolarSystem::SolarForwardFrameGraph::SolarForwardFrameGraph(Qt3DCore::QNode* par
     sortPolicy = new Qt3DRender::QSortPolicy(clearBuffers);
 
     QVector<Qt3DRender::QSortPolicy::SortType> sortedVector;
+    sortedVector.push_back(Qt3DRender::QSortPolicy::BackToFront);
     sortedVector.push_back(Qt3DRender::QSortPolicy::StateChangeCost);
     sortedVector.push_back(Qt3DRender::QSortPolicy::Material);
-    sortedVector.push_back(Qt3DRender::QSortPolicy::BackToFront);
 
     sortPolicy->setSortTypes(sortedVector);
 
     setActiveFrameGraph(filter);
 }
 
-void SolarSystem::SolarForwardFrameGraph::setCamera(Qt3DRender::QCamera *camera)
+void SolarSystem::SolarForwardFrameGraph::setCamera(Qt3DCore::QEntity *camera)
 {
     cameraSelector->setCamera(camera);
 }

@@ -1,9 +1,10 @@
 #ifndef SOLARFORWARDFRAMEGRAPH_H
 #define SOLARFORWARDFRAMEGRAPH_H
 
-#include <Qt3DRender/QRenderSettings>
+#include <Interface/iframegraph.h>
 
-namespace Qt3DRender {
+namespace Qt3DRender
+{
     class QCamera;
     class QSortPolicy;
     class QClearBuffers;
@@ -14,16 +15,16 @@ namespace Qt3DRender {
     class QFrustumCulling;
 }
 
-namespace SolarSystem {
-
-    //represents simple forward frame graph
-    class SolarForwardFrameGraph : public Qt3DRender::QRenderSettings
+namespace SolarSystem
+{
+    //Represents simple forward frame graph
+    class SolarForwardFrameGraph : public IFrameGraph
     {
         Q_OBJECT
 
     public:
         explicit SolarForwardFrameGraph(Qt3DCore::QNode* parent = nullptr);
-        void setCamera(Qt3DRender::QCamera* camera);
+        virtual void setCamera(Qt3DCore::QEntity* camera) override;
 
     private:
 
