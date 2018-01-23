@@ -12,13 +12,13 @@ SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
 
     //setup geometry
     sphereGeometry->setRadius(PlanetSettings::radius);
-//    sphereGeometry->setGenerateTangents(PlanetSettings::generateTangents);
+    sphereGeometry->setGenerateTangents(PlanetSettings::generateTangents);
     sphereGeometry->setRings(PlanetSettings::rings);
     sphereGeometry->setSlices(PlanetSettings::slices);
 
     _renderer->setGeometry(sphereGeometry);
 
-    auto mat = qobject_cast<Qt3DExtras::QNormalDiffuseMapAlphaMaterial*>(_material);
+    Qt3DExtras::QNormalDiffuseMapAlphaMaterial* mat = qobject_cast<Qt3DExtras::QNormalDiffuseMapAlphaMaterial*>(_material);
 
     Qt3DRender::QTextureImage* diffuseMap = new Qt3DRender::QTextureImage();
     diffuseMap->setSource(QUrl::fromLocalFile(":/Resources/Images/earthcloudmapcolortrans.png"));
@@ -27,6 +27,8 @@ SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
     Qt3DRender::QTextureImage* normalMap = new Qt3DRender::QTextureImage();
     normalMap->setSource(QUrl::fromLocalFile(":/Resources/Images/earthcloudmapcolortransnormal.png"));
     mat->normal()->addTextureImage(normalMap);
+
+    mat->setShininess(100000.0f);
 }
 
 void SolarSystem::EarthCloud::update(float deltaTime)
