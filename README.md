@@ -31,7 +31,6 @@ Qt3D materials used as default. <br />
 ***SolarSystem v.3.7*** <br />
 Changed ui and core optimization. QT3D_MATERIALS macro removed, used only Qt3DExtras materials. Fixed some issues. <br />
 Based on Qt 5.10. <br />
-
 <br />
 ***SolarSystem v.3.8*** <br />
 Mobile qml UI fixes, more soon<br />
