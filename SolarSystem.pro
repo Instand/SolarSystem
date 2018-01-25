@@ -121,7 +121,8 @@ DISTFILES += \
     QML/FpsLabel.qml \
     QML/SpeedSlider.qml \
     android/AndroidManifest.xml \
-    QML/DatabaseLabel.qml
+    QML/DatabaseLabel.qml \
+    QML/UserOptions.qml
 
 
 #for win app icon

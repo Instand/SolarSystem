@@ -83,5 +83,6 @@
         <file>QML/FpsLabel.qml</file>
         <file>QML/SpeedSlider.qml</file>
         <file>QML/DatabaseLabel.qml</file>
+        <file>QML/UserOptions.qml</file>
     </qresource>
 </RCC>
