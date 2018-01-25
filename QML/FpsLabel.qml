@@ -6,10 +6,10 @@ Item {
 
     Text {
         anchors.fill: parent
-        color: "white";
+        color: "white"
         font.pixelSize: 20
-        style: Text.Sunken;
+        style: Text.Sunken
         styleColor: "black"
-        text: " Fps: " + root.text;
+        text: " Fps: " + root.text
     }
 }
