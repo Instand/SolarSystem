@@ -11,6 +11,10 @@ Thanks to Qt Company. <br />
 <br />
 ![alt tag](http://ipic.su/img/img7/fs/SolarSystemScreen.1490859421.png) <br />
 <br />
+
+***Build for Windows/Android***<br />
+Download a project from repository, use QtCreator with Qt 5.10+, enjoy<br />
+<br />
 ***SolarSystem v.2.3*** <br />
 Based on Qt3DExtras materials and Qt 5.7. <br />
 Full project https://yadi.sk/d/mKuWiLLP3K6t8e <br />
@@ -25,6 +29,11 @@ Combined Qt3DExtras materials + user defined materials with different builds. Ba
 Qt3D materials used as default. <br />
 <br />
 ***SolarSystem v.3.7*** <br />
-Changed ui and core optimization. QT3D_MATERIALS macro removed, use only Extras materials.Fixed some issues. Based on Qt 5.10. <br />
+Changed ui and core optimization. QT3D_MATERIALS macro removed, used only Qt3DExtras materials. Fixed some issues. <br />
+Based on Qt 5.10. <br />
+<br />
+***SolarSystem v.3.8*** <br />
+Mobile qml UI fixes, more soon<br />
+Based on Qt 5.10. <br />
 
 
