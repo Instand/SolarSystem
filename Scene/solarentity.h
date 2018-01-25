@@ -25,6 +25,7 @@ namespace SolarSystem
         Q_PROPERTY(SolarAnimator* animator READ animator)
         Q_PROPERTY(FpsCounter* counter READ counter)
         Q_PROPERTY(Qt3DInput::QInputSettings* inputSettings READ inputSettings)
+        Q_PROPERTY(bool databaseStatus READ databaseStatus)
 
     public:
 
@@ -43,6 +44,9 @@ namespace SolarSystem
 
         //returns fps counter
         FpsCounter* counter() const;
+
+        //returns database status
+        bool databaseStatus() const;
 
     private:
 

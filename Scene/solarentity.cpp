@@ -79,3 +79,8 @@ SolarSystem::FpsCounter* SolarSystem::SolarEntity::counter() const
 {
     return fpsCounter;
 }
+
+bool SolarSystem::SolarEntity::databaseStatus() const
+{
+    return SolarSystemDBConnector::instance().status();
+}
