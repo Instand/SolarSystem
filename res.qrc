@@ -82,5 +82,6 @@
         <file>Resources/Info.txt</file>
         <file>QML/FpsLabel.qml</file>
         <file>QML/SpeedSlider.qml</file>
+        <file>QML/DatabaseLabel.qml</file>
     </qresource>
 </RCC>

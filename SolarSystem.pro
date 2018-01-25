@@ -121,12 +121,17 @@ DISTFILES += \
     QML/FpsLabel.qml \
     QML/SpeedSlider.qml \
     android/AndroidManifest.xml \
+    QML/DatabaseLabel.qml
 
 
-#for app icon
-win32:RC_ICONS += Resources/Images/solarsystem_icon.ico
+#for win app icon
+win32 {
+    RC_ICONS += Resources/Images/solarsystem_icon.ico
+}
 
+#android setup
 android {
+    QT += androidextras
     deployment.files += Resources/Database/SolarDB.db
     deployment.path = /assets
     INSTALLS += deployment
