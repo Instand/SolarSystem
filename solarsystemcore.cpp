@@ -4,7 +4,7 @@ const QString SolarSystem::SolarStrings::qSqlLite = "QSQLITE";
 
 //db fields
 const QString SolarSystem::SolarStrings::dbName = "SolarSystem";
-const QString SolarSystem::SolarStrings::dbFileName = "SolarDB.db";
+const QString SolarSystem::SolarStrings::dbFileName = "/SolarDB.db";
 const QString SolarSystem::SolarStrings::dbFolder = "/Database/";
 const QString SolarSystem::SolarStrings::nameField = "Name";
 const QString SolarSystem::SolarStrings::type = "SolarType";
