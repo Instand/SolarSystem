@@ -23,4 +23,11 @@ Entity {
     SolarEntity {
         id: solarSystem
     }
+
+    function dbState() {
+        if (solarSystem.databaseStatus)
+            return "Ok"
+        else
+            return "Failured"
+    }
 }

@@ -7,7 +7,7 @@ Item {
     id: root
 
     //version property
-    property string version: "3.7"
+    property string version: "3.8"
 
     //planet list show flag
     property bool showPlanetList: false
@@ -31,6 +31,9 @@ Item {
             id: solarSystem
             Component.onCompleted: {
                 solarSystem.inputSettings.setEventSource(root)
+
+                //check db connection status
+                databaseLabel.text = solarSystem.dbState()
             }
         }
     }
@@ -43,6 +46,15 @@ Item {
         width: 100
         height: 50
         text: solarSystem.counter.fps
+    }
+
+    //shows database status
+    DatabaseLabel {
+        id: databaseLabel
+        anchors.top: fpsElement.bottom
+        anchors.left: root.left
+        width: 200
+        height: 50
     }
 
     //slider frame
@@ -322,17 +334,21 @@ Item {
 
         //info text
         Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            color: "#ffffff"
+            width: dataFrame.width
+            height: dataFrame.height
+            anchors.fill: parent
+            anchors.topMargin: 15
+            color: "white"
             font.italic: true
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
-            font.pointSize: 14
+            lineHeight: 1.625 * 14
+            lineHeightMode: Text.FixedHeight
+            wrapMode: Text.Wrap
+            font.pixelSize: 18
             styleColor: "#ffffff"
             text: InfoLoader.loadInfo(version)
         }
-
     }
 
     //object text
