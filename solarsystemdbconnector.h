@@ -34,6 +34,9 @@ namespace SolarSystem
         //check db elements count
         int elementsCount();
 
+        //returns database status
+        bool status() const;
+
         //get a full info about object
         const SolarSystemObjectPtr info(const QString& objectName) const;
 

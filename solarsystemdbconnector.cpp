@@ -2,6 +2,10 @@
 #include <QGuiApplication>
 #include <Parser/solarparser.h>
 
+#ifdef ANDROID
+    #include <QtAndroidExtras/QtAndroid>
+#endif
+
 //pseydo name
 using SolarS = SolarSystem::SolarStrings;
 using SolarV = SolarSystem::SolarValues;
@@ -25,12 +29,40 @@ SolarSystem::SolarSystemDBConnector::SolarSystemDBConnector(QObject* parent):
 #endif
 
 #ifdef ANDROID
-    QFile file("assets:/SolarDB.db");
-    file.copy("./SolarDB.db");
-    QFile::setPermissions("./MyFile1",QFile::WriteOwner | QFile::ReadOwner);
-    _database.setDatabaseName("./SolarDB.db");
-#endif
+    QString dbLocalPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + SolarS::dbFileName;
+    QFile file(dbLocalPath);
 
+    if (!file.exists())
+    {
+        if (QFile::exists("assets:/" + SolarS::dbFileName))
+        {
+            if (!QFile::copy("assets:/" + SolarS::dbFileName, dbLocalPath))
+            {
+                qDebug() << "Coping database from assets failed, try to copy from resources";
+
+                if (QFile::exists(":Resources/Database/" + SolarS::dbFileName))
+                {
+                    if (!QFile::copy(":/Resources/Database/" + SolarS::dbFileName, dbLocalPath))
+                        qDebug() << "Coping database from resources failed";
+                }
+                else
+                    qDebug() << "No database in resource folder";
+            }
+        }
+        else
+            qDebug() << "No database in assets";
+    }
+    else
+        qDebug() << "Database already exists";
+
+    if (!QFile::exists(dbLocalPath))
+        qDebug() << "SolarDB does not exists";
+
+    if (!QFile::setPermissions(dbLocalPath, QFile::WriteOwner | QFile::ReadOwner))
+        qDebug() << "Database permissions failed";
+
+    _database.setDatabaseName(dbLocalPath);
+#endif
     _database.open();
 }
 
@@ -66,6 +98,11 @@ int SolarSystem::SolarSystemDBConnector::elementsCount()
     }
 
     return list.size();
+}
+
+bool SolarSystem::SolarSystemDBConnector::status() const
+{
+    return _database.isValid();
 }
 
 const SolarSystem::SolarSystemObjectPtr SolarSystem::SolarSystemDBConnector::info(const QString& objectName) const
