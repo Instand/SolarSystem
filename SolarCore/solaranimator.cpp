@@ -29,6 +29,7 @@ SolarSystem::SolarAnimator::SolarAnimator(QObject *parent):
     cameraAnimation->addAnimation(viewPositionAnimation);
 
     QObject::connect(cameraAnimation, &QParallelAnimationGroup::finished, this, &SolarAnimator::onAnimationFinished);
+    QObject::connect(solarSpeedAnimation, &QPropertyAnimation::finished, this, &SolarAnimator::onSpeedAnimationFinished);
 }
 
 SolarSystem::SolarAnimator::~SolarAnimator()
@@ -227,13 +228,15 @@ void SolarSystem::SolarAnimator::resetExtraSpeed()
 
 void SolarSystem::SolarAnimator::onAnimationFinished()
 {
-    animated = false;
-
     //speed animation
     solarSpeedAnimation->setPropertyName("solarSystemSpeed");
-    solarSpeedAnimation->setDuration(1000);
+    solarSpeedAnimation->setDuration(600);
     solarSpeedAnimation->setStartValue(0);
     solarSpeedAnimation->setEndValue(solarSpeed);
     solarSpeedAnimation->start();
-    //_mathCore->changeSolarObjectsSpeed(solarSpeed);
+}
+
+void SolarSystem::SolarAnimator::onSpeedAnimationFinished()
+{
+    animated = false;
 }

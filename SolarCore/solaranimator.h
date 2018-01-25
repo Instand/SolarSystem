@@ -123,6 +123,7 @@ namespace SolarSystem {
 
     private slots:
         void onAnimationFinished();
+        void onSpeedAnimationFinished();
     };
 
 }
