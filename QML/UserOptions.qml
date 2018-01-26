@@ -21,7 +21,8 @@ Item {
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
         font.pixelSize: 24
-        styleColor: "#ffffff"
+        style: Text.Sunken;
+        styleColor: "black"
         text: "Options"
     }
 
@@ -36,7 +37,8 @@ Item {
         Text {
             wrapMode: Text.Wrap
             font.pixelSize: 18
-            styleColor: "#ffffff"
+            style: Text.Sunken;
+            styleColor: "black"
             color: "white"
             text: "Show FPS: "
             width: 200
@@ -73,7 +75,8 @@ Item {
         Text {
             wrapMode: Text.Wrap
             font.pixelSize: 18
-            styleColor: "#ffffff"
+            style: Text.Sunken;
+            styleColor: "black"
             color: "white"
             text: "Show Database state: "
             width: 200
