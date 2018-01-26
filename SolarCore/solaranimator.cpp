@@ -230,7 +230,7 @@ void SolarSystem::SolarAnimator::onAnimationFinished()
 {
     //speed animation
     solarSpeedAnimation->setPropertyName("solarSystemSpeed");
-    solarSpeedAnimation->setDuration(600);
+    solarSpeedAnimation->setDuration(60);
     solarSpeedAnimation->setStartValue(0);
     solarSpeedAnimation->setEndValue(solarSpeed);
     solarSpeedAnimation->start();
