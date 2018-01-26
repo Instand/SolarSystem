@@ -88,6 +88,11 @@ void SolarSystem::SolarMathCore::setSolarView(Qt3DRender::QCamera *camera)
     this->camera = camera;
 }
 
+Qt3DRender::QCamera* SolarSystem::SolarMathCore::solarView() const
+{
+    return camera;
+}
+
 float SolarSystem::SolarMathCore::getOuterRadius(SolarSystem::SolarObjects object)
 {
     float outerRadius = SolarValues::solarDistance;
@@ -326,11 +331,7 @@ void SolarSystem::SolarMathCore::updateSolarView(SolarSystem::SolarObjects objec
         solarObj = planetContainer[SolarObjects::Sun];
 
     if (solarObj != nullptr)
-    {
         camera->setViewCenter(QVector3D(solarObj->x(), solarObj->y(), solarObj->z()));
-        //camera->rotateAboutViewCenter(camera->rollRotation(0));
-        //camera->rotate(camera->rollRotation(0));
-    }
 }
 
 void SolarSystem::SolarMathCore::changeSolarObjectsSpeed(float speed)

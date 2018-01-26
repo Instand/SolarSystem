@@ -15,11 +15,12 @@ namespace SolarSystem
         Q_OBJECT
 
     public:
-        SolarMathCore(QObject* parent = nullptr);
+        explicit SolarMathCore(QObject* parent = nullptr);
         ~SolarMathCore();
 
         //realize interface
         virtual void setSolarView(Qt3DRender::QCamera *camera) override final;
+        virtual Qt3DRender::QCamera* solarView() const override final;
         virtual float getOuterRadius(SolarObjects object) override final;
         virtual void solarObjectPosition(SolarObjects object) override final;
         virtual QVector3D getNewSolarViewPosition(SolarObjects object, double radius) override final;
