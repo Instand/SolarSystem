@@ -9,8 +9,10 @@ Column {
     property int elementHeight: 20
 
     //signals
-    signal planetButtonClicked;
-    signal infoButtonClicked;
+    signal planetButtonClicked(string name)
+    signal infoButtonClicked(string name)
+    signal calendarButtonClicked(string name)
+    signal optionButtonClicked(string name)
 
     //planet list button
     TransparentButton {
@@ -19,8 +21,9 @@ Column {
         height: root.elementHeight
         radius: 4
         source: "qrc:/Resources/Images/planet_icon.png"
+        objectName: "planetButton"
 
-        onClicked: root.planetButtonClicked()
+        onClicked: root.planetButtonClicked(planetButton.objectName)
     }
 
     //calendar button
@@ -30,6 +33,9 @@ Column {
         height: root.elementHeight
         radius: 4
         source: "qrc:/Resources/Images/calendar_icon.png"
+        objectName: "calendarButton"
+
+        onClicked: root.calendarButtonClicked(calendarButton.objectName)
     }
 
     //options button
@@ -39,6 +45,9 @@ Column {
         height: root.elementHeight
         radius: 4
         source: "qrc:/Resources/Images/options_icon.png"
+        objectName: "optionsButton"
+
+        onClicked: root.optionButtonClicked(optionsButton.objectName)
     }
 
     //info button
@@ -48,7 +57,8 @@ Column {
         height: root.elementHeight
         radius: 4
         source: "qrc:/Resources/Images/info_icon.png"
+        objectName: "infoButton"
 
-        onClicked: root.infoButtonClicked()
+        onClicked: root.infoButtonClicked(infoButton.objectName)
     }
 }
