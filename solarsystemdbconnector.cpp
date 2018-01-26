@@ -14,56 +14,58 @@ using Types = SolarSystem::SolarFields;
 SolarSystem::SolarSystemDBConnector::SolarSystemDBConnector(QObject* parent):
     QObject(parent),
     _database(QSqlDatabase::addDatabase(SolarS::qSqlLite))
-{    
+{
+    QString dbLocalPath;
 #ifdef WIN32
-    if (!QFile::exists(QGuiApplication::applicationDirPath() + "/Database/SolarDB.db"))
+    dbLocalPath = QGuiApplication::applicationDirPath() + SolarS::dbFolder + SolarS::dbFileName;
+
+    if (!QFile::exists(dbLocalPath))
     {
         QDir dir;
-        dir.mkdir(QGuiApplication::applicationDirPath() + "/Database/");
+        dir.mkdir(QGuiApplication::applicationDirPath() + SolarS::dbFolder);
 
-        QFile file(":/Resources/Database/SolarDB.db");
-        file.copy(QGuiApplication::applicationDirPath() + "/Database/SolarDB.db");
+        QFile file(":/Resources" + SolarS::dbFolder + SolarS::dbFileName);
+        file.copy(dbLocalPath);
     }
-
-    _database.setDatabaseName(QGuiApplication::applicationDirPath() + "/Database/SolarDB.db");
 #endif
 
 #ifdef ANDROID
-    QString dbLocalPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + SolarS::dbFileName;
-    QFile file(dbLocalPath);
+    dbLocalPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + SolarS::dbFileName;
+    QFileInfo file(dbLocalPath);
 
     if (!file.exists())
     {
-        if (QFile::exists("assets:/" + SolarS::dbFileName))
-        {
-            if (!QFile::copy("assets:/" + SolarS::dbFileName, dbLocalPath))
-            {
-                qDebug() << "Coping database from assets failed, try to copy from resources";
+        QFile resourceFile(":/Resources" + SolarS::dbFolder + SolarS::dbFileName);
 
-                if (QFile::exists(":Resources/Database/" + SolarS::dbFileName))
+        if (resourceFile.exists())
+        {
+            if (!resourceFile.copy(dbLocalPath))
+            {
+                qDebug() << "Copy database from resources failed, try to copy from assets";
+
+                QFile assetsFile("assets:/" + SolarS::dbFileName);
+
+                if (assetsFile.exists())
                 {
-                    if (!QFile::copy(":/Resources/Database/" + SolarS::dbFileName, dbLocalPath))
-                        qDebug() << "Coping database from resources failed";
+                    if (!assetsFile.copy(dbLocalPath))
+                        qDebug() << "Copy database from assets failed";
                 }
-                else
-                    qDebug() << "No database in resource folder";
             }
         }
-        else
-            qDebug() << "No database in assets";
     }
-    else
-        qDebug() << "Database already exists";
-
-    if (!QFile::exists(dbLocalPath))
-        qDebug() << "SolarDB does not exists";
 
     if (!QFile::setPermissions(dbLocalPath, QFile::WriteOwner | QFile::ReadOwner))
         qDebug() << "Database permissions failed";
-
-    _database.setDatabaseName(dbLocalPath);
 #endif
-    _database.open();
+    QFileInfo info(dbLocalPath);
+
+    if (info.isFile() && info.exists())
+    {
+        _database.setDatabaseName(dbLocalPath);
+
+       if (! _database.open())
+           qDebug() << "Database opening failed";
+    }
 }
 
 SolarSystem::SolarSystemDBConnector::~SolarSystemDBConnector()
