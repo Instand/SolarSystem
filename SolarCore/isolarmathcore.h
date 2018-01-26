@@ -7,25 +7,28 @@
 #include <Qt3DRender/QCamera>
 #include <SolarCore/planetscontainer.h>
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //forward
     class CameraController;
     class PlanetsContainer;
 
     //mathcore interface
-    class ISolarMathCore : public QObject {
-
+    class ISolarMathCore : public QObject
+    {
         Q_OBJECT
 
     public:
 
         //base
-        ISolarMathCore(QObject* parent = 0);
+        explicit ISolarMathCore(QObject* parent = nullptr);
         virtual ~ISolarMathCore();
 
         //set camera to control math operation
         virtual void setSolarView(Qt3DRender::QCamera* camera) = 0;
+
+        //returns camera
+        virtual Qt3DRender::QCamera* solarView() const = 0;
 
         //update camera settings
         virtual void updateSolarView(SolarObjects object) = 0;
@@ -114,7 +117,6 @@ namespace SolarSystem {
         //calculates object pos for all solar objects
         virtual void calculateAllSolarObjectsPosiitons() = 0;
     };
-
 }
 
 #endif // ISOLARMATHCORE_H
