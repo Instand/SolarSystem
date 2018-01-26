@@ -7,8 +7,8 @@
 class QPropertyAnimation;
 class QParallelAnimationGroup;
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //contains ISolarMathCore, and dynamic use it
     class SolarAnimator : public QObject
     {
@@ -54,7 +54,7 @@ namespace SolarSystem {
     private:
 
         //math core interface
-        ISolarMathCore* _mathCore = nullptr;
+        ISolarMathCore* mathCorePtr = nullptr;
 
         //selected solar object
         SolarObjects currentSolarObject = SolarObjects::SolarSystemView;
@@ -125,7 +125,6 @@ namespace SolarSystem {
         void onAnimationFinished();
         void onSpeedAnimationFinished();
     };
-
 }
 
 #endif // SOLARANIMATOR_H
