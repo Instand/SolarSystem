@@ -33,7 +33,7 @@ Changed ui and core optimization. QT3D_MATERIALS macro removed, used only Qt3DEx
 Based on Qt 5.10. <br />
 <br />
 ***SolarSystem v.3.8*** <br />
-Mobile qml UI fixes, more soon<br />
+Mobile qml UI fixes, more soon. Issue: db does not work on Android, because of https://bugreports.qt.io/browse/QTBUG-64103<br />
 Based on Qt 5.10. <br />
 
 
