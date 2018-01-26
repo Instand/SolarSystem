@@ -17,6 +17,8 @@ Text {
     color: "white"
     opacity: 0
     wrapMode: Text.Wrap
+    style: Text.Sunken;
+    styleColor: "black"
     visible: false
 
     //show list
