@@ -82,5 +82,5 @@ SolarSystem::FpsCounter* SolarSystem::SolarEntity::counter() const
 
 bool SolarSystem::SolarEntity::databaseStatus() const
 {
-    return SolarSystemDBConnector::instance().status();
+    return SolarSystemDBConnector::instance().status() && SolarSystemDBConnector::instance().isOpen();
 }
