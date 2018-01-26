@@ -12,9 +12,6 @@ Item {
     //planet list show flag
     property bool showPlanetList: false
 
-    //frame propery
-    property bool showDataFrameInfo: false
-
     //focused planet
     property int currentSelectedObject: 0
 
@@ -40,7 +37,7 @@ Item {
 
     //shows fps
     FpsLabel {
-        id: fpsElement
+        id: fpsLabel
         anchors.top: root.top
         anchors.left: root.left
         width: 100
@@ -51,10 +48,11 @@ Item {
     //shows database status
     DatabaseLabel {
         id: databaseLabel
-        anchors.top: fpsElement.bottom
+        anchors.top: fpsLabel.bottom
         anchors.left: root.left
         width: 200
         height: 50
+        visible: false
     }
 
     //slider frame
@@ -64,7 +62,7 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.rightMargin: 5
         height: 400
-        width: 50
+        width: 65
         radius: 4
 
         SpeedSlider {
@@ -85,8 +83,8 @@ Item {
         anchors.topMargin: 5
         anchors.rightMargin: 5
         radius: 4
-        height: 50
-        width: 50
+        height: width
+        width: speedSliderFrame.width
         source: "qrc:/Resources/Images/screen_icon.png"
         onClicked: {
             root.grabToImage(function(result) {
@@ -113,8 +111,8 @@ Item {
         anchors.rightMargin: 5
         anchors.bottomMargin: 5
         radius: 4
-        height: 50
-        width: 50
+        height: width
+        width: speedSliderFrame.width
 
         Text {
             id: extraText
@@ -124,7 +122,8 @@ Item {
             font.bold: true
             font.italic: true
             font.pointSize: 12
-            styleColor: "#ffffff"
+            styleColor: "black"
+            style: Text.Sunken;
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             text: qsTr("x") + solarSystem.animator.extraSpeed.toString()
@@ -203,10 +202,13 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: 5
-        elementWidth: 80
-        elementHeight: 100
+        elementWidth: 100
+        elementHeight: 120
 
-        //slot
+        //store prev button object name
+        property string prevName: ""
+
+        //planets
         onPlanetButtonClicked: {
             showPlanetList = !showPlanetList;
 
@@ -219,18 +221,49 @@ Item {
             }
         }
 
-        //slot
-        onInfoButtonClicked: showDataFrameInfoFunc();
+        //options
+        onOptionButtonClicked: {
+            showDataFrame(name, controlElements.prevName)
+        }
+
+        //info
+        onInfoButtonClicked: {
+            showDataFrame(name, controlElements.prevName)
+        }
     }
 
-    //functions
-    function showDataFrameInfoFunc() {
-        showDataFrameInfo = !showDataFrameInfo;
-
-        if (showDataFrameInfo)
+    //shows ui with data frame
+    function showDataFrame(name, prevName) {
+        if (dataFrame.opacity == 0) {
+            setEnabledFrames(false)
+            checkFrameComponent(name)
             dataFrameShowAnimation.start()
-        else
-            dataFrameUnShowAnimation.start()
+        }
+        else if (dataFrame.opacity == 1) {
+            if (prevName === name) {
+                dataFrameUnShowAnimation.start()
+            }
+            else {
+                setEnabledFrames(false)
+                checkFrameComponent(name)
+            }
+        }
+
+        controlElements.prevName = name
+    }
+
+    //sets visible state for all frames
+    function setEnabledFrames(state) {
+        aboutText.visible = state
+        options.visible = state
+    }
+
+    //checks which frame component should be visible
+    function checkFrameComponent(name) {
+        if (name === "optionsButton")
+            options.visible = true
+        else if (name === "infoButton")
+            aboutText.visible = true
     }
 
     //planets icons
@@ -239,7 +272,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: 100
+        height: 110
         anchors.leftMargin: 5
         anchors.bottomMargin: 10
         anchors.rightMargin: 5
@@ -330,10 +363,12 @@ Item {
             property: "opacity"
             to: 0
             duration: 500
+            onStopped: setEnabledFrames(false)
         }
 
         //info text
         Text {
+            id: aboutText
             width: dataFrame.width
             height: dataFrame.height
             anchors.fill: parent
@@ -345,9 +380,23 @@ Item {
             lineHeight: 1.625 * 14
             lineHeightMode: Text.FixedHeight
             wrapMode: Text.Wrap
-            font.pixelSize: 18
-            styleColor: "#ffffff"
+            font.pixelSize: 22
+            style: Text.Sunken;
+            styleColor: "black"
             text: InfoLoader.loadInfo(version)
+            visible: false
+        }
+
+        //options
+        UserOptions {
+            id: options
+            anchors.fill: dataFrame
+            width: dataFrame.width
+            height: dataFrame.height
+            visible: false
+
+            onDbButtonClicked: databaseLabel.visible = state
+            onFpsButtonClicked: fpsLabel.visible = state
         }
     }
 
@@ -368,5 +417,7 @@ Item {
         color: "white"
         text: solarSystem.animator.solarObjectString
         font.family: "Century Gothic"
+        style: Text.Sunken;
+        styleColor: "black"
     }
 }
