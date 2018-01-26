@@ -3,13 +3,13 @@
 
 #include "SolarCore/SolarObjects/abstractsolarobject.h"
 
-namespace SolarSystem {
-
-    namespace Stars {
-
+namespace SolarSystem
+{
+    namespace Stars
+    {
         //Sun the center of solar sytem
-        class Sun final : public AbstractSolarObject {
-
+        class Sun final : public AbstractSolarObject
+        {
             Q_OBJECT
 
         public:
@@ -18,14 +18,13 @@ namespace SolarSystem {
         protected:
             virtual void initialize() override;
         };
-
     }
 
-    namespace Planets {
-
+    namespace Planets
+    {
         //Mercury
-        class Mercury final : public AbstractSolarObject {
-
+        class Mercury final : public AbstractSolarObject
+        {
             Q_OBJECT
 
         public:
@@ -36,8 +35,8 @@ namespace SolarSystem {
         };
 
         //Venus
-        class Venus final : public AbstractSolarObject {
-
+        class Venus final : public AbstractSolarObject
+        {
             Q_OBJECT
 
         public:
@@ -48,8 +47,8 @@ namespace SolarSystem {
         };
 
         //Earth
-        class Earth final : public AbstractSolarObject {
-
+        class Earth final : public AbstractSolarObject
+        {
             Q_OBJECT
 
         public:
@@ -60,8 +59,8 @@ namespace SolarSystem {
         };
 
         //Mars
-        class Mars final : public AbstractSolarObject {
-
+        class Mars final : public AbstractSolarObject
+        {
             Q_OBJECT
 
         public:
@@ -72,8 +71,8 @@ namespace SolarSystem {
         };
 
         //Jupiter
-        class Jupiter final : public AbstractSolarObject {
-
+        class Jupiter final : public AbstractSolarObject
+        {
             Q_OBJECT
 
         public:
@@ -84,8 +83,8 @@ namespace SolarSystem {
         };
 
         //Saturn
-        class Saturn final : public AbstractSolarObject {
-
+        class Saturn final : public AbstractSolarObject
+        {
             Q_OBJECT
 
         public:
@@ -96,8 +95,8 @@ namespace SolarSystem {
         };
 
         //Uranus
-        class Uranus final : public AbstractSolarObject {
-
+        class Uranus final : public AbstractSolarObject
+        {
             Q_OBJECT
 
         public:
@@ -108,8 +107,8 @@ namespace SolarSystem {
         };
 
         //Neptune
-        class Neptune final : public AbstractSolarObject {
-
+        class Neptune final : public AbstractSolarObject
+        {
             Q_OBJECT
 
         public:
@@ -120,8 +119,8 @@ namespace SolarSystem {
         };
 
         //Pluto
-        class Pluto final : public AbstractSolarObject {
-
+        class Pluto final : public AbstractSolarObject
+        {
             Q_OBJECT
 
         public:
@@ -133,10 +132,10 @@ namespace SolarSystem {
 
     }
 
-    namespace Moons {
-
-        class Moon final : public AbstractSolarObject {
-
+    namespace Moons
+    {
+        class Moon final : public AbstractSolarObject
+        {
             Q_OBJECT
 
         public:
@@ -146,9 +145,7 @@ namespace SolarSystem {
             virtual void initialize() override;
 
         };
-
     }
-
 }
 
 

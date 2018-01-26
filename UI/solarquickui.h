@@ -5,15 +5,15 @@
 #include <QOpenGLContext>
 #include <QQmlEngine>
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //user interface based on qt quick
-    class SolarQuickUI : public QObject {
-
+    class SolarQuickUI : public QObject
+    {
         Q_OBJECT
 
     public:
-        SolarQuickUI(QObject* parent = nullptr);
+        explicit SolarQuickUI(QObject* parent = nullptr);
 
         //show QQuick
         void show();

@@ -5,15 +5,18 @@
 #include <QVector3D>
 
 //forward
-namespace Qt3DRender {
+namespace Qt3DRender
+{
     class QCamera;
 }
 
-namespace Qt3DLogic {
+namespace Qt3DLogic
+{
     class QFrameAction;
 }
 
-namespace Qt3DInput {
+namespace Qt3DInput
+{
     class QLogicalDevice;
     class QMouseDevice;
     class QAction;
@@ -22,12 +25,11 @@ namespace Qt3DInput {
     class QAnalogAxisInput;
 }
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //view controll
     class CameraController : public Qt3DCore::QEntity
     {
-
         Q_OBJECT
 
     public:
@@ -102,7 +104,6 @@ namespace SolarSystem {
         //camera view center update
         void changeViewCenter(QVector3D center);
     };
-
 }
 
 #endif // CAMERACONTROLLER_H

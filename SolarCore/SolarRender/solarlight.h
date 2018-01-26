@@ -4,12 +4,13 @@
 #include <Qt3DCore/QEntity>
 #include <QMatrix4x4>
 
-namespace Qt3DRender {
+namespace Qt3DRender
+{
     class QCamera;
 }
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //represents point light
     class SolarLight : public Qt3DCore::QEntity
     {

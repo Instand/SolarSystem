@@ -3,8 +3,8 @@
 
 #include <Qt3DRender/QEffect>
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //diffuse without light
     class SolarDiffuseEffect : public Qt3DRender::QEffect
     {

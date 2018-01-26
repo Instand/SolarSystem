@@ -6,8 +6,8 @@
 #include <Qt3DRender/QTexture>
 #include <SolarCore/SolarRender/solarlight.h>
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //repsents shadow map effect
     class SolarShadowEffect : public Qt3DRender::QEffect
     {

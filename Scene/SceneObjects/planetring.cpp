@@ -18,15 +18,15 @@ void SolarSystem::PlanetRing::update(float deltaTime)
     //create matrix
     auto matrix = QMatrix4x4();
 
+    //ring scale
+    matrix.scale(_r);
+
     //set position
     matrix.translate(QVector3D(_x, _y, _z));
 
     //rotate
     matrix.rotate(_tilt, SolarValues::tiltAxis);
     matrix.rotate(_roll, SolarValues::rollAxis);
-
-    //ring scale
-    matrix.scale(_r);
 
     _transform->setMatrix(matrix);
 }

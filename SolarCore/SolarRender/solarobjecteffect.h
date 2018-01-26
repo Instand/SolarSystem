@@ -5,8 +5,8 @@
 #include <Qt3DRender/QRenderPass>
 #include <SolarCore/SolarRender/solarlight.h>
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //represents any solid solar system body effect
     class SolarObjectEffect : public Qt3DRender::QEffect
     {

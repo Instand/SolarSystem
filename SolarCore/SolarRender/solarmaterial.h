@@ -9,8 +9,8 @@
 #include <QString>
 #include <QVector3D>
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //represents base solar material
     class SolarMaterial : public Qt3DRender::QMaterial
     {

@@ -25,15 +25,15 @@ void SolarSystem::Planet::update(float deltaTime)
     //create matrix
     auto matrix = QMatrix4x4();
 
+    //planet scale
+    matrix.scale(_r);
+
     //set position
     matrix.translate(QVector3D(_x, _y, _z));
 
     //rotate
     matrix.rotate(_tilt, SolarValues::tiltAxis);
     matrix.rotate(_roll, SolarValues::rollAxis);
-
-    //planet scale
-    matrix.scale(_r);
 
     _transform->setMatrix(matrix);
 }

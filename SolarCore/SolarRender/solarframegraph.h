@@ -3,7 +3,8 @@
 
 #include <Qt3DRender/QRenderSettings>
 
-namespace Qt3DRender {
+namespace Qt3DRender
+{
     class QCamera;
     class QViewport;
     class QTexture2D;
@@ -14,8 +15,8 @@ namespace Qt3DRender {
     class QCameraSelector;
 }
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //represents base active frame graph
     class SolarFrameGraph : public Qt3DRender::QRenderSettings
     {

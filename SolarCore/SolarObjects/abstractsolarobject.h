@@ -5,11 +5,11 @@
 #include "solarsystemcore.h"
 #include <memory>
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //simple presentation of math solar object
-    class AbstractSolarObject : public QObject {
-
+    class AbstractSolarObject : public QObject
+    {
         Q_OBJECT
 
     public:
@@ -78,13 +78,11 @@ namespace SolarSystem {
         SolarObjects _objectType;
 
         virtual void initialize() = 0;
-
     };
 
     //solar objects type
     using SolarObjectPtr = std::shared_ptr < AbstractSolarObject >;
     using SolarObjectsArray = std::vector < SolarObjectPtr >;
-
 }
 
 #endif // ABSTRACTSOLAROBJECT_H

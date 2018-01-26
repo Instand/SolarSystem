@@ -3,11 +3,11 @@
 
 #include "SolarCore/SolarObjects/abstractsolarobject.h"
 
-namespace SolarSystem {
-
+namespace SolarSystem
+{
     //creates all math solar objects
-    class SolarObjectsFactory final {
-
+    class SolarObjectsFactory final
+    {
     public:
 
         //create any object inherited from AbstractSolarObject
@@ -23,7 +23,6 @@ namespace SolarSystem {
             return std::make_shared<_SolarT>(std::forward<_Args>(_args)...);
 
         }
-
     };
 }
 
