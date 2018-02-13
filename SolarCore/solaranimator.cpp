@@ -1,12 +1,13 @@
 #include "solaranimator.h"
 #include <solarsystemdbconnector.h>
 #include <SolarCore/solarmathcore.h>
+#include <SolarCore/cameracontroller.h>
 #include <Parser/solarparser.h>
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 #include <QTimer>
 
-SolarSystem::SolarAnimator::SolarAnimator(QObject *parent):
+SolarSystem::SolarAnimator::SolarAnimator(QObject* parent):
     QObject(parent)
 {
     mathCorePtr = new SolarMathCore();
@@ -37,7 +38,7 @@ SolarSystem::SolarAnimator::~SolarAnimator()
     delete mathCorePtr;
 }
 
-SolarSystem::ISolarMathCore *SolarSystem::SolarAnimator::mathCore() const
+SolarSystem::SolarMathCore* SolarSystem::SolarAnimator::mathCore() const
 {
     return mathCorePtr;
 }
@@ -184,6 +185,9 @@ void SolarSystem::SolarAnimator::setCameraViewCenter(int index)
                 viewPositionAnimation->setEndValue(mathCorePtr->solarViewStartPositon());
             }
 
+            //stop controller
+            mathCorePtr->viewController()->setEnabled(false);
+
             cameraAnimation->start();
         }
     }
@@ -232,6 +236,9 @@ void SolarSystem::SolarAnimator::onAnimationFinished()
     solarSpeedAnimation->setStartValue(0);
     solarSpeedAnimation->setEndValue(solarSpeed);
     solarSpeedAnimation->start();
+
+    //activate controller
+    mathCorePtr->viewController()->setEnabled(true);
 }
 
 void SolarSystem::SolarAnimator::onSpeedAnimationFinished()

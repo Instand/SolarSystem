@@ -1,7 +1,7 @@
 #ifndef SOLARANIMATOR_H
 #define SOLARANIMATOR_H
 
-#include <SolarCore/isolarmathcore.h>
+#include <SolarCore/solarmathcore.h>
 #include <QTimer>
 
 class QPropertyAnimation;
@@ -9,7 +9,9 @@ class QParallelAnimationGroup;
 
 namespace SolarSystem
 {
-    //contains ISolarMathCore, and dynamic use it
+    class SolarMathCore;
+
+    //contains SolarMathCore, and dynamic use it
     class SolarAnimator : public QObject
     {
         Q_OBJECT
@@ -24,11 +26,11 @@ namespace SolarSystem
 
     public:
 
-        explicit SolarAnimator(QObject *parent = 0);
+        explicit SolarAnimator(QObject* parent = nullptr);
         ~SolarAnimator();
 
         //for math core ref
-        ISolarMathCore* mathCore() const;
+        SolarMathCore* mathCore() const;
 
         //get solar time
         QDateTime solarTime() const;
@@ -54,7 +56,7 @@ namespace SolarSystem
     private:
 
         //math core interface
-        ISolarMathCore* mathCorePtr = nullptr;
+        SolarMathCore* mathCorePtr = nullptr;
 
         //selected solar object
         SolarObjects currentSolarObject = SolarObjects::SolarSystemView;
