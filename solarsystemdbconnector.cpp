@@ -16,7 +16,7 @@ SolarSystem::SolarSystemDBConnector::SolarSystemDBConnector(QObject* parent):
     _database(QSqlDatabase::addDatabase(SolarS::qSqlLite))
 {
     QString dbLocalPath;
-#ifdef WIN32
+#ifndef Q_OS_ANDROID
     dbLocalPath = QGuiApplication::applicationDirPath() + SolarS::dbFolder + SolarS::dbFileName;
 
     if (!QFile::exists(dbLocalPath))
@@ -29,7 +29,7 @@ SolarSystem::SolarSystemDBConnector::SolarSystemDBConnector(QObject* parent):
     }
 #endif
 
-#ifdef ANDROID
+#ifdef Q_OS_ANDROID
     dbLocalPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + SolarS::dbFileName;
     QFileInfo file(dbLocalPath);
 

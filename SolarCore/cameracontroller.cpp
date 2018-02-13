@@ -9,21 +9,20 @@
 #include <Qt3DInput/QAnalogAxisInput>
 #include <QDebug>
 
-SolarSystem::CameraController::CameraController(Qt3DCore::QNode *parent):
+SolarSystem::CameraController::CameraController(Qt3DCore::QNode* parent):
     Qt3DCore::QEntity(parent),
-    frameAction(new Qt3DLogic::QFrameAction()),
-    logicalDevice(new Qt3DInput::QLogicalDevice()),
-    mouseDevice(new Qt3DInput::QMouseDevice()),
-    rightMouseButtonAction(new Qt3DInput::QAction()),
-    rightMouseButtonInput(new Qt3DInput::QActionInput()),
-    mouseX_Axis(new Qt3DInput::QAxis()),
-    mouseY_Axis(new Qt3DInput::QAxis()),
-    mouseX_Input(new Qt3DInput::QAnalogAxisInput()),
-    mouseY_Input(new Qt3DInput::QAnalogAxisInput()),
-    mouseWheelX_Input(new Qt3DInput::QAnalogAxisInput()),
-    mouseWheelY_Input(new Qt3DInput::QAnalogAxisInput()),
-    mouseWheelX_Axis(new Qt3DInput::QAxis()),
-    mouseWheelY_Axis(new Qt3DInput::QAxis())
+    logicalDevice(new Qt3DInput::QLogicalDevice(this)),
+    mouseDevice(new Qt3DInput::QMouseDevice(this)),
+    rightMouseButtonAction(new Qt3DInput::QAction(this)),
+    rightMouseButtonInput(new Qt3DInput::QActionInput(this)),
+    mouseX_Axis(new Qt3DInput::QAxis(this)),
+    mouseY_Axis(new Qt3DInput::QAxis(this)),
+    mouseX_Input(new Qt3DInput::QAnalogAxisInput(this)),
+    mouseY_Input(new Qt3DInput::QAnalogAxisInput(this)),
+    mouseWheelX_Input(new Qt3DInput::QAnalogAxisInput(this)),
+    mouseWheelY_Input(new Qt3DInput::QAnalogAxisInput(this)),
+    mouseWheelX_Axis(new Qt3DInput::QAxis(this)),
+    mouseWheelY_Axis(new Qt3DInput::QAxis(this))
 {
     //right mouse button action
     rightMouseButtonInput->setButtons(QVector<int>({Qt::RightButton}));
@@ -59,25 +58,23 @@ SolarSystem::CameraController::CameraController(Qt3DCore::QNode *parent):
     logicalDevice->addAxis(mouseWheelX_Axis);
     logicalDevice->addAxis(mouseWheelY_Axis);
 
+#ifndef Q_OS_ANDROID
+    //tick component
+    Qt3DLogic::QFrameAction* frameAction = new Qt3DLogic::QFrameAction(this);
     QObject::connect(frameAction, &Qt3DLogic::QFrameAction::triggered, this, &CameraController::onFrameAction);
-    QObject::connect(this, &CameraController::enabledChanged, logicalDevice, &Qt3DInput::QLogicalDevice::setEnabled);
-
-    //add action and device to components
     addComponent(frameAction);
+#endif
+
+    QObject::connect(this, &CameraController::enabledChanged, logicalDevice, &Qt3DInput::QLogicalDevice::setEnabled);
     addComponent(logicalDevice);
 }
 
-SolarSystem::CameraController::~CameraController()
-{
-    //delete mouseDevice;
-}
-
-void SolarSystem::CameraController::setCamera(Qt3DRender::QCamera *camera)
+void SolarSystem::CameraController::setCamera(Qt3DRender::QCamera* camera)
 {
     viewCamera = camera;
 }
 
-Qt3DRender::QCamera *SolarSystem::CameraController::camera() const
+Qt3DRender::QCamera* SolarSystem::CameraController::camera() const
 {
     return viewCamera;
 }
@@ -132,6 +129,7 @@ float SolarSystem::CameraController::defaultZoomSpeed() const
     return defaultZoomSpeedValue;
 }
 
+#ifndef Q_OS_ANDROID
 void SolarSystem::CameraController::onFrameAction(float deltaTime)
 {
     if (viewCamera != nullptr)
@@ -164,6 +162,7 @@ void SolarSystem::CameraController::onFrameAction(float deltaTime)
         }
     }
 }
+#endif
 
 void SolarSystem::CameraController::changeViewCenter(QVector3D center)
 {

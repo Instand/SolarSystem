@@ -10,11 +10,6 @@ namespace Qt3DRender
     class QCamera;
 }
 
-namespace Qt3DLogic
-{
-    class QFrameAction;
-}
-
 namespace Qt3DInput
 {
     class QLogicalDevice;
@@ -34,7 +29,6 @@ namespace SolarSystem
 
     public:
         explicit CameraController(Qt3DCore::QNode* parent = nullptr);
-        ~CameraController();
 
         //camera setup
         void setCamera(Qt3DRender::QCamera* camera);
@@ -59,9 +53,6 @@ namespace SolarSystem
 
         //camera ref
         Qt3DRender::QCamera* viewCamera = nullptr;
-
-        //tick component
-        Qt3DLogic::QFrameAction* frameAction;
 
         //logical device
         Qt3DInput::QLogicalDevice* logicalDevice;
@@ -94,10 +85,12 @@ namespace SolarSystem
         //up
         QVector3D cameraUp = QVector3D(0.0f, 1.0f, 0.0f);
 
+#ifndef Q_OS_ANDROID
     private slots:
 
         //update camera
         void onFrameAction(float deltaTime);
+#endif
 
     public slots:
 
