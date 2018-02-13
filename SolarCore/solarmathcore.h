@@ -1,55 +1,61 @@
 #ifndef SOLARMATHCORE_H
 #define SOLARMATHCORE_H
 
-#include "SolarCore/isolarmathcore.h"
+#include <QObject>
+#include <QDateTime>
+#include "solarsystemcore.h"
+#include <Qt3DRender/QCamera>
+#include <SolarCore/planetscontainer.h>
 #include "SolarCore/solarobjectscontainer.h"
 
 namespace SolarSystem
 {
     class PlanetsContainer;
+    class CameraController;
 
     //base solar math model
     //some realizations used from Qt QML Planets example
-    class SolarMathCore : public ISolarMathCore
+    class SolarMathCore : public QObject
     {
         Q_OBJECT
 
     public:
         explicit SolarMathCore(QObject* parent = nullptr);
-        ~SolarMathCore();
+        virtual ~SolarMathCore();
 
         //realize interface
-        virtual void setSolarView(Qt3DRender::QCamera *camera) override final;
-        virtual Qt3DRender::QCamera* solarView() const override final;
-        virtual float getOuterRadius(SolarObjects object) override final;
-        virtual void solarObjectPosition(SolarObjects object) override final;
-        virtual QVector3D getNewSolarViewPosition(SolarObjects object, double radius) override final;
-        virtual void advanceTime(SolarObjects object) override final;
-        virtual float setSolarObjectScale(float scale, bool focused) override final;
-        virtual void checkSolarObjectScaling(SolarObjects object) override final;
-        virtual void changeSolarObjectScale(float scale, bool focused) override final;
-        virtual void updateSolarView(SolarObjects object) override final;
-        virtual void changeSolarObjectsSpeed(float speed) override final;
-        virtual void changeSolarViewDistance(double distance) override final;
-        virtual void setPlanetsContainer(PlanetsContainer* planetsContainer) override final;
-        virtual void changeSolarSystemScale(float scale, bool focused) override final;
-        virtual void setDeltaTime(float dt) override final;
-        virtual QDateTime getTime() const override final;
-        virtual void additionalCalculation() override final;
-        virtual void setCameraController(CameraController *controller) override final;
-        virtual void updateSolarViewZoomLimit(SolarObjects object) override final;
-        virtual void setSolarViewCenter(QVector3D center) override final;
-        virtual QVector3D viewCenter() const override final;
-        virtual QVector3D objectPosition(SolarObjects object) override final;
-        virtual QVector3D viewPositionOfObject(SolarObjects object) override final;
-        virtual QVector3D viewPosition() const override final;
-        virtual void setSolarViewPosition(QVector3D position) override final;
-        virtual float solarSystemSpeed() const override final;
-        virtual QVector3D solarViewStartPositon() const override final;
-        virtual void changeExtraSpeed() const override final;
-        virtual double extraSpeed() const override final;
-        virtual void resetExtraSpeed() const override final;
-        virtual void calculateAllSolarObjectsPosiitons() override final;
+        void setSolarView(Qt3DRender::QCamera *camera);
+        Qt3DRender::QCamera* solarView() const;
+        float getOuterRadius(SolarObjects object);
+        void solarObjectPosition(SolarObjects object);
+        QVector3D getNewSolarViewPosition(SolarObjects object, double radius);
+        void advanceTime(SolarObjects object);
+        float setSolarObjectScale(float scale, bool focused = false);
+        void checkSolarObjectScaling(SolarObjects object);
+        void changeSolarObjectScale(float scale, bool focused = false);
+        void updateSolarView(SolarObjects object);
+        void changeSolarObjectsSpeed(float speed);
+        void changeSolarViewDistance(double distance);
+        void setPlanetsContainer(PlanetsContainer* planetsContainer);
+        void changeSolarSystemScale(float scale, bool focused = false);
+        void setDeltaTime(float dt);
+        QDateTime getTime() const;
+        void additionalCalculation();
+        void setCameraController(CameraController *controller);
+        CameraController* viewController() const;
+        void updateSolarViewZoomLimit(SolarObjects object);
+        void setSolarViewCenter(QVector3D center);
+        QVector3D viewCenter() const;
+        QVector3D objectPosition(SolarObjects object);
+        QVector3D viewPositionOfObject(SolarObjects object);
+        QVector3D viewPosition() const;
+        void setSolarViewPosition(QVector3D position);
+        float solarSystemSpeed() const;
+        QVector3D solarViewStartPositon() const;
+        void changeExtraSpeed() const;
+        double extraSpeed() const;
+        void resetExtraSpeed() const;
+        void calculateAllSolarObjectsPosiitons();
 
     private:
 

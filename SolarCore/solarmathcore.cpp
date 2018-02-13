@@ -53,7 +53,7 @@ struct SolarSystem::SolarMathCore::Data
 };
 
 SolarSystem::SolarMathCore::SolarMathCore(QObject* parent):
-    ISolarMathCore(parent),
+    QObject(parent),
     data(new Data())
 {
     //calculating start time
@@ -411,6 +411,11 @@ void SolarSystem::SolarMathCore::additionalCalculation()
 void SolarSystem::SolarMathCore::setCameraController(SolarSystem::CameraController *controller)
 {
     cameraController = controller;
+}
+
+SolarSystem::CameraController* SolarSystem::SolarMathCore::viewController() const
+{
+    return cameraController;
 }
 
 void SolarSystem::SolarMathCore::updateSolarViewZoomLimit(SolarSystem::SolarObjects object)
