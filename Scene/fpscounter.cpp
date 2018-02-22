@@ -10,7 +10,7 @@ struct SolarSystem::FpsCounter::FpsData
     int frameCount = 0;
     float dt = 0;
     float fps = 0;
-    float updateRate = 4.0f;
+    float updateRate = 1.0f;
 };
 
 SolarSystem::FpsCounter::FpsCounter(Qt3DCore::QNode* parent):
