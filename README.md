@@ -15,6 +15,11 @@ Thanks to Qt Company. <br />
 ***Build for Windows/Android***<br />
 Download a project from repository, use QtCreator with Qt 5.10+, enjoy<br />
 <br />
+
+***Builded project***<br />
+Builded programs exist at current-build folder<br />
+<br />
+
 ***SolarSystem v.2.3*** <br />
 Based on Qt3DExtras materials and Qt 5.7. <br />
 Full project https://yadi.sk/d/mKuWiLLP3K6t8e <br />
