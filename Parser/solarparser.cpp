@@ -209,8 +209,8 @@ SolarSystem::SolarObjects SolarSystem::SolarParser::parsePlanetListIndex(int ind
 {
     SolarObjects object = SolarObjects::SolarSystemView;
 
-    switch (index) {
-
+    switch (index)
+    {
     //Solar system
     case 0:
         object = SolarObjects::SolarSystemView;
