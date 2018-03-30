@@ -16,7 +16,6 @@ SOURCES += main.cpp \
     solarsystemdbconnector.cpp \
     solarsystemcore.cpp \
     Parser/solarparser.cpp \
-    Interface/isolarsystemobject.cpp \
     Scene/SceneObjects/emptysolarobject.cpp \
     Scene/SceneObjects/solarskybox.cpp \
     SolarCore/solarmathcore.cpp \
@@ -53,7 +52,6 @@ HEADERS += \
     solarsystemdbconnector.h \
     solarsystemcore.h \
     Parser/solarparser.h \
-    Interface/isolarsystemobject.h \
     Scene/SceneObjects/emptysolarobject.h \
     Scene/SceneObjects/solarskybox.h \
     SolarCore/solarmathcore.h \
