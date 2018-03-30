@@ -2,7 +2,7 @@
 #define PLANETSCONTAINER_H
 
 #include <QObject>
-#include <Interface/ivisualsolarobject.h>
+#include <Scene/solarobject3d.h>
 #include <map>
 
 namespace Qt3DRender
@@ -13,7 +13,7 @@ namespace Qt3DRender
 namespace SolarSystem
 {
     //array type
-    using PlanetArray = std::map<SolarObjects, IVisualSolarObject*>;
+    using PlanetArray = std::map<SolarObjects, SolarObject3D*>;
 
     //contains all 3D planets
     class PlanetsContainer : public QObject

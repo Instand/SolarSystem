@@ -3,6 +3,7 @@
 #include <SolarCore/cameracontroller.h>
 #include <SolarCore/planetscontainer.h>
 #include <QtMath>
+#include <QTransform>
 
 //Main Math data
 struct SolarSystem::SolarMathCore::Data
@@ -198,7 +199,7 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
         solarObj->setRoll((solarObj->roll() + data->deltaTimeD/ solarObj->period() * 360.0));
 
         //recalculation to 3D objects
-        IVisualSolarObject* visualSolarObject = planetContainer[object];
+        SolarObject3D* visualSolarObject = planetContainer[object];
 
         //if interface in container
         if (visualSolarObject != nullptr)
@@ -323,7 +324,7 @@ void SolarSystem::SolarMathCore::changeSolarObjectScale(float scale, bool focuse
 
 void SolarSystem::SolarMathCore::updateSolarView(SolarSystem::SolarObjects object)
 {
-    IVisualSolarObject* solarObj = nullptr;
+    SolarObject3D* solarObj = nullptr;
 
     if (object != SolarObjects::SolarSystemView)
         solarObj = planetContainer[object];
@@ -562,8 +563,8 @@ void SolarSystem::SolarMathCore::setupPlanetRings()
 {
     if (planetContainer.count(SolarObjects::SaturnRing) && planetContainer.count(SolarObjects::Saturn))
     {
-        IVisualSolarObject* saturn = planetContainer[SolarObjects::Saturn];
-        IVisualSolarObject* saturnRing = planetContainer[SolarObjects::SaturnRing];
+        SolarObject3D* saturn = planetContainer[SolarObjects::Saturn];
+        SolarObject3D* saturnRing = planetContainer[SolarObjects::SaturnRing];
 
         saturnRing->setX(saturn->x());
         saturnRing->setY(saturn->y());
@@ -575,8 +576,8 @@ void SolarSystem::SolarMathCore::setupPlanetRings()
 
     if (planetContainer.count(SolarObjects::UranusRing) && planetContainer.count(SolarObjects::Uranus))
     {
-        IVisualSolarObject* uranus = planetContainer[SolarObjects::Uranus];
-        IVisualSolarObject* uranusRings = planetContainer[SolarObjects::UranusRing];
+        SolarObject3D* uranus = planetContainer[SolarObjects::Uranus];
+        SolarObject3D* uranusRings = planetContainer[SolarObjects::UranusRing];
 
         uranusRings->setX(uranus->x());
         uranusRings->setY(uranus->y());
@@ -591,8 +592,8 @@ void SolarSystem::SolarMathCore::atmosphereCalculations()
 {
     if (planetContainer.count(SolarObjects::EarthCloud) && planetContainer.count(SolarObjects::Earth))
     {
-        IVisualSolarObject* earth = planetContainer[SolarObjects::Earth];
-        IVisualSolarObject* earthCloud = planetContainer[SolarObjects::EarthCloud];
+        SolarObject3D* earth = planetContainer[SolarObjects::Earth];
+        SolarObject3D* earthCloud = planetContainer[SolarObjects::EarthCloud];
 
         earthCloud->setX(earth->x());
         earthCloud->setY(earth->y());

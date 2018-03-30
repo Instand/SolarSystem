@@ -1,13 +1,13 @@
 #ifndef NORMALDIFFUSEOBJECT_H
 #define NORMALDIFFUSEOBJECT_H
 
-#include <solar3dobject.h>
+#include <Scene/solarobject3d.h>
 #include <QNormalDiffuseMapMaterial>
 
 namespace SolarSystem
 {
     //solar 3d object with normal diffuse map material
-    class NormalDiffuseObject : public Solar3dObject
+    class NormalDiffuseObject : public SolarObject3D
     {
         Q_OBJECT
 

@@ -1,11 +1,14 @@
 #include "planet.h"
+#include <QMatrix4x4>
+#include <QGeometryRenderer>
+#include <QTransform>
 #include <Qt3DExtras/QSphereGeometry>
 
 SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
     NormalDiffuseObject(parent)
 {
-    _renderer = new Qt3DRender::QGeometryRenderer(this);
-    addComponent(_renderer);
+    renderer_ = new Qt3DRender::QGeometryRenderer(this);
+    addComponent(renderer_);
 
     auto sphereGeometry = new Qt3DExtras::QSphereGeometry(this);
 
@@ -15,7 +18,7 @@ SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
     sphereGeometry->setRings(PlanetSettings::rings);
     sphereGeometry->setSlices(PlanetSettings::slices);
 
-    _renderer->setGeometry(sphereGeometry);
+    renderer_->setGeometry(sphereGeometry);
 }
 
 void SolarSystem::Planet::update(float deltaTime)
@@ -26,14 +29,14 @@ void SolarSystem::Planet::update(float deltaTime)
     auto matrix = QMatrix4x4();
 
     //set position
-    matrix.translate(QVector3D(_x, _y, _z));
+    matrix.translate(QVector3D(x_, y_, z_));
 
     //rotate
-    matrix.rotate(_tilt, SolarValues::tiltAxis);
-    matrix.rotate(_roll, SolarValues::rollAxis);
+    matrix.rotate(tilt_, SolarValues::tiltAxis);
+    matrix.rotate(roll_, SolarValues::rollAxis);
 
     //planet scale
-    matrix.scale(_r);
+    matrix.scale(r_);
 
-    _transform->setMatrix(matrix);
+    transform_->setMatrix(matrix);
 }

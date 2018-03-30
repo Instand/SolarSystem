@@ -1,14 +1,15 @@
 #include "unlitobject.h"
 #include <QTextureWrapMode>
 #include <QAbstractTexture>
+#include <QObjectPicker>
 
 SolarSystem::UnlitObject::UnlitObject(Qt3DCore::QNode* parent):
-    Solar3dObject(parent)
+    SolarObject3D(parent)
 {
-    _materialType = SolarMaterials::Unlit;
-    _material = new Qt3DExtras::QTextureMaterial();
+    materialType_ = SolarMaterials::Unlit;
+    material_ = new Qt3DExtras::QTextureMaterial();
 
-    auto mat = qobject_cast<Qt3DExtras::QTextureMaterial*>(_material);
+    auto mat = qobject_cast<Qt3DExtras::QTextureMaterial*>(material_);
     Qt3DRender::QTextureWrapMode wrapMode;
 
     wrapMode.setX(Qt3DRender::QTextureWrapMode::WrapMode::Repeat);
@@ -21,7 +22,7 @@ SolarSystem::UnlitObject::UnlitObject(Qt3DCore::QNode* parent):
     mat->texture()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
     mat->texture()->setMaximumAnisotropy(16.0f);
 
-    _picker->setEnabled(false);
+    picker_->setEnabled(false);
 
-    addComponent(_material);
+    addComponent(material_);
 }

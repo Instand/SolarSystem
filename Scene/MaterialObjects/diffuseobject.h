@@ -1,13 +1,13 @@
 #ifndef DIFFUSEOBJECT_H
 #define DIFFUSEOBJECT_H
 
-#include <solar3dobject.h>
+#include <Scene/solarobject3d.h>
 #include <QDiffuseMapMaterial>
 
 namespace SolarSystem
 {
     //Represents solar3dobject with diffuse material
-    class DiffuseObject : public Solar3dObject
+    class DiffuseObject : public SolarObject3D
     {
         Q_OBJECT
 

@@ -1,14 +1,15 @@
 #include "normaldiffusealphaobject.h"
 #include <QTextureWrapMode>
 #include <QAbstractTexture>
+#include <QObjectPicker>
 
 SolarSystem::NormalDiffuseAlphaObject::NormalDiffuseAlphaObject(Qt3DCore::QNode* parent):
-    Solar3dObject(parent)
+    SolarObject3D(parent)
 {
-    _materialType = SolarMaterials::NormalDiffuseAplha;
-    _material = new Qt3DExtras::QNormalDiffuseMapAlphaMaterial();
+    materialType_ = SolarMaterials::NormalDiffuseAplha;
+    material_ = new Qt3DExtras::QNormalDiffuseMapAlphaMaterial();
 
-    auto mat = qobject_cast<Qt3DExtras::QNormalDiffuseMapAlphaMaterial*>(_material);
+    auto mat = qobject_cast<Qt3DExtras::QNormalDiffuseMapAlphaMaterial*>(material_);
     Qt3DRender::QTextureWrapMode wrapMode;
 
     mat->diffuse()->setWrapMode(wrapMode);
@@ -27,7 +28,7 @@ SolarSystem::NormalDiffuseAlphaObject::NormalDiffuseAlphaObject(Qt3DCore::QNode*
     mat->setAmbient(QColor(qRgba(10,10,10,255)));
     mat->setTextureScale(1.0f);
 
-    _picker->setEnabled(false);
+    picker_->setEnabled(false);
 
-    addComponent(_material);
+    addComponent(material_);
 }

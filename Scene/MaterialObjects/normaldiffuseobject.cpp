@@ -3,12 +3,12 @@
 #include <QAbstractTexture>
 
 SolarSystem::NormalDiffuseObject::NormalDiffuseObject(Qt3DCore::QNode* parent):
-    Solar3dObject(parent)
+    SolarObject3D(parent)
 {
-    _materialType = SolarMaterials::NormalDiffuse;
-    _material = new Qt3DExtras::QNormalDiffuseMapMaterial();
+    materialType_ = SolarMaterials::NormalDiffuse;
+    material_ = new Qt3DExtras::QNormalDiffuseMapMaterial();
 
-    auto mat = qobject_cast<Qt3DExtras::QNormalDiffuseMapMaterial*>(_material);
+    auto mat = qobject_cast<Qt3DExtras::QNormalDiffuseMapMaterial*>(material_);
     Qt3DRender::QTextureWrapMode wrapMode;
 
     mat->diffuse()->setWrapMode(wrapMode);
@@ -22,5 +22,5 @@ SolarSystem::NormalDiffuseObject::NormalDiffuseObject(Qt3DCore::QNode* parent):
     mat->normal()->setMinificationFilter(Qt3DRender::QAbstractTexture::Linear);
     mat->normal()->setMaximumAnisotropy(16.0f);
 
-    addComponent(_material);
+    addComponent(material_);
 }

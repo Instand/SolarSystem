@@ -1,9 +1,8 @@
 #include "emptysolarobject.h"
 
 SolarSystem::EmptySolarObject::EmptySolarObject(Qt3DCore::QNode* parent):
-    Solar3dObject(parent)
+    SolarObject3D(parent)
 {
-
 }
 
 void SolarSystem::EmptySolarObject::update(float deltaTime)

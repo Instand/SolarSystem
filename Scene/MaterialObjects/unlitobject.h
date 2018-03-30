@@ -1,13 +1,13 @@
 #ifndef UNLITOBJECT_H
 #define UNLITOBJECT_H
 
-#include <solar3dobject.h>
+#include <Scene/solarobject3d.h>
 #include <QTextureMaterial>
 
 namespace SolarSystem
 {
     //Represents solar 3d object with unlit material
-    class UnlitObject : public Solar3dObject
+    class UnlitObject : public SolarObject3D
     {
         Q_OBJECT
 
