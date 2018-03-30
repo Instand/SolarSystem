@@ -61,8 +61,8 @@ namespace SolarSystem
         Qt3DInput::QMouseDevice* mouseDevice;
 
         //input fields
-        Qt3DInput::QAction* rightMouseButtonAction;
-        Qt3DInput::QActionInput* rightMouseButtonInput;
+        Qt3DInput::QAction* mouseButtonAction;
+        Qt3DInput::QActionInput* mouseButtonInput;
         Qt3DInput::QAxis* mouseX_Axis;
         Qt3DInput::QAxis* mouseY_Axis;
         Qt3DInput::QAnalogAxisInput* mouseX_Input;
@@ -85,17 +85,15 @@ namespace SolarSystem
         //up
         QVector3D cameraUp = QVector3D(0.0f, 1.0f, 0.0f);
 
-#ifndef Q_OS_ANDROID
     private slots:
 
         //update camera
         void onFrameAction(float deltaTime);
-#endif
 
     public slots:
 
         //camera view center update
-        void changeViewCenter(QVector3D center);
+        void changeViewCenter(const QVector3D& center);
     };
 }
 
