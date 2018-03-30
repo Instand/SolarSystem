@@ -15,12 +15,8 @@ SOURCES += main.cpp \
     solarsystemobject.cpp \
     solarsystemdbconnector.cpp \
     solarsystemcore.cpp \
-    solar3dobject.cpp \
     Parser/solarparser.cpp \
     Interface/isolarsystemobject.cpp \
-    Interface/ivisualsolarobject.cpp \
-    Scene/visualsolarobject.cpp \
-    Scene/basevisualsolarobject.cpp \
     Scene/SceneObjects/emptysolarobject.cpp \
     Scene/SceneObjects/solarskybox.cpp \
     SolarCore/solarmathcore.cpp \
@@ -49,18 +45,15 @@ SOURCES += main.cpp \
     Scene/MaterialObjects/diffuseobject.cpp \
     Scene/MaterialObjects/unlitobject.cpp \
     Scene/fpscounter.cpp \
-    SolarCore/SolarRender/solarstandardframegraph.cpp
+    SolarCore/SolarRender/solarstandardframegraph.cpp \
+    Scene/solarobject3d.cpp
 
 HEADERS += \
     solarsystemobject.h \
     solarsystemdbconnector.h \
     solarsystemcore.h \
-    solar3dobject.h \
     Parser/solarparser.h \
     Interface/isolarsystemobject.h \
-    Interface/ivisualsolarobject.h \
-    Scene/visualsolarobject.h \
-    Scene/basevisualsolarobject.h \
     Scene/SceneObjects/emptysolarobject.h \
     Scene/SceneObjects/solarskybox.h \
     SolarCore/solarmathcore.h \
@@ -91,7 +84,8 @@ HEADERS += \
     Scene/MaterialObjects/unlitobject.h \
     Scene/fpscounter.h \
     SolarCore/SolarRender/solarstandardframegraph.h \
-    Interface/iframegraph.h
+    Interface/iframegraph.h \
+    Scene/solarobject3d.h
 
 RESOURCES += \
     res.qrc
