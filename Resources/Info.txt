@@ -12,5 +12,4 @@ Created by Instand in 2017,
 Source code available at:
 https://github.com/Instand/SolarSystem
 
-Thanks to Emerald for advises
-and Qt Company for Qt.
+Thanks to Emerald and Qt Company.
