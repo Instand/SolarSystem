@@ -261,7 +261,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
     planetContainer[SolarObjects::Neptune] = neptune;
     planetContainer[SolarObjects::Pluto] = pluto;
 
-    calculatedSolarObjectNumber = planetContainer.size();
+    calculatedSolarObjectNumber = static_cast<int>(planetContainer.size());
 
     //add additional solar objects
     planetContainer[SolarObjects::SaturnRing] = saturnRing;

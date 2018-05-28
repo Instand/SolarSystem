@@ -92,7 +92,7 @@ QString SolarSystem::SolarParser::parseSolarObjectToString(SolarSystem::SolarObj
 
 float SolarSystem::SolarParser::parseSolarObjectTilt(SolarSystem::SolarObjects object)
 {
-    float tilt = 0;
+    double tilt = 0;
 
     switch (object)
     {
@@ -145,12 +145,12 @@ float SolarSystem::SolarParser::parseSolarObjectTilt(SolarSystem::SolarObjects o
         break;
     }
 
-    return tilt;
+    return static_cast<float>(tilt);
 }
 
 float SolarSystem::SolarParser::parseSolarObjectRadius(SolarSystem::SolarObjects object)
 {
-    float radius = 0;
+    double radius = 0;
 
     switch (object)
     {
@@ -202,7 +202,7 @@ float SolarSystem::SolarParser::parseSolarObjectRadius(SolarSystem::SolarObjects
         break;
     }
 
-    return radius;
+    return static_cast<float>(radius);
 }
 
 SolarSystem::SolarObjects SolarSystem::SolarParser::parsePlanetListIndex(int index)

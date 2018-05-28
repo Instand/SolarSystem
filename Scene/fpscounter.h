@@ -22,7 +22,7 @@ namespace SolarSystem
     private:
 
         //fps data
-        class FpsData;
+        struct FpsData;
         FpsData* fpsData;
 
     signals:

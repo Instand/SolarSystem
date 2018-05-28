@@ -96,7 +96,7 @@ Qt3DRender::QCamera* SolarSystem::SolarMathCore::solarView() const
 
 float SolarSystem::SolarMathCore::getOuterRadius(SolarSystem::SolarObjects object)
 {
-    float outerRadius = SolarValues::solarDistance;
+    double outerRadius = SolarValues::solarDistance;
 
     switch (object) {
 
@@ -149,7 +149,7 @@ float SolarSystem::SolarMathCore::getOuterRadius(SolarSystem::SolarObjects objec
 
     }
 
-    return outerRadius;
+    return static_cast<float>(outerRadius);
 }
 
 void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects object)
