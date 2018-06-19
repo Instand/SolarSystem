@@ -1,147 +1,145 @@
 #include "abstractsolarobject.h"
 
-SolarSystem::AbstractSolarObject::AbstractSolarObject(QObject *parent):
+SolarSystem::AbstractSolarObject::AbstractSolarObject(QObject* parent):
     QObject(parent)
 {
-
 }
 
 SolarSystem::AbstractSolarObject::~AbstractSolarObject()
 {
-
 }
 
 double SolarSystem::AbstractSolarObject::radius() const
 {
-    return _radius;
+    return m_Radius;
 }
 
 void SolarSystem::AbstractSolarObject::setRadius(double radius)
 {
-    _radius = radius;
+    m_Radius = radius;
 }
 
 double SolarSystem::AbstractSolarObject::tilt() const
 {
-    return _tilt;
+    return m_Tilt;
 }
 
 void SolarSystem::AbstractSolarObject::setTilt(double tilt)
 {
-    _tilt = tilt;
+    m_Tilt = tilt;
 }
 
 double SolarSystem::AbstractSolarObject::roll() const
 {
-    return _roll;
+    return m_Roll;
 }
 
 void SolarSystem::AbstractSolarObject::setRoll(double roll)
 {
-    _roll = roll;
+    m_Roll = roll;
 }
 
 double SolarSystem::AbstractSolarObject::x() const
 {
-    return _x;
+    return m_X;
 }
 
 void SolarSystem::AbstractSolarObject::setX(double x)
 {
-    _x = x;
+    m_X = x;
 }
 
 double SolarSystem::AbstractSolarObject::y() const
 {
-    return _y;
+    return m_Y;
 }
 
 void SolarSystem::AbstractSolarObject::setY(double y)
 {
-    _y = y;
+    m_Y = y;
 }
 
 double SolarSystem::AbstractSolarObject::z() const
 {
-    return _z;
+    return m_Z;
 }
 
 void SolarSystem::AbstractSolarObject::setZ(double z)
 {
-    _z = z;
+    m_Z = z;
 }
 
 double SolarSystem::AbstractSolarObject::N1() const
 {
-    return _N1;
+    return m_N1;
 }
 
 double SolarSystem::AbstractSolarObject::N2() const
 {
-    return _N2;
+    return m_N2;
 }
 
 double SolarSystem::AbstractSolarObject::i1() const
 {
-    return _i1;
+    return m_I1;
 }
 
 double SolarSystem::AbstractSolarObject::i2() const
 {
-    return _i2;
+    return m_I2;
 }
 
 double SolarSystem::AbstractSolarObject::w1() const
 {
-    return _w1;
+    return m_W1;
 }
 
 double SolarSystem::AbstractSolarObject::w2() const
 {
-    return _w2;
+    return m_W2;
 }
 
 double SolarSystem::AbstractSolarObject::a1() const
 {
-    return _a1;
+    return m_A1;
 }
 
 double SolarSystem::AbstractSolarObject::a2() const
 {
-    return _a2;
+    return m_A2;
 }
 
 double SolarSystem::AbstractSolarObject::e1() const
 {
-    return _e1;
+    return m_E1;
 }
 
 double SolarSystem::AbstractSolarObject::e2() const
 {
-    return _e2;
+    return m_E2;
 }
 
 double SolarSystem::AbstractSolarObject::M1() const
 {
-    return _M1;
+    return m_M1;
 }
 
 double SolarSystem::AbstractSolarObject::M2() const
 {
-    return _M2;
+    return m_M2;
 }
 
 double SolarSystem::AbstractSolarObject::period() const
 {
-    return _period;
+    return m_Period;
 }
 
 SolarSystem::SolarObjects SolarSystem::AbstractSolarObject::centerOfOrbit() const
 {
-    return _centerOfOrbit;
+    return m_CenterOfOrbit;
 }
 
 SolarSystem::SolarObjects SolarSystem::AbstractSolarObject::object() const
 {
-    return _objectType;
+    return m_ObjectType;
 }

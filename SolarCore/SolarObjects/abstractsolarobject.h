@@ -55,27 +55,27 @@ namespace SolarSystem
     protected:
 
         //main data
-        double _radius = 0;
-        double _tilt = 0;
-        double _N1 = 0;
-        double _N2 = 0;
-        double _i1 = 0;
-        double _i2 = 0;
-        double _w1 = 0;
-        double _w2 = 0;
-        double _a1 = 0;
-        double _a2 = 0;
-        double _e1 = 0;
-        double _e2 = 0;
-        double _M1 = 0;
-        double _M2 = 0;
-        double _period = 0;
-        double _x = 0;
-        double _y = 0;
-        double _z = 0;
-        double _roll = 0;
-        SolarObjects _centerOfOrbit;
-        SolarObjects _objectType;
+        double m_Radius = 0;
+        double m_Tilt = 0;
+        double m_N1 = 0;
+        double m_N2 = 0;
+        double m_I1 = 0;
+        double m_I2 = 0;
+        double m_W1 = 0;
+        double m_W2 = 0;
+        double m_A1 = 0;
+        double m_A2 = 0;
+        double m_E1 = 0;
+        double m_E2 = 0;
+        double m_M1 = 0;
+        double m_M2 = 0;
+        double m_Period = 0;
+        double m_X = 0;
+        double m_Y = 0;
+        double m_Z = 0;
+        double m_Roll = 0;
+        SolarObjects m_CenterOfOrbit;
+        SolarObjects m_ObjectType;
 
         virtual void initialize() = 0;
     };
