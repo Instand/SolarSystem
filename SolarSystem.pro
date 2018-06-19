@@ -83,7 +83,8 @@ HEADERS += \
     Scene/fpscounter.h \
     SolarCore/SolarRender/solarstandardframegraph.h \
     Interface/iframegraph.h \
-    Scene/solarobject3d.h
+    Scene/solarobject3d.h \
+    SolarCore/utils.h
 
 RESOURCES += \
     res.qrc
