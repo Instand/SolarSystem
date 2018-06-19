@@ -2,6 +2,7 @@
 #include <SolarCore/cameracontroller.h>
 #include <Scene/SceneObjects/solarskybox.h>
 #include <solarsystemdbconnector.h>
+#include <SolarCore/planetscontainer.h>
 #include <SolarCore/SolarRender/solarforwardframegraph.h>
 #include <SolarCore/SolarRender/solarstandardframegraph.h>
 

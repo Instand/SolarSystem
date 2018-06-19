@@ -3,15 +3,14 @@
 
 #include <QObject>
 #include <QDateTime>
-#include "solarsystemcore.h"
 #include <Qt3DRender/QCamera>
-#include <SolarCore/planetscontainer.h>
-#include "SolarCore/solarobjectscontainer.h"
+#include <solarsystemcore.h>
 
 namespace SolarSystem
 {
     class PlanetsContainer;
     class CameraController;
+    class SolarObjectsContainer;
 
     //base solar math model
     //some realizations used from Qt QML Planets example
@@ -65,26 +64,7 @@ namespace SolarSystem
         //main math data
         Data* data;
 
-        //view
-        Qt3DRender::QCamera* camera;
-
-        //math solar objects
-        SolarObjectsContainer solarContainer;
-
-        //planet container elements
-        PlanetArray planetContainer;
-        PlanetsContainer* container;
-
-        //orbit camera controller
-        CameraController* cameraController = nullptr;
-
         ///helper methods
-
-        //days time scale calculation
-        float calculateUT(int h, int m = 0, float s = 0);
-
-        //time scale calculation
-        float calculateTimeScale(int year, int month, int day);
 
         //rings setup
         void setupPlanetRings();
