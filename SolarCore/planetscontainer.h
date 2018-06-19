@@ -5,11 +5,6 @@
 #include <Scene/solarobject3d.h>
 #include <map>
 
-namespace Qt3DRender
-{
-    class QTexture2D;
-}
-
 namespace SolarSystem
 {
     //array type
@@ -21,27 +16,28 @@ namespace SolarSystem
         Q_OBJECT
 
     public:
-
         explicit PlanetsContainer(Qt3DCore::QNode* root = nullptr, QObject* parent = nullptr);
         ~PlanetsContainer();
 
-    private:
-
-        //main fields
-        PlanetArray planetContainer;
-        Qt3DCore::QNode* rootNode;
-        int calculatedSolarObjectNumber = 0;
-
-        //helper
-        void initialize(Qt3DCore::QNode *root);
-
-    public:
-
-        //get planets number which should be calculated
+        //returns solar object count (planets + moons + start)
         int planetsNumber() const;
 
-        //get all planets
-        PlanetArray planets() const;
+        //returns planet storage
+        PlanetArray& planets() const;
+
+    private:
+
+        //main planet storage
+        mutable PlanetArray m_PlanetContainer;
+
+        //root entity
+        Qt3DCore::QNode* m_RootNode = nullptr;
+
+        //number of calculated planets in the planet container
+        int m_CalculatedSolarObjectNumber = 0;
+
+        //initialization helper
+        void initialize(Qt3DCore::QNode* root);
     };
 }
 

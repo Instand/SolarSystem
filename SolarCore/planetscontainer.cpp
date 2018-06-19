@@ -14,9 +14,9 @@ SolarSystem::PlanetsContainer::PlanetsContainer(Qt3DCore::QNode* root, QObject* 
 
 SolarSystem::PlanetsContainer::~PlanetsContainer()
 {
-    if (rootNode == nullptr)
+    if (m_RootNode == nullptr)
     {
-        for (auto& elem : planetContainer)
+        for (auto& elem : m_PlanetContainer)
         {
             if (elem.second)
                 delete elem.second;
@@ -249,34 +249,34 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
     EarthCloud* earthClouds = new EarthCloud(root);
 
     //add planets to map, to interface IVisualSolarObject
-    planetContainer[SolarObjects::Sun] = sun;
-    planetContainer[SolarObjects::Mercury] = mercury;
-    planetContainer[SolarObjects::Venus] = venus;
-    planetContainer[SolarObjects::Earth] = earth;
-    planetContainer[SolarObjects::Moon] = moon;
-    planetContainer[SolarObjects::Mars] = mars;
-    planetContainer[SolarObjects::Jupiter] = jupiter;
-    planetContainer[SolarObjects::Saturn] = saturn;
-    planetContainer[SolarObjects::Uranus] = uranus;
-    planetContainer[SolarObjects::Neptune] = neptune;
-    planetContainer[SolarObjects::Pluto] = pluto;
+    m_PlanetContainer[SolarObjects::Sun] = sun;
+    m_PlanetContainer[SolarObjects::Mercury] = mercury;
+    m_PlanetContainer[SolarObjects::Venus] = venus;
+    m_PlanetContainer[SolarObjects::Earth] = earth;
+    m_PlanetContainer[SolarObjects::Moon] = moon;
+    m_PlanetContainer[SolarObjects::Mars] = mars;
+    m_PlanetContainer[SolarObjects::Jupiter] = jupiter;
+    m_PlanetContainer[SolarObjects::Saturn] = saturn;
+    m_PlanetContainer[SolarObjects::Uranus] = uranus;
+    m_PlanetContainer[SolarObjects::Neptune] = neptune;
+    m_PlanetContainer[SolarObjects::Pluto] = pluto;
 
-    calculatedSolarObjectNumber = static_cast<int>(planetContainer.size());
+    m_CalculatedSolarObjectNumber = static_cast<int>(m_PlanetContainer.size());
 
     //add additional solar objects
-    planetContainer[SolarObjects::SaturnRing] = saturnRing;
-    planetContainer[SolarObjects::UranusRing] = uranusRing;
-    planetContainer[SolarObjects::EarthCloud] = earthClouds;
+    m_PlanetContainer[SolarObjects::SaturnRing] = saturnRing;
+    m_PlanetContainer[SolarObjects::UranusRing] = uranusRing;
+    m_PlanetContainer[SolarObjects::EarthCloud] = earthClouds;
 
-    rootNode = root;
+    m_RootNode = root;
 }
 
 int SolarSystem::PlanetsContainer::planetsNumber() const
 {
-    return calculatedSolarObjectNumber;
+    return m_CalculatedSolarObjectNumber;
 }
 
-SolarSystem::PlanetArray SolarSystem::PlanetsContainer::planets() const
+SolarSystem::PlanetArray& SolarSystem::PlanetsContainer::planets() const
 {
-    return planetContainer;
+    return m_PlanetContainer;
 }
