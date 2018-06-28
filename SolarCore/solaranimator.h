@@ -9,9 +9,7 @@ class QParallelAnimationGroup;
 
 namespace SolarSystem
 {
-    class SolarMathCore;
-
-    //contains SolarMathCore, and dynamic use it
+    //animates and controlls mathcore
     class SolarAnimator : public QObject
     {
         Q_OBJECT
@@ -25,12 +23,7 @@ namespace SolarSystem
         Q_PROPERTY(QString info READ info NOTIFY infoChanged)
 
     public:
-
         explicit SolarAnimator(QObject* parent = nullptr);
-        ~SolarAnimator();
-
-        //for math core ref
-        SolarMathCore* mathCore() const;
 
         //get solar time
         QDateTime solarTime() const;
@@ -54,9 +47,6 @@ namespace SolarSystem
         QString info() const;
 
     private:
-
-        //math core interface
-        SolarMathCore* mathCorePtr = nullptr;
 
         //selected solar object
         SolarObjects currentSolarObject = SolarObjects::SolarSystemView;
@@ -84,9 +74,6 @@ namespace SolarSystem
 
     public slots:
 
-        //reset values
-        void setDefaultValues();
-
         //main call for solar system animation
         void animate(float deltaTime);
 
@@ -100,10 +87,10 @@ namespace SolarSystem
         void setCameraViewCenter(int index);
 
         //set camera view center
-        void setCameraViewCenter(QVector3D position);
+        void setCameraViewCenter(const QVector3D& position);
 
         //set camera view position
-        void setCameraPositon(QVector3D position);
+        void setCameraPositon(const QVector3D& position);
 
         //set solar system speed
         void setSolarSystemSpeed(float speed);
@@ -117,8 +104,8 @@ namespace SolarSystem
     signals:
         void solarTimeChanged(QDateTime);
         void solarObjectStringChanged(QString);
-        void cameraViewCenterChanged(QVector3D);
-        void cameraPositionChanged(QVector3D);
+        void cameraViewCenterChanged(const QVector3D&);
+        void cameraPositionChanged(const QVector3D&);
         void solarSystemSpeedChanged(float);
         void extraSpeedChanged(double);
         void infoChanged(const QString&);

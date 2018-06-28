@@ -28,9 +28,7 @@ namespace SolarSystem
         Q_PROPERTY(bool databaseStatus READ databaseStatus)
 
     public:
-
-        //constructor
-        SolarEntity(QNode* parent = nullptr);
+        explicit SolarEntity(QNode* parent = nullptr);
         ~SolarEntity();
 
         //returns animator
@@ -52,9 +50,6 @@ namespace SolarSystem
 
         //scene camera
         Qt3DRender::QCamera* mainCamera;
-
-        //light camera
-        Qt3DRender::QCamera* lightCam;
 
         //system animator
         SolarAnimator* solarAnimator;

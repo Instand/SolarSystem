@@ -8,7 +8,6 @@
 
 SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),
-    solarAnimator(new SolarAnimator()),
     rootAction(new Qt3DLogic::QFrameAction()),
     planetsContainer(new PlanetsContainer(this)),
     fpsCounter(new FpsCounter(this))
@@ -46,10 +45,13 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     addComponent(input);
 
     //math core control
-    solarAnimator->mathCore()->setPlanetsContainer(planetsContainer);
-    solarAnimator->mathCore()->setSolarView(mainCamera);
-    solarAnimator->mathCore()->setCameraController(controller);
-    solarAnimator->setDefaultValues();
+    SolarMathCore::instance()->setPlanetsContainer(planetsContainer);
+    SolarMathCore::instance()->setSolarView(mainCamera);
+    SolarMathCore::instance()->setCameraController(controller);
+    SolarMathCore::instance()->setSolarSystemSpeed(SolarSystem::SolarValues::startSpeed);
+    SolarMathCore::instance()->changeSolarSystemScale(SolarSystem::SolarValues::startSize);
+
+    solarAnimator = new SolarAnimator(this);
 
     //animate scene on tick
     QObject::connect(rootAction, &Qt3DLogic::QFrameAction::triggered, solarAnimator, &SolarAnimator::animate);
@@ -58,7 +60,6 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
 SolarSystem::SolarEntity::~SolarEntity()
 {
     delete planetsContainer;
-    delete solarAnimator;
 }
 
 SolarSystem::SolarAnimator* SolarSystem::SolarEntity::animator() const
