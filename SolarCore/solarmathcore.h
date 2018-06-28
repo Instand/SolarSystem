@@ -3,8 +3,12 @@
 
 #include <QObject>
 #include <QDateTime>
-#include <Qt3DRender/QCamera>
 #include <solarsystemcore.h>
+
+namespace Qt3DRender
+{
+    class QCamera;
+}
 
 namespace SolarSystem
 {
@@ -18,42 +22,79 @@ namespace SolarSystem
     {
         Q_OBJECT
 
-    public:
+    private:
         explicit SolarMathCore(QObject* parent = nullptr);
+
+    public:
         virtual ~SolarMathCore();
 
-        //realize interface
-        void setSolarView(Qt3DRender::QCamera *camera);
+        //creates solar math core only once
+        static SolarMathCore* instance();
+
+        //sets camera
+        void setSolarView(Qt3DRender::QCamera* camera);
+
+        //returns camera
         Qt3DRender::QCamera* solarView() const;
+
+        //returns outer radius of solar object
         float getOuterRadius(SolarObjects object);
-        void solarObjectPosition(SolarObjects object);
-        QVector3D getNewSolarViewPosition(SolarObjects object, double radius);
+
+        //calcualtes current time
         void advanceTime(SolarObjects object);
-        float setSolarObjectScale(float scale, bool focused = false);
-        void checkSolarObjectScaling(SolarObjects object);
-        void changeSolarObjectScale(float scale, bool focused = false);
+
+        //checks and sets solar objects actual scale
+        void setSolarObjectsScale(float scale, bool focused = false);
+
+        //sets camera view center to solar object
         void updateSolarView(SolarObjects object);
-        void changeSolarObjectsSpeed(float speed);
-        void changeSolarViewDistance(double distance);
+
+        //sets days per frame scale speed
+        void setSolarSystemSpeed(float speed);
+
+        //sets planets container with SolarObject3D
         void setPlanetsContainer(PlanetsContainer* planetsContainer);
+
+        //recalculate all system objects scale
         void changeSolarSystemScale(float scale, bool focused = false);
+
+        //sets to math core tick delta time
         void setDeltaTime(float dt);
+
+        //returns current calculated solar time
         QDateTime getTime() const;
+
+        //calculates solar system non-planet positions
         void additionalCalculation();
-        void setCameraController(CameraController *controller);
+
+        //sets camera controller
+        void setCameraController(CameraController* controller);
+
+        //returns camera controller
         CameraController* viewController() const;
+
+        //updates camera min zoom position
         void updateSolarViewZoomLimit(SolarObjects object);
-        void setSolarViewCenter(QVector3D center);
-        QVector3D viewCenter() const;
+
+        //returns solar object position
         QVector3D objectPosition(SolarObjects object);
+
+        //returns position of solar view to solar object
         QVector3D viewPositionOfObject(SolarObjects object);
-        QVector3D viewPosition() const;
-        void setSolarViewPosition(QVector3D position);
+
+        //returns current solar system speed (days per frame)
         float solarSystemSpeed() const;
-        QVector3D solarViewStartPositon() const;
+
+        //calcualtes next step of ultra speed
         void changeExtraSpeed() const;
+
+        //returns utral speed
         double extraSpeed() const;
+
+        //sets uultra speed to default value
         void resetExtraSpeed() const;
+
+        //calculates all planets container solar objects position
         void calculateAllSolarObjectsPosiitons();
 
     private:
@@ -65,6 +106,9 @@ namespace SolarSystem
         Data* data;
 
         ///helper methods
+
+        // calculates solar object current position
+        void solarObjectPosition(SolarObjects object);
 
         //rings setup
         void setupPlanetRings();

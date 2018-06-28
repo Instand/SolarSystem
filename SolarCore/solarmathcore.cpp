@@ -1,6 +1,7 @@
 #include "solarmathcore.h"
 #include <QtMath>
 #include <QTransform>
+#include <Qt3DRender/QCamera>
 #include <Parser/solarparser.h>
 #include <SolarCore/utils.h>
 #include <SolarCore/cameracontroller.h>
@@ -106,6 +107,12 @@ SolarSystem::SolarMathCore::SolarMathCore(QObject* parent):
 SolarSystem::SolarMathCore::~SolarMathCore()
 {
     delete data;
+}
+
+SolarSystem::SolarMathCore* SolarSystem::SolarMathCore::instance()
+{
+    static SolarMathCore core;
+    return &core;
 }
 
 void SolarSystem::SolarMathCore::setSolarView(Qt3DRender::QCamera* camera)
@@ -236,38 +243,6 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
     }
 }
 
-QVector3D SolarSystem::SolarMathCore::getNewSolarViewPosition(SolarSystem::SolarObjects object, double radius)
-{
-    QVector3D pos;
-
-    if (object == SolarObjects::SolarSystemView)
-    {
-        pos = CameraSettings::defaultCameraPosition;
-        pos *= data->cameraDistance;
-    }
-    else if (object == SolarObjects::Sun)
-    {
-        pos = QVector3D(radius * data->planetScale * 2, radius * data->planetScale * 2, radius * data->planetScale * 2);
-        pos *= data->cameraDistance;
-    }
-    else
-    {
-        auto solarObj = data->solarContainer.solarObject(object);
-        auto vec1 = QVector3D(solarObj->x(), solarObj->y(), solarObj->z());
-        auto vec2 = CameraSettings::defaultUp;
-
-        vec1 = vec1.normalized();
-        vec2 = QVector3D::crossProduct(vec1, vec2);
-        vec2 *= radius * data->planetScale * data->cameraDistance * 4;
-        vec2 += QVector3D(solarObj->x(), solarObj->y(), solarObj->z());
-
-        vec1 = QVector3D(0, radius * data->planetScale, 0);
-        vec2 += vec1;
-    }
-
-    return pos;
-}
-
 void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
 {
     if (object == SolarObjects::SolarSystemView)
@@ -299,43 +274,7 @@ void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
     data->deltaTimeD = data->currentTimeD - data->oldTimeD;
 }
 
-float SolarSystem::SolarMathCore::setSolarObjectScale(float scale, bool focused)
-{
-    // Save actual scale
-    if (!focused)
-        data->actualScale = scale;
-
-    // Limit minimum scaling in focus mode to avoid jitter caused by rounding errors
-    if (scale <= data->focusedMinimumScale && (data->focusedScaling || focused))
-        data->planetScale = data->focusedMinimumScale;
-    else
-        data->planetScale = data->actualScale;
-
-    return data->planetScale;
-}
-
-void SolarSystem::SolarMathCore::checkSolarObjectScaling(SolarSystem::SolarObjects object)
-{
-    if (object != SolarObjects::SolarSystemView)
-    {
-        // Limit minimum scaling in focus mode to avoid jitter caused by rounding errors
-        if (data->actualScale <= data->focusedMinimumScale)
-        {
-            data->planetScale = data->focusedMinimumScale;
-            changeSolarObjectScale(data->focusedMinimumScale, true);
-        }
-
-        data->focusedScaling = true;
-    }
-    else if (data->focusedScaling == true)
-    {
-        // Restore normal scaling
-        data->focusedScaling = false;
-        changeSolarObjectScale(data->actualScale, false);
-    }
-}
-
-void SolarSystem::SolarMathCore::changeSolarObjectScale(float scale, bool focused)
+void SolarSystem::SolarMathCore::setSolarObjectsScale(float scale, bool focused)
 {
     if (!focused)
         data->actualScale = scale;
@@ -360,14 +299,9 @@ void SolarSystem::SolarMathCore::updateSolarView(SolarSystem::SolarObjects objec
         data->camera->setViewCenter(QVector3D(solarObj->x(), solarObj->y(), solarObj->z()));
 }
 
-void SolarSystem::SolarMathCore::changeSolarObjectsSpeed(float speed)
+void SolarSystem::SolarMathCore::setSolarSystemSpeed(float speed)
 {
     data->daysPerFrameScale = speed;
-}
-
-void SolarSystem::SolarMathCore::changeSolarViewDistance(double distance)
-{
-    Q_UNUSED(distance)
 }
 
 void SolarSystem::SolarMathCore::setPlanetsContainer(PlanetsContainer* planetsContainer)
@@ -377,7 +311,7 @@ void SolarSystem::SolarMathCore::setPlanetsContainer(PlanetsContainer* planetsCo
 
 void SolarSystem::SolarMathCore::changeSolarSystemScale(float scale, bool focused)
 {
-    changeSolarObjectScale(scale, focused);
+    setSolarObjectsScale(scale, focused);
 
     auto scaling = data->planetScale;
 
@@ -470,16 +404,6 @@ void SolarSystem::SolarMathCore::updateSolarViewZoomLimit(SolarSystem::SolarObje
     }
 }
 
-void SolarSystem::SolarMathCore::setSolarViewCenter(QVector3D center)
-{
-    data->camera->setViewCenter(center);
-}
-
-QVector3D SolarSystem::SolarMathCore::viewCenter() const
-{
-    return data->camera->viewCenter();
-}
-
 QVector3D SolarSystem::SolarMathCore::objectPosition(SolarSystem::SolarObjects object)
 {
     QVector3D pos {0, 0, 0};
@@ -525,24 +449,9 @@ QVector3D SolarSystem::SolarMathCore::viewPositionOfObject(SolarSystem::SolarObj
     return pos;
 }
 
-QVector3D SolarSystem::SolarMathCore::viewPosition() const
-{
-    return data->camera->position();
-}
-
-void SolarSystem::SolarMathCore::setSolarViewPosition(QVector3D position)
-{
-    data->camera->setPosition(position);
-}
-
 float SolarSystem::SolarMathCore::solarSystemSpeed() const
 {
     return data->daysPerFrameScale;
-}
-
-QVector3D SolarSystem::SolarMathCore::solarViewStartPositon() const
-{
-    return CameraSettings::defaultCameraPosition;
 }
 
 void SolarSystem::SolarMathCore::changeExtraSpeed() const
