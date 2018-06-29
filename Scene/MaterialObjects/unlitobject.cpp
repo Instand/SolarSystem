@@ -6,10 +6,10 @@
 SolarSystem::UnlitObject::UnlitObject(Qt3DCore::QNode* parent):
     SolarObject3D(parent)
 {
-    materialType_ = SolarMaterials::Unlit;
-    material_ = new Qt3DExtras::QTextureMaterial();
+    m_MaterialType = SolarMaterials::Unlit;
+    m_Material = new Qt3DExtras::QTextureMaterial();
 
-    auto mat = qobject_cast<Qt3DExtras::QTextureMaterial*>(material_);
+    auto mat = qobject_cast<Qt3DExtras::QTextureMaterial*>(m_Material);
     Qt3DRender::QTextureWrapMode wrapMode;
 
     wrapMode.setX(Qt3DRender::QTextureWrapMode::WrapMode::Repeat);
@@ -22,7 +22,7 @@ SolarSystem::UnlitObject::UnlitObject(Qt3DCore::QNode* parent):
     mat->texture()->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
     mat->texture()->setMaximumAnisotropy(16.0f);
 
-    picker_->setEnabled(false);
+    m_Picker->setEnabled(false);
 
-    addComponent(material_);
+    addComponent(m_Material);
 }

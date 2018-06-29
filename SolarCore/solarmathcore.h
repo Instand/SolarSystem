@@ -18,15 +18,20 @@ namespace SolarSystem
 
     //base solar math model
     //some realizations used from Qt QML Planets example
-    class SolarMathCore : public QObject
+    class SolarMathCore final : public QObject
     {
         Q_OBJECT
 
     private:
         explicit SolarMathCore(QObject* parent = nullptr);
+        ~SolarMathCore();
+
+        SolarMathCore(const SolarMathCore&) = delete;
+        SolarMathCore(SolarMathCore&&) = delete;
+        SolarMathCore& operator=(const SolarMathCore&) = delete;
+        SolarMathCore& operator=(SolarMathCore&&) = delete;
 
     public:
-        virtual ~SolarMathCore();
 
         //creates solar math core only once
         static SolarMathCore* instance();

@@ -102,8 +102,8 @@ namespace SolarSystem
         void resetExtraSpeed();
 
     signals:
-        void solarTimeChanged(QDateTime);
-        void solarObjectStringChanged(QString);
+        void solarTimeChanged(const QDateTime&);
+        void solarObjectStringChanged(const QString&);
         void cameraViewCenterChanged(const QVector3D&);
         void cameraPositionChanged(const QVector3D&);
         void solarSystemSpeedChanged(float);

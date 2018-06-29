@@ -8,8 +8,8 @@
 SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
     NormalDiffuseAlphaObject(parent)
 {
-    renderer_ = new Qt3DRender::QGeometryRenderer(this);
-    addComponent(renderer_);
+    m_Renderer = new Qt3DRender::QGeometryRenderer(this);
+    addComponent(m_Renderer);
 
     auto sphereGeometry = new Qt3DExtras::QSphereGeometry();
 
@@ -19,9 +19,9 @@ SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
     sphereGeometry->setRings(PlanetSettings::rings);
     sphereGeometry->setSlices(PlanetSettings::slices);
 
-    renderer_->setGeometry(sphereGeometry);
+    m_Renderer->setGeometry(sphereGeometry);
 
-    Qt3DExtras::QNormalDiffuseMapAlphaMaterial* mat = qobject_cast<Qt3DExtras::QNormalDiffuseMapAlphaMaterial*>(material_);
+    Qt3DExtras::QNormalDiffuseMapAlphaMaterial* mat = qobject_cast<Qt3DExtras::QNormalDiffuseMapAlphaMaterial*>(m_Material);
 
     Qt3DRender::QTextureImage* diffuseMap = new Qt3DRender::QTextureImage();
     diffuseMap->setSource(QUrl::fromLocalFile(":/Resources/Images/earthcloudmapcolortrans.png"));
@@ -42,14 +42,14 @@ void SolarSystem::EarthCloud::update(float deltaTime)
     auto matrix = QMatrix4x4();
 
     //set position
-    matrix.translate(QVector3D(x_, y_, z_));
+    matrix.translate(QVector3D(m_X, m_Y, m_Z));
 
     //rotate
-    matrix.rotate(tilt_, SolarValues::tiltAxis);
-    matrix.rotate(roll_, SolarValues::rollAxis);
+    matrix.rotate(m_Tilt, SolarValues::tiltAxis);
+    matrix.rotate(m_Roll, SolarValues::rollAxis);
 
     //ring scale
-    matrix.scale(r_);
+    matrix.scale(m_R);
 
-    transform_->setMatrix(matrix);
+    m_Transform->setMatrix(matrix);
 }

@@ -8,21 +8,21 @@
 SolarSystem::SolarObject3D::SolarObject3D(Qt3DCore::QNode* parent):
     QEntity(parent)
 {
-    frameAction_ = new Qt3DLogic::QFrameAction(this);
-    transform_ = new Qt3DCore::QTransform(this);
-    picker_ = new Qt3DRender::QObjectPicker(this);
+    m_FrameAction = new Qt3DLogic::QFrameAction(this);
+    m_Transform = new Qt3DCore::QTransform(this);
+    m_Picker = new Qt3DRender::QObjectPicker(this);
 
-    picker_->setDragEnabled(false);
-    picker_->setEnabled(true);
+    m_Picker->setDragEnabled(false);
+    m_Picker->setEnabled(true);
 
-    addComponent(frameAction_);
-    addComponent(transform_);
-    addComponent(picker_);
+    addComponent(m_FrameAction);
+    addComponent(m_Transform);
+    addComponent(m_Picker);
 
-    QObject::connect(frameAction_, &Qt3DLogic::QFrameAction::triggered, this, [&](float deltaTime) {
+    QObject::connect(m_FrameAction, &Qt3DLogic::QFrameAction::triggered, this, [&](float deltaTime) {
 
         //additional actions
-        for (auto elem : logic_)
+        for (auto elem : m_Logic)
             elem(deltaTime);
 
         update(deltaTime);
@@ -32,105 +32,105 @@ SolarSystem::SolarObject3D::SolarObject3D(Qt3DCore::QNode* parent):
 
 void SolarSystem::SolarObject3D::addLogic(SolarSystem::LogicPtr func)
 {
-    logic_.push_back(func);
+    m_Logic.push_back(func);
 }
 
 void SolarSystem::SolarObject3D::clearLogic()
 {
-    logic_.clear();
+    m_Logic.clear();
 }
 
 Qt3DCore::QTransform* SolarSystem::SolarObject3D::transform() const
 {
-    return transform_;
+    return m_Transform;
 }
 
 Qt3DRender::QGeometryRenderer* SolarSystem::SolarObject3D::renderer() const
 {
-    return renderer_;
+    return m_Renderer;
 }
 
 Qt3DRender::QObjectPicker* SolarSystem::SolarObject3D::picker() const
 {
-    return picker_;
+    return m_Picker;
 }
 
 SolarSystem::SolarObjects SolarSystem::SolarObject3D::solarType() const
 {
-    return solarType_;
+    return m_SolarType;
 }
 
 void SolarSystem::SolarObject3D::setSolarType(SolarSystem::SolarObjects type)
 {
-    solarType_ = type;
+    m_SolarType = type;
 }
 
 SolarSystem::SolarMaterials SolarSystem::SolarObject3D::materialType() const
 {
-    return materialType_;
+    return m_MaterialType;
 }
 
 Qt3DRender::QMaterial* SolarSystem::SolarObject3D::material() const
 {
-    return material_;
+    return m_Material;
 }
 
 double SolarSystem::SolarObject3D::r() const
 {
-    return r_;
+    return m_R;
 }
 
 void SolarSystem::SolarObject3D::setR(double r)
 {
-    r_ = r;
+    m_R = r;
 }
 
 double SolarSystem::SolarObject3D::x() const
 {
-    return x_;
+    return m_X;
 }
 
 void SolarSystem::SolarObject3D::setX(double x)
 {
-    x_ = x;
+    m_X = x;
 }
 
 double SolarSystem::SolarObject3D::y() const
 {
-    return y_;
+    return m_Y;
 }
 
 void SolarSystem::SolarObject3D::setY(double y)
 {
-    y_ = y;
+    m_Y = y;
 }
 
 double SolarSystem::SolarObject3D::z() const
 {
-    return z_;
+    return m_Z;
 }
 
 void SolarSystem::SolarObject3D::setZ(double z)
 {
-    z_ = z;
+    m_Z = z;
 }
 
 double SolarSystem::SolarObject3D::roll() const
 {
-    return roll_;
+    return m_Roll;
 }
 
 void SolarSystem::SolarObject3D::setRoll(double roll)
 {
-    roll_ = roll;
+    m_Roll = roll;
 }
 
 double SolarSystem::SolarObject3D::tilt() const
 {
-    return tilt_;
+    return m_Tilt;
 }
 
 void SolarSystem::SolarObject3D::setTilt(double tilt)
 {
-    tilt_ = tilt;
+    m_Tilt = tilt;
 }

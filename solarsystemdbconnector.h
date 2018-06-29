@@ -53,7 +53,7 @@ namespace SolarSystem
         QStringList info(SolarObjects object) const;
 
     private:
-        QSqlDatabase _database;
+        QSqlDatabase m_Database;
 
         //create object
         void createObjectFromQuery(QSqlQuery& query, SolarSystemObjectPtr& object) const;
