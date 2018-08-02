@@ -13,7 +13,7 @@ namespace SolarSystem
         Q_OBJECT
 
     public:
-        AbstractSolarObject(QObject* parent = nullptr);
+        explicit AbstractSolarObject(QObject* parent = nullptr);
         virtual ~AbstractSolarObject();
 
         //getters + setters

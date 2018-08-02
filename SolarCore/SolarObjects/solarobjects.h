@@ -13,7 +13,7 @@ namespace SolarSystem
             Q_OBJECT
 
         public:
-            Sun(QObject* parent = nullptr);
+            explicit Sun(QObject* parent = nullptr);
 
         protected:
             virtual void initialize() override;
@@ -28,7 +28,7 @@ namespace SolarSystem
             Q_OBJECT
 
         public:
-            Mercury(QObject* parent = nullptr);
+            explicit Mercury(QObject* parent = nullptr);
 
         protected:
             virtual void initialize() override;
@@ -40,7 +40,7 @@ namespace SolarSystem
             Q_OBJECT
 
         public:
-            Venus(QObject* parent = nullptr);
+            explicit Venus(QObject* parent = nullptr);
 
         protected:
             virtual void initialize() override;
@@ -52,7 +52,7 @@ namespace SolarSystem
             Q_OBJECT
 
         public:
-            Earth(QObject* parent = nullptr);
+            explicit Earth(QObject* parent = nullptr);
 
         protected:
             virtual void initialize() override;
@@ -64,7 +64,7 @@ namespace SolarSystem
             Q_OBJECT
 
         public:
-            Mars(QObject* parent = nullptr);
+            explicit Mars(QObject* parent = nullptr);
 
         protected:
             virtual void initialize() override;
@@ -76,7 +76,7 @@ namespace SolarSystem
             Q_OBJECT
 
         public:
-            Jupiter(QObject* parent = nullptr);
+            explicit Jupiter(QObject* parent = nullptr);
 
         protected:
             virtual void initialize() override;
@@ -88,7 +88,7 @@ namespace SolarSystem
             Q_OBJECT
 
         public:
-            Saturn(QObject* parent = nullptr);
+            explicit Saturn(QObject* parent = nullptr);
 
         protected:
             virtual void initialize() override;
@@ -100,7 +100,7 @@ namespace SolarSystem
             Q_OBJECT
 
         public:
-            Uranus(QObject* parent = nullptr);
+            explicit Uranus(QObject* parent = nullptr);
 
         protected:
             virtual void initialize() override;
@@ -112,7 +112,7 @@ namespace SolarSystem
             Q_OBJECT
 
         public:
-            Neptune(QObject* parent = nullptr);
+            explicit Neptune(QObject* parent = nullptr);
 
         protected:
             virtual void initialize() override;
@@ -124,7 +124,7 @@ namespace SolarSystem
             Q_OBJECT
 
         public:
-            Pluto(QObject* parent = nullptr);
+            explicit Pluto(QObject* parent = nullptr);
 
         protected:
             virtual void initialize() override;
@@ -139,7 +139,7 @@ namespace SolarSystem
             Q_OBJECT
 
         public:
-            Moon(QObject* parent = nullptr);
+            explicit Moon(QObject* parent = nullptr);
 
         protected:
             virtual void initialize() override;
