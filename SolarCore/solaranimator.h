@@ -49,28 +49,28 @@ namespace SolarSystem
     private:
 
         //selected solar object
-        SolarObjects currentSolarObject = SolarObjects::SolarSystemView;
+        SolarObjects m_currentSolarObject = SolarObjects::SolarSystemView;
 
         //stores string
-        QString solarObjStr = SolarObjectsValues::SolarSystem::toString;
+        QString m_solarObjStr = SolarObjectsValues::SolarSystem::toString;
 
         //animation flag
-        bool animated = false;
+        bool m_animated = false;
 
         //animation for view center
-        QPropertyAnimation* viewCenterAnimation;
+        QPropertyAnimation* m_viewCenterAnimation;
 
         //animation for position
-        QPropertyAnimation* viewPositionAnimation;
+        QPropertyAnimation* m_viewPositionAnimation;
 
         //group animation
-        QParallelAnimationGroup* cameraAnimation;
+        QParallelAnimationGroup* m_cameraAnimation;
 
         //speed animation
-        QPropertyAnimation* solarSpeedAnimation;
+        QPropertyAnimation* m_solarSpeedAnimation;
 
         //store solar systme speed
-        float solarSpeed = 0;
+        float m_solarSpeed = 0;
 
     public slots:
 

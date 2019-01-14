@@ -108,7 +108,7 @@ namespace SolarSystem
         struct Data;
 
         //main math data
-        Data* data;
+        Data* m_data;
 
         ///helper methods
 

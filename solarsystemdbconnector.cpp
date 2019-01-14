@@ -13,7 +13,7 @@ using Types = SolarSystem::SolarFields;
 
 SolarSystem::SolarSystemDBConnector::SolarSystemDBConnector(QObject* parent):
     QObject(parent),
-    m_Database(QSqlDatabase::addDatabase(SolarS::qSqlLite))
+    m_dataBase(QSqlDatabase::addDatabase(SolarS::qSqlLite))
 {
     QString dbLocalPath;
 #ifndef Q_OS_ANDROID
@@ -61,17 +61,17 @@ SolarSystem::SolarSystemDBConnector::SolarSystemDBConnector(QObject* parent):
 
     if (info.isFile() && info.exists())
     {
-        m_Database.setDatabaseName(dbLocalPath);
+        m_dataBase.setDatabaseName(dbLocalPath);
 
-       if (! m_Database.open())
+       if (! m_dataBase.open())
            qDebug() << "Database opening failed";
     }
 }
 
 SolarSystem::SolarSystemDBConnector::~SolarSystemDBConnector()
 {
-    if (m_Database.isOpen())
-        m_Database.close();
+    if (m_dataBase.isOpen())
+        m_dataBase.close();
 }
 
 SolarSystem::SolarSystemDBConnector& SolarSystem::SolarSystemDBConnector::instance()
@@ -82,14 +82,14 @@ SolarSystem::SolarSystemDBConnector& SolarSystem::SolarSystemDBConnector::instan
 
 bool SolarSystem::SolarSystemDBConnector::isOpen()
 {
-    return m_Database.isOpen();
+    return m_dataBase.isOpen();
 }
 
 int SolarSystem::SolarSystemDBConnector::elementsCount()
 {
     QStringList list;
 
-    if (m_Database.isOpen())
+    if (m_dataBase.isOpen())
     {
         //make a query
         QSqlQuery query(SolarS::select + SolarS::nameField + SolarS::from + SolarS::dbName);
@@ -104,14 +104,14 @@ int SolarSystem::SolarSystemDBConnector::elementsCount()
 
 bool SolarSystem::SolarSystemDBConnector::status() const
 {
-    return m_Database.isValid();
+    return m_dataBase.isValid();
 }
 
 const SolarSystem::SolarSystemObjectPtr SolarSystem::SolarSystemDBConnector::info(const QString& objectName) const
 {
     SolarSystem::SolarSystemObjectPtr object(new SolarSystem::SolarSystemObject());
 
-    if (m_Database.isOpen())
+    if (m_dataBase.isOpen())
     {
         //make a query
         QSqlQuery query(SolarS::select + SolarS::all + SolarS::from + SolarS::dbName + SolarS::where + SolarS::nameField +
@@ -129,7 +129,7 @@ QStringList SolarSystem::SolarSystemDBConnector::allSolarObjects() const
 {
     QStringList objectList;
 
-    if (m_Database.isOpen()) {
+    if (m_dataBase.isOpen()) {
 
         //make a query
         QSqlQuery query(SolarS::select + SolarS::nameField + SolarS::from + SolarS::dbName);
@@ -147,7 +147,7 @@ QStringList SolarSystem::SolarSystemDBConnector::allPlanetsNames() const
 {
     QStringList list;
 
-    if (m_Database.isOpen()) {
+    if (m_dataBase.isOpen()) {
 
         //make a query
         QSqlQuery query(SolarS::select + SolarS::nameField + SolarS::from + SolarS::dbName + SolarS::where + SolarS::type +
@@ -165,7 +165,7 @@ QStringList SolarSystem::SolarSystemDBConnector::columnNames() const
 {
     QStringList list;
 
-    if (m_Database.isOpen())
+    if (m_dataBase.isOpen())
     {
         //make a query
         QSqlQuery query("PRAGMA table_info('SolarSystem')");
@@ -182,7 +182,7 @@ QStringList SolarSystem::SolarSystemDBConnector::info(SolarSystem::SolarObjects 
     auto objStr = SolarParser::parseSolarObjectToString(object);
     QStringList list;
 
-    if (m_Database.isOpen())
+    if (m_dataBase.isOpen())
     {
         //make a query
         QSqlQuery query("SELECT * FROM SolarSystem WHERE Name =" + SolarS::likeObject(objStr));

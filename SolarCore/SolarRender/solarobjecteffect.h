@@ -31,14 +31,14 @@ namespace SolarSystem
     private:
 
         //standard gl pass
-        Qt3DRender::QRenderPass* glPass;
+        Qt3DRender::QRenderPass* m_glPass;
 
         //light
-        SolarLight* lightObject = nullptr;
+        SolarLight* m_lightObject = nullptr;
 
         //shaders source
-        QString vertexShaderGL;
-        QString fragShaderGL;
+        QString m_vertexShaderGL;
+        QString m_fragShaderGL;
     };
 }
 

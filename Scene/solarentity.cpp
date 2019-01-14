@@ -8,78 +8,78 @@
 
 SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),
-    rootAction(new Qt3DLogic::QFrameAction()),
-    planetsContainer(new PlanetsContainer(this)),
-    fpsCounter(new FpsCounter(this))
+    m_rootAction(new Qt3DLogic::QFrameAction()),
+    m_planetsContainer(new PlanetsContainer(this)),
+    m_fpsCounter(new FpsCounter(this))
 {
     SolarSystemDBConnector::instance();
 
-    addComponent(rootAction);
+    addComponent(m_rootAction);
 
     //scene camera setup
-    mainCamera = new Qt3DRender::QCamera(this);
-    mainCamera->setProjectionType(Qt3DRender::QCameraLens::PerspectiveProjection);
-    mainCamera->setViewCenter(QVector3D(0.0f, 3.5f, 0.0f));
+    m_camera = new Qt3DRender::QCamera(this);
+    m_camera->setProjectionType(Qt3DRender::QCameraLens::PerspectiveProjection);
+    m_camera->setViewCenter(QVector3D(0.0f, 3.5f, 0.0f));
 
-    mainCamera->setFieldOfView(CameraSettings::fieldOfView);
-    mainCamera->setNearPlane(CameraSettings::nearPlane * 0.0001f);
-    mainCamera->setFarPlane(CameraSettings::farPlane);
-    mainCamera->setUpVector(CameraSettings::defaultUp);
-    mainCamera->setPosition(CameraSettings::defaultCameraPosition);
+    m_camera->setFieldOfView(CameraSettings::fieldOfView);
+    m_camera->setNearPlane(CameraSettings::nearPlane * 0.0001f);
+    m_camera->setFarPlane(CameraSettings::farPlane);
+    m_camera->setUpVector(CameraSettings::defaultUp);
+    m_camera->setPosition(CameraSettings::defaultCameraPosition);
 
     //orbit camera controller
     auto controller = new SolarSystem::CameraController(this);
-    controller->setCamera(mainCamera);
+    controller->setCamera(m_camera);
     controller->setLookSpeed(controller->lookSpeed() * 1.2f);
 
     //skybox
-    skybox = new SolarSkyBox(this);
+    m_skybox = new SolarSkyBox(this);
 
     //frame graph
-    frameGraph = new SolarForwardFrameGraph(this);
-    frameGraph->setCamera(mainCamera);    
+    m_frameGraph = new SolarForwardFrameGraph(this);
+    m_frameGraph->setCamera(m_camera);    
 
-    input = new Qt3DInput::QInputSettings();
+    m_inputSettings = new Qt3DInput::QInputSettings();
 
-    addComponent(frameGraph);
-    addComponent(input);
+    addComponent(m_frameGraph);
+    addComponent(m_inputSettings);
 
     //math core control
-    SolarMathCore::instance()->setPlanetsContainer(planetsContainer);
-    SolarMathCore::instance()->setSolarView(mainCamera);
+    SolarMathCore::instance()->setPlanetsContainer(m_planetsContainer);
+    SolarMathCore::instance()->setSolarView(m_camera);
     SolarMathCore::instance()->setCameraController(controller);
     SolarMathCore::instance()->setSolarSystemSpeed(SolarSystem::SolarValues::startSpeed);
     SolarMathCore::instance()->changeSolarSystemScale(SolarSystem::SolarValues::startSize);
 
-    solarAnimator = new SolarAnimator(this);
+    m_animator = new SolarAnimator(this);
 
     //animate scene on tick
-    QObject::connect(rootAction, &Qt3DLogic::QFrameAction::triggered, solarAnimator, &SolarAnimator::animate);
+    QObject::connect(m_rootAction, &Qt3DLogic::QFrameAction::triggered, m_animator, &SolarAnimator::animate);
 }
 
 SolarSystem::SolarEntity::~SolarEntity()
 {
-    delete planetsContainer;
+    delete m_planetsContainer;
 }
 
 SolarSystem::SolarAnimator* SolarSystem::SolarEntity::animator() const
 {
-    return solarAnimator;
+    return m_animator;
 }
 
 Qt3DRender::QCamera* SolarSystem::SolarEntity::camera() const
 {
-    return mainCamera;
+    return m_camera;
 }
 
 Qt3DInput::QInputSettings* SolarSystem::SolarEntity::inputSettings() const
 {
-    return input;
+    return m_inputSettings;
 }
 
 SolarSystem::FpsCounter* SolarSystem::SolarEntity::counter() const
 {
-    return fpsCounter;
+    return m_fpsCounter;
 }
 
 bool SolarSystem::SolarEntity::databaseStatus() const

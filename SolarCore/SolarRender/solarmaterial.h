@@ -40,28 +40,28 @@ namespace SolarSystem
     private:
 
         //main params
-        Qt3DRender::QParameter* ambientColorParam;
-        Qt3DRender::QParameter* specularColorParam;
-        Qt3DRender::QParameter* shininessParam;
-        Qt3DRender::QParameter* diffuseTextureParam;
-        Qt3DRender::QParameter* normalTextureParam;
-        Qt3DRender::QParameter* textureScaleParam;
-        Qt3DRender::QParameter* opacityParam;
+        Qt3DRender::QParameter* m_ambientColorParam;
+        Qt3DRender::QParameter* m_specularColorParam;
+        Qt3DRender::QParameter* m_shininessParam;
+        Qt3DRender::QParameter* m_diffuseTextureParam;
+        Qt3DRender::QParameter* m_normalTextureParam;
+        Qt3DRender::QParameter* m_textureScaleParam;
+        Qt3DRender::QParameter* m_opacityParam;
 
         //data
-        QColor _ambientColor = QColor::fromRgbF(0.1f, 0.1f, 0.1f, 1.0f);
-        QColor _specularColor = QColor::fromRgbF(0.5f, 0.5f, 0.5f, 1.0f);
-        float _shininess = 150.0f;
-        QString _diffuseTextureSource;
-        QString _normalTextureSource;
-        float _textureScale = 1.0f;
-        float _opacity = 1.0f;
+        QColor m_ambientColor = QColor::fromRgbF(0.1f, 0.1f, 0.1f, 1.0f);
+        QColor m_specularColor = QColor::fromRgbF(0.5f, 0.5f, 0.5f, 1.0f);
+        float m_shininess = 150.0f;
+        QString m_diffuseTextureSource;
+        QString m_normalTextureSource;
+        float m_textureScale = 1.0f;
+        float m_opacity = 1.0f;
 
         //textures
-        Qt3DRender::QTexture2D* diffuseTexture2D;
-        Qt3DRender::QTexture2D* normalTexture2D;
-        Qt3DRender::QTextureImage* diffuseImage;
-        Qt3DRender::QTextureImage* normalImage;
+        Qt3DRender::QTexture2D* m_diffuseTexture2D;
+        Qt3DRender::QTexture2D* m_normalTexture2D;
+        Qt3DRender::QTextureImage* m_diffuseImage;
+        Qt3DRender::QTextureImage* m_normalImage;
 
     };
 }

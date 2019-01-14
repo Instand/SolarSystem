@@ -24,10 +24,10 @@ namespace SolarSystem
     private:
 
         //screen format
-        QSurfaceFormat format;
+        QSurfaceFormat m_format;
 
         //main quick view
-        QQuickView view;
+        QQuickView m_view;
 
     private slots:
         void quit();

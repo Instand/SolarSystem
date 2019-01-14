@@ -95,24 +95,25 @@ namespace SolarSystem
     protected:
 
         //logical
-        SolarSystem::Logic m_Logic;
-        Qt3DLogic::QFrameAction* m_FrameAction;
-        Qt3DRender::QObjectPicker* m_Picker;
+        SolarSystem::Logic m_logic;
+        Qt3DLogic::QFrameAction* m_frameAction;
+        Qt3DRender::QObjectPicker* m_picker;
 
         //Qt3D components
-        Qt3DCore::QTransform* m_Transform;
-        Qt3DRender::QGeometryRenderer* m_Renderer;
-        Qt3DRender::QMaterial* m_Material;
+        Qt3DCore::QTransform* m_transform;
+        Qt3DRender::QGeometryRenderer* m_renderer;
+        Qt3DRender::QMaterial* m_material;
 
         //main data
-        SolarSystem::SolarObjects m_SolarType;
-        SolarSystem::SolarMaterials m_MaterialType = SolarMaterials::None;
-        double m_R = 0;
-        double m_X = 0;
-        double m_Y = 0;
-        double m_Z = 0;
-        double m_Roll = 0;
-        double m_Tilt = 0;
+        SolarSystem::SolarObjects m_solarType;
+        SolarSystem::SolarMaterials m_materialType = SolarMaterials::None;
+
+        double m_r = 0;
+        double m_x = 0;
+        double m_y = 0;
+        double m_z = 0;
+        double m_roll = 0;
+        double m_tilt = 0;
     };
 }
 

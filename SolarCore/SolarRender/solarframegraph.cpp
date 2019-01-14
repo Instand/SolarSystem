@@ -15,97 +15,97 @@
 SolarSystem::SolarFrameGraph::SolarFrameGraph(Qt3DCore::QNode* parent):
     QRenderSettings(parent)
 {
-    viewPort = new Qt3DRender::QViewport(this);
-    viewPort->setNormalizedRect(QRectF(0, 0, 1.0f, 1.0f));
+    m_viewPort = new Qt3DRender::QViewport(this);
+    m_viewPort->setNormalizedRect(QRectF(0, 0, 1.0f, 1.0f));
 
     //create surface selector
-    selector = new Qt3DRender::QRenderSurfaceSelector(viewPort);
+    m_selector = new Qt3DRender::QRenderSurfaceSelector(m_viewPort);
 
     //create technique filter
-    tFilter = new Qt3DRender::QTechniqueFilter(selector);
+    m_techniqueFilter = new Qt3DRender::QTechniqueFilter(m_selector);
 
-    auto* desktopFilter = new Qt3DRender::QFilterKey(tFilter);
+    auto* desktopFilter = new Qt3DRender::QFilterKey(m_techniqueFilter);
     desktopFilter->setName("name");
     desktopFilter->setValue("Desktop");
 
-    tFilter->addMatch(desktopFilter);
+    m_techniqueFilter->addMatch(desktopFilter);
 
     //create render pass filter
-    renderPassShadowFilter = new Qt3DRender::QRenderPassFilter(tFilter);
+    m_renderPassShadowFilter = new Qt3DRender::QRenderPassFilter(m_techniqueFilter);
 
-    auto* shadowMapFilter = new Qt3DRender::QFilterKey(renderPassShadowFilter);
+    auto* shadowMapFilter = new Qt3DRender::QFilterKey(m_renderPassShadowFilter);
     shadowMapFilter->setName("pass");
     shadowMapFilter->setValue("shadowmap");
 
-    renderPassShadowFilter->addMatch(shadowMapFilter);
+    m_renderPassShadowFilter->addMatch(shadowMapFilter);
 
     //create target selector
-    targetSelector = new Qt3DRender::QRenderTargetSelector(renderPassShadowFilter);
+    m_targetSelector = new Qt3DRender::QRenderTargetSelector(m_renderPassShadowFilter);
 
     //render target
-    auto* renderTarget = new Qt3DRender::QRenderTarget(targetSelector);
+    auto* renderTarget = new Qt3DRender::QRenderTarget(m_targetSelector);
     auto* targetOutput = new Qt3DRender::QRenderTargetOutput(renderTarget);
     targetOutput->setObjectName("depth");
     targetOutput->setAttachmentPoint(Qt3DRender::QRenderTargetOutput::Depth);
 
     //create shadow texture
-    texture = new Qt3DRender::QTexture2D;
-    texture->setFormat(Qt3DRender::QAbstractTexture::D24);
-    texture->setGenerateMipMaps(false);
-    texture->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
-    texture->setMinificationFilter(Qt3DRender::QAbstractTexture::Linear);
-    texture->wrapMode()->setX(Qt3DRender::QTextureWrapMode::ClampToEdge);
-    texture->wrapMode()->setY(Qt3DRender::QTextureWrapMode::ClampToEdge);
-    texture->setComparisonFunction(Qt3DRender::QAbstractTexture::CompareLessEqual);
-    texture->setComparisonMode(Qt3DRender::QAbstractTexture::CompareRefToTexture);
+    m_texture = new Qt3DRender::QTexture2D;
+    m_texture->setFormat(Qt3DRender::QAbstractTexture::D24);
+    m_texture->setGenerateMipMaps(false);
+    m_texture->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
+    m_texture->setMinificationFilter(Qt3DRender::QAbstractTexture::Linear);
+    m_texture->wrapMode()->setX(Qt3DRender::QTextureWrapMode::ClampToEdge);
+    m_texture->wrapMode()->setY(Qt3DRender::QTextureWrapMode::ClampToEdge);
+    m_texture->setComparisonFunction(Qt3DRender::QAbstractTexture::CompareLessEqual);
+    m_texture->setComparisonMode(Qt3DRender::QAbstractTexture::CompareRefToTexture);
 
-    targetOutput->setTexture(texture);
+    targetOutput->setTexture(m_texture);
     renderTarget->addOutput(targetOutput);
 
     //buffer
-    auto* clearBuffer = new Qt3DRender::QClearBuffers(targetSelector);
+    auto* clearBuffer = new Qt3DRender::QClearBuffers(m_targetSelector);
     clearBuffer->setBuffers(Qt3DRender::QClearBuffers::DepthBuffer);
-    lightCameraSelector = new Qt3DRender::QCameraSelector(clearBuffer);
+    m_lightCameraSelector = new Qt3DRender::QCameraSelector(clearBuffer);
 
     //forward render pass fitler
-    renderPassForwardFilter = new Qt3DRender::QRenderPassFilter(selector);
+    m_renderPassForwardFilter = new Qt3DRender::QRenderPassFilter(m_selector);
 
-    auto* forwardFilter = new Qt3DRender::QFilterKey(renderPassForwardFilter);
+    auto* forwardFilter = new Qt3DRender::QFilterKey(m_renderPassForwardFilter);
     forwardFilter->setName("pass");
     forwardFilter->setValue("forward");
 
-    renderPassForwardFilter->addMatch(forwardFilter);
+    m_renderPassForwardFilter->addMatch(forwardFilter);
 
     //buffer
-    auto* forwardClearBuffer = new Qt3DRender::QClearBuffers(renderPassForwardFilter);
+    auto* forwardClearBuffer = new Qt3DRender::QClearBuffers(m_renderPassForwardFilter);
     forwardClearBuffer->setBuffers(Qt3DRender::QClearBuffers::ColorDepthBuffer);
 
-    viewCameraSelector = new Qt3DRender::QCameraSelector(forwardClearBuffer);
+    m_viewCameraSelector = new Qt3DRender::QCameraSelector(forwardClearBuffer);
 
-    setActiveFrameGraph(viewPort);
+    setActiveFrameGraph(m_viewPort);
 }
 
 void SolarSystem::SolarFrameGraph::setViewCamera(Qt3DRender::QCamera* viewCamera)
 {
-    viewCameraSelector->setCamera(viewCamera);
+    m_viewCameraSelector->setCamera(viewCamera);
 }
 
 void SolarSystem::SolarFrameGraph::setLightCamera(Qt3DRender::QCamera* lightCamera)
 {
-    lightCameraSelector->setCamera(lightCamera);
+    m_lightCameraSelector->setCamera(lightCamera);
 }
 
 Qt3DRender::QCamera* SolarSystem::SolarFrameGraph::viewCamera() const
 {
-    return qobject_cast<Qt3DRender::QCamera*>(viewCameraSelector->camera());
+    return qobject_cast<Qt3DRender::QCamera*>(m_viewCameraSelector->camera());
 }
 
 Qt3DRender::QCamera* SolarSystem::SolarFrameGraph::lightCamera() const
 {
-    return qobject_cast<Qt3DRender::QCamera*>(lightCameraSelector->camera());
+    return qobject_cast<Qt3DRender::QCamera*>(m_lightCameraSelector->camera());
 }
 
 Qt3DRender::QTexture2D* SolarSystem::SolarFrameGraph::shadowTexture() const
 {
-    return texture;
+    return m_texture;
 }

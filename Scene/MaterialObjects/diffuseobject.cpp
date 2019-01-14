@@ -5,10 +5,10 @@
 SolarSystem::DiffuseObject::DiffuseObject(Qt3DCore::QNode* parent):
     SolarObject3D(parent)
 {
-    m_MaterialType = SolarMaterials::Diffuse;
-    m_Material = new Qt3DExtras::QDiffuseMapMaterial();
+    m_materialType = SolarMaterials::Diffuse;
+    m_material = new Qt3DExtras::QDiffuseMapMaterial();
 
-    auto mat = qobject_cast<Qt3DExtras::QDiffuseMapMaterial*>(m_Material);
+    auto mat = qobject_cast<Qt3DExtras::QDiffuseMapMaterial*>(m_material);
     Qt3DRender::QTextureWrapMode wrapMode;
 
     wrapMode.setX(Qt3DRender::QTextureWrapMode::WrapMode::Repeat);
@@ -26,5 +26,5 @@ SolarSystem::DiffuseObject::DiffuseObject(Qt3DCore::QNode* parent):
     mat->setAmbient(QColor(qRgba(10,10,10,255)));
     mat->setTextureScale(1.0f);
 
-    addComponent(m_Material);
+    addComponent(m_material);
 }

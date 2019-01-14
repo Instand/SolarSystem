@@ -32,8 +32,8 @@ namespace SolarSystem
         void setIntensity(const QVector3D& intensity);
 
     private:
-        Qt3DRender::QCamera* lightCamera;
-        QVector3D _intensity;
+        Qt3DRender::QCamera* m_lightCamera;
+        QVector3D m_intensity;
     };
 }
 

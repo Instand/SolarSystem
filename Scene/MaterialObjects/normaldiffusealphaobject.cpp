@@ -6,10 +6,10 @@
 SolarSystem::NormalDiffuseAlphaObject::NormalDiffuseAlphaObject(Qt3DCore::QNode* parent):
     SolarObject3D(parent)
 {
-    m_MaterialType = SolarMaterials::NormalDiffuseAplha;
-    m_Material = new Qt3DExtras::QNormalDiffuseMapAlphaMaterial();
+    m_materialType = SolarMaterials::NormalDiffuseAplha;
+    m_material = new Qt3DExtras::QNormalDiffuseMapAlphaMaterial();
 
-    auto mat = qobject_cast<Qt3DExtras::QNormalDiffuseMapAlphaMaterial*>(m_Material);
+    auto mat = qobject_cast<Qt3DExtras::QNormalDiffuseMapAlphaMaterial*>(m_material);
     Qt3DRender::QTextureWrapMode wrapMode;
 
     mat->diffuse()->setWrapMode(wrapMode);
@@ -28,7 +28,7 @@ SolarSystem::NormalDiffuseAlphaObject::NormalDiffuseAlphaObject(Qt3DCore::QNode*
     mat->setAmbient(QColor(qRgba(10,10,10,255)));
     mat->setTextureScale(1.0f);
 
-    m_Picker->setEnabled(false);
+    m_picker->setEnabled(false);
 
-    addComponent(m_Material);
+    addComponent(m_material);
 }

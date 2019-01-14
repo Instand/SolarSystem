@@ -23,7 +23,7 @@ namespace SolarSystem
 
         //fps data
         struct FpsData;
-        FpsData* fpsData;
+        FpsData* m_data;
 
     signals:
 

@@ -49,28 +49,28 @@ namespace SolarSystem
     private:
 
         //scene camera
-        Qt3DRender::QCamera* mainCamera;
+        Qt3DRender::QCamera* m_camera;
 
         //system animator
-        SolarAnimator* solarAnimator;
+        SolarAnimator* m_animator;
 
         //tick
-        Qt3DLogic::QFrameAction* rootAction;
+        Qt3DLogic::QFrameAction* m_rootAction;
 
         //planets container
-        PlanetsContainer* planetsContainer;
+        PlanetsContainer* m_planetsContainer;
 
         //input
-        Qt3DInput::QInputSettings* input;
+        Qt3DInput::QInputSettings* m_inputSettings;
 
         //fps
-        FpsCounter* fpsCounter;
+        FpsCounter* m_fpsCounter;
 
         //main graph
-        IFrameGraph* frameGraph;
+        IFrameGraph* m_frameGraph;
 
         //box
-        SolarSkyBox* skybox;
+        SolarSkyBox* m_skybox;
     };
 }
 

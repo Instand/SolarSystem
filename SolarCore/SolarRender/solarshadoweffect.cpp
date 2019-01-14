@@ -15,42 +15,42 @@ SolarSystem::SolarShadowEffect::SolarShadowEffect(Qt3DCore::QNode* parent):
 
 SolarSystem::SolarLight* SolarSystem::SolarShadowEffect::light() const
 {
-    return lightObject;
+    return m_lightObject;
 }
 
 void SolarSystem::SolarShadowEffect::setLight(SolarSystem::SolarLight* light)
 {
-    lightObject = light;
+    m_lightObject = light;
 }
 
 Qt3DRender::QTexture2D* SolarSystem::SolarShadowEffect::shadowTexture() const
 {
-    return shadowTex;
+    return m_shadowTexture;
 }
 
 void SolarSystem::SolarShadowEffect::setShadowTexture(Qt3DRender::QTexture2D* texture)
 {
-    shadowTex = texture;
+    m_shadowTexture = texture;
 }
 
 void SolarSystem::SolarShadowEffect::initialization()
 {
-    if (lightObject != nullptr && shadowTex != nullptr)
+    if (m_lightObject != nullptr && m_shadowTexture != nullptr)
     {
         //create params
         auto* lightViewParam = new Qt3DRender::QParameter(this);
         lightViewParam->setName("lightViewProjection");
-        lightViewParam->setValue(lightObject->lightViewProjection());
+        lightViewParam->setValue(m_lightObject->lightViewProjection());
 
         auto* lightPos = new Qt3DRender::QParameter(this);
         lightPos->setName("lightPosition");
-        lightPos->setValue(lightObject->camera()->position());
+        lightPos->setValue(m_lightObject->camera()->position());
 
         auto* lightInt = new Qt3DRender::QParameter(this);
         lightInt->setName("lightIntensity");
-        lightInt->setValue(lightObject->intensity());
+        lightInt->setValue(m_lightObject->intensity());
 
-        auto* shadowMap = new Qt3DRender::QParameter("shadowMapTexture", shadowTex, this);
+        auto* shadowMap = new Qt3DRender::QParameter("shadowMapTexture", m_shadowTexture, this);
 
         //add params
         addParameter(lightViewParam);
@@ -74,44 +74,44 @@ void SolarSystem::SolarShadowEffect::initialization()
         //first render pass
 
         //create shadow render pass
-        shadowPass = new Qt3DRender::QRenderPass(this);
-        shadowPass->setObjectName("shadowPass");
-        shadowPass->addFilterKey(shadowKey);
+        m_shadowPass = new Qt3DRender::QRenderPass(this);
+        m_shadowPass->setObjectName("shadowPass");
+        m_shadowPass->addFilterKey(shadowKey);
 
         //shadow map shader program
-        Qt3DRender::QShaderProgram* shadowProgram = new Qt3DRender::QShaderProgram(shadowPass);
+        Qt3DRender::QShaderProgram* shadowProgram = new Qt3DRender::QShaderProgram(m_shadowPass);
         shadowProgram->setVertexShaderCode(Qt3DRender::QShaderProgram::loadSource(QUrl::fromLocalFile(":/Resources/Shaders/shadowmap.vert")));
         shadowProgram->setFragmentShaderCode(Qt3DRender::QShaderProgram::loadSource(QUrl::fromLocalFile(":/Resources/Shaders/shadowmap.frag")));
 
         //add shadow program
-        shadowPass->setShaderProgram(shadowProgram);
+        m_shadowPass->setShaderProgram(shadowProgram);
 
         //create render states
-        auto* shadowPolygonOffset = new Qt3DRender::QPolygonOffset(shadowPass);
+        auto* shadowPolygonOffset = new Qt3DRender::QPolygonOffset(m_shadowPass);
         shadowPolygonOffset->setScaleFactor(4.0f);
         shadowPolygonOffset->setDepthSteps(4.0f);
 
-        auto* shadowDepthTest = new Qt3DRender::QDepthTest(shadowPass);
+        auto* shadowDepthTest = new Qt3DRender::QDepthTest(m_shadowPass);
         shadowDepthTest->setDepthFunction(Qt3DRender::QDepthTest::Less);
 
         //add shadow render states to shadow render pass
-        shadowPass->addRenderState(shadowPolygonOffset);
-        shadowPass->addRenderState(shadowDepthTest);
+        m_shadowPass->addRenderState(shadowPolygonOffset);
+        m_shadowPass->addRenderState(shadowDepthTest);
 
         //second render pass
 
         //create standard gl pass
-        glPass = new Qt3DRender::QRenderPass(this);
-        glPass->setObjectName("glPass");
-        glPass->addFilterKey(forwardKey);
+        m_glPass = new Qt3DRender::QRenderPass(this);
+        m_glPass->setObjectName("glPass");
+        m_glPass->addFilterKey(forwardKey);
 
         //standard gl pass shader program
-        Qt3DRender::QShaderProgram* glPassProgram = new Qt3DRender::QShaderProgram(glPass);
+        Qt3DRender::QShaderProgram* glPassProgram = new Qt3DRender::QShaderProgram(m_glPass);
         glPassProgram->setVertexShaderCode(Qt3DRender::QShaderProgram::loadSource(QUrl::fromLocalFile(":/Resources/Shaders/diffuseshadow.vert")));
         glPassProgram->setFragmentShaderCode(Qt3DRender::QShaderProgram::loadSource(QUrl::fromLocalFile(":/Resources/Shaders/diffuseshadow.frag")));
 
         //add gl pass program
-        glPass->setShaderProgram(glPassProgram);
+        m_glPass->setShaderProgram(glPassProgram);
 
         //**************************
         //tecnique
@@ -128,8 +128,8 @@ void SolarSystem::SolarShadowEffect::initialization()
         api->setMinorVersion(2);
 
         openglTechnique->addFilterKey(desktopKey);
-        openglTechnique->addRenderPass(shadowPass);
-        openglTechnique->addRenderPass(glPass);
+        openglTechnique->addRenderPass(m_shadowPass);
+        openglTechnique->addRenderPass(m_glPass);
 
         addTechnique(openglTechnique);
     }

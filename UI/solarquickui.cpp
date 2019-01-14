@@ -11,35 +11,35 @@ SolarSystem::SolarQuickUI::SolarQuickUI(QObject* parent):
 
     if (QOpenGLContext::openGLModuleType() == QOpenGLContext::LibGL)
     {
-        format.setVersion(4, 0);
-        format.setProfile(QSurfaceFormat::CoreProfile);
+        m_format.setVersion(4, 0);
+        m_format.setProfile(QSurfaceFormat::CoreProfile);
     }
 
-    format.setDepthBufferSize(24);
-    format.setStencilBufferSize(8);
-    format.setSamples(4);
+    m_format.setDepthBufferSize(24);
+    m_format.setStencilBufferSize(8);
+    m_format.setSamples(4);
 
-    view.setFormat(format);
-    view.setResizeMode(QQuickView::SizeRootObjectToView);
-    view.setSource(QUrl("qrc:/QML/SolarSystemMain.qml"));
-    view.setColor("#000000");
+    m_view.setFormat(m_format);
+    m_view.setResizeMode(QQuickView::SizeRootObjectToView);
+    m_view.setSource(QUrl("qrc:/QML/SolarSystemMain.qml"));
+    m_view.setColor("#000000");
 
-    view.setMinimumWidth(1280);
-    view.setMinimumHeight(700);
+    m_view.setMinimumWidth(1280);
+    m_view.setMinimumHeight(700);
 
-    view.setIcon(QIcon(QStringLiteral(":/Resources/Images/solarsystem_icon.png")));
+    m_view.setIcon(QIcon(QStringLiteral(":/Resources/Images/solarsystem_icon.png")));
 
-    QObject::connect(view.engine(), SIGNAL(quit()), this, SLOT(quit()));
+    QObject::connect(m_view.engine(), SIGNAL(quit()), this, SLOT(quit()));
 }
 
 void SolarSystem::SolarQuickUI::show()
 {
-    view.show();
+    m_view.show();
 }
 
 void SolarSystem::SolarQuickUI::showFullScreen()
 {
-    view.showFullScreen();
+    m_view.showFullScreen();
 }
 
 void SolarSystem::SolarQuickUI::quit()

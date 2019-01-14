@@ -24,7 +24,7 @@ namespace SolarSystem
     private:
 
         //qt3d forward renderer
-        Qt3DExtras::QForwardRenderer* renderer;
+        Qt3DExtras::QForwardRenderer* m_renderer;
     };
 }
 

@@ -3,15 +3,15 @@
 
 SolarSystem::SolarStandardFrameGraph::SolarStandardFrameGraph(Qt3DCore::QNode* parent):
     IFrameGraph(parent),
-    renderer(new Qt3DExtras::QForwardRenderer(parent))
+    m_renderer(new Qt3DExtras::QForwardRenderer(parent))
 {
-    setActiveFrameGraph(renderer);
+    setActiveFrameGraph(m_renderer);
 
-    renderer->setFrustumCullingEnabled(true);
-    renderer->setClearColor(QColor(Qt::black));
+    m_renderer->setFrustumCullingEnabled(true);
+    m_renderer->setClearColor(QColor(Qt::black));
 }
 
 void SolarSystem::SolarStandardFrameGraph::setCamera(Qt3DCore::QEntity* camera)
 {
-    renderer->setCamera(camera);
+    m_renderer->setCamera(camera);
 }

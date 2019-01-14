@@ -10,33 +10,32 @@ SolarSystem::SolarObjectsContainer::SolarObjectsContainer(QObject *parent):
     //create all maths solar system objects
 
     //stars
-    _solarObjects.push_back(SolarObjectsFactory::create<Stars::Sun>());
+    m_solarObjects.push_back(SolarObjectsFactory::create<Stars::Sun>());
 
     //planets
-    _solarObjects.push_back(SolarObjectsFactory::create<Planets::Mercury>());
-    _solarObjects.push_back(SolarObjectsFactory::create<Planets::Venus>());
-    _solarObjects.push_back(SolarObjectsFactory::create<Planets::Earth>());
-    _solarObjects.push_back(SolarObjectsFactory::create<Planets::Mars>());
-    _solarObjects.push_back(SolarObjectsFactory::create<Planets::Jupiter>());
-    _solarObjects.push_back(SolarObjectsFactory::create<Planets::Saturn>());
-    _solarObjects.push_back(SolarObjectsFactory::create<Planets::Neptune>());
-    _solarObjects.push_back(SolarObjectsFactory::create<Planets::Uranus>());
-    _solarObjects.push_back(SolarObjectsFactory::create<Planets::Pluto>());
+    m_solarObjects.push_back(SolarObjectsFactory::create<Planets::Mercury>());
+    m_solarObjects.push_back(SolarObjectsFactory::create<Planets::Venus>());
+    m_solarObjects.push_back(SolarObjectsFactory::create<Planets::Earth>());
+    m_solarObjects.push_back(SolarObjectsFactory::create<Planets::Mars>());
+    m_solarObjects.push_back(SolarObjectsFactory::create<Planets::Jupiter>());
+    m_solarObjects.push_back(SolarObjectsFactory::create<Planets::Saturn>());
+    m_solarObjects.push_back(SolarObjectsFactory::create<Planets::Neptune>());
+    m_solarObjects.push_back(SolarObjectsFactory::create<Planets::Uranus>());
+    m_solarObjects.push_back(SolarObjectsFactory::create<Planets::Pluto>());
 
     //moons
-    _solarObjects.push_back(SolarObjectsFactory::create<Moons::Moon>());
+    m_solarObjects.push_back(SolarObjectsFactory::create<Moons::Moon>());
 }
 
 SolarSystem::SolarObjectPtr SolarSystem::SolarObjectsContainer::solarObject(SolarSystem::SolarObjects object) const
 {
     SolarObjectPtr solarObj;
 
-    auto iter = std::find_if(_solarObjects.begin(), _solarObjects.end(),
-                             [=](auto& elem){
+    auto iter = std::find_if(m_solarObjects.begin(), m_solarObjects.end(), [=](auto& elem){
                                  return elem->object() == object;
                              });
 
-    if (iter != _solarObjects.end())
+    if (iter != m_solarObjects.end())
         solarObj = *iter;
     else
         qDebug() << "The object: " + SolarParser::parseSolarObjectToString(object) + " not in solar container";
@@ -46,5 +45,5 @@ SolarSystem::SolarObjectPtr SolarSystem::SolarObjectsContainer::solarObject(Sola
 
 const SolarSystem::SolarObjectsArray& SolarSystem::SolarObjectsContainer::allSolarObjects() const
 {
-    return _solarObjects;
+    return m_solarObjects;
 }

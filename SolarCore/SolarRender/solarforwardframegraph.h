@@ -29,13 +29,13 @@ namespace SolarSystem
     private:
 
         //render frame graph elements
-        Qt3DRender::QSortPolicy* sortPolicy;
-        Qt3DRender::QClearBuffers* clearBuffers;
-        Qt3DRender::QCameraSelector* cameraSelector;
-        Qt3DRender::QViewport* viewPort;
-        Qt3DRender::QRenderSurfaceSelector* surfaceSelector;
-        Qt3DRender::QTechniqueFilter* filter;
-        Qt3DRender::QFrustumCulling* frustum;
+        Qt3DRender::QSortPolicy* m_sortPolicy;
+        Qt3DRender::QClearBuffers* m_clearBuffers;
+        Qt3DRender::QCameraSelector* m_cameraSelector;
+        Qt3DRender::QViewport* m_viewPort;
+        Qt3DRender::QRenderSurfaceSelector* m_surfaceSelector;
+        Qt3DRender::QTechniqueFilter* m_filter;
+        Qt3DRender::QFrustumCulling* m_frustum;
     };
 }
 

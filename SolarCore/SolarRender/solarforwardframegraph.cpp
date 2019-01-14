@@ -14,39 +14,39 @@ SolarSystem::SolarForwardFrameGraph::SolarForwardFrameGraph(Qt3DCore::QNode* par
     IFrameGraph(parent)
 {
     //render
-    filter = new Qt3DRender::QTechniqueFilter();
+    m_filter = new Qt3DRender::QTechniqueFilter();
 
     auto* key = new Qt3DRender::QFilterKey();
     key->setName("renderingStyle");
     key->setValue("forward");
-    filter->addMatch(key);
+    m_filter->addMatch(key);
 
-    surfaceSelector = new Qt3DRender::QRenderSurfaceSelector(filter);
+    m_surfaceSelector = new Qt3DRender::QRenderSurfaceSelector(m_filter);
 
-    viewPort = new Qt3DRender::QViewport(surfaceSelector);
-    viewPort->setNormalizedRect(QRectF(0.0, 0.0, 1.0, 1.0));
+    m_viewPort = new Qt3DRender::QViewport(m_surfaceSelector);
+    m_viewPort->setNormalizedRect(QRectF(0.0, 0.0, 1.0, 1.0));
 
-    cameraSelector = new Qt3DRender::QCameraSelector(viewPort);
+    m_cameraSelector = new Qt3DRender::QCameraSelector(m_viewPort);
 
-    clearBuffers = new Qt3DRender::QClearBuffers(cameraSelector);
-    clearBuffers->setBuffers(Qt3DRender::QClearBuffers::ColorDepthBuffer);
-    clearBuffers->setClearColor(QColor(Qt::black));
+    m_clearBuffers = new Qt3DRender::QClearBuffers(m_cameraSelector);
+    m_clearBuffers->setBuffers(Qt3DRender::QClearBuffers::ColorDepthBuffer);
+    m_clearBuffers->setClearColor(QColor(Qt::black));
 
-    frustum = new Qt3DRender::QFrustumCulling(clearBuffers);
+    m_frustum = new Qt3DRender::QFrustumCulling(m_clearBuffers);
 
-    sortPolicy = new Qt3DRender::QSortPolicy(clearBuffers);
+    m_sortPolicy = new Qt3DRender::QSortPolicy(m_clearBuffers);
 
     QVector<Qt3DRender::QSortPolicy::SortType> sortedVector;
     sortedVector.push_back(Qt3DRender::QSortPolicy::BackToFront);
     sortedVector.push_back(Qt3DRender::QSortPolicy::StateChangeCost);
     sortedVector.push_back(Qt3DRender::QSortPolicy::Material);
 
-    sortPolicy->setSortTypes(sortedVector);
+    m_sortPolicy->setSortTypes(sortedVector);
 
-    setActiveFrameGraph(filter);
+    setActiveFrameGraph(m_filter);
 }
 
 void SolarSystem::SolarForwardFrameGraph::setCamera(Qt3DCore::QEntity *camera)
 {
-    cameraSelector->setCamera(camera);
+    m_cameraSelector->setCamera(camera);
 }

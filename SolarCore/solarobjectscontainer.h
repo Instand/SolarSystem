@@ -23,7 +23,7 @@ namespace SolarSystem
     private:
 
         //storage
-        SolarObjectsArray _solarObjects;
+        SolarObjectsArray m_solarObjects;
     };
 }
 

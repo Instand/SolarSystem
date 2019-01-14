@@ -7,8 +7,8 @@ SolarSystem::PlanetRing::PlanetRing(Qt3DCore::QNode* parent):
     NormalDiffuseAlphaObject(parent)
 {
     auto mesh = new Qt3DRender::QMesh(this);
-    m_Renderer = mesh;
-    addComponent(m_Renderer);
+    m_renderer = mesh;
+    addComponent(m_renderer);
 
     mesh->setSource(QUrl::fromLocalFile(":/Resources/Meshes/ring.obj"));
 }
@@ -21,14 +21,14 @@ void SolarSystem::PlanetRing::update(float deltaTime)
     auto matrix = QMatrix4x4();
 
     //set position
-    matrix.translate(QVector3D(m_X, m_Y, m_Z));
+    matrix.translate(QVector3D(m_x, m_y, m_z));
 
     //rotate
-    matrix.rotate(m_Tilt, SolarValues::tiltAxis);
-    matrix.rotate(m_Roll, SolarValues::rollAxis);
+    matrix.rotate(m_tilt, SolarValues::tiltAxis);
+    matrix.rotate(m_roll, SolarValues::rollAxis);
 
     //ring scale
-    matrix.scale(m_R);
+    matrix.scale(m_r);
 
-    m_Transform->setMatrix(matrix);
+    m_transform->setMatrix(matrix);
 }

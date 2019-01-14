@@ -52,38 +52,38 @@ namespace SolarSystem
     private:
 
         //camera ref
-        Qt3DRender::QCamera* viewCamera = nullptr;
+        Qt3DRender::QCamera* m_viewCamera = nullptr;
 
         //logical device
-        Qt3DInput::QLogicalDevice* logicalDevice;
+        Qt3DInput::QLogicalDevice* m_logicalDevice;
 
         //mouse device
-        Qt3DInput::QMouseDevice* mouseDevice;
+        Qt3DInput::QMouseDevice* m_mouseDevice;
 
         //input fields
-        Qt3DInput::QAction* mouseButtonAction;
-        Qt3DInput::QActionInput* mouseButtonInput;
-        Qt3DInput::QAxis* mouseX_Axis;
-        Qt3DInput::QAxis* mouseY_Axis;
-        Qt3DInput::QAnalogAxisInput* mouseX_Input;
-        Qt3DInput::QAnalogAxisInput* mouseY_Input;
+        Qt3DInput::QAction* m_mouseButtonAction;
+        Qt3DInput::QActionInput* m_mouseButtonInput;
+        Qt3DInput::QAxis* m_mouseXAxis;
+        Qt3DInput::QAxis* m_mouseYAxis;
+        Qt3DInput::QAnalogAxisInput* m_mouseXInput;
+        Qt3DInput::QAnalogAxisInput* m_mouseYInput;
 
         //wheel
-        Qt3DInput::QAnalogAxisInput* mouseWheelX_Input;
-        Qt3DInput::QAnalogAxisInput* mouseWheelY_Input;
-        Qt3DInput::QAxis* mouseWheelX_Axis;
-        Qt3DInput::QAxis* mouseWheelY_Axis;
+        Qt3DInput::QAnalogAxisInput* m_mouseWheelXInput;
+        Qt3DInput::QAnalogAxisInput* mouseWheelYInput;
+        Qt3DInput::QAxis* m_mouseWheelXAxis;
+        Qt3DInput::QAxis* m_mouseWheelYAxis;
 
         //values
-        float lookSpeedValue = 180.0f;
-        float defaultZoomLimitValue = 200000.0f;
-        float defaultZoomSpeedValue = 5000000.0f;
-        float zoomLimitValue = defaultZoomLimitValue;
-        float zoomOutLimitValue = zoomLimitValue;
-        float zoomSpeedValue = defaultZoomSpeedValue;
+        float m_lookSpeedValue = 180.0f;
+        float m_defaultZoomLimitValue = 200000.0f;
+        float m_defaultZoomSpeedValue = 5000000.0f;
+        float m_zoomLimitValue = m_defaultZoomLimitValue;
+        float m_zoomOutLimitValue = m_zoomLimitValue;
+        float m_zoomSpeedValue = m_defaultZoomSpeedValue;
 
         //up
-        QVector3D cameraUp = QVector3D(0.0f, 1.0f, 0.0f);
+        QVector3D m_cameraUp = QVector3D(0.0f, 1.0f, 0.0f);
 
     private slots:
 

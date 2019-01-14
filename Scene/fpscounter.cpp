@@ -15,33 +15,33 @@ struct SolarSystem::FpsCounter::FpsData
 
 SolarSystem::FpsCounter::FpsCounter(Qt3DCore::QNode* parent):
     QEntity(parent),
-    fpsData(new FpsData())
+    m_data(new FpsData())
 {
-    fpsData->action = new Qt3DLogic::QFrameAction(this);
-    addComponent(fpsData->action);
+    m_data->action = new Qt3DLogic::QFrameAction(this);
+    addComponent(m_data->action);
 
-    QObject::connect(fpsData->action, &Qt3DLogic::QFrameAction::triggered, [&](float dt){
+    QObject::connect(m_data->action, &Qt3DLogic::QFrameAction::triggered, [&](float dt){
 
-        ++fpsData->frameCount;
-        fpsData->dt += dt;
+        ++m_data->frameCount;
+        m_data->dt += dt;
 
-        if (fpsData->dt > (1.0f / fpsData->updateRate))
+        if (m_data->dt > (1.0f / m_data->updateRate))
         {
-            fpsData->fps = fpsData->frameCount / fpsData->dt;
-            fpsData->frameCount = 0;
-            fpsData->dt -= 1.0f/ fpsData->updateRate;
+            m_data->fps = m_data->frameCount / m_data->dt;
+            m_data->frameCount = 0;
+            m_data->dt -= 1.0f/ m_data->updateRate;
 
-            emit fpsChanged(fpsData->fps);
+            emit fpsChanged(m_data->fps);
         }
     });
 }
 
 SolarSystem::FpsCounter::~FpsCounter()
 {
-    delete fpsData;
+    delete m_data;
 }
 
 int SolarSystem::FpsCounter::fps() const
 {
-    return fpsData->fps;
+    return m_data->fps;
 }

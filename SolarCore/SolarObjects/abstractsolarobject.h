@@ -55,34 +55,34 @@ namespace SolarSystem
     protected:
 
         //main data
-        double m_Radius = 0;
-        double m_Tilt = 0;
-        double m_N1 = 0;
-        double m_N2 = 0;
-        double m_I1 = 0;
-        double m_I2 = 0;
-        double m_W1 = 0;
-        double m_W2 = 0;
-        double m_A1 = 0;
-        double m_A2 = 0;
-        double m_E1 = 0;
-        double m_E2 = 0;
-        double m_M1 = 0;
-        double m_M2 = 0;
-        double m_Period = 0;
-        double m_X = 0;
-        double m_Y = 0;
-        double m_Z = 0;
-        double m_Roll = 0;
-        SolarObjects m_CenterOfOrbit;
-        SolarObjects m_ObjectType;
+        double m_radius = 0;
+        double m_tilt = 0;
+        double m_n1 = 0;
+        double m_n2 = 0;
+        double m_i1 = 0;
+        double m_i2 = 0;
+        double m_w1 = 0;
+        double m_w2 = 0;
+        double m_a1 = 0;
+        double m_a2 = 0;
+        double m_e1 = 0;
+        double m_e2 = 0;
+        double m_m1 = 0;
+        double m_m2 = 0;
+        double m_period = 0;
+        double m_x = 0;
+        double m_y = 0;
+        double m_z = 0;
+        double m_roll = 0;
+        SolarObjects m_centerOfOrbit;
+        SolarObjects m_objectType;
 
         virtual void initialize() = 0;
     };
 
     //solar objects type
-    using SolarObjectPtr = std::shared_ptr < AbstractSolarObject >;
-    using SolarObjectsArray = std::vector < SolarObjectPtr >;
+    using SolarObjectPtr = std::shared_ptr<AbstractSolarObject>;
+    using SolarObjectsArray = std::vector<SolarObjectPtr>;
 }
 
 #endif // ABSTRACTSOLAROBJECT_H

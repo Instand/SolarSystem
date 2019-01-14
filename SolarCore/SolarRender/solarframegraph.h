@@ -27,8 +27,9 @@ namespace SolarSystem
 
         //cameras
         void setViewCamera(Qt3DRender::QCamera* viewCamera);
-        void setLightCamera(Qt3DRender::QCamera* lightCamera);
         Qt3DRender::QCamera* viewCamera() const;
+
+        void setLightCamera(Qt3DRender::QCamera* lightCamera);
         Qt3DRender::QCamera* lightCamera() const;
 
         //shadow texture
@@ -37,27 +38,27 @@ namespace SolarSystem
     private:
 
         //view port
-        Qt3DRender::QViewport* viewPort;
+        Qt3DRender::QViewport* m_viewPort;
 
         //texture
-        Qt3DRender::QTexture2D* texture;
+        Qt3DRender::QTexture2D* m_texture;
 
         //selector
-        Qt3DRender::QRenderSurfaceSelector* selector;
+        Qt3DRender::QRenderSurfaceSelector* m_selector;
 
         //filter
-        Qt3DRender::QTechniqueFilter* tFilter;
+        Qt3DRender::QTechniqueFilter* m_techniqueFilter;
 
         //pass
-        Qt3DRender::QRenderPassFilter* renderPassShadowFilter;
-        Qt3DRender::QRenderPassFilter* renderPassForwardFilter;
+        Qt3DRender::QRenderPassFilter* m_renderPassShadowFilter;
+        Qt3DRender::QRenderPassFilter* m_renderPassForwardFilter;
 
         //target selector
-        Qt3DRender::QRenderTargetSelector* targetSelector;
+        Qt3DRender::QRenderTargetSelector* m_targetSelector;
 
         //camera selectors
-        Qt3DRender::QCameraSelector* lightCameraSelector;
-        Qt3DRender::QCameraSelector* viewCameraSelector;
+        Qt3DRender::QCameraSelector* m_lightCameraSelector;
+        Qt3DRender::QCameraSelector* m_viewCameraSelector;
     };
 }
 

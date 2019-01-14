@@ -30,16 +30,16 @@ namespace SolarSystem
     private:
 
         //1t shadow pass
-        Qt3DRender::QRenderPass* shadowPass;
+        Qt3DRender::QRenderPass* m_shadowPass;
 
         //2d standard gl pass
-        Qt3DRender::QRenderPass* glPass;
+        Qt3DRender::QRenderPass* m_glPass;
 
         //light
-        SolarLight* lightObject = nullptr;
+        SolarLight* m_lightObject = nullptr;
 
         //texture
-        Qt3DRender::QTexture2D* shadowTex = nullptr;
+        Qt3DRender::QTexture2D* m_shadowTexture = nullptr;
     };
 }
 

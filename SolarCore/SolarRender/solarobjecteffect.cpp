@@ -10,36 +10,36 @@
 SolarSystem::SolarObjectEffect::SolarObjectEffect(Qt3DCore::QNode* parent):
     Qt3DRender::QEffect(parent)
 {
-    vertexShaderGL = ":/Resources/Shaders/diffusenormal.vert";
-    fragShaderGL = ":/Resources/Shaders/diffusenormal.frag";
+    m_vertexShaderGL = ":/Resources/Shaders/diffusenormal.vert";
+    m_fragShaderGL = ":/Resources/Shaders/diffusenormal.frag";
 }
 
 SolarSystem::SolarLight* SolarSystem::SolarObjectEffect::light() const
 {
-    return lightObject;
+    return m_lightObject;
 }
 
 void SolarSystem::SolarObjectEffect::setLight(SolarSystem::SolarLight* light)
 {
-    lightObject = light;
+    m_lightObject = light;
 }
 
 void SolarSystem::SolarObjectEffect::initialization()
 {
-    if (lightObject != nullptr)
+    if (m_lightObject != nullptr)
     {
         //create params
         auto* lightViewParam = new Qt3DRender::QParameter(this);
         lightViewParam->setName("lightViewProjection");
-        lightViewParam->setValue(lightObject->lightViewProjection());
+        lightViewParam->setValue(m_lightObject->lightViewProjection());
 
         auto* lightPos = new Qt3DRender::QParameter(this);
         lightPos->setName("lightPosition");
-        lightPos->setValue(lightObject->camera()->position());
+        lightPos->setValue(m_lightObject->camera()->position());
 
         auto* lightInt = new Qt3DRender::QParameter(this);
         lightInt->setName("lightIntensity");
-        lightInt->setValue(lightObject->intensity());
+        lightInt->setValue(m_lightObject->intensity());
 
         //add params
         addParameter(lightViewParam);
@@ -56,17 +56,17 @@ void SolarSystem::SolarObjectEffect::initialization()
         forwardKey->setValue("forward");
 
         //create standard gl pass
-        glPass = new Qt3DRender::QRenderPass(this);
-        glPass->setObjectName("glPass");
-        glPass->addFilterKey(forwardKey);
+        m_glPass = new Qt3DRender::QRenderPass(this);
+        m_glPass->setObjectName("glPass");
+        m_glPass->addFilterKey(forwardKey);
 
         //standard gl pass shader program
-        Qt3DRender::QShaderProgram* glPassProgram = new Qt3DRender::QShaderProgram(glPass);
-        glPassProgram->setVertexShaderCode(Qt3DRender::QShaderProgram::loadSource(QUrl::fromLocalFile(vertexShaderGL)));
-        glPassProgram->setFragmentShaderCode(Qt3DRender::QShaderProgram::loadSource(QUrl::fromLocalFile(fragShaderGL)));
+        Qt3DRender::QShaderProgram* glPassProgram = new Qt3DRender::QShaderProgram(m_glPass);
+        glPassProgram->setVertexShaderCode(Qt3DRender::QShaderProgram::loadSource(QUrl::fromLocalFile(m_vertexShaderGL)));
+        glPassProgram->setFragmentShaderCode(Qt3DRender::QShaderProgram::loadSource(QUrl::fromLocalFile(m_fragShaderGL)));
 
         //add gl pass program
-        glPass->setShaderProgram(glPassProgram);
+        m_glPass->setShaderProgram(glPassProgram);
 
         //**************************
         //tecnique
@@ -83,7 +83,7 @@ void SolarSystem::SolarObjectEffect::initialization()
         api->setMinorVersion(2);
 
         openglTechnique->addFilterKey(desktopKey);
-        openglTechnique->addRenderPass(glPass);
+        openglTechnique->addRenderPass(m_glPass);
 
         addTechnique(openglTechnique);
     }
@@ -91,20 +91,20 @@ void SolarSystem::SolarObjectEffect::initialization()
 
 QString SolarSystem::SolarObjectEffect::vertexShaderSource() const
 {
-    return vertexShaderGL;
+    return m_vertexShaderGL;
 }
 
 QString SolarSystem::SolarObjectEffect::fragmentShaderSource() const
 {
-    return fragShaderGL;
+    return m_fragShaderGL;
 }
 
 void SolarSystem::SolarObjectEffect::setVertexShaderSource(const QString& source)
 {
-    vertexShaderGL = source;
+    m_vertexShaderGL = source;
 }
 
 void SolarSystem::SolarObjectEffect::setFragmentShaderSource(const QString& source)
 {
-    fragShaderGL = source;
+    m_fragShaderGL = source;
 }

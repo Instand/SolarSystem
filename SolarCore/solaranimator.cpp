@@ -11,31 +11,31 @@
 SolarSystem::SolarAnimator::SolarAnimator(QObject* parent):
     QObject(parent)
 {
-    viewCenterAnimation = new QPropertyAnimation(this);
-    viewPositionAnimation = new QPropertyAnimation(this);
-    solarSpeedAnimation = new QPropertyAnimation(this);
-    cameraAnimation = new QParallelAnimationGroup(this);
+    m_viewCenterAnimation = new QPropertyAnimation(this);
+    m_viewPositionAnimation = new QPropertyAnimation(this);
+    m_solarSpeedAnimation = new QPropertyAnimation(this);
+    m_cameraAnimation = new QParallelAnimationGroup(this);
 
-    viewCenterAnimation->setTargetObject(this);
-    viewCenterAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InOutQuint));
+    m_viewCenterAnimation->setTargetObject(this);
+    m_viewCenterAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InOutQuint));
 
-    viewPositionAnimation->setTargetObject(this);
-    viewPositionAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InOutQuint));
+    m_viewPositionAnimation->setTargetObject(this);
+    m_viewPositionAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InOutQuint));
 
-    solarSpeedAnimation->setTargetObject(this);
-    solarSpeedAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InExpo));
+    m_solarSpeedAnimation->setTargetObject(this);
+    m_solarSpeedAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InExpo));
 
     //animation add
-    cameraAnimation->addAnimation(viewCenterAnimation);
-    cameraAnimation->addAnimation(viewPositionAnimation);
+    m_cameraAnimation->addAnimation(m_viewCenterAnimation);
+    m_cameraAnimation->addAnimation(m_viewPositionAnimation);
 
     //wrapper
     QObject::connect(SolarMathCore::instance()->solarView(), &Qt3DRender::QCamera::positionChanged, this, &SolarAnimator::cameraPositionChanged);
     QObject::connect(SolarMathCore::instance()->solarView(), &Qt3DRender::QCamera::viewCenterChanged, this, &SolarAnimator::cameraViewCenterChanged);
 
     //animation actions
-    QObject::connect(cameraAnimation, &QParallelAnimationGroup::finished, this, &SolarAnimator::onAnimationFinished);
-    QObject::connect(solarSpeedAnimation, &QPropertyAnimation::finished, this, &SolarAnimator::onSpeedAnimationFinished);
+    QObject::connect(m_cameraAnimation, &QParallelAnimationGroup::finished, this, &SolarAnimator::onAnimationFinished);
+    QObject::connect(m_solarSpeedAnimation, &QPropertyAnimation::finished, this, &SolarAnimator::onSpeedAnimationFinished);
 }
 
 QDateTime SolarSystem::SolarAnimator::solarTime() const
@@ -45,7 +45,7 @@ QDateTime SolarSystem::SolarAnimator::solarTime() const
 
 QString SolarSystem::SolarAnimator::viewSolarObjectString() const
 {
-    return solarObjStr;
+    return m_solarObjStr;
 }
 
 QVector3D SolarSystem::SolarAnimator::cameraViewCenter() const
@@ -71,7 +71,7 @@ double SolarSystem::SolarAnimator::solarSystemExtraSpeed() const
 QString SolarSystem::SolarAnimator::info() const
 {
     auto columnNames = SolarSystemDBConnector::instance().columnNames();
-    auto objParameters = SolarSystemDBConnector::instance().info(currentSolarObject);
+    auto objParameters = SolarSystemDBConnector::instance().info(m_currentSolarObject);
     auto dbFieldsParamsCount = DbParams::paramList.size();
     auto str = QString();
 
@@ -92,13 +92,13 @@ QString SolarSystem::SolarAnimator::info() const
 
 void SolarSystem::SolarAnimator::animate(float deltaTime)
 {
-    if (!animated)
+    if (!m_animated)
     {
         //set delta time to math core
         SolarMathCore::instance()->setDeltaTime(deltaTime);
 
         //calculate time
-        SolarMathCore::instance()->advanceTime(currentSolarObject);
+        SolarMathCore::instance()->advanceTime(m_currentSolarObject);
 
         //update solar objects position
         SolarMathCore::instance()->calculateAllSolarObjectsPosiitons();
@@ -107,7 +107,7 @@ void SolarSystem::SolarAnimator::animate(float deltaTime)
         SolarMathCore::instance()->additionalCalculation();
 
         //view on solar object
-        SolarMathCore::instance()->updateSolarView(currentSolarObject);
+        SolarMathCore::instance()->updateSolarView(m_currentSolarObject);
 
         emit solarTimeChanged(SolarMathCore::instance()->getTime());
     }
@@ -127,57 +127,57 @@ void SolarSystem::SolarAnimator::setSolarSize(int value)
 
 void SolarSystem::SolarAnimator::setCameraViewCenter(int index)
 {
-    if (!animated)
+    if (!m_animated)
     {
         auto obj = SolarParser::parsePlanetListIndex(index);
 
-        if (obj != currentSolarObject)
+        if (obj != m_currentSolarObject)
         {
-            currentSolarObject = obj;
-            solarObjStr = SolarParser::parseSolarObjectToString(currentSolarObject);
+            m_currentSolarObject = obj;
+            m_solarObjStr = SolarParser::parseSolarObjectToString(m_currentSolarObject);
 
             //save speed
-            solarSpeed = SolarMathCore::instance()->solarSystemSpeed();
+            m_solarSpeed = SolarMathCore::instance()->solarSystemSpeed();
 
             //stop speed animation
-            if (solarSpeedAnimation->state() == QAbstractAnimation::State::Running)
-                solarSpeedAnimation->stop();
+            if (m_solarSpeedAnimation->state() == QAbstractAnimation::State::Running)
+                m_solarSpeedAnimation->stop();
 
             //reset solar system speed
             SolarMathCore::instance()->setSolarSystemSpeed(0);
 
-            emit solarObjectStringChanged(solarObjStr);
+            emit solarObjectStringChanged(m_solarObjStr);
 
-            SolarMathCore::instance()->updateSolarViewZoomLimit(currentSolarObject);
+            SolarMathCore::instance()->updateSolarViewZoomLimit(m_currentSolarObject);
 
-            animated = true;
+            m_animated = true;
 
             //setup view animation
-            viewCenterAnimation->setPropertyName("viewCenter");
-            viewCenterAnimation->setDuration(1500);
-            viewCenterAnimation->setStartValue(SolarMathCore::instance()->solarView()->viewCenter());
-            viewCenterAnimation->setEndValue(SolarMathCore::instance()->objectPosition(currentSolarObject));
+            m_viewCenterAnimation->setPropertyName("viewCenter");
+            m_viewCenterAnimation->setDuration(1500);
+            m_viewCenterAnimation->setStartValue(SolarMathCore::instance()->solarView()->viewCenter());
+            m_viewCenterAnimation->setEndValue(SolarMathCore::instance()->objectPosition(m_currentSolarObject));
 
-            viewPositionAnimation->setPropertyName("viewPosition");
-            viewPositionAnimation->setStartValue(SolarMathCore::instance()->solarView()->position());
+            m_viewPositionAnimation->setPropertyName("viewPosition");
+            m_viewPositionAnimation->setStartValue(SolarMathCore::instance()->solarView()->position());
 
             if (obj != SolarObjects::SolarSystemView)
             {
-                viewPositionAnimation->setDuration(2500);
-                viewPositionAnimation->setEndValue(SolarMathCore::instance()->viewPositionOfObject(currentSolarObject));
+                m_viewPositionAnimation->setDuration(2500);
+                m_viewPositionAnimation->setEndValue(SolarMathCore::instance()->viewPositionOfObject(m_currentSolarObject));
             }
             else
             {
-                viewCenterAnimation->setDuration(3000);
+                m_viewCenterAnimation->setDuration(3000);
 
-                viewPositionAnimation->setDuration(2500);
-                viewPositionAnimation->setEndValue(CameraSettings::defaultCameraPosition);
+                m_viewPositionAnimation->setDuration(2500);
+                m_viewPositionAnimation->setEndValue(CameraSettings::defaultCameraPosition);
             }
 
             //stop controller
             SolarMathCore::instance()->viewController()->setEnabled(false);
 
-            cameraAnimation->start();
+            m_cameraAnimation->start();
         }
     }
 }
@@ -216,11 +216,11 @@ void SolarSystem::SolarAnimator::resetExtraSpeed()
 void SolarSystem::SolarAnimator::onAnimationFinished()
 {
     //speed animation
-    solarSpeedAnimation->setPropertyName("solarSystemSpeed");
-    solarSpeedAnimation->setDuration(60);
-    solarSpeedAnimation->setStartValue(0);
-    solarSpeedAnimation->setEndValue(solarSpeed);
-    solarSpeedAnimation->start();
+    m_solarSpeedAnimation->setPropertyName("solarSystemSpeed");
+    m_solarSpeedAnimation->setDuration(60);
+    m_solarSpeedAnimation->setStartValue(0);
+    m_solarSpeedAnimation->setEndValue(m_solarSpeed);
+    m_solarSpeedAnimation->start();
 
     //activate controller
     SolarMathCore::instance()->viewController()->setEnabled(true);
@@ -228,5 +228,5 @@ void SolarSystem::SolarAnimator::onAnimationFinished()
 
 void SolarSystem::SolarAnimator::onSpeedAnimationFinished()
 {
-    animated = false;
+    m_animated = false;
 }

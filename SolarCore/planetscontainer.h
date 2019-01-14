@@ -28,13 +28,13 @@ namespace SolarSystem
     private:
 
         //main planet storage
-        mutable PlanetArray m_PlanetContainer;
+        mutable PlanetArray m_planetContainer;
 
         //root entity
-        Qt3DCore::QNode* m_RootNode = nullptr;
+        Qt3DCore::QNode* m_rootNode = nullptr;
 
         //number of calculated planets in the planet container
-        int m_CalculatedSolarObjectNumber = 0;
+        int m_calculatedSolarObjectNumber = 0;
 
         //initialization helper
         void initialize(Qt3DCore::QNode* root);
