@@ -3,7 +3,11 @@ QT += 3dcore 3drender 3dextras 3dinput
 QT += qml quick
 QT += 3dquickextras
 
-CONFIG += c++14
+if (MSVC) {
+    QMAKE_CXXFLAGS += -std=c++17 /std:c++17
+} else {
+    CONFIG += c++17
+}
 
 TARGET = SolarSystem
 
@@ -12,6 +16,7 @@ CONFIG += resources_big
 TEMPLATE = app
 
 SOURCES += main.cpp \
+    SolarCore/planetbuilder.cpp \
     solarsystemobject.cpp \
     solarsystemdbconnector.cpp \
     solarsystemcore.cpp \
@@ -48,6 +53,7 @@ SOURCES += main.cpp \
     Scene/solarobject3d.cpp
 
 HEADERS += \
+    SolarCore/planetbuilder.h \
     solarsystemobject.h \
     solarsystemdbconnector.h \
     solarsystemcore.h \
