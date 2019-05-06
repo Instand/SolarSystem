@@ -148,7 +148,7 @@ float SolarSystem::SolarParser::parseSolarObjectTilt(SolarSystem::SolarObjects o
     return static_cast<float>(tilt);
 }
 
-float SolarSystem::SolarParser::parseSolarObjectRadius(SolarSystem::SolarObjects object)
+double SolarSystem::SolarParser::parseSolarObjectRadius(SolarSystem::SolarObjects object)
 {
     double radius = 0;
 
@@ -202,7 +202,7 @@ float SolarSystem::SolarParser::parseSolarObjectRadius(SolarSystem::SolarObjects
         break;
     }
 
-    return static_cast<float>(radius);
+    return radius;
 }
 
 SolarSystem::SolarObjects SolarSystem::SolarParser::parsePlanetListIndex(int index)

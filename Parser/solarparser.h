@@ -21,7 +21,7 @@ namespace SolarSystem
         static float parseSolarObjectTilt(SolarObjects object);
 
         //returns radius of solar object
-        static float parseSolarObjectRadius(SolarObjects object);
+        static double parseSolarObjectRadius(SolarObjects object);
 
         //returns solar object from planet list index
         static SolarObjects parsePlanetListIndex(int index);

@@ -1,0 +1,10 @@
+/release
+/.qmake.stash
+/object_script.SolarSystem.Release
+/res_qmlcache.qrc
+/SolarSystem.pro.user
+/SolarSystem_resource.rc
+/Makefile
+/Makefile.Debug
+/Makefile.Release
+/object_script.SolarSystem.Debug
