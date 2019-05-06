@@ -139,3 +139,21 @@ QVector3D SolarSystem::SolarObject3D::position() const
 {
     return QVector3D(static_cast<float>(m_x), static_cast<float>(m_y), static_cast<float>(m_z));
 }
+
+void SolarSystem::SolarObject3D::baseBehaviour()
+{
+    //create matrix
+    auto matrix = QMatrix4x4();
+
+    //set position
+    matrix.translate(position());
+
+    //rotate
+    matrix.rotate(static_cast<float>(m_tilt), SolarValues::tiltAxis);
+    matrix.rotate(static_cast<float>(m_roll), SolarValues::rollAxis);
+
+    //ring scale
+    matrix.scale(static_cast<float>(m_r));
+
+    m_transform->setMatrix(matrix);
+}

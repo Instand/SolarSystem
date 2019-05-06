@@ -94,6 +94,7 @@ namespace SolarSystem
         QVector3D position() const;
 
     protected:
+        void baseBehaviour();
 
         //logical
         SolarSystem::Logic m_logic;
