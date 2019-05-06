@@ -13,6 +13,7 @@ struct SolarSystem::SolarMathCore::Data
 {
     bool ready = false;
     float cameraDistance = 1.0f;
+
     QVector3D oldCameraPosition;
     QVector3D oldFocusedPlanetPosition;
     QVector3D startPos;
@@ -38,12 +39,12 @@ struct SolarSystem::SolarMathCore::Data
     double deltaTimeD = 0;
     double daysPerFrame = 0;
     double daysPerFrameScale = 0;
-    float planetScale;
+    double planetScale;
     bool focusedScaling = false;
     int focusedMinimumScale = 20;
     double actualScale;
     double ultraSpeed = 1.0;
-    float ultraSpeedStep = 2.0f;
+    double ultraSpeedStep = 2.0;
     double ultraSpeedMax = 64.0;
 
     //inner and outer radius
@@ -53,7 +54,7 @@ struct SolarSystem::SolarMathCore::Data
     double uranusRingOuterRadius = 0;
 
     //earth cloud
-    float earthCloudRModifier = 1.010f;     //1.010f
+    double earthCloudRModifier = 1.010;     //1.010
 
     //view
     Qt3DRender::QCamera* camera = nullptr;
@@ -73,19 +74,21 @@ struct SolarSystem::SolarMathCore::Data
 
 SolarSystem::SolarMathCore::Data::Data()
 {
+    using StartDateType = decltype(startD);
+
     //calculating start time
-    startD = Utils::calculateTimeScale(year, month, day);
-    startD += Utils::calculateUT(hours, minutes, seconds);
+    startD = static_cast<StartDateType>(Utils::calculateTimeScale(year, month, day));
+    startD += static_cast<StartDateType>(Utils::calculateUT(hours, minutes, seconds));
     oldTimeD = startD;
     currentTimeD = startD;
 
     //calcualting saturn and uranus rings
     auto saturn = solarContainer.solarObject(SolarObjects::Saturn);
-    saturnRingOuterRadius = saturn->radius() + SolarValues::saturnOuterRadius;
+    saturnRingOuterRadius = saturn->radius() + static_cast<double>(SolarValues::saturnOuterRadius);
     saturnRingInnerRadius = saturn->radius() + 6.630;
 
     auto uranus = solarContainer.solarObject(SolarObjects::Uranus);
-    uranusRingOuterRadius = uranus->radius() + SolarValues::uranusOuterRadius;
+    uranusRingOuterRadius = uranus->radius() + static_cast<double>(SolarValues::uranusOuterRadius);
     uranusRingInnerRadius = uranus->radius() + 2.0;
 }
 
@@ -156,11 +159,11 @@ float SolarSystem::SolarMathCore::getOuterRadius(SolarSystem::SolarObjects objec
             break;
 
         case SolarObjects::Saturn:
-            outerRadius += SolarObjectsValues::Saturn::radius + SolarValues::saturnOuterRadius;
+            outerRadius += SolarObjectsValues::Saturn::radius + static_cast<double>(SolarValues::saturnOuterRadius);
             break;
 
         case SolarObjects::Uranus:
-            outerRadius += SolarObjectsValues::Uranus::radius + SolarValues::uranusOuterRadius;
+            outerRadius += SolarObjectsValues::Uranus::radius + static_cast<double>(SolarValues::uranusOuterRadius);
             break;
 
         case SolarObjects::Moon:
@@ -222,9 +225,9 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
             SolarObjects centerOfOrbit = solarObj->centerOfOrbit();
             auto centerObj = m_data->solarContainer.solarObject(centerOfOrbit);
 
-            solarObj->setX(centerObj->x() + xh * SolarValues::auScale);
-            solarObj->setY(centerObj->y() + yh * SolarValues::auScale);
-            solarObj->setZ(centerObj->z() + zh * SolarValues::auScale);
+            solarObj->setX(centerObj->x() + xh * static_cast<double>(SolarValues::auScale));
+            solarObj->setY(centerObj->y() + yh * static_cast<double>(SolarValues::auScale));
+            solarObj->setZ(centerObj->z() + zh * static_cast<double>(SolarValues::auScale));
         }
 
         solarObj->setRoll((solarObj->roll() + m_data->deltaTimeD/ solarObj->period() * 360.0));
@@ -245,6 +248,8 @@ void SolarSystem::SolarMathCore::solarObjectPosition(SolarSystem::SolarObjects o
 
 void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
 {
+    using CurrentDateType = decltype(m_data->currentTimeD);
+
     if (object == SolarObjects::SolarSystemView)
         m_data->daysPerFrame = m_data->daysPerFrameScale; //*10
     else if (object == SolarObjects::Mercury || object == SolarObjects::Venus)
@@ -252,8 +257,10 @@ void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
     else
         m_data->daysPerFrame = m_data->daysPerFrameScale * m_data->solarContainer.solarObject(object)->period()/100.0;
 
+    auto msec = static_cast<double>(m_data->deltaTime) * 1000.0 * m_data->daysPerFrame * m_data->ultraSpeed;
+
     //add solar time
-    m_data->solarTime = m_data->solarTime.addMSecs(m_data->deltaTime * 1000.0f * m_data->daysPerFrame * m_data->ultraSpeed);
+    m_data->solarTime = m_data->solarTime.addMSecs(static_cast<qint64>(msec));
 
     //save helpers values
     m_data->hours = m_data->solarTime.time().hour();
@@ -267,8 +274,8 @@ void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
     m_data->oldTimeD = m_data->currentTimeD;
 
     //update currentTimeD
-    m_data->currentTimeD = Utils::calculateTimeScale(m_data->year, m_data->month, m_data->day);
-    m_data->currentTimeD += Utils::calculateUT(m_data->hours, m_data->minutes, m_data->seconds);
+    m_data->currentTimeD = static_cast<CurrentDateType>(Utils::calculateTimeScale(m_data->year, m_data->month, m_data->day));
+    m_data->currentTimeD += static_cast<CurrentDateType>(Utils::calculateUT(m_data->hours, m_data->minutes, m_data->seconds));
 
     //get deltaD
     m_data->deltaTimeD = m_data->currentTimeD - m_data->oldTimeD;
@@ -277,7 +284,7 @@ void SolarSystem::SolarMathCore::advanceTime(SolarSystem::SolarObjects object)
 void SolarSystem::SolarMathCore::setSolarObjectsScale(float scale, bool focused)
 {
     if (!focused)
-        m_data->actualScale = scale;
+        m_data->actualScale = static_cast<double>(scale);
 
     if (scale <= m_data->focusedMinimumScale && (m_data->focusedScaling || focused))
         m_data->planetScale = m_data->focusedMinimumScale;
@@ -296,12 +303,12 @@ void SolarSystem::SolarMathCore::updateSolarView(SolarSystem::SolarObjects objec
         solarObj = planets[SolarObjects::Sun];
 
     if (solarObj != nullptr)
-        m_data->camera->setViewCenter(QVector3D(solarObj->x(), solarObj->y(), solarObj->z()));
+        m_data->camera->setViewCenter(solarObj->position());
 }
 
 void SolarSystem::SolarMathCore::setSolarSystemSpeed(float speed)
 {
-    m_data->daysPerFrameScale = speed;
+    m_data->daysPerFrameScale = static_cast<decltype(m_data->daysPerFrameScale)>(speed);
 }
 
 void SolarSystem::SolarMathCore::setPlanetsContainer(PlanetsContainer* planetsContainer)
@@ -320,7 +327,7 @@ void SolarSystem::SolarMathCore::changeSolarSystemScale(float scale, bool focuse
         switch (planet.first)
         {
         case SolarObjects::Sun:
-            planet.second->setR(SolarParser::parseSolarObjectRadius(planet.first) * scaling/80.0f);
+            planet.second->setR(SolarParser::parseSolarObjectRadius(planet.first) * scaling/80.0);
             break;
 
         case SolarObjects::Mercury:
@@ -391,7 +398,7 @@ void SolarSystem::SolarMathCore::updateSolarViewZoomLimit(SolarSystem::SolarObje
     {
         //get radius
         auto solarObjRadius = SolarParser::parseSolarObjectRadius(object);
-        auto zoomLimit = m_data->planetScale * solarObjRadius * 4.0f;
+        auto zoomLimit = static_cast<float>(m_data->planetScale * solarObjRadius * 4.0);
 
         //empiricic calculations
         zoomLimit = calculateZoomLimit(object, zoomLimit);
@@ -424,10 +431,8 @@ QVector3D SolarSystem::SolarMathCore::viewPositionOfObject(SolarSystem::SolarObj
 
     if (solarObj != nullptr)
     {
-        auto solarObjPos = QVector3D(solarObj->x(), solarObj->y(), solarObj->z());
-
         //vector on object
-        auto onTarget = solarObjPos - m_data->camera->position();
+        auto onTarget = solarObj->position() - m_data->camera->position();
 
         //get dist
         auto dist = onTarget.length();
@@ -451,7 +456,7 @@ QVector3D SolarSystem::SolarMathCore::viewPositionOfObject(SolarSystem::SolarObj
 
 float SolarSystem::SolarMathCore::solarSystemSpeed() const
 {
-    return m_data->daysPerFrameScale;
+    return static_cast<float>(m_data->daysPerFrameScale);
 }
 
 void SolarSystem::SolarMathCore::changeExtraSpeed() const
@@ -478,7 +483,7 @@ void SolarSystem::SolarMathCore::calculateAllSolarObjectsPosiitons()
 
     //update solar objects position
     for (int i = 0; i < updateCount; ++i)
-        solarObjectPosition((SolarObjects)i);
+        solarObjectPosition(SolarObjects(i));
 }
 
 void SolarSystem::SolarMathCore::setupPlanetRings()
@@ -494,7 +499,7 @@ void SolarSystem::SolarMathCore::setupPlanetRings()
         saturnRing->setY(saturn->y());
         saturnRing->setZ(saturn->z());
         saturnRing->setTilt(saturn->tilt());
-        saturnRing->setRoll(saturn->roll()/10.0f);
+        saturnRing->setRoll(saturn->roll()/10.0);
         saturnRing->setR((m_data->saturnRingInnerRadius + m_data->saturnRingOuterRadius)/1.75);
     }
 
@@ -507,7 +512,7 @@ void SolarSystem::SolarMathCore::setupPlanetRings()
         uranusRings->setY(uranus->y());
         uranusRings->setZ(uranus->z());
         uranusRings->setTilt(uranus->tilt());
-        uranusRings->setRoll(uranus->roll()/10.0f);
+        uranusRings->setRoll(uranus->roll()/10.0);
         uranusRings->setR((m_data->uranusRingInnerRadius + m_data->uranusRingOuterRadius)/1.75);
     }
 }
@@ -525,7 +530,7 @@ void SolarSystem::SolarMathCore::atmosphereCalculations()
         earthCloud->setY(earth->y());
         earthCloud->setZ(earth->z());
         earthCloud->setTilt(earth->tilt());
-        earthCloud->setRoll(earth->roll()/1.2f);
+        earthCloud->setRoll(earth->roll()/1.2);
         earthCloud->setR(earth->r() * m_data->earthCloudRModifier);
     }
 }
@@ -562,7 +567,7 @@ float SolarSystem::SolarMathCore::calculateZoomLimit(SolarSystem::SolarObjects o
 {
     //get radius
     auto solarObjRadius = SolarParser::parseSolarObjectRadius(object);
-    auto zoomLimit = m_data->planetScale * solarObjRadius * 4.0f;
+    auto zoomLimit = static_cast<float>(m_data->planetScale * solarObjRadius * 4.0);
 
     //empiricic calculations
     zoomLimit = calculateZoomLimit(object, zoomLimit);

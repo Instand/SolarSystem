@@ -41,19 +41,5 @@ SolarSystem::Sun::Sun(Qt3DCore::QNode* parent):
 void SolarSystem::Sun::update(float deltaTime)
 {
     Q_UNUSED(deltaTime)
-
-    //create matrix
-    auto matrix = QMatrix4x4();
-
-    //set position
-    matrix.translate(QVector3D(m_x, m_y, m_z));
-
-    //rotate
-    matrix.rotate(m_tilt, SolarValues::tiltAxis);
-    matrix.rotate(m_roll, SolarValues::rollAxis);
-
-    //sun scale
-    matrix.scale(m_r);
-
-    m_transform->setMatrix(matrix);
+    SolarObject3D::baseBehaviour();
 }

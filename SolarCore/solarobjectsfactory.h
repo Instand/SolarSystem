@@ -17,7 +17,7 @@ namespace SolarSystem
                       std::is_base_of<AbstractSolarObject,
                       std::remove_cv_t<SolarObject>>::value>>
 
-        static inline constexpr std::shared_ptr<AbstractSolarObject> create(Args&&... args)
+        static inline std::shared_ptr<AbstractSolarObject> create(Args&&... args)
         {
             typedef typename std::remove_cv_t<SolarObject> SolarT;
             return std::make_shared<SolarT>(std::forward<Args>(args)...);

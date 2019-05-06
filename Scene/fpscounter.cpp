@@ -31,7 +31,7 @@ SolarSystem::FpsCounter::FpsCounter(Qt3DCore::QNode* parent):
             m_data->frameCount = 0;
             m_data->dt -= 1.0f/ m_data->updateRate;
 
-            emit fpsChanged(m_data->fps);
+            emit fpsChanged(static_cast<int>(m_data->fps));
         }
     });
 }
@@ -43,5 +43,5 @@ SolarSystem::FpsCounter::~FpsCounter()
 
 int SolarSystem::FpsCounter::fps() const
 {
-    return m_data->fps;
+    return static_cast<int>(m_data->fps);
 }

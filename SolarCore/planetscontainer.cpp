@@ -248,7 +248,7 @@ void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
     ///create earth clouds
     EarthCloud* earthClouds = new EarthCloud(root);
 
-    //add planets to map, to interface IVisualSolarObject
+    //add planets to map, to SolarObject3D
     m_planetContainer[SolarObjects::Sun] = sun;
     m_planetContainer[SolarObjects::Mercury] = mercury;
     m_planetContainer[SolarObjects::Venus] = venus;
