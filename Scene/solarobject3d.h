@@ -73,7 +73,6 @@ namespace SolarSystem
         //returns object material
         Qt3DRender::QMaterial* material() const;
 
-        //control
         double r() const;
         void setR(double r);
 
@@ -91,6 +90,8 @@ namespace SolarSystem
 
         double tilt() const;
         void setTilt(double tilt);
+
+        QVector3D position() const;
 
     protected:
 

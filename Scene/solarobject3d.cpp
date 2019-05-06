@@ -134,3 +134,8 @@ void SolarSystem::SolarObject3D::setTilt(double tilt)
 {
     m_tilt = tilt;
 }
+
+QVector3D SolarSystem::SolarObject3D::position() const
+{
+    return QVector3D(static_cast<float>(m_x), static_cast<float>(m_y), static_cast<float>(m_z));
+}
