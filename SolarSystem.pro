@@ -16,7 +16,6 @@ CONFIG += resources_big
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    SolarCore/planetbuilder.cpp \
     solarsystemobject.cpp \
     solarsystemdbconnector.cpp \
     solarsystemcore.cpp \
@@ -53,7 +52,7 @@ SOURCES += main.cpp \
     Scene/solarobject3d.cpp
 
 HEADERS += \
-    SolarCore/planetbuilder.h \
+    SolarCore/objectbuilder.h \
     solarsystemobject.h \
     solarsystemdbconnector.h \
     solarsystemcore.h \
@@ -137,9 +136,3 @@ android {
 }
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-
-
-
-
-
-
