@@ -42,43 +42,33 @@ namespace SolarSystem
         }
 
         // create and setup planet
-        void build(Qt3DCore::QNode* root)
+        Object* build(Qt3DCore::QNode* root = nullptr)
         {
-            if (!m_object)
-            {
-                m_object = new Object(root);
+            Object* object = new Object(root);
 
-                auto material = qobject_cast<Material*>(m_object->material());
+            auto material = qobject_cast<Material*>(object->material());
 
-                // diffuse
-                if (!m_diffuseSource.isEmpty())
-                {
-                    Qt3DRender::QTextureImage* diffuse = new Qt3DRender::QTextureImage();
-                    diffuse->setSource(QUrl::fromLocalFile(m_diffuseSource));
-                    material->diffuse()->addTextureImage(diffuse);
-                }
-
-                // normal
-                if (!m_normalSource.isEmpty())
-                {
-                    Qt3DRender::QTextureImage* normal = new Qt3DRender::QTextureImage();
-                    normal->setSource(QUrl::fromLocalFile(m_normalSource));
-                    material->normal()->addTextureImage(normal);
-                }
-
-                //mars material setup
-                if (m_shiness != 0.0f)
-                    material->setShininess(material->shininess() * m_shiness);
-
-                if (m_tilt != 0.0)
-                    m_object->setTilt(m_tilt);
+            // diffuse
+            if (!m_diffuseSource.isEmpty()) {
+                Qt3DRender::QTextureImage* diffuse = new Qt3DRender::QTextureImage(object);
+                diffuse->setSource(QUrl::fromLocalFile(m_diffuseSource));
+                material->diffuse()->addTextureImage(diffuse);
             }
-        }
 
-        // returns created planet or nullptr
-        Object* object() const
-        {
-            return m_object;
+            // normal
+            if (!m_normalSource.isEmpty()) {
+                Qt3DRender::QTextureImage* normal = new Qt3DRender::QTextureImage(object);
+                normal->setSource(QUrl::fromLocalFile(m_normalSource));
+                material->normal()->addTextureImage(normal);
+            }
+
+            if (m_shiness != 0.0f)
+                material->setShininess(material->shininess() * m_shiness);
+
+            if (m_tilt != 0.0)
+                object->setTilt(m_tilt);
+
+            return object;
         }
 
     private:
@@ -86,8 +76,6 @@ namespace SolarSystem
         QString m_diffuseSource;
         float m_shiness = 0;
         double m_tilt = 0;
-
-        Object* m_object = nullptr;
     };
 
     using PlanetBuilder = ObjectBuilder<Planet, Qt3DExtras::QNormalDiffuseMapMaterial>;
