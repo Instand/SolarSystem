@@ -22,8 +22,6 @@ namespace SolarSystem
         virtual void setCamera(Qt3DCore::QEntity* camera) override;
 
     private:
-
-        //qt3d forward renderer
         Qt3DExtras::QForwardRenderer* m_renderer;
     };
 }

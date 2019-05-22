@@ -5,6 +5,7 @@ SolarSystem::SolarStandardFrameGraph::SolarStandardFrameGraph(Qt3DCore::QNode* p
     IFrameGraph(parent),
     m_renderer(new Qt3DExtras::QForwardRenderer(parent))
 {
+    setRenderPolicy(QRenderSettings::RenderPolicy::Always);
     setActiveFrameGraph(m_renderer);
 
     m_renderer->setFrustumCullingEnabled(true);
