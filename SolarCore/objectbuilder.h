@@ -21,24 +21,28 @@ namespace SolarSystem
         {
         }
 
-        void setShiness(float shiness)
+        ObjectBuilder& setShiness(float shiness)
         {
             m_shiness = shiness;
+            return *this;
         }
 
-        void setNormalSource(const QString& normalSource)
+        ObjectBuilder& setNormalSource(const QString& normalSource)
         {
             m_normalSource = normalSource;
+            return *this;
         }
 
-        void setDiffuseSource(const QString& diffuseSource)
+        ObjectBuilder& setDiffuseSource(const QString& diffuseSource)
         {
             m_diffuseSource = diffuseSource;
+            return *this;
         }
 
-        void setTilt(double tilt)
+        ObjectBuilder& setTilt(double tilt)
         {
             m_tilt = tilt;
+            return *this;
         }
 
         // create and setup planet
