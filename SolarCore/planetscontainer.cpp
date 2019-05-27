@@ -30,96 +30,84 @@ SolarSystem::PlanetsContainer::~PlanetsContainer()
 
 void SolarSystem::PlanetsContainer::initialize(Qt3DCore::QNode* root)
 {
-    auto shiness = 10.0f;
+    constexpr auto shiness = 10.0f;
+
+    /// create planets and add to map
+
+    m_planetContainer[SolarObjects::Sun] = new Sun(root);
 
     // mercury
-    PlanetBuilder mercuryBuilder(":/Resources/Images/mercurymap.jpg", ":/Resources/Images/mercurynormal.jpg");
-
-    mercuryBuilder.setShiness(shiness);
-    mercuryBuilder.setTilt(SolarObjectsValues::Mercury::tilt);
+    m_planetContainer[SolarObjects::Mercury] = PlanetBuilder{":/Resources/Images/mercurymap.jpg", ":/Resources/Images/mercurynormal.jpg"}
+                                                .setShiness(shiness)
+                                                .setTilt(SolarObjectsValues::Mercury::tilt)
+                                                .build(root);
 
     // venus
-    PlanetBuilder venusBuilder(":/Resources/Images/venus_atmo.jpg", ":/Resources/Images/venus_atmonormal.jpg");
-
-    venusBuilder.setShiness(shiness);
-    venusBuilder.setTilt(SolarObjectsValues::Venus::tilt);
+    m_planetContainer[SolarObjects::Venus] = PlanetBuilder{":/Resources/Images/venus_atmo.jpg", ":/Resources/Images/venus_atmonormal.jpg"}
+                                                .setShiness(shiness)
+                                                .setTilt(SolarObjectsValues::Venus::tilt)
+                                                .build(root);
 
     // earth
-    PlanetBuilder earthBuilder(":/Resources/Images/earthmap1k.jpg", ":/Resources/Images/earthnormal1k.jpg");
-
-    earthBuilder.setShiness(shiness);
-    earthBuilder.setTilt(SolarObjectsValues::Earth::tilt);
+    m_planetContainer[SolarObjects::Earth] = PlanetBuilder{":/Resources/Images/earthmap1k.jpg", ":/Resources/Images/earthnormal1k.jpg"}
+                                                .setShiness(shiness)
+                                                .setTilt(SolarObjectsValues::Earth::tilt)
+                                                .build(root);
 
     // moon
-    PlanetBuilder moonBuilder(":/Resources/Images/moonmap1k.jpg", ":/Resources/Images/moonnormal1k.jpg");
-
-    moonBuilder.setShiness(shiness);
-    moonBuilder.setTilt(SolarObjectsValues::Moon::tilt);
+    m_planetContainer[SolarObjects::Moon] = PlanetBuilder{":/Resources/Images/moonmap1k.jpg", ":/Resources/Images/moonnormal1k.jpg"}
+                                                .setShiness(shiness)
+                                                .setTilt(SolarObjectsValues::Moon::tilt)
+                                                .build(root);
 
     // mars
-    PlanetBuilder marsBuilder(":/Resources/Images/marsmap1k.jpg", ":/Resources/Images/marsnormal1k.jpg");
-
-    marsBuilder.setShiness(shiness);
-    marsBuilder.setTilt(SolarObjectsValues::Mars::tilt);
+    m_planetContainer[SolarObjects::Mars] = PlanetBuilder{":/Resources/Images/marsmap1k.jpg", ":/Resources/Images/marsnormal1k.jpg"}
+                                                .setShiness(shiness)
+                                                .setTilt(SolarObjectsValues::Mars::tilt)
+                                                .build(root);
 
     // jupiter
-    PlanetBuilder jupiterBuilder(":/Resources/Images/jupitermap.jpg", ":/Resources/Images/jupiternormal.jpg");
-
-    jupiterBuilder.setShiness(shiness);
-    jupiterBuilder.setTilt(SolarObjectsValues::Jupier::tilt);
+    m_planetContainer[SolarObjects::Jupiter] = PlanetBuilder{":/Resources/Images/jupitermap.jpg", ":/Resources/Images/jupiternormal.jpg"}
+                                                .setShiness(shiness)
+                                                .setTilt(SolarObjectsValues::Jupier::tilt)
+                                                .build(root);
 
     // saturn
-    PlanetBuilder saturnBuilder(":/Resources/Images/saturnmap.jpg", ":/Resources/Images/saturnnormal.jpg");
-
-    saturnBuilder.setShiness(shiness);
-    saturnBuilder.setTilt(SolarObjectsValues::Saturn::tilt);
+    m_planetContainer[SolarObjects::Saturn] = PlanetBuilder{":/Resources/Images/saturnmap.jpg", ":/Resources/Images/saturnnormal.jpg"}
+                                                .setShiness(shiness)
+                                                .setTilt(SolarObjectsValues::Saturn::tilt)
+                                                .build(root);
 
     // uranus
-    PlanetBuilder uranusBuilder(":/Resources/Images/uranusmap.jpg", ":/Resources/Images/uranusnormal.jpg");
-
-    uranusBuilder.setShiness(shiness);
-    uranusBuilder.setTilt(SolarObjectsValues::Uranus::tilt);
+    m_planetContainer[SolarObjects::Uranus] = PlanetBuilder{":/Resources/Images/uranusmap.jpg", ":/Resources/Images/uranusnormal.jpg"}
+                                                .setShiness(shiness)
+                                                .setTilt(SolarObjectsValues::Uranus::tilt)
+                                                .build(root);
 
     // neptune
-    PlanetBuilder neptuneBuilder(":/Resources/Images/neptunemap.jpg", ":/Resources/Images/neptunenormal.jpg");
-
-    neptuneBuilder.setShiness(shiness);
-    neptuneBuilder.setTilt(SolarObjectsValues::Neptune::tilt);
+    m_planetContainer[SolarObjects::Neptune] = PlanetBuilder{":/Resources/Images/neptunemap.jpg", ":/Resources/Images/neptunenormal.jpg"}
+                                                .setShiness(shiness)
+                                                .setTilt(SolarObjectsValues::Neptune::tilt)
+                                                .build(root);
 
     // pluto
-    PlanetBuilder plutoBuilder(":/Resources/Images/plutomap.jpg", ":/Resources/Images/plutonormal.jpg");
-
-    plutoBuilder.setShiness(shiness);
-    plutoBuilder.setTilt(SolarObjectsValues::Pluto::tilt);
-
-    // saturn rings
-    PlanetRingBuilder saturnRingBuilder(":/Resources/Images/saturnringcolortrans.png", ":/Resources/Images/saturnringcolortransnormal.png");
-    saturnRingBuilder.setTilt(SolarObjectsValues::Saturn::tilt);
-
-    // uranus rings
-    PlanetRingBuilder uranusRingBuilder(":/Resources/Images/uranusringcolortrans.png", ":/Resources/Images/uranusringcolortransnormal.png");
-    uranusRingBuilder.setTilt(SolarObjectsValues::Uranus::tilt);
-
-    // add planets to map, to SolarObject3D
-    m_planetContainer[SolarObjects::Sun] = new Sun(root);
-    m_planetContainer[SolarObjects::Mercury] = mercuryBuilder.build(root);
-    m_planetContainer[SolarObjects::Venus] = venusBuilder.build(root);
-    m_planetContainer[SolarObjects::Earth] = earthBuilder.build(root);
-    m_planetContainer[SolarObjects::Moon] = moonBuilder.build(root);
-    m_planetContainer[SolarObjects::Mars] = marsBuilder.build(root);
-    m_planetContainer[SolarObjects::Jupiter] = jupiterBuilder.build(root);
-    m_planetContainer[SolarObjects::Saturn] = saturnBuilder.build(root);
-    m_planetContainer[SolarObjects::Uranus] = uranusBuilder.build(root);
-    m_planetContainer[SolarObjects::Neptune] = neptuneBuilder.build(root);
-    m_planetContainer[SolarObjects::Pluto] = plutoBuilder.build(root);
+    m_planetContainer[SolarObjects::Pluto] = PlanetBuilder{":/Resources/Images/plutomap.jpg", ":/Resources/Images/plutonormal.jpg"}
+                                                .setShiness(shiness)
+                                                .setTilt(SolarObjectsValues::Pluto::tilt)
+                                                .build(root);
 
     m_calculatedSolarObjectNumber = static_cast<int>(m_planetContainer.size());
 
     // add additional solar objects
-    m_planetContainer[SolarObjects::SaturnRing] = saturnRingBuilder.build(root);
-    m_planetContainer[SolarObjects::UranusRing] = uranusRingBuilder.build(root);
-    m_planetContainer[SolarObjects::EarthCloud] = new EarthCloud(root);
+    m_planetContainer[SolarObjects::SaturnRing] = PlanetRingBuilder{":/Resources/Images/saturnringcolortrans.png", ":/Resources/Images/saturnringcolortransnormal.png"}
+                                                .setTilt(SolarObjectsValues::SaturnRing::tilt)
+                                                .build(root);
 
+    m_planetContainer[SolarObjects::UranusRing] = PlanetRingBuilder{":/Resources/Images/uranusringcolortrans.png", ":/Resources/Images/uranusringcolortransnormal.png"}
+                                                .setTilt(SolarObjectsValues::UranusRing::tilt)
+                                                .build(root);
+
+    m_planetContainer[SolarObjects::EarthCloud] = new EarthCloud(root);
     m_rootNode = root;
 }
 
