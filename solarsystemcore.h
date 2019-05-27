@@ -426,6 +426,9 @@ namespace SolarSystem
             const SolarObjects centerOfOrbit = SolarObjects::Earth;
             const QString toString = "Moon";
         }
+
+        namespace SaturnRing = Saturn;
+        namespace UranusRing = Uranus;
     }
 }
 
