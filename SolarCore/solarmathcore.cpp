@@ -175,7 +175,7 @@ float SolarSystem::SolarMathCore::getOuterRadius(SolarSystem::SolarObjects objec
             break;
 
         case SolarObjects::Sun:
-            outerRadius = SolarObjectsValues::Sun::radius / 100.0;
+            outerRadius = SolarObjectsValues::Sun::radius / static_cast<double>(SolarValues::sunOuterRadiusDelimiter);
             break;
 
         default:
@@ -327,7 +327,7 @@ void SolarSystem::SolarMathCore::changeSolarSystemScale(float scale, bool focuse
         switch (planet.first)
         {
         case SolarObjects::Sun:
-            planet.second->setR(SolarParser::parseSolarObjectRadius(planet.first) * scaling/80.0);
+            planet.second->setR(SolarParser::parseSolarObjectRadius(planet.first) * scaling/SolarValues::sunRadiusDelimeter);
             break;
 
         case SolarObjects::Mercury:
@@ -537,6 +537,10 @@ void SolarSystem::SolarMathCore::atmosphereCalculations()
 
 float SolarSystem::SolarMathCore::calculateZoomLimit(SolarSystem::SolarObjects object, float limit)
 {
+    static constexpr float mercuryLimitModifier = 2.0f;
+    static constexpr float jupiterLimitModifier = 1.6f;
+    static constexpr float plutoLimitModifier = 1.8f;
+
     float finalLimit = limit;
 
     switch (object) {
@@ -545,15 +549,15 @@ float SolarSystem::SolarMathCore::calculateZoomLimit(SolarSystem::SolarObjects o
         break;
 
     case SolarObjects::Mercury:
-        finalLimit *= 2.0f;
+        finalLimit *= mercuryLimitModifier;
         break;
 
     case SolarObjects::Jupiter:
-        finalLimit /= 1.5f;
+        finalLimit /= jupiterLimitModifier;
         break;
 
     case SolarObjects::Pluto:
-        finalLimit *= 1.5f;
+        finalLimit *= plutoLimitModifier;
         break;
 
     default:

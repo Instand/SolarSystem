@@ -57,11 +57,14 @@ namespace SolarSystem
     //store different values for code help
     struct SolarValues
     {
+        static const float solarSystemModifier;
         static const int zero;
         static const int solarDistance;
         static const float auScale;
         static const float saturnOuterRadius;
         static const float uranusOuterRadius;
+        static const float sunOuterRadiusDelimiter;
+        static const double sunRadiusDelimeter;
         static const float startSize;
         static const float startSpeed;
 
@@ -73,9 +76,14 @@ namespace SolarSystem
         //vector values
         static const QVector3D rollAxis;
         static const QVector3D tiltAxis;
-
-        //db fields
     };
+
+    template<typename Result, typename T>
+    constexpr Result modified(const T& value)
+    {
+        using ModifierType = decltype(SolarValues::solarSystemModifier);
+        return static_cast<Result>(static_cast<ModifierType>(value)/SolarValues::solarSystemModifier);
+    }
 
     enum SolarFields
     {
@@ -154,8 +162,8 @@ namespace SolarSystem
         const QVector3D defaultCameraPosition(SolarValues::solarDistance, SolarValues::solarDistance, SolarValues::solarDistance);
 
         //near plane/far plane settings
-        const float nearPlane = 2500000.0;
-        const float farPlane = 20000000.0;
+        const float nearPlane = modified<float>(2500000.0f);
+        const float farPlane = modified<float>(20000000.0f);
 
         //fov
         const int fieldOfView = 60;

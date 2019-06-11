@@ -164,25 +164,25 @@ Item {
 
                 var str = "";
 
-                if (hours.toString().length == 1)
+                if (hours.toString().length === 1)
                     str += "0"
 
                 str += hours.toString()
                 str += ":"
 
-                if (minutes.toString().length == 1)
+                if (minutes.toString().length === 1)
                     str += "0"
 
                 str += minutes.toString()
                 str += " "
 
-                if (days.toString().length == 1)
+                if (days.toString().length === 1)
                     str += " "
 
                 str += days.toString()
                 str += "/"
 
-                if (month.toString().length == 1)
+                if (month.toString().length === 1)
                     str += "0"
 
                 str += month.toString()

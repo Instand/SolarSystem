@@ -36,8 +36,8 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     m_skybox = new SolarSkyBox(this);
 
     //frame graph
-    m_frameGraph = new SolarForwardFrameGraph(this);
-    m_frameGraph->setCamera(m_camera);    
+    m_frameGraph = new SolarStandardFrameGraph(this);
+    m_frameGraph->setCamera(m_camera);
 
     m_inputSettings = new Qt3DInput::QInputSettings();
 

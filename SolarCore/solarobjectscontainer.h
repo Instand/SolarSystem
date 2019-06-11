@@ -12,18 +12,15 @@ namespace SolarSystem
         Q_OBJECT
 
     public:
-        explicit SolarObjectsContainer(QObject *parent = 0);
+        explicit SolarObjectsContainer(QObject *parent = nullptr);
 
         //get math solar object
         SolarObjectPtr solarObject(SolarObjects object) const;
 
-        //get all math solar obejcts
-        const SolarObjectsArray& allSolarObjects() const;
-
     private:
 
         //storage
-        SolarObjectsArray m_solarObjects;
+        SolarObjectsMap m_solarObjects;
     };
 }
 

@@ -36,16 +36,24 @@ const QString SolarSystem::SolarStrings::galaxy = "Galaxy";
 const QString SolarSystem::SolarStrings::asteroid = "Asteroid";
 
 //values
+const float SolarSystem::SolarValues::solarSystemModifier = 10000.0f;
+
 const int SolarSystem::SolarValues::zero = 0;
-const int SolarSystem::SolarValues::solarDistance = 2600000;
-const float SolarSystem::SolarValues::auScale = 149597.870700f;
+const int SolarSystem::SolarValues::solarDistance = modified<const int>(2600000);
+const float SolarSystem::SolarValues::auScale = modified<float>(149597.870700f);
+
 const float SolarSystem::SolarValues::saturnOuterRadius = 120.700f;
 const float SolarSystem::SolarValues::uranusOuterRadius = 40.0f;
-const float SolarSystem::SolarValues::startSize = 1800; //1200
+const float SolarSystem::SolarValues::sunOuterRadiusDelimiter = 100.0f;
+const double SolarSystem::SolarValues::sunRadiusDelimeter = 80.0;
+
+const float SolarSystem::SolarValues::startSize = modified<float>(1800.0f);
 const float SolarSystem::SolarValues::startSpeed = 1000000.0f;
+
 const int SolarSystem::SolarValues::year = 2000;
 const int SolarSystem::SolarValues::month = 1;
 const int SolarSystem::SolarValues::day = 1;
+
 const QVector3D SolarSystem::SolarValues::rollAxis = QVector3D(0, 1, 0);
 const QVector3D SolarSystem::SolarValues::tiltAxis = QVector3D(0, 0, 1);
 

@@ -8,7 +8,7 @@ SolarSystem::SolarStandardFrameGraph::SolarStandardFrameGraph(Qt3DCore::QNode* p
     setRenderPolicy(QRenderSettings::RenderPolicy::Always);
     setActiveFrameGraph(m_renderer);
 
-    m_renderer->setFrustumCullingEnabled(true);
+    m_renderer->setFrustumCullingEnabled(false);
     m_renderer->setClearColor(QColor(Qt::black));
 }
 

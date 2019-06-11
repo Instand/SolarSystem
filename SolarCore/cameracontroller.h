@@ -4,6 +4,8 @@
 #include <Qt3DCore/QEntity>
 #include <QVector3D>
 
+#include <solarsystemcore.h>
+
 //forward
 namespace Qt3DRender
 {
@@ -76,8 +78,8 @@ namespace SolarSystem
 
         //values
         float m_lookSpeedValue = 180.0f;
-        float m_defaultZoomLimitValue = 200000.0f;
-        float m_defaultZoomSpeedValue = 5000000.0f;
+        float m_defaultZoomLimitValue = modified<float>(200000.0f);
+        float m_defaultZoomSpeedValue = modified<float>(5000000.0f);
         float m_zoomLimitValue = m_defaultZoomLimitValue;
         float m_zoomOutLimitValue = m_zoomLimitValue;
         float m_zoomSpeedValue = m_defaultZoomSpeedValue;

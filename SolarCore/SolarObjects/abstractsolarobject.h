@@ -4,6 +4,7 @@
 #include <QObject>
 #include "solarsystemcore.h"
 #include <memory>
+#include <unordered_map>
 
 namespace SolarSystem
 {
@@ -83,6 +84,7 @@ namespace SolarSystem
     //solar objects type
     using SolarObjectPtr = std::shared_ptr<AbstractSolarObject>;
     using SolarObjectsArray = std::vector<SolarObjectPtr>;
+    using SolarObjectsMap = std::unordered_map<SolarObjects, SolarObjectPtr>;
 }
 
 #endif // ABSTRACTSOLAROBJECT_H

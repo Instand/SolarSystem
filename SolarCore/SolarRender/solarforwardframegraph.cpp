@@ -44,9 +44,10 @@ SolarSystem::SolarForwardFrameGraph::SolarForwardFrameGraph(Qt3DCore::QNode* par
     m_sortPolicy->setSortTypes(sortedVector);
 
     setActiveFrameGraph(m_filter);
+    setRenderPolicy(QRenderSettings::RenderPolicy::Always);
 }
 
-void SolarSystem::SolarForwardFrameGraph::setCamera(Qt3DCore::QEntity *camera)
+void SolarSystem::SolarForwardFrameGraph::setCamera(Qt3DCore::QEntity* camera)
 {
     m_cameraSelector->setCamera(camera);
 }
