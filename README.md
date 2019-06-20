@@ -14,7 +14,6 @@ Thanks to Qt Company. <br />
 
 ***Build for Windows/Android***<br />
 Clone/download a project from repository, use QtCreator with Qt 5.10+, enjoy<br />
-Project does not work properly with Qt 5.10.1+ because of Qt3D some fixes<br />
 <br />
 
 ***Project binaries***<br />
