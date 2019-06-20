@@ -1,7 +1,6 @@
 #ifndef SOLARSYSTEMCORE_H
 #define SOLARSYSTEMCORE_H
 
-//only Qt3D materials in use
 #include <QString>
 #include <QStringList>
 #include <QVector3D>
@@ -9,18 +8,18 @@
 
 namespace SolarSystem
 {
-    //store all query strings for db
+    // stores all query strings for db
     struct SolarStrings
     {
-        //db type
+        // db type
         static const QString qSqlLite;
 
-        //help
+        // help
         static const QString dbName;
         static const QString dbFileName;
         static const QString dbFolder;
 
-        //db fields
+        // db fields
         static const QString nameField;
         static const QString type;
         static const QString orbitalSpeed;
@@ -33,7 +32,7 @@ namespace SolarSystem
         static const QString orbitalPeriod;
         static const QString description;
 
-        //SQL commands
+        // SQL commands
         static const QString select;
         static const QString from;
         static const QString where;
@@ -41,7 +40,7 @@ namespace SolarSystem
         static const QString all;
         static QString likeObject(const QString& object);
 
-        //string representation of object type
+        // string representation of object type
         static const QString planet;
         static const QString dwarfPlanet;
         static const QString star;
@@ -51,10 +50,10 @@ namespace SolarSystem
         static const QString galaxy;
         static const QString asteroid;
 
-        //add object types
+        // add object types
     };
 
-    //store different values for code help
+    // stores different values for code help
     struct SolarValues
     {
         static const float solarSystemModifier;
@@ -68,16 +67,17 @@ namespace SolarSystem
         static const float startSize;
         static const float startSpeed;
 
-        //time scale values
+        // time scale values
         static const int year;
         static const int month;
         static const int day;
 
-        //vector values
+        // vector values
         static const QVector3D rollAxis;
         static const QVector3D tiltAxis;
     };
 
+    // calculates value by solar system modifier
     template<typename Result, typename T>
     constexpr Result modified(const T& value)
     {
@@ -100,8 +100,8 @@ namespace SolarSystem
         Description
     };
 
-    //solar system object type
-    enum class SolarSystemObjectType
+    // solar system object type
+    enum class ObjectType
     {
         SolarSystemBody,
         Planet,
@@ -113,8 +113,8 @@ namespace SolarSystem
         Galaxy
     };
 
-    //enum of all solar objects
-    //add new if you need
+    // all solar objects
+    // add new if you need
     enum class SolarObjects
     {
         Sun,
@@ -129,16 +129,16 @@ namespace SolarSystem
         Moon,
         Pluto,
 
-        //add here
+        // add here
         SaturnRing,
         UranusRing,
         EarthCloud,
 
-        //calculate number
+        // number
         SolarSystemView
     };
 
-    //all material types used in solar system project
+    // all material types used in solar system project
     enum class SolarMaterials
     {
         None,
@@ -152,24 +152,23 @@ namespace SolarSystem
         Unlit
     };
 
-    //store default camera settings
+    // stores default camera settings
     namespace CameraSettings
     {
-        //camera up vector
+        // camera up vector
         const QVector3D defaultUp(0, 1, 0);
 
-        //default position
+        // default position
         const QVector3D defaultCameraPosition(SolarValues::solarDistance, SolarValues::solarDistance, SolarValues::solarDistance);
 
-        //near plane/far plane settings
+        // near plane/far plane settings
         const float nearPlane = modified<float>(2500000.0f);
         const float farPlane = modified<float>(20000000.0f);
 
-        //fov
+        // fov
         const int fieldOfView = 60;
     }
 
-    //for planet class
     namespace PlanetSettings
     {
         const float radius = 1.0f;
@@ -178,13 +177,13 @@ namespace SolarSystem
         const int slices = 64;
     }
 
-    //params for DB fields
+    // params for DB fields
     namespace DbParams
     {
         const QStringList paramList = {"", "", "km/s", "kg", "km", "K", "m/s2", "km3", "d", "d", ""};
     }
 
-    //planets math values
+    // planets math values
     namespace SolarObjectsValues
     {
         // Planet Data
@@ -200,13 +199,13 @@ namespace SolarSystem
         // centerOfOrbit - the planet in the center of the orbit
         // (orbital elements based on http://www.stjarnhimlen.se/comp/ppcomp.html)
 
-        //solar system values
+        // solar system values
         namespace SolarSystem
         {
             const QString toString = "Solar System";
         }
 
-        //sun values
+        // sun values
         namespace Sun
         {
             const double radius = 694.439;
@@ -215,7 +214,7 @@ namespace SolarSystem
             const QString toString = "Sun";
         }
 
-        //mercury values
+        // mercury values
         namespace Mercury
         {
             const double radius = 2.433722;
@@ -237,7 +236,7 @@ namespace SolarSystem
             const QString toString = "Mercury";
         }
 
-        //venus values
+        // venus values
         namespace Venus
         {
             const double radius = 6.046079;
@@ -259,7 +258,7 @@ namespace SolarSystem
             const QString toString = "Venus";
         }
 
-        //earth values
+        // earth values
         namespace Earth
         {
             const double radius = 6.371;
@@ -281,7 +280,7 @@ namespace SolarSystem
             const QString toString = "Earth";
         }
 
-        //mars values
+        // mars values
         namespace Mars
         {
             const double radius = 3.389372;
@@ -303,7 +302,7 @@ namespace SolarSystem
             const QString toString = "Mars";
         }
 
-        //jupiter values
+        // jupiter values
         namespace Jupier
         {
             const double radius = 71.41254;
@@ -325,7 +324,7 @@ namespace SolarSystem
             const QString toString = "Jupiter";
         }
 
-        //saturn values
+        // saturn values
         namespace Saturn
         {
             const double radius = 60.19958;
@@ -347,7 +346,7 @@ namespace SolarSystem
             const QString toString = "Saturn";
         }
 
-        //uranus values
+        // uranus values
         namespace Uranus
         {
             const double radius = 25.5286;
@@ -369,7 +368,7 @@ namespace SolarSystem
             const QString toString = "Uranus";
         }
 
-        //neptune values
+        // neptune values
         namespace Neptune
         {
             const double radius = 24.73859;
@@ -391,7 +390,7 @@ namespace SolarSystem
             const QString toString = "Neptune";
         }
 
-        //pluto values
+        // pluto values
         namespace Pluto
         {
             const double radius = 1.187;            //radius
@@ -413,7 +412,7 @@ namespace SolarSystem
             const QString toString = "Pluto";
         }
 
-        //moon values
+        // moon values
         namespace Moon
         {
             const double radius = 1.5424;

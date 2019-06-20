@@ -25,7 +25,7 @@ SolarSystem::CameraController::CameraController(Qt3DCore::QNode* parent):
     m_mouseWheelYAxis(new Qt3DInput::QAxis(this))
 {
 #ifdef Q_OS_ANDROID
-    mouseButtonInput->setButtons(QVector<int>({Qt::LeftButton}));
+    m_mouseButtonInput->setButtons(QVector<int>({Qt::LeftButton}));
 #else
     m_mouseButtonInput->setButtons(QVector<int>({Qt::RightButton}));
 #endif
@@ -33,36 +33,36 @@ SolarSystem::CameraController::CameraController(Qt3DCore::QNode* parent):
     m_mouseButtonInput->setSourceDevice(m_mouseDevice);
     m_mouseButtonAction->addInput(m_mouseButtonInput);
 
-    //axes
+    // axes
 
-    //mouse X
+    // mouse X
     m_mouseXInput->setAxis(Qt3DInput::QMouseDevice::X);
     m_mouseXInput->setSourceDevice(m_mouseDevice);
     m_mouseXAxis->addInput(m_mouseXInput);
 
-    //mouse Y
+    // mouse Y
     m_mouseYInput->setAxis(Qt3DInput::QMouseDevice::Y);
     m_mouseYInput->setSourceDevice(m_mouseDevice);
     m_mouseYAxis->addInput(m_mouseYInput);
 
-    //mouse wheel X
+    // mouse wheel X
     m_mouseWheelXInput->setAxis(Qt3DInput::QMouseDevice::WheelX);
     m_mouseWheelXInput->setSourceDevice(m_mouseDevice);
     m_mouseWheelXAxis->addInput(m_mouseWheelXInput);
 
-    //mouse wheel Y
+    // mouse wheel Y
     mouseWheelYInput->setAxis(Qt3DInput::QMouseDevice::WheelY);
     mouseWheelYInput->setSourceDevice(m_mouseDevice);
     m_mouseWheelYAxis->addInput(mouseWheelYInput);
 
-    //logical device init
+    // logical device init
     m_logicalDevice->addAction(m_mouseButtonAction);
     m_logicalDevice->addAxis(m_mouseXAxis);
     m_logicalDevice->addAxis(m_mouseYAxis);
     m_logicalDevice->addAxis(m_mouseWheelXAxis);
     m_logicalDevice->addAxis(m_mouseWheelYAxis);
 
-    //tick component
+    // tick component
     Qt3DLogic::QFrameAction* frameAction = new Qt3DLogic::QFrameAction(this);
 
     QObject::connect(frameAction, &Qt3DLogic::QFrameAction::triggered, this, &CameraController::onFrameAction);
@@ -136,14 +136,14 @@ void SolarSystem::CameraController::onFrameAction(float deltaTime)
 {
     if (m_viewCamera != nullptr)
     {
-        //right mouse button is pressed/ or touch on mobile
+        // right mouse button is pressed/ or touch on mobile
         if (m_mouseButtonAction->isActive())
         {
             m_viewCamera->panAboutViewCenter(m_mouseXAxis->value() * m_lookSpeedValue * deltaTime, m_cameraUp);
             m_viewCamera->tiltAboutViewCenter(m_mouseYAxis->value() * m_lookSpeedValue * deltaTime);
         }
 
-        //zoom check in
+        // zoom check in
         if ((m_viewCamera->viewCenter() - m_viewCamera->position()).lengthSquared() > (m_zoomLimitValue * m_zoomLimitValue))
         {
             if (m_mouseWheelYAxis->value() > 0)
@@ -153,7 +153,7 @@ void SolarSystem::CameraController::onFrameAction(float deltaTime)
             }
         }
 
-        //zoom check out
+        // zoom check out
         if ((m_viewCamera->viewCenter() - m_viewCamera->position()).lengthSquared() < (m_zoomOutLimitValue * m_zoomOutLimitValue * 1000.0f))
         {
             if (m_mouseWheelYAxis->value() < 0)

@@ -7,7 +7,6 @@ SolarSystem::SolarLight::SolarLight(Qt3DCore::QNode* parent):
     m_lightCamera(new Qt3DRender::QCamera(this)),
     m_intensity(1.0f, 1.0f, 1.0f)
 {
-    //setup camera
     m_lightCamera->setObjectName("lightCameraLens");
     m_lightCamera->setProjectionType(Qt3DRender::QCameraLens::ProjectionType::PerspectiveProjection);
     m_lightCamera->setFieldOfView(30);

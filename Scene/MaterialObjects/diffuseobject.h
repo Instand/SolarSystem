@@ -1,18 +1,18 @@
 #ifndef DIFFUSEOBJECT_H
 #define DIFFUSEOBJECT_H
 
-#include <Scene/solarobject3d.h>
+#include <Scene/object3d.h>
 #include <QDiffuseMapMaterial>
 
 namespace SolarSystem
 {
-    //Represents solar3dobject with diffuse material
-    class DiffuseObject : public SolarObject3D
+    // represents solar3dobject with diffuse material
+    class DiffuseObject : public Object3D
     {
         Q_OBJECT
 
     public:
-        DiffuseObject(Qt3DCore::QNode* parent = nullptr);
+        explicit DiffuseObject(Qt3DCore::QNode* parent = nullptr);
 
     protected:
         virtual void update(float deltaTime) = 0;

@@ -16,5 +16,5 @@ SolarSystem::PlanetRing::PlanetRing(Qt3DCore::QNode* parent):
 void SolarSystem::PlanetRing::update(float deltaTime)
 {
     Q_UNUSED(deltaTime)
-    SolarObject3D::baseBehaviour();
+    Object3D::baseBehaviour();
 }

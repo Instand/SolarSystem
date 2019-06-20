@@ -7,36 +7,35 @@
 
 namespace SolarSystem
 {
-    //represents any solid solar system body effect
+    // represents any solid solar system body effect
     class SolarObjectEffect : public Qt3DRender::QEffect
     {
         Q_OBJECT
 
     public:
-        SolarObjectEffect(Qt3DCore::QNode* parent = nullptr);
+        explicit SolarObjectEffect(Qt3DCore::QNode* parent = nullptr);
 
-        //get/set light
         SolarLight* light() const;
         void setLight(SolarLight* light);
 
-        //get/set shaders source
         QString vertexShaderSource() const;
         QString fragmentShaderSource() const;
+
         void setVertexShaderSource(const QString& source);
         void setFragmentShaderSource(const QString& source);
 
-        //init effect
+        // init effect
         void initialization();
 
     private:
 
-        //standard gl pass
+        // standard gl pass
         Qt3DRender::QRenderPass* m_glPass;
 
-        //light
+        // light
         SolarLight* m_lightObject = nullptr;
 
-        //shaders source
+        // shaders source
         QString m_vertexShaderGL;
         QString m_fragShaderGL;
     };

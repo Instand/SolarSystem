@@ -12,13 +12,13 @@ namespace SolarSystem
     public:
 
         // days time scale calculation
-        inline static float calculateUT(int h, int m = 0, float s = 0)
+        static float calculateUT(int h, int m = 0, float s = 0)
         {
             return (h + m/60.0f + s/3600.0f)/24.0f;
         }
 
         // time scale calculation
-        inline static float calculateTimeScale(int year, int month, int day)
+        static float calculateTimeScale(int year, int month, int day)
         {
             return 367 * year - 7 * (year + (month + 9) / 12) / 4 + 275 * month / 9 + day - 730530;
         }

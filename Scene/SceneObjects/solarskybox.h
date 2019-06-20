@@ -6,7 +6,7 @@
 
 namespace SolarSystem
 {
-    //Represents space
+    // represents space
     class SolarSkyBox : public Qt3DExtras::QSkyboxEntity
     {
         Q_OBJECT

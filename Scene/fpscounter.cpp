@@ -3,10 +3,8 @@
 
 struct SolarSystem::FpsCounter::FpsData
 {
-    //tick element
     Qt3DLogic::QFrameAction* action = nullptr;
 
-    //fps data
     int frameCount = 0;
     float dt = 0;
     float fps = 0;

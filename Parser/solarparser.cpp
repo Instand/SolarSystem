@@ -1,29 +1,29 @@
 #include "solarparser.h"
 
-SolarSystem::SolarSystemObjectType SolarSystem::SolarParser::parseString(const QString &str)
+SolarSystem::ObjectType SolarSystem::SolarParser::parseString(const QString &str)
 {
-    SolarSystemObjectType objectType = SolarSystemObjectType::SolarSystemBody;
+    ObjectType objectType = ObjectType::SolarSystemBody;
 
     if (str == SolarStrings::planet)
-        objectType = SolarSystemObjectType::Planet;
+        objectType = ObjectType::Planet;
 
     if (str == SolarStrings::dwarfPlanet)
-        objectType = SolarSystemObjectType::DwarfPlanet;
+        objectType = ObjectType::DwarfPlanet;
 
     if (str == SolarStrings::star)
-        objectType = SolarSystemObjectType::Star;
+        objectType = ObjectType::Star;
 
     if (str == SolarStrings::moon)
-        objectType = SolarSystemObjectType::Moon;
+        objectType = ObjectType::Moon;
 
     if (str == SolarStrings::asteroid)
-        objectType = SolarSystemObjectType::Asteroid;
+        objectType = ObjectType::Asteroid;
 
     if (str == SolarStrings::galaxy)
-        objectType = SolarSystemObjectType::Galaxy;
+        objectType = ObjectType::Galaxy;
 
     if (str == SolarStrings::ring)
-        objectType = SolarSystemObjectType::Ring;
+        objectType = ObjectType::Ring;
 
     return objectType;
 }
@@ -211,57 +211,46 @@ SolarSystem::SolarObjects SolarSystem::SolarParser::parsePlanetListIndex(int ind
 
     switch (index)
     {
-    //Solar system
     case 0:
         object = SolarObjects::SolarSystemView;
         break;
 
-    //Sun
     case 1:
         object = SolarObjects::Sun;
         break;
 
-    //Mercury
     case 2:
         object = SolarObjects::Mercury;
         break;
 
-    //Venus
     case 3:
         object = SolarObjects::Venus;
         break;
 
-    //Earth
     case 4:
         object = SolarObjects::Earth;
         break;
 
-    //Mars
     case 5:
         object = SolarObjects::Mars;
         break;
 
-    //Jupiter
     case 6:
         object = SolarObjects::Jupiter;
         break;
 
-    //Saturn
     case 7:
         object = SolarObjects::Saturn;
         break;
 
-    //Uranus
     case 8:
         object = SolarObjects::Uranus;
         break;
 
-    //Neptune
     case 9:
         object = SolarObjects::Neptune;
         break;
 
-    //Pluto
     case 10:
         object = SolarObjects::Pluto;
         break;

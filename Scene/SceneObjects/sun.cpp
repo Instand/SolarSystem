@@ -30,7 +30,7 @@ SolarSystem::Sun::Sun(Qt3DCore::QNode* parent):
 
     auto mat = qobject_cast<Qt3DExtras::QTextureMaterial*>(m_material);
 
-    //sun diffuse
+    // sun diffuse
     Qt3DRender::QTextureImage* sunDiffuse = new Qt3DRender::QTextureImage();
     sunDiffuse->setSource(QUrl::fromLocalFile(":/Resources/Images/sun_map.jpg"));
     mat->texture()->addTextureImage(sunDiffuse);
@@ -41,5 +41,5 @@ SolarSystem::Sun::Sun(Qt3DCore::QNode* parent):
 void SolarSystem::Sun::update(float deltaTime)
 {
     Q_UNUSED(deltaTime)
-    SolarObject3D::baseBehaviour();
+    Object3D::baseBehaviour();
 }

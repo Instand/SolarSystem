@@ -2,7 +2,7 @@
 
 const QString SolarSystem::SolarStrings::qSqlLite = "QSQLITE";
 
-//db fields
+// db fields
 const QString SolarSystem::SolarStrings::dbName = "SolarSystem";
 const QString SolarSystem::SolarStrings::dbFileName = "SolarDB.db";
 const QString SolarSystem::SolarStrings::dbFolder = "/Database/";
@@ -18,14 +18,14 @@ const QString SolarSystem::SolarStrings::siderealPeriod = "SiderealPeriod";
 const QString SolarSystem::SolarStrings::orbitalPeriod = "OrbitalPeriod";
 const QString SolarSystem::SolarStrings::description = "Description";
 
-//Sql query
+// Sql query
 const QString SolarSystem::SolarStrings::select = "SELECT ";
 const QString SolarSystem::SolarStrings::from = " FROM ";
 const QString SolarSystem::SolarStrings::where = " WHERE ";
 const QString SolarSystem::SolarStrings::like = " LIKE";
 const QString SolarSystem::SolarStrings::all = "*";
 
-//types
+// types
 const QString SolarSystem::SolarStrings::planet = "Planet";
 const QString SolarSystem::SolarStrings::dwarfPlanet = "Dwarf planet";
 const QString SolarSystem::SolarStrings::star = "Star";
@@ -35,7 +35,7 @@ const QString SolarSystem::SolarStrings::solarSystemBody = "Solar system body";
 const QString SolarSystem::SolarStrings::galaxy = "Galaxy";
 const QString SolarSystem::SolarStrings::asteroid = "Asteroid";
 
-//values
+// values
 const float SolarSystem::SolarValues::solarSystemModifier = 10000.0f;
 
 const int SolarSystem::SolarValues::zero = 0;

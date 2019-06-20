@@ -1,22 +1,25 @@
 #include "solarentity.h"
-#include <SolarCore/cameracontroller.h>
+
+#include <dbconnector.h>
+
 #include <Scene/SceneObjects/solarskybox.h>
-#include <solarsystemdbconnector.h>
-#include <SolarCore/planetscontainer.h>
+
+#include <SolarCore/cameracontroller.h>
+#include <SolarCore/object3dcontainer.h>
 #include <SolarCore/SolarRender/solarforwardframegraph.h>
 #include <SolarCore/SolarRender/solarstandardframegraph.h>
 
 SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),
     m_rootAction(new Qt3DLogic::QFrameAction()),
-    m_planetsContainer(new PlanetsContainer(this)),
+    m_object3DContainer(new Object3DContainer(this)),
     m_fpsCounter(new FpsCounter(this))
 {
-    SolarSystemDBConnector::instance();
+    DBConnector::instance();
 
     addComponent(m_rootAction);
 
-    //scene camera setup
+    // scene camera setup
     m_camera = new Qt3DRender::QCamera(this);
     m_camera->setProjectionType(Qt3DRender::QCameraLens::PerspectiveProjection);
     m_camera->setViewCenter(QVector3D(0.0f, 3.5f, 0.0f));
@@ -27,15 +30,14 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     m_camera->setUpVector(CameraSettings::defaultUp);
     m_camera->setPosition(CameraSettings::defaultCameraPosition);
 
-    //orbit camera controller
+    // orbit camera controller
     auto controller = new SolarSystem::CameraController(this);
     controller->setCamera(m_camera);
     controller->setLookSpeed(controller->lookSpeed() * 1.2f);
 
-    //skybox
     m_skybox = new SolarSkyBox(this);
 
-    //frame graph
+    // frame graph
     m_frameGraph = new SolarStandardFrameGraph(this);
     m_frameGraph->setCamera(m_camera);
 
@@ -44,22 +46,16 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     addComponent(m_frameGraph);
     addComponent(m_inputSettings);
 
-    //math core control
-    SolarMathCore::instance()->setPlanetsContainer(m_planetsContainer);
-    SolarMathCore::instance()->setSolarView(m_camera);
-    SolarMathCore::instance()->setCameraController(controller);
-    SolarMathCore::instance()->setSolarSystemSpeed(SolarSystem::SolarValues::startSpeed);
-    SolarMathCore::instance()->changeSolarSystemScale(SolarSystem::SolarValues::startSize);
+    // math core control
+    MathCore::instance()->setObject3DContainer(m_object3DContainer);
+    MathCore::instance()->setSolarView(m_camera);
+    MathCore::instance()->setCameraController(controller);
+    MathCore::instance()->setSolarSystemSpeed(SolarSystem::SolarValues::startSpeed);
+    MathCore::instance()->changeSolarSystemScale(SolarSystem::SolarValues::startSize);
 
     m_animator = new SolarAnimator(this);
 
-    //animate scene on tick
     QObject::connect(m_rootAction, &Qt3DLogic::QFrameAction::triggered, m_animator, &SolarAnimator::animate);
-}
-
-SolarSystem::SolarEntity::~SolarEntity()
-{
-    delete m_planetsContainer;
 }
 
 SolarSystem::SolarAnimator* SolarSystem::SolarEntity::animator() const
@@ -84,5 +80,5 @@ SolarSystem::FpsCounter* SolarSystem::SolarEntity::counter() const
 
 bool SolarSystem::SolarEntity::databaseStatus() const
 {
-    return SolarSystemDBConnector::instance().status() && SolarSystemDBConnector::instance().isOpen();
+    return DBConnector::instance().status() && DBConnector::instance().isOpen();
 }

@@ -10,7 +10,7 @@ namespace Qt3DExtras
 
 namespace SolarSystem
 {
-    //Represents standard forward frame graph
+    // represents standard forward frame graph
     class SolarStandardFrameGraph : public IFrameGraph
     {
         Q_OBJECT
@@ -18,7 +18,7 @@ namespace SolarSystem
     public:
         explicit SolarStandardFrameGraph(Qt3DCore::QNode* parent = nullptr);
 
-        //sets camera to forward renderer
+        // sets camera to forward renderer
         virtual void setCamera(Qt3DCore::QEntity* camera) override;
 
     private:

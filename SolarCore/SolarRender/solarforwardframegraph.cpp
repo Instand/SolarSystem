@@ -13,12 +13,13 @@
 SolarSystem::SolarForwardFrameGraph::SolarForwardFrameGraph(Qt3DCore::QNode* parent):
     IFrameGraph(parent)
 {
-    //render
+    // render
     m_filter = new Qt3DRender::QTechniqueFilter();
 
     auto* key = new Qt3DRender::QFilterKey();
     key->setName("renderingStyle");
     key->setValue("forward");
+
     m_filter->addMatch(key);
 
     m_surfaceSelector = new Qt3DRender::QRenderSurfaceSelector(m_filter);

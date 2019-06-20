@@ -6,13 +6,13 @@
 
 namespace SolarSystem
 {
-    //represents earth cloud mesh
+    // represents earth cloud mesh
     class EarthCloud : public NormalDiffuseAlphaObject
     {
         Q_OBJECT
 
     public:
-        EarthCloud(Qt3DCore::QNode* parent = nullptr);
+        explicit EarthCloud(Qt3DCore::QNode* parent = nullptr);
 
     protected:
         virtual void update(float deltaTime) override;

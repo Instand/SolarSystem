@@ -5,13 +5,13 @@
 
 namespace SolarSystem
 {
-    //diffuse without light
+    // diffuse without light
     class SolarDiffuseEffect : public Qt3DRender::QEffect
     {
         Q_OBJECT
 
     public:
-        SolarDiffuseEffect(Qt3DCore::QNode* parent = nullptr);
+        explicit SolarDiffuseEffect(Qt3DCore::QNode* parent = nullptr);
     };
 }
 

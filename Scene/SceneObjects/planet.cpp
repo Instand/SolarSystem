@@ -24,5 +24,5 @@ SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
 void SolarSystem::Planet::update(float deltaTime)
 {
     Q_UNUSED(deltaTime)
-    SolarObject3D::baseBehaviour();
+    Object3D::baseBehaviour();
 }

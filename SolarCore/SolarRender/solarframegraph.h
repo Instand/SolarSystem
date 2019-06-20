@@ -17,7 +17,7 @@ namespace Qt3DRender
 
 namespace SolarSystem
 {
-    //represents base active frame graph
+    // represents base active frame graph
     class SolarFrameGraph : public Qt3DRender::QRenderSettings
     {
         Q_OBJECT
@@ -25,38 +25,38 @@ namespace SolarSystem
     public:
         explicit SolarFrameGraph(Qt3DCore::QNode* parent = nullptr);
 
-        //cameras
+        // cameras
         void setViewCamera(Qt3DRender::QCamera* viewCamera);
         Qt3DRender::QCamera* viewCamera() const;
 
         void setLightCamera(Qt3DRender::QCamera* lightCamera);
         Qt3DRender::QCamera* lightCamera() const;
 
-        //shadow texture
+        // shadow texture
         Qt3DRender::QTexture2D* shadowTexture() const;
 
     private:
 
-        //view port
+        // view port
         Qt3DRender::QViewport* m_viewPort;
 
-        //texture
+        // texture
         Qt3DRender::QTexture2D* m_texture;
 
-        //selector
+        // selector
         Qt3DRender::QRenderSurfaceSelector* m_selector;
 
-        //filter
+        // filter
         Qt3DRender::QTechniqueFilter* m_techniqueFilter;
 
-        //pass
+        // pass
         Qt3DRender::QRenderPassFilter* m_renderPassShadowFilter;
         Qt3DRender::QRenderPassFilter* m_renderPassForwardFilter;
 
-        //target selector
+        // target selector
         Qt3DRender::QRenderTargetSelector* m_targetSelector;
 
-        //camera selectors
+        // camera selectors
         Qt3DRender::QCameraSelector* m_lightCameraSelector;
         Qt3DRender::QCameraSelector* m_viewCameraSelector;
     };

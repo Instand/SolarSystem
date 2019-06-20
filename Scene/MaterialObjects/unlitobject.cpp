@@ -4,7 +4,7 @@
 #include <QObjectPicker>
 
 SolarSystem::UnlitObject::UnlitObject(Qt3DCore::QNode* parent):
-    SolarObject3D(parent)
+    Object3D(parent)
 {
     m_materialType = SolarMaterials::Unlit;
     m_material = new Qt3DExtras::QTextureMaterial();

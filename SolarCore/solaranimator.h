@@ -1,7 +1,7 @@
 #ifndef SOLARANIMATOR_H
 #define SOLARANIMATOR_H
 
-#include <SolarCore/solarmathcore.h>
+#include <SolarCore/mathcore.h>
 #include <QTimer>
 
 class QPropertyAnimation;
@@ -9,7 +9,7 @@ class QParallelAnimationGroup;
 
 namespace SolarSystem
 {
-    //animates and controlls mathcore
+    // animates and controlls mathcore
     class SolarAnimator : public QObject
     {
         Q_OBJECT
@@ -25,80 +25,80 @@ namespace SolarSystem
     public:
         explicit SolarAnimator(QObject* parent = nullptr);
 
-        //get solar time
+        // returns solar time
         QDateTime solarTime() const;
 
-        //get planet string
+        // returns planet string
         QString viewSolarObjectString() const;
 
-        //get cam view center
+        // returns cam view center
         QVector3D cameraViewCenter() const;
 
-        //get cam position
+        // returns cam position
         QVector3D cameraPosition() const;
 
-        //get solar system speed
+        // returns solar system speed
         float solarSystemSpeed() const;
 
-        //get solar extra speed
+        // returns solar extra speed
         double solarSystemExtraSpeed() const;
 
-        //get solar object info
+        // returns solar object info
         QString info() const;
 
     private:
 
-        //selected solar object
+        // selected solar object
         SolarObjects m_currentSolarObject = SolarObjects::SolarSystemView;
 
-        //stores string
+        // stores string
         QString m_solarObjStr = SolarObjectsValues::SolarSystem::toString;
 
-        //animation flag
+        // animation flag
         bool m_animated = false;
 
-        //animation for view center
+        // animation for view center
         QPropertyAnimation* m_viewCenterAnimation;
 
-        //animation for position
+        // animation for position
         QPropertyAnimation* m_viewPositionAnimation;
 
-        //group animation
+        // group animation
         QParallelAnimationGroup* m_cameraAnimation;
 
-        //speed animation
+        // speed animation
         QPropertyAnimation* m_solarSpeedAnimation;
 
-        //store solar systme speed
+        // store solar systme speed
         float m_solarSpeed = 0;
 
     public slots:
 
-        //main call for solar system animation
+        // main call for solar system animation
         void animate(float deltaTime);
 
-        //set current solar speed, in percents
+        // set current solar speed, in percents
         void setSolarSpeed(int value);
 
-        //set current planets size, in percents
+        // set current planets size, in percents
         void setSolarSize(int value);
 
-        //set cam view center
+        // set cam view center
         void setCameraViewCenter(int index);
 
-        //set camera view center
+        // set camera view center
         void setCameraViewCenter(const QVector3D& position);
 
-        //set camera view position
+        // set camera view position
         void setCameraPositon(const QVector3D& position);
 
-        //set solar system speed
+        // set solar system speed
         void setSolarSystemSpeed(float speed);
 
-        //change solar system extra speed
+        // change solar system extra speed
         void changeExtraSpeed();
 
-        //reset to x1
+        // reset to x1
         void resetExtraSpeed();
 
     signals:

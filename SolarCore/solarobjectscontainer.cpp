@@ -1,18 +1,21 @@
 #include "solarobjectscontainer.h"
-#include "Parser/solarparser.h"
-#include "SolarCore/solarobjectsfactory.h"
-#include "SolarCore/SolarObjects/solarobjects.h"
+
+#include <Parser/solarparser.h>
+
+#include <SolarCore/solarobjectsfactory.h>
+#include <SolarCore/SolarObjects/solarobjects.h>
+
 #include <QDebug>
 
-SolarSystem::SolarObjectsContainer::SolarObjectsContainer(QObject *parent):
+SolarSystem::SolarObjectsContainer::SolarObjectsContainer(QObject* parent):
     QObject(parent)
 {
-    //create all maths solar system objects
+    // create all maths solar system objects
 
-    //stars
+    // stars
     m_solarObjects.emplace(std::make_pair(SolarObjects::Sun, SolarObjectsFactory::create<Stars::Sun>()));
 
-    //planets
+    // planets
     m_solarObjects.emplace(std::make_pair(SolarObjects::Mercury, SolarObjectsFactory::create<Planets::Mercury>()));
     m_solarObjects.emplace(std::make_pair(SolarObjects::Venus, SolarObjectsFactory::create<Planets::Venus>()));
     m_solarObjects.emplace(std::make_pair(SolarObjects::Earth, SolarObjectsFactory::create<Planets::Earth>()));
@@ -23,7 +26,7 @@ SolarSystem::SolarObjectsContainer::SolarObjectsContainer(QObject *parent):
     m_solarObjects.emplace(std::make_pair(SolarObjects::Uranus, SolarObjectsFactory::create<Planets::Uranus>()));
     m_solarObjects.emplace(std::make_pair(SolarObjects::Pluto, SolarObjectsFactory::create<Planets::Pluto>()));
 
-    //moons
+    // moons
     m_solarObjects.emplace(std::make_pair(SolarObjects::Moon, SolarObjectsFactory::create<Moons::Moon>()));
 }
 

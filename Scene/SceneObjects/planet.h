@@ -5,13 +5,13 @@
 
 namespace SolarSystem
 {
-    //base class for solar planets
+    // base class for solar planets
     class Planet : public NormalDiffuseObject
     {
         Q_OBJECT
 
     public:
-        Planet(Qt3DCore::QNode* parent = nullptr);
+        explicit Planet(Qt3DCore::QNode* parent = nullptr);
 
     protected:
         virtual void update(float deltaTime) override;

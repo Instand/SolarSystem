@@ -1,6 +1,6 @@
 #include "solarobjects.h"
 
-SolarSystem::Stars::Sun::Sun(QObject *parent):
+SolarSystem::Stars::Sun::Sun(QObject* parent):
     AbstractSolarObject(parent)
 {
     initialize();
@@ -27,7 +27,7 @@ void SolarSystem::Stars::Sun::initialize()
     m_objectType = SolarObjects::Sun;
 }
 
-SolarSystem::Planets::Mercury::Mercury(QObject *parent):
+SolarSystem::Planets::Mercury::Mercury(QObject* parent):
     AbstractSolarObject(parent)
 {
     initialize();
@@ -54,7 +54,7 @@ void SolarSystem::Planets::Mercury::initialize()
     m_objectType = SolarObjects::Mercury;
 }
 
-SolarSystem::Planets::Venus::Venus(QObject *parent):
+SolarSystem::Planets::Venus::Venus(QObject* parent):
     AbstractSolarObject(parent)
 {
     initialize();
@@ -81,7 +81,7 @@ void SolarSystem::Planets::Venus::initialize()
     m_objectType = SolarObjects::Venus;
 }
 
-SolarSystem::Planets::Earth::Earth(QObject *parent):
+SolarSystem::Planets::Earth::Earth(QObject* parent):
     AbstractSolarObject(parent)
 {
     initialize();
@@ -108,7 +108,7 @@ void SolarSystem::Planets::Earth::initialize()
     m_objectType = SolarObjects::Earth;
 }
 
-SolarSystem::Planets::Mars::Mars(QObject *parent):
+SolarSystem::Planets::Mars::Mars(QObject* parent):
     AbstractSolarObject(parent)
 {
     initialize();
@@ -135,7 +135,7 @@ void SolarSystem::Planets::Mars::initialize()
     m_objectType = SolarObjects::Mars;
 }
 
-SolarSystem::Planets::Jupiter::Jupiter(QObject *parent):
+SolarSystem::Planets::Jupiter::Jupiter(QObject* parent):
     AbstractSolarObject(parent)
 {
     initialize();
@@ -162,7 +162,7 @@ void SolarSystem::Planets::Jupiter::initialize()
     m_objectType = SolarObjects::Jupiter;
 }
 
-SolarSystem::Planets::Saturn::Saturn(QObject *parent):
+SolarSystem::Planets::Saturn::Saturn(QObject* parent):
     AbstractSolarObject(parent)
 {
     initialize();
@@ -189,7 +189,7 @@ void SolarSystem::Planets::Saturn::initialize()
     m_objectType = SolarObjects::Saturn;
 }
 
-SolarSystem::Planets::Uranus::Uranus(QObject *parent):
+SolarSystem::Planets::Uranus::Uranus(QObject* parent):
     AbstractSolarObject(parent)
 {
     initialize();
@@ -216,7 +216,7 @@ void SolarSystem::Planets::Uranus::initialize()
     m_objectType = SolarObjects::Uranus;
 }
 
-SolarSystem::Planets::Neptune::Neptune(QObject *parent):
+SolarSystem::Planets::Neptune::Neptune(QObject* parent):
     AbstractSolarObject(parent)
 {
     initialize();
@@ -243,7 +243,7 @@ void SolarSystem::Planets::Neptune::initialize()
     m_objectType = SolarObjects::Neptune;
 }
 
-SolarSystem::Moons::Moon::Moon(QObject *parent):
+SolarSystem::Moons::Moon::Moon(QObject* parent):
     AbstractSolarObject(parent)
 {
     initialize();
@@ -270,7 +270,7 @@ void SolarSystem::Moons::Moon::initialize()
     m_objectType = SolarObjects::Moon;
 }
 
-SolarSystem::Planets::Pluto::Pluto(QObject *parent):
+SolarSystem::Planets::Pluto::Pluto(QObject* parent):
     AbstractSolarObject(parent)
 {
     initialize();

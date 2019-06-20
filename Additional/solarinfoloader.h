@@ -9,7 +9,7 @@ class QJSEngine;
 
 namespace SolarSystem
 {
-    ///Loads info from file to QML
+    /// loads info from file to QML
     class SolarInfoLoader final : public QObject
     {
         Q_OBJECT
@@ -17,10 +17,10 @@ namespace SolarSystem
     public:
         explicit SolarInfoLoader(QObject* parent = nullptr);
 
-        //loads info
+        // loads info
         Q_INVOKABLE QString loadInfo() const;
 
-        //loads info and inserts version to it
+        // loads info and inserts version to it
         Q_INVOKABLE QString loadInfo(const QString& insertVersion) const;
     };
 

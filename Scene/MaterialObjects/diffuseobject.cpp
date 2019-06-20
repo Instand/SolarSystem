@@ -3,7 +3,7 @@
 #include <QAbstractTexture>
 
 SolarSystem::DiffuseObject::DiffuseObject(Qt3DCore::QNode* parent):
-    SolarObject3D(parent)
+    Object3D(parent)
 {
     m_materialType = SolarMaterials::Diffuse;
     m_material = new Qt3DExtras::QDiffuseMapMaterial();

@@ -16,12 +16,10 @@ SolarSystem::SolarFrameGraph::SolarFrameGraph(Qt3DCore::QNode* parent):
     QRenderSettings(parent)
 {
     m_viewPort = new Qt3DRender::QViewport(this);
-    m_viewPort->setNormalizedRect(QRectF(0, 0, 1.0f, 1.0f));
+    m_viewPort->setNormalizedRect(QRectF(0, 0, 1.0, 1.0));
 
-    //create surface selector
     m_selector = new Qt3DRender::QRenderSurfaceSelector(m_viewPort);
 
-    //create technique filter
     m_techniqueFilter = new Qt3DRender::QTechniqueFilter(m_selector);
 
     auto* desktopFilter = new Qt3DRender::QFilterKey(m_techniqueFilter);
@@ -30,7 +28,7 @@ SolarSystem::SolarFrameGraph::SolarFrameGraph(Qt3DCore::QNode* parent):
 
     m_techniqueFilter->addMatch(desktopFilter);
 
-    //create render pass filter
+    // create render pass filter
     m_renderPassShadowFilter = new Qt3DRender::QRenderPassFilter(m_techniqueFilter);
 
     auto* shadowMapFilter = new Qt3DRender::QFilterKey(m_renderPassShadowFilter);
@@ -39,16 +37,16 @@ SolarSystem::SolarFrameGraph::SolarFrameGraph(Qt3DCore::QNode* parent):
 
     m_renderPassShadowFilter->addMatch(shadowMapFilter);
 
-    //create target selector
+    // create target selector
     m_targetSelector = new Qt3DRender::QRenderTargetSelector(m_renderPassShadowFilter);
 
-    //render target
+    // render target
     auto* renderTarget = new Qt3DRender::QRenderTarget(m_targetSelector);
     auto* targetOutput = new Qt3DRender::QRenderTargetOutput(renderTarget);
     targetOutput->setObjectName("depth");
     targetOutput->setAttachmentPoint(Qt3DRender::QRenderTargetOutput::Depth);
 
-    //create shadow texture
+    // create shadow texture
     m_texture = new Qt3DRender::QTexture2D;
     m_texture->setFormat(Qt3DRender::QAbstractTexture::D24);
     m_texture->setGenerateMipMaps(false);
@@ -62,12 +60,12 @@ SolarSystem::SolarFrameGraph::SolarFrameGraph(Qt3DCore::QNode* parent):
     targetOutput->setTexture(m_texture);
     renderTarget->addOutput(targetOutput);
 
-    //buffer
+    // buffer
     auto* clearBuffer = new Qt3DRender::QClearBuffers(m_targetSelector);
     clearBuffer->setBuffers(Qt3DRender::QClearBuffers::DepthBuffer);
     m_lightCameraSelector = new Qt3DRender::QCameraSelector(clearBuffer);
 
-    //forward render pass fitler
+    // forward render pass fitler
     m_renderPassForwardFilter = new Qt3DRender::QRenderPassFilter(m_selector);
 
     auto* forwardFilter = new Qt3DRender::QFilterKey(m_renderPassForwardFilter);
@@ -76,7 +74,7 @@ SolarSystem::SolarFrameGraph::SolarFrameGraph(Qt3DCore::QNode* parent):
 
     m_renderPassForwardFilter->addMatch(forwardFilter);
 
-    //buffer
+    // buffer
     auto* forwardClearBuffer = new Qt3DRender::QClearBuffers(m_renderPassForwardFilter);
     forwardClearBuffer->setBuffers(Qt3DRender::QClearBuffers::ColorDepthBuffer);
 

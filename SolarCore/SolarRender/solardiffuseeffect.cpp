@@ -11,7 +11,7 @@
 SolarSystem::SolarDiffuseEffect::SolarDiffuseEffect(Qt3DCore::QNode* parent):
     QEffect(parent)
 {
-    //create filter keys
+    // create filter keys
     auto* desktopKey = new Qt3DRender::QFilterKey(this);
     desktopKey->setName("name");
     desktopKey->setValue("Desktop");
@@ -20,27 +20,27 @@ SolarSystem::SolarDiffuseEffect::SolarDiffuseEffect(Qt3DCore::QNode* parent):
     forwardKey->setName("pass");
     forwardKey->setValue("forward");
 
-    //create standard gl pass
+    // create standard gl pass
     Qt3DRender::QRenderPass* glPass = new Qt3DRender::QRenderPass(this);
     glPass->setObjectName("glPass");
     glPass->addFilterKey(forwardKey);
 
-    //standard gl pass shader program
+    // standard gl pass shader program
     Qt3DRender::QShaderProgram* glPassProgram = new Qt3DRender::QShaderProgram(glPass);
     glPassProgram->setVertexShaderCode(Qt3DRender::QShaderProgram::loadSource(QUrl::fromLocalFile(":/Resources/Shaders/diffuse.vert")));
     glPassProgram->setFragmentShaderCode(Qt3DRender::QShaderProgram::loadSource(QUrl::fromLocalFile(":/Resources/Shaders/diffuse.frag")));
 
-    //add gl pass program
+    // add gl pass program
     glPass->setShaderProgram(glPassProgram);
 
     //**************************
-    //tecnique
+    // tecnique
     //**************************
 
-    //create tecniques
+    // create tecniques
     Qt3DRender::QTechnique* openglTechnique = new Qt3DRender::QTechnique(this);
 
-    //setup api
+    // setup api
     auto* api = openglTechnique->graphicsApiFilter();
     api->setApi(Qt3DRender::QGraphicsApiFilter::OpenGL);
     api->setProfile(Qt3DRender::QGraphicsApiFilter::CoreProfile);

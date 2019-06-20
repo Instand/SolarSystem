@@ -8,7 +8,7 @@
 
 namespace SolarSystem
 {
-    //simple presentation of math solar object
+    // simple presentation of math solar object
     class AbstractSolarObject : public QObject
     {
         Q_OBJECT
@@ -17,7 +17,6 @@ namespace SolarSystem
         explicit AbstractSolarObject(QObject* parent = nullptr);
         virtual ~AbstractSolarObject();
 
-        //getters + setters
         double radius() const;
         void setRadius(double radius);
 
@@ -54,8 +53,6 @@ namespace SolarSystem
         SolarObjects object() const;
 
     protected:
-
-        //main data
         double m_radius = 0;
         double m_tilt = 0;
         double m_n1 = 0;
@@ -78,10 +75,11 @@ namespace SolarSystem
         SolarObjects m_centerOfOrbit;
         SolarObjects m_objectType;
 
+        // derived class should override and call this at constructor
         virtual void initialize() = 0;
     };
 
-    //solar objects type
+    // solar objects type
     using SolarObjectPtr = std::shared_ptr<AbstractSolarObject>;
     using SolarObjectsArray = std::vector<SolarObjectPtr>;
     using SolarObjectsMap = std::unordered_map<SolarObjects, SolarObjectPtr>;

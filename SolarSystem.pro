@@ -16,18 +16,18 @@ CONFIG += resources_big
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    solarsystemobject.cpp \
-    solarsystemdbconnector.cpp \
+    object.cpp \
+    dbconnector.cpp \
     solarsystemcore.cpp \
     Parser/solarparser.cpp \
     Scene/SceneObjects/emptysolarobject.cpp \
     Scene/SceneObjects/solarskybox.cpp \
-    SolarCore/solarmathcore.cpp \
+    SolarCore/mathcore.cpp \
     SolarCore/SolarObjects/solarobjects.cpp \
     SolarCore/SolarObjects/abstractsolarobject.cpp \
     SolarCore/solarobjectscontainer.cpp \
     Scene/SceneObjects/planet.cpp \
-    SolarCore/planetscontainer.cpp \
+    SolarCore/object3dcontainer.cpp \
     SolarCore/solaranimator.cpp \
     Scene/solarentity.cpp \
     UI/solarquickui.cpp \
@@ -49,23 +49,23 @@ SOURCES += main.cpp \
     Scene/MaterialObjects/unlitobject.cpp \
     Scene/fpscounter.cpp \
     SolarCore/SolarRender/solarstandardframegraph.cpp \
-    Scene/solarobject3d.cpp
+    Scene/object3d.cpp
 
 HEADERS += \
-    SolarCore/objectbuilder.h \
-    solarsystemobject.h \
-    solarsystemdbconnector.h \
+    SolarCore/object3dbuilder.h \
+    object.h \
+    dbconnector.h \
     solarsystemcore.h \
     Parser/solarparser.h \
     Scene/SceneObjects/emptysolarobject.h \
     Scene/SceneObjects/solarskybox.h \
-    SolarCore/solarmathcore.h \
+    SolarCore/mathcore.h \
     SolarCore/SolarObjects/abstractsolarobject.h \
     SolarCore/SolarObjects/solarobjects.h \
     SolarCore/solarobjectsfactory.h \
     SolarCore/solarobjectscontainer.h \
     Scene/SceneObjects/planet.h \
-    SolarCore/planetscontainer.h \
+    SolarCore/object3dcontainer.h \
     SolarCore/solaranimator.h \
     Scene/solarentity.h \
     UI/solarquickui.h \
@@ -88,7 +88,7 @@ HEADERS += \
     Scene/fpscounter.h \
     SolarCore/SolarRender/solarstandardframegraph.h \
     Interface/iframegraph.h \
-    Scene/solarobject3d.h \
+    Scene/object3d.h \
     SolarCore/utils.h
 
 RESOURCES += \
@@ -121,12 +121,12 @@ DISTFILES += \
     QML/UserOptions.qml
 
 
-#for win app icon
+# for win app icon
 win32 {
     RC_ICONS += Resources/Images/solarsystem_icon.ico
 }
 
-#android setup
+# android setup
 android {
     QT += androidextras
     deployment.files += Resources/Database/SolarDB.db

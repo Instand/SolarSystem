@@ -7,7 +7,7 @@ namespace SolarSystem
 {
     namespace Stars
     {
-        //Sun the center of solar sytem
+        // Sun the center of solar sytem
         class Sun final : public AbstractSolarObject
         {
             Q_OBJECT
@@ -22,7 +22,6 @@ namespace SolarSystem
 
     namespace Planets
     {
-        //Mercury
         class Mercury final : public AbstractSolarObject
         {
             Q_OBJECT
@@ -34,7 +33,6 @@ namespace SolarSystem
             virtual void initialize() override;
         };
 
-        //Venus
         class Venus final : public AbstractSolarObject
         {
             Q_OBJECT
@@ -46,7 +44,6 @@ namespace SolarSystem
             virtual void initialize() override;
         };
 
-        //Earth
         class Earth final : public AbstractSolarObject
         {
             Q_OBJECT
@@ -58,7 +55,6 @@ namespace SolarSystem
             virtual void initialize() override;
         };
 
-        //Mars
         class Mars final : public AbstractSolarObject
         {
             Q_OBJECT
@@ -70,7 +66,6 @@ namespace SolarSystem
             virtual void initialize() override;
         };
 
-        //Jupiter
         class Jupiter final : public AbstractSolarObject
         {
             Q_OBJECT
@@ -82,7 +77,6 @@ namespace SolarSystem
             virtual void initialize() override;
         };
 
-        //Saturn
         class Saturn final : public AbstractSolarObject
         {
             Q_OBJECT
@@ -94,7 +88,6 @@ namespace SolarSystem
             virtual void initialize() override;
         };
 
-        //Uranus
         class Uranus final : public AbstractSolarObject
         {
             Q_OBJECT
@@ -106,7 +99,6 @@ namespace SolarSystem
             virtual void initialize() override;
         };
 
-        //Neptune
         class Neptune final : public AbstractSolarObject
         {
             Q_OBJECT
@@ -118,7 +110,6 @@ namespace SolarSystem
             virtual void initialize() override;
         };
 
-        //Pluto
         class Pluto final : public AbstractSolarObject
         {
             Q_OBJECT

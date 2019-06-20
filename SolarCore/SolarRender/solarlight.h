@@ -11,24 +11,24 @@ namespace Qt3DRender
 
 namespace SolarSystem
 {
-    //represents point light
+    // represents point light
     class SolarLight : public Qt3DCore::QEntity
     {
         Q_OBJECT
 
     public:
-        SolarLight(Qt3DCore::QNode* parent = nullptr);
+        explicit SolarLight(Qt3DCore::QNode* parent = nullptr);
 
-        //get camera
+        // returns camera
         Qt3DRender::QCamera* camera() const;
 
-        //PV matrix
+        // PV matrix
         QMatrix4x4 lightViewProjection() const;
 
-        //get intensity
+        // returns intensity
         QVector3D intensity() const;
 
-        //set intensity
+        // set intensity
         void setIntensity(const QVector3D& intensity);
 
     private:

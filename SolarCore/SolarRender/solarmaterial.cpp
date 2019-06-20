@@ -3,7 +3,7 @@
 SolarSystem::SolarMaterial::SolarMaterial(Qt3DCore::QNode* parent):
     QMaterial(parent)
 {
-    //main params
+    // main params
     m_ambientColorParam = new Qt3DRender::QParameter(this);
     m_ambientColorParam->setName("ambient");
     m_ambientColorParam->setValue(QVector3D(m_ambientColor.redF(), m_ambientColor.blueF(), m_ambientColor.greenF()));
@@ -24,7 +24,7 @@ SolarSystem::SolarMaterial::SolarMaterial(Qt3DCore::QNode* parent):
     m_opacityParam->setName("opacity");
     m_opacityParam->setValue(m_opacity);
 
-    //create diffuse texture
+    // create diffuse texture
     m_diffuseTexture2D = new Qt3DRender::QTexture2D();
     m_diffuseTexture2D->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
     m_diffuseTexture2D->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
@@ -33,11 +33,11 @@ SolarSystem::SolarMaterial::SolarMaterial(Qt3DCore::QNode* parent):
     m_diffuseTexture2D->setGenerateMipMaps(true);
     m_diffuseTexture2D->setMaximumAnisotropy(16.0f);
 
-    //create diffuse image
+    // create diffuse image
     m_diffuseImage = new Qt3DRender::QTextureImage(m_diffuseTexture2D);
     m_diffuseImage->setSource(m_diffuseTextureSource);
 
-    //create texture parameter
+    // create texture parameter
     m_diffuseTexture2D->addTextureImage(m_diffuseImage);
     m_diffuseTextureParam = new Qt3DRender::QParameter("diffuseTexture", m_diffuseTexture2D, this);
 
@@ -48,11 +48,11 @@ SolarSystem::SolarMaterial::SolarMaterial(Qt3DCore::QNode* parent):
     m_normalTexture2D->wrapMode()->setY(Qt3DRender::QTextureWrapMode::Repeat);
     m_normalTexture2D->setMaximumAnisotropy(16.0f);
 
-    //create normal image
+    // create normal image
     m_normalImage = new Qt3DRender::QTextureImage(m_normalTexture2D);
     m_normalImage->setSource(m_normalTextureSource);
 
-    //create normal parameter
+    // create normal parameter
     m_normalTexture2D->addTextureImage(m_normalImage);
     m_normalTextureParam = new Qt3DRender::QParameter("normalTexture", m_normalTexture2D, this);
 

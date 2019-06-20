@@ -5,13 +5,13 @@
 
 namespace SolarSystem
 {
-    //Represents a planet ring, for example saturn and uranus rings
+    // represents a planet ring, for example saturn and uranus rings
     class PlanetRing : public NormalDiffuseAlphaObject
     {
         Q_OBJECT
 
     public:
-        PlanetRing(Qt3DCore::QNode* parent = nullptr);
+        explicit PlanetRing(Qt3DCore::QNode* parent = nullptr);
 
     protected:
         virtual void update(float deltaTime) override;

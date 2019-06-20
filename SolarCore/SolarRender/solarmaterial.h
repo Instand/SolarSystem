@@ -11,15 +11,14 @@
 
 namespace SolarSystem
 {
-    //represents base solar material
+    // represents base solar material
     class SolarMaterial : public Qt3DRender::QMaterial
     {
         Q_OBJECT
 
     public:
-        SolarMaterial(Qt3DCore::QNode* parent = nullptr);
+        explicit SolarMaterial(Qt3DCore::QNode* parent = nullptr);
 
-        //get interface
         QColor ambientColor() const;
         QColor specularColor() const;
         QString diffuseTextureSource() const;
@@ -28,7 +27,6 @@ namespace SolarSystem
         float textureScale() const;
         float opacity() const;
 
-        //set interface
         void setAmbient(QColor color);
         void setSpecular(QColor color);
         void setDiffuseTextureSource(const QString& source);
@@ -38,8 +36,6 @@ namespace SolarSystem
         void setOpacity(float opacity);
 
     private:
-
-        //main params
         Qt3DRender::QParameter* m_ambientColorParam;
         Qt3DRender::QParameter* m_specularColorParam;
         Qt3DRender::QParameter* m_shininessParam;
@@ -48,7 +44,6 @@ namespace SolarSystem
         Qt3DRender::QParameter* m_textureScaleParam;
         Qt3DRender::QParameter* m_opacityParam;
 
-        //data
         QColor m_ambientColor = QColor::fromRgbF(0.1f, 0.1f, 0.1f, 1.0f);
         QColor m_specularColor = QColor::fromRgbF(0.5f, 0.5f, 0.5f, 1.0f);
         float m_shininess = 150.0f;
@@ -57,7 +52,7 @@ namespace SolarSystem
         float m_textureScale = 1.0f;
         float m_opacity = 1.0f;
 
-        //textures
+        // textures
         Qt3DRender::QTexture2D* m_diffuseTexture2D;
         Qt3DRender::QTexture2D* m_normalTexture2D;
         Qt3DRender::QTextureImage* m_diffuseImage;

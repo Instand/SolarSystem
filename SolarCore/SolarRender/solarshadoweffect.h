@@ -8,37 +8,35 @@
 
 namespace SolarSystem
 {
-    //repsents shadow map effect
+    // repsents shadow map effect
     class SolarShadowEffect : public Qt3DRender::QEffect
     {
         Q_OBJECT
 
     public:
-        SolarShadowEffect(Qt3DCore::QNode* parent = nullptr);
+        explicit SolarShadowEffect(Qt3DCore::QNode* parent = nullptr);
 
-        //get/set light
         SolarLight* light() const;
         void setLight(SolarLight* light);
 
-        //get/set shadow texture
         Qt3DRender::QTexture2D* shadowTexture() const;
         void setShadowTexture(Qt3DRender::QTexture2D* texture);
 
-        //init effect
+        // init effect
         void initialization();
 
     private:
 
-        //1t shadow pass
+        // 1t shadow pass
         Qt3DRender::QRenderPass* m_shadowPass;
 
-        //2d standard gl pass
+        // 2d standard gl pass
         Qt3DRender::QRenderPass* m_glPass;
 
-        //light
+        // light
         SolarLight* m_lightObject = nullptr;
 
-        //texture
+        // texture
         Qt3DRender::QTexture2D* m_shadowTexture = nullptr;
     };
 }

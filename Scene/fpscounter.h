@@ -5,7 +5,7 @@
 
 namespace SolarSystem
 {
-    ///Caclcualtes fps
+    /// caclcualtes fps
     class FpsCounter : public Qt3DCore::QEntity
     {
         Q_OBJECT
@@ -16,18 +16,16 @@ namespace SolarSystem
         explicit FpsCounter(Qt3DCore::QNode* parent = nullptr);
         virtual ~FpsCounter();
 
-        ///returns fps value
+        /// returns fps value
         int fps() const;
 
     private:
-
-        //fps data
         struct FpsData;
         FpsData* m_data;
 
     signals:
 
-        ///fps can be read
+        /// fps can be read
         void fpsChanged(int fps);
     };
 }

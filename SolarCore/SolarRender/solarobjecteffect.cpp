@@ -28,7 +28,7 @@ void SolarSystem::SolarObjectEffect::initialization()
 {
     if (m_lightObject != nullptr)
     {
-        //create params
+        // create params
         auto* lightViewParam = new Qt3DRender::QParameter(this);
         lightViewParam->setName("lightViewProjection");
         lightViewParam->setValue(m_lightObject->lightViewProjection());
@@ -41,12 +41,12 @@ void SolarSystem::SolarObjectEffect::initialization()
         lightInt->setName("lightIntensity");
         lightInt->setValue(m_lightObject->intensity());
 
-        //add params
+        // add params
         addParameter(lightViewParam);
         addParameter(lightPos);
         addParameter(lightInt);
 
-        //create filter keys
+        // create filter keys
         auto* desktopKey = new Qt3DRender::QFilterKey(this);
         desktopKey->setName("name");
         desktopKey->setValue("Desktop");
@@ -55,27 +55,27 @@ void SolarSystem::SolarObjectEffect::initialization()
         forwardKey->setName("pass");
         forwardKey->setValue("forward");
 
-        //create standard gl pass
+        // create standard gl pass
         m_glPass = new Qt3DRender::QRenderPass(this);
         m_glPass->setObjectName("glPass");
         m_glPass->addFilterKey(forwardKey);
 
-        //standard gl pass shader program
+        // standard gl pass shader program
         Qt3DRender::QShaderProgram* glPassProgram = new Qt3DRender::QShaderProgram(m_glPass);
         glPassProgram->setVertexShaderCode(Qt3DRender::QShaderProgram::loadSource(QUrl::fromLocalFile(m_vertexShaderGL)));
         glPassProgram->setFragmentShaderCode(Qt3DRender::QShaderProgram::loadSource(QUrl::fromLocalFile(m_fragShaderGL)));
 
-        //add gl pass program
+        // add gl pass program
         m_glPass->setShaderProgram(glPassProgram);
 
         //**************************
-        //tecnique
+        // tecnique
         //**************************
 
-        //create tecniques
+        // create tecniques
         Qt3DRender::QTechnique* openglTechnique = new Qt3DRender::QTechnique(this);
 
-        //setup api
+        // setup api
         auto* api = openglTechnique->graphicsApiFilter();
         api->setApi(Qt3DRender::QGraphicsApiFilter::OpenGL);
         api->setProfile(Qt3DRender::QGraphicsApiFilter::CoreProfile);

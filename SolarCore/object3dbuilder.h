@@ -1,5 +1,5 @@
-#ifndef PLANETBUILDER_H
-#define PLANETBUILDER_H
+#ifndef OBJECT3DBUILDER_H
+#define OBJECT3DBUILDER_H
 
 #include <Qt3DRender/QTexture>
 
@@ -11,35 +11,35 @@
 namespace SolarSystem
 {
     template <typename Object, typename Material>
-    class ObjectBuilder
+    class Object3DBuilder
     {
     public:
-        ObjectBuilder() {}
-        ObjectBuilder(const QString& diffuse, const QString& normal = QString()):
+        Object3DBuilder() {}
+        Object3DBuilder(const QString& diffuse, const QString& normal = QString()):
             m_normalSource(normal),
             m_diffuseSource(diffuse)
         {
         }
 
-        ObjectBuilder& setShiness(float shiness)
+        Object3DBuilder& setShiness(float shiness)
         {
             m_shiness = shiness;
             return *this;
         }
 
-        ObjectBuilder& setNormalSource(const QString& normalSource)
+        Object3DBuilder& setNormalSource(const QString& normalSource)
         {
             m_normalSource = normalSource;
             return *this;
         }
 
-        ObjectBuilder& setDiffuseSource(const QString& diffuseSource)
+        Object3DBuilder& setDiffuseSource(const QString& diffuseSource)
         {
             m_diffuseSource = diffuseSource;
             return *this;
         }
 
-        ObjectBuilder& setTilt(double tilt)
+        Object3DBuilder& setTilt(double tilt)
         {
             m_tilt = tilt;
             return *this;
@@ -53,14 +53,16 @@ namespace SolarSystem
             auto material = qobject_cast<Material*>(object->material());
 
             // diffuse
-            if (!m_diffuseSource.isEmpty()) {
+            if (!m_diffuseSource.isEmpty())
+            {
                 Qt3DRender::QTextureImage* diffuse = new Qt3DRender::QTextureImage(object);
                 diffuse->setSource(QUrl::fromLocalFile(m_diffuseSource));
                 material->diffuse()->addTextureImage(diffuse);
             }
 
             // normal
-            if (!m_normalSource.isEmpty()) {
+            if (!m_normalSource.isEmpty())
+            {
                 Qt3DRender::QTextureImage* normal = new Qt3DRender::QTextureImage(object);
                 normal->setSource(QUrl::fromLocalFile(m_normalSource));
                 material->normal()->addTextureImage(normal);
@@ -82,8 +84,8 @@ namespace SolarSystem
         double m_tilt = 0;
     };
 
-    using PlanetBuilder = ObjectBuilder<Planet, Qt3DExtras::QNormalDiffuseMapMaterial>;
-    using PlanetRingBuilder = ObjectBuilder<PlanetRing, Qt3DExtras::QNormalDiffuseMapAlphaMaterial>;
+    using PlanetBuilder = Object3DBuilder<Planet, Qt3DExtras::QNormalDiffuseMapMaterial>;
+    using PlanetRingBuilder = Object3DBuilder<PlanetRing, Qt3DExtras::QNormalDiffuseMapAlphaMaterial>;
 }
 
-#endif // PLANETBUILDER_H
+#endif // OBJECT3DBUILDER_H

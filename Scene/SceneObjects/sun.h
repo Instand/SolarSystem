@@ -5,13 +5,13 @@
 
 namespace SolarSystem
 {
-    //Represents sun with diffuse material
+    // represents sun with diffuse material
     class Sun final : public UnlitObject
     {
         Q_OBJECT
 
     public:
-        Sun(Qt3DCore::QNode* parent = nullptr);
+        explicit Sun(Qt3DCore::QNode* parent = nullptr);
 
     protected:
         virtual void update(float deltaTime) override;

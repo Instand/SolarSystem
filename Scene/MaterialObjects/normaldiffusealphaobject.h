@@ -1,18 +1,18 @@
 #ifndef NORMALDIFFUSEALPHAOBJECT_H
 #define NORMALDIFFUSEALPHAOBJECT_H
 
-#include <Scene/solarobject3d.h>
+#include <Scene/object3d.h>
 #include <QNormalDiffuseMapAlphaMaterial>
 
 namespace SolarSystem
 {
-    //Represents solar3dobject with normal diffuse alpha material
-    class NormalDiffuseAlphaObject : public SolarObject3D
+    // represents solar3dobject with normal diffuse alpha material
+    class NormalDiffuseAlphaObject : public Object3D
     {
         Q_OBJECT
 
     public:
-        NormalDiffuseAlphaObject(Qt3DCore::QNode* parent = nullptr);
+        explicit NormalDiffuseAlphaObject(Qt3DCore::QNode* parent = nullptr);
 
     protected:
         virtual void update(float deltaTime) = 0;

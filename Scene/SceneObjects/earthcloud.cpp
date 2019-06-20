@@ -13,7 +13,6 @@ SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
 
     auto sphereGeometry = new Qt3DExtras::QSphereGeometry();
 
-    //setup geometry
     sphereGeometry->setRadius(PlanetSettings::radius);
     sphereGeometry->setGenerateTangents(PlanetSettings::generateTangents);
     sphereGeometry->setRings(PlanetSettings::rings);
@@ -37,5 +36,5 @@ SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
 void SolarSystem::EarthCloud::update(float deltaTime)
 {
     Q_UNUSED(deltaTime)
-    SolarObject3D::baseBehaviour();
+    Object3D::baseBehaviour();
 }

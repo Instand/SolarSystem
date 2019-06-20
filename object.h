@@ -8,33 +8,27 @@
 
 namespace SolarSystem
 {
-    //base object of solar system for storing info from database
-    class SolarSystemObject : public QObject
+    // base object of solar system for storing info from database
+    class Object : public QObject
     {
         Q_OBJECT
 
     public:
-        explicit SolarSystemObject(QObject* parent = nullptr);
-        ~SolarSystemObject();
+        explicit Object(QObject* parent = nullptr);
+        ~Object();
 
-        //copy constructor
-        SolarSystemObject(const SolarSystemObject& obj);
-
-        //copy operator
-        SolarSystemObject& operator=(SolarSystemObject obj);
+        Object(const Object& obj);
+        Object& operator=(Object obj);
 
     private:
+        struct ObjectData;
+        ObjectData* solarObjectData;
 
-        //base data
-        struct SolarObjectData;
-        SolarObjectData* solarObjectData;
-
-        //swap for copy operator
-        friend void swap(SolarSystemObject& ls, SolarSystemObject& rs);
+        friend void swap(Object&, Object&);
 
     public:
 
-        //interface
+        // interface
         void setDescription(const QString& description);
         QString& description() const;
 
@@ -62,8 +56,8 @@ namespace SolarSystem
         void setVolume(double volume);
         double volume() const;
 
-        void setSolarType(SolarSystemObjectType type);
-        SolarSystemObjectType solarType() const;
+        void setSolarType(ObjectType type);
+        ObjectType solarType() const;
 
         void setSiderealPeriod(double period);
         double siderealPeriod() const;
@@ -72,11 +66,9 @@ namespace SolarSystem
         double orbitalPeriod() const;
     };
 
-    //swap two solar objects
-    void swap(SolarSystemObject& ls, SolarSystemObject& rs);
+    void swap(Object& lhs, Object& rhs);
 
-    //types
-    using SolarSystemObjectPtr = std::shared_ptr<SolarSystemObject>;
+    using ObjectPtr = std::shared_ptr<Object>;
 }
 
 #endif // SOLARSYSTEMOBJECT_H
