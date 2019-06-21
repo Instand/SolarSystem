@@ -10,6 +10,19 @@ using SolarS = SolarSystem::SolarStrings;
 using SolarV = SolarSystem::SolarValues;
 using Types = SolarSystem::SolarFields;
 
+#ifdef Q_OS_ANDROID
+static void assetsSetup(const QString& path)
+{
+    QFile assetsFile("assets:/" + SolarS::dbFileName);
+
+    if (assetsFile.exists())
+    {
+        if (!assetsFile.copy(path))
+            qDebug() << "Copy database from assets failed";
+    }
+}
+#endif
+
 SolarSystem::DBConnector::DBConnector(QObject* parent):
     QObject(parent),
     m_dataBase(QSqlDatabase::addDatabase(SolarS::qSqlLite))
@@ -28,8 +41,12 @@ SolarSystem::DBConnector::DBConnector(QObject* parent):
     }
 #endif
 
-#ifdef Q_OS_ANDROIDDBConnector
+#ifdef Q_OS_ANDROID
     dbLocalPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + SolarS::dbFileName;
+
+    if (!QFile::setPermissions(dbLocalPath, QFile::WriteOwner | QFile::ReadOwner))
+        qDebug() << "Database permissions failed";
+
     QFileInfo file(dbLocalPath);
 
     if (!file.exists())
@@ -41,20 +58,12 @@ SolarSystem::DBConnector::DBConnector(QObject* parent):
             if (!resourceFile.copy(dbLocalPath))
             {
                 qDebug() << "Copy database from resources failed, try to copy from assets";
-
-                QFile assetsFile("assets:/" + SolarS::dbFileName);
-
-                if (assetsFile.exists())
-                {
-                    if (!assetsFile.copy(dbLocalPath))
-                        qDebug() << "Copy database from assets failed";
-                }
+                assetsSetup(dbLocalPath);
             }
         }
+        else
+            assetsSetup(dbLocalPath);
     }
-
-    if (!QFile::setPermissions(dbLocalPath, QFile::WriteOwner | QFile::ReadOwner))
-        qDebug() << "Database permissions failed";
 #endif
     QFileInfo info(dbLocalPath);
 
@@ -62,7 +71,7 @@ SolarSystem::DBConnector::DBConnector(QObject* parent):
     {
         m_dataBase.setDatabaseName(dbLocalPath);
 
-       if (! m_dataBase.open())
+       if (!m_dataBase.open())
            qDebug() << "Database opening failed";
     }
 }
