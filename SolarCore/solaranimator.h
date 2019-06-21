@@ -14,7 +14,6 @@ namespace SolarSystem
     {
         Q_OBJECT
 
-        Q_PROPERTY(QDateTime solarTime READ solarTime NOTIFY solarTimeChanged)
         Q_PROPERTY(QString solarObjectString READ viewSolarObjectString NOTIFY solarObjectStringChanged)
         Q_PROPERTY(QVector3D viewCenter READ cameraViewCenter WRITE setCameraViewCenter NOTIFY cameraViewCenterChanged)
         Q_PROPERTY(QVector3D viewPosition READ cameraPosition WRITE setCameraPositon NOTIFY cameraPositionChanged)
@@ -24,9 +23,6 @@ namespace SolarSystem
 
     public:
         explicit SolarAnimator(QObject* parent = nullptr);
-
-        // returns solar time
-        QDateTime solarTime() const;
 
         // returns planet string
         QString viewSolarObjectString() const;

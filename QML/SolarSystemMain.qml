@@ -28,8 +28,6 @@ Item {
             id: solarSystem
             Component.onCompleted: {
                 solarSystem.inputSettings.setEventSource(root)
-
-                //check db connection status
                 databaseLabel.text = solarSystem.dbState()
             }
         }
@@ -155,7 +153,7 @@ Item {
 
             //show time to label
             function showTime() {
-                var solarDate = solarSystem.solarDate;
+                var solarDate = solarSystem.entity.time;
                 var hours = solarDate.getUTCHours();
                 var minutes = solarDate.getUTCMinutes();
                 var days  = solarDate.getUTCDate();

@@ -37,11 +37,6 @@ SolarSystem::SolarAnimator::SolarAnimator(QObject* parent):
     QObject::connect(m_solarSpeedAnimation, &QPropertyAnimation::finished, this, &SolarAnimator::onSpeedAnimationFinished);
 }
 
-QDateTime SolarSystem::SolarAnimator::solarTime() const
-{
-    return MathCore::instance()->getTime();
-}
-
 QString SolarSystem::SolarAnimator::viewSolarObjectString() const
 {
     return m_solarObjStr;

@@ -56,6 +56,7 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     m_animator = new SolarAnimator(this);
 
     QObject::connect(m_rootAction, &Qt3DLogic::QFrameAction::triggered, m_animator, &SolarAnimator::animate);
+    QObject::connect(m_animator, &SolarAnimator::solarTimeChanged, this, &SolarEntity::timeChanged);
 }
 
 SolarSystem::SolarAnimator* SolarSystem::SolarEntity::animator() const
@@ -81,4 +82,9 @@ SolarSystem::FpsCounter* SolarSystem::SolarEntity::counter() const
 bool SolarSystem::SolarEntity::databaseStatus() const
 {
     return DBConnector::instance().status() && DBConnector::instance().isOpen();
+}
+
+QDateTime SolarSystem::SolarEntity::time() const
+{
+    return MathCore::instance()->getTime();
 }

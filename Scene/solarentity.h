@@ -30,6 +30,8 @@ namespace SolarSystem
         Q_PROPERTY(Qt3DInput::QInputSettings* inputSettings READ inputSettings)
         Q_PROPERTY(bool databaseStatus READ databaseStatus)
 
+        Q_PROPERTY(QDateTime time READ time NOTIFY timeChanged)
+
     public:
         explicit SolarEntity(QNode* parent = nullptr);
         ~SolarEntity() = default;
@@ -39,6 +41,11 @@ namespace SolarSystem
         Qt3DInput::QInputSettings* inputSettings() const;
         FpsCounter* counter() const;
         bool databaseStatus() const;
+
+        QDateTime time() const;
+
+    signals:
+        void timeChanged(const QDateTime&);
 
     private:
         Qt3DRender::QCamera* m_camera;
