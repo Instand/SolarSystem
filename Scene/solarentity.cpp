@@ -4,10 +4,10 @@
 
 #include <Scene/SceneObjects/solarskybox.h>
 
-#include <SolarCore/cameracontroller.h>
-#include <SolarCore/object3dcontainer.h>
-#include <SolarCore/SolarRender/solarforwardframegraph.h>
-#include <SolarCore/SolarRender/solarstandardframegraph.h>
+#include <Core/cameracontroller.h>
+#include <Core/object3dcontainer.h>
+#include <Core/Render/solarforwardframegraph.h>
+#include <Core/Render/solarstandardframegraph.h>
 
 SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),

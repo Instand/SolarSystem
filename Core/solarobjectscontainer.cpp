@@ -2,8 +2,8 @@
 
 #include <Parser/solarparser.h>
 
-#include <SolarCore/solarobjectsfactory.h>
-#include <SolarCore/SolarObjects/solarobjects.h>
+#include <Core/solarobjectsfactory.h>
+#include <Core/SolarObjects/solarobjects.h>
 
 #include <QDebug>
 

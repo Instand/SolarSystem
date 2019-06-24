@@ -108,16 +108,10 @@ namespace SolarSystem
         // calculates solar object current position
         void solarObjectPosition(SolarObjects object);
 
-        // rings setup
         void setupPlanetRings();
-
-        // earth cloud calculation
         void atmosphereCalculations();
 
-        // zoom limit calculation
         float calculateZoomLimit(SolarObjects object, float limit);
-
-        // zoom limit calcualtion base
         float calculateZoomLimit(SolarObjects object);
     };
 }

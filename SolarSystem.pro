@@ -22,25 +22,25 @@ SOURCES += main.cpp \
     Parser/solarparser.cpp \
     Scene/SceneObjects/emptysolarobject.cpp \
     Scene/SceneObjects/solarskybox.cpp \
-    SolarCore/mathcore.cpp \
-    SolarCore/SolarObjects/solarobjects.cpp \
-    SolarCore/SolarObjects/abstractsolarobject.cpp \
-    SolarCore/solarobjectscontainer.cpp \
+    Core/mathcore.cpp \
+    Core/SolarObjects/solarobjects.cpp \
+    Core/SolarObjects/abstractsolarobject.cpp \
+    Core/solarobjectscontainer.cpp \
     Scene/SceneObjects/planet.cpp \
-    SolarCore/object3dcontainer.cpp \
-    SolarCore/solaranimator.cpp \
+    Core/object3dcontainer.cpp \
+    Core/solaranimator.cpp \
     Scene/solarentity.cpp \
     UI/solarquickui.cpp \
     Scene/SceneObjects/planetring.cpp \
-    SolarCore/cameracontroller.cpp \
+    Core/cameracontroller.cpp \
     Scene/SceneObjects/earthcloud.cpp \
-    SolarCore/SolarRender/solarlight.cpp \
-    SolarCore/SolarRender/solarshadoweffect.cpp \
-    SolarCore/SolarRender/solarobjecteffect.cpp \
-    SolarCore/SolarRender/solarmaterial.cpp \
-    SolarCore/SolarRender/solarframegraph.cpp \
-    SolarCore/SolarRender/solarforwardframegraph.cpp \
-    SolarCore/SolarRender/solardiffuseeffect.cpp \
+    Core/Render/solarlight.cpp \
+    Core/Render/solarshadoweffect.cpp \
+    Core/Render/solarobjecteffect.cpp \
+    Core/Render/solarmaterial.cpp \
+    Core/Render/solarframegraph.cpp \
+    Core/Render/solarforwardframegraph.cpp \
+    Core/Render/solardiffuseeffect.cpp \
     Additional/solarinfoloader.cpp \
     Scene/SceneObjects/sun.cpp \
     Scene/MaterialObjects/normaldiffuseobject.cpp \
@@ -48,37 +48,37 @@ SOURCES += main.cpp \
     Scene/MaterialObjects/diffuseobject.cpp \
     Scene/MaterialObjects/unlitobject.cpp \
     Scene/fpscounter.cpp \
-    SolarCore/SolarRender/solarstandardframegraph.cpp \
+    Core/Render/solarstandardframegraph.cpp \
     Scene/object3d.cpp
 
 HEADERS += \
-    SolarCore/object3dbuilder.h \
+    Core/object3dbuilder.h \
     object.h \
     dbconnector.h \
     solarsystemcore.h \
     Parser/solarparser.h \
     Scene/SceneObjects/emptysolarobject.h \
     Scene/SceneObjects/solarskybox.h \
-    SolarCore/mathcore.h \
-    SolarCore/SolarObjects/abstractsolarobject.h \
-    SolarCore/SolarObjects/solarobjects.h \
-    SolarCore/solarobjectsfactory.h \
-    SolarCore/solarobjectscontainer.h \
+    Core/mathcore.h \
+    Core/SolarObjects/abstractsolarobject.h \
+    Core/SolarObjects/solarobjects.h \
+    Core/solarobjectsfactory.h \
+    Core/solarobjectscontainer.h \
     Scene/SceneObjects/planet.h \
-    SolarCore/object3dcontainer.h \
-    SolarCore/solaranimator.h \
+    Core/object3dcontainer.h \
+    Core/solaranimator.h \
     Scene/solarentity.h \
     UI/solarquickui.h \
     Scene/SceneObjects/planetring.h \
-    SolarCore/cameracontroller.h \
+    Core/cameracontroller.h \
     Scene/SceneObjects/earthcloud.h \
-    SolarCore/SolarRender/solarlight.h \
-    SolarCore/SolarRender/solarshadoweffect.h \
-    SolarCore/SolarRender/solarobjecteffect.h \
-    SolarCore/SolarRender/solarmaterial.h \
-    SolarCore/SolarRender/solarframegraph.h \
-    SolarCore/SolarRender/solarforwardframegraph.h \
-    SolarCore/SolarRender/solardiffuseeffect.h \
+    Core/Render/solarlight.h \
+    Core/Render/solarshadoweffect.h \
+    Core/Render/solarobjecteffect.h \
+    Core/Render/solarmaterial.h \
+    Core/Render/solarframegraph.h \
+    Core/Render/solarforwardframegraph.h \
+    Core/Render/solardiffuseeffect.h \
     Additional/solarinfoloader.h \
     Scene/SceneObjects/sun.h \
     Scene/MaterialObjects/normaldiffuseobject.h \
@@ -86,10 +86,10 @@ HEADERS += \
     Scene/MaterialObjects/diffuseobject.h \
     Scene/MaterialObjects/unlitobject.h \
     Scene/fpscounter.h \
-    SolarCore/SolarRender/solarstandardframegraph.h \
+    Core/Render/solarstandardframegraph.h \
     Interface/iframegraph.h \
     Scene/object3d.h \
-    SolarCore/utils.h
+    Core/utils.h
 
 RESOURCES += \
     res.qrc

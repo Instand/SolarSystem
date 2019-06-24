@@ -1,14 +1,13 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.1
 
-//root
 Item {
     id: root
 
     signal fpsButtonClicked(bool state)
     signal dbButtonClicked(bool state)
 
-    //title text
+    // title text
     Text {
         id: title
         anchors.top: root.top
@@ -33,7 +32,7 @@ Item {
         anchors.topMargin: 30
         spacing: 15
 
-        //fps title
+        // fps title
         Text {
             wrapMode: Text.Wrap
             font.pixelSize: 18
@@ -47,7 +46,7 @@ Item {
             horizontalAlignment: Text.AlignRight
         }
 
-        //fps button
+        // fps button
         Button {
             id: fpsButton
             width: 170
@@ -71,7 +70,7 @@ Item {
         anchors.topMargin: 30
         spacing: 15
 
-        //db title
+        // db title
         Text {
             wrapMode: Text.Wrap
             font.pixelSize: 18
@@ -85,7 +84,7 @@ Item {
             horizontalAlignment: Text.AlignRight
         }
 
-        //db button
+        // db button
         Button {
             id: dbButton
             width: 170

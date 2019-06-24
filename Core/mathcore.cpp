@@ -3,10 +3,10 @@
 #include <QTransform>
 #include <Qt3DRender/QCamera>
 #include <Parser/solarparser.h>
-#include <SolarCore/utils.h>
-#include <SolarCore/cameracontroller.h>
-#include <SolarCore/object3dcontainer.h>
-#include <SolarCore/solarobjectscontainer.h>
+#include <Core/utils.h>
+#include <Core/cameracontroller.h>
+#include <Core/object3dcontainer.h>
+#include <Core/solarobjectscontainer.h>
 
 // Main Math data
 struct SolarSystem::MathCore::Data

@@ -5,7 +5,7 @@
 #include <Scene/SceneObjects/earthcloud.h>
 #include <Scene/SceneObjects/sun.h>
 
-#include <SolarCore/object3dbuilder.h>
+#include <Core/object3dbuilder.h>
 
 #include <Qt3DRender/QTexture>
 #include <Qt3DRender/QPickEvent>

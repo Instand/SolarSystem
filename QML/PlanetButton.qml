@@ -10,14 +10,13 @@ Rectangle {
     property int buttonSize: 70
     property int fontSize: 16
 
-    //click signal
     signal clicked;
 
     width: buttonSize
     height: buttonSize
     color: "transparent"
 
-    //planet image
+    // planet image
     Image {
         id: planetImage
         anchors.fill: parent
@@ -39,7 +38,7 @@ Rectangle {
         }
     }
 
-    //showing text
+    // showing text
     Text {
         id: planetText
         anchors.centerIn: parent

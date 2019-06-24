@@ -3,7 +3,8 @@
 
 #include <Qt3DRender/QEffect>
 #include <Qt3DRender/QRenderPass>
-#include <SolarCore/SolarRender/solarlight.h>
+
+#include <Core/Render/solarlight.h>
 
 namespace SolarSystem
 {

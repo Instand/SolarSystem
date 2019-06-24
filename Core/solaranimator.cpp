@@ -1,7 +1,7 @@
 #include "solaranimator.h"
 #include <dbconnector.h>
-#include <SolarCore/mathcore.h>
-#include <SolarCore/cameracontroller.h>
+#include <Core/mathcore.h>
+#include <Core/cameracontroller.h>
 #include <Parser/solarparser.h>
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>

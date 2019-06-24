@@ -1,7 +1,7 @@
 #ifndef SOLARANIMATOR_H
 #define SOLARANIMATOR_H
 
-#include <SolarCore/mathcore.h>
+#include <Core/mathcore.h>
 #include <QTimer>
 
 class QPropertyAnimation;

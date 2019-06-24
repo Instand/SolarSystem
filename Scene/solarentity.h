@@ -9,7 +9,7 @@
 
 #include <solarsystemcore.h>
 
-#include <SolarCore/solaranimator.h>
+#include <Core/solaranimator.h>
 
 #include <Scene/fpscounter.h>
 
