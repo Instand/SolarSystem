@@ -22,6 +22,8 @@ namespace SolarSystem
     {
         Q_OBJECT
 
+        Q_PROPERTY(float solarSystemSpeed READ solarSystemSpeed WRITE setSolarSystemSpeed NOTIFY solarSystemSpeedChanged)
+
     private:
         explicit MathCore(QObject* parent = nullptr);
         ~MathCore();
@@ -98,6 +100,12 @@ namespace SolarSystem
 
         // calculates all planets container solar objects position
         void calculateAllSolarObjectsPosiitons();
+
+        // performs main calculation of math core
+        void calculate(float deltaTime, SolarObjects object);
+
+    signals:
+        void solarSystemSpeedChanged(float);
 
     private:
         struct Data;

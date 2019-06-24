@@ -8,8 +8,6 @@ Entity {
     id: rootEntity
 
     property alias entity: solarSystem
-    property alias animator: solarSystem.animator
-    property alias inputSettings: solarSystem.inputSettings
     property alias counter: solarSystem.counter
 
     SolarEntity {

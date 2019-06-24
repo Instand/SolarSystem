@@ -27,7 +27,7 @@ Item {
         SolarEntityMain {
             id: solarSystem
             Component.onCompleted: {
-                solarSystem.inputSettings.setEventSource(root)
+                solarSystem.entity.setEventSource(root)
                 databaseLabel.text = solarSystem.dbState()
             }
         }
@@ -68,7 +68,7 @@ Item {
             orientation: Qt.Vertical
             anchors.fill: parent
             onValueChanged: {
-                solarSystem.animator.setSolarSpeed(value);
+                solarSystem.entity.setSolarSpeed(value);
             }
         }
     }
@@ -124,10 +124,10 @@ Item {
             style: Text.Sunken;
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr("x") + solarSystem.animator.extraSpeed.toString()
+            text: qsTr("x") + solarSystem.entity.extraSpeed.toString()
         }
 
-        onClicked: solarSystem.animator.changeExtraSpeed()
+        onClicked: solarSystem.entity.changeExtraSpeed()
     }
 
     // date label
@@ -309,11 +309,11 @@ Item {
                     infoText.showInfo.start()
                 }
 
-                solarSystem.animator.resetExtraSpeed();
-                solarSystem.animator.setCameraViewCenter(planetsView.focusedPlanet);
+                solarSystem.entity.resetExtraSpeed();
+                solarSystem.entity.setViewCenter(planetsView.focusedPlanet);
 
                 if (planetsView.focusedPlanet != 0)
-                    infoText.text = solarSystem.animator.info;
+                    infoText.text = solarSystem.entity.info;
             }
         }
     }
@@ -408,7 +408,7 @@ Item {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         color: "white"
-        text: solarSystem.animator.solarObjectString
+        text: solarSystem.entity.currentObjectString
         font.family: "Century Gothic"
         style: Text.Sunken;
         styleColor: "black"

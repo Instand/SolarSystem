@@ -9,6 +9,8 @@
 #include <Core/Render/solarforwardframegraph.h>
 #include <Core/Render/solarstandardframegraph.h>
 
+#include <Parser/solarparser.h>
+
 SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     Qt3DCore::QEntity(parent),
     m_rootAction(new Qt3DLogic::QFrameAction()),
@@ -53,25 +55,16 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     MathCore::instance()->setSolarSystemSpeed(SolarSystem::SolarValues::startSpeed);
     MathCore::instance()->changeSolarSystemScale(SolarSystem::SolarValues::startSize);
 
-    m_animator = new SolarAnimator(this);
+    m_animator = new Animator(this);
 
-    QObject::connect(m_rootAction, &Qt3DLogic::QFrameAction::triggered, m_animator, &SolarAnimator::animate);
-    QObject::connect(m_animator, &SolarAnimator::solarTimeChanged, this, &SolarEntity::timeChanged);
-}
-
-SolarSystem::SolarAnimator* SolarSystem::SolarEntity::animator() const
-{
-    return m_animator;
+    QObject::connect(m_rootAction, &Qt3DLogic::QFrameAction::triggered, m_animator, &Animator::animate);
+    QObject::connect(m_animator, &Animator::solarTimeChanged, this, &SolarEntity::timeChanged);
+    QObject::connect(m_animator, &Animator::currentObjectChanged, this, &SolarEntity::animatedObjectChanged);
 }
 
 Qt3DRender::QCamera* SolarSystem::SolarEntity::camera() const
 {
     return m_camera;
-}
-
-Qt3DInput::QInputSettings* SolarSystem::SolarEntity::inputSettings() const
-{
-    return m_inputSettings;
 }
 
 SolarSystem::FpsCounter* SolarSystem::SolarEntity::counter() const
@@ -87,4 +80,76 @@ bool SolarSystem::SolarEntity::databaseStatus() const
 QDateTime SolarSystem::SolarEntity::time() const
 {
     return MathCore::instance()->getTime();
+}
+
+QString SolarSystem::SolarEntity::currentObjectString() const
+{
+    return SolarParser::parseSolarObjectToString(m_animator->currentObject());
+}
+
+QString SolarSystem::SolarEntity::info() const
+{
+    auto columnNames = DBConnector::instance().columnNames();
+    auto objParameters = DBConnector::instance().info(m_animator->currentObject());
+    auto dbFieldsParamsCount = DbParams::paramList.size();
+    auto str = QString();
+
+    if (columnNames.size() != objParameters.size() || columnNames.size() != dbFieldsParamsCount
+            || dbFieldsParamsCount != objParameters.size())
+    {
+        qDebug() << "Something wrong in DB connector";
+        qDebug() << columnNames.size() << " != " << objParameters.size();
+
+        return str;
+    }
+
+    // fill info sheet
+    for (int i = 0; i < columnNames.size(); ++i)
+        str.append(columnNames[i] + ":  " + objParameters[i] + " " + DbParams::paramList[i] + "\n\n");
+
+    return str;
+}
+
+double SolarSystem::SolarEntity::extraSpeed() const
+{
+    return MathCore::instance()->extraSpeed();
+}
+
+void SolarSystem::SolarEntity::setSolarSpeed(int value)
+{
+    auto coeff = 0.02f * value;
+    MathCore::instance()->setSolarSystemSpeed(SolarValues::startSpeed * coeff);
+}
+
+void SolarSystem::SolarEntity::setSolarSize(int value)
+{
+    float coeff = value/50.0f;
+    MathCore::instance()->changeSolarSystemScale(SolarValues::startSize * coeff);
+}
+
+void SolarSystem::SolarEntity::setViewCenter(int index)
+{
+    m_animator->setCameraViewCenter(index);
+}
+
+void SolarSystem::SolarEntity::setEventSource(QObject* object)
+{
+    m_inputSettings->setEventSource(object);
+}
+
+void SolarSystem::SolarEntity::changeExtraSpeed()
+{
+    MathCore::instance()->changeExtraSpeed();
+    emit extraSpeedChanged(MathCore::instance()->extraSpeed());
+}
+
+void SolarSystem::SolarEntity::resetExtraSpeed()
+{
+    MathCore::instance()->resetExtraSpeed();
+    emit extraSpeedChanged(MathCore::instance()->extraSpeed());
+}
+
+void SolarSystem::SolarEntity::animatedObjectChanged(SolarSystem::SolarObjects object)
+{
+    emit currentObjectStringChanged(SolarParser::parseSolarObjectToString(object));
 }

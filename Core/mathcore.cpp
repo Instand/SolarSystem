@@ -306,6 +306,7 @@ void SolarSystem::MathCore::updateSolarView(SolarSystem::SolarObjects object)
 void SolarSystem::MathCore::setSolarSystemSpeed(float speed)
 {
     m_data->daysPerFrameScale = static_cast<decltype(m_data->daysPerFrameScale)>(speed);
+    emit solarSystemSpeedChanged(speed);
 }
 
 void SolarSystem::MathCore::setObject3DContainer(Object3DContainer* planetsContainer)
@@ -479,6 +480,22 @@ void SolarSystem::MathCore::calculateAllSolarObjectsPosiitons()
 
     for (int i = 0; i < updateCount; ++i)
         solarObjectPosition(SolarObjects(i));
+}
+
+void SolarSystem::MathCore::calculate(float deltaTime, SolarSystem::SolarObjects object)
+{
+    // set delta time to math core
+    setDeltaTime(deltaTime);
+
+    // calculate time
+    advanceTime(object);
+
+    // update solar objects position
+    calculateAllSolarObjectsPosiitons();
+    additionalCalculation();
+
+    // view on solar object
+    updateSolarView(object);
 }
 
 void SolarSystem::MathCore::setupPlanetRings()

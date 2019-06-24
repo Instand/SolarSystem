@@ -28,7 +28,7 @@ SOURCES += main.cpp \
     Core/solarobjectscontainer.cpp \
     Scene/SceneObjects/planet.cpp \
     Core/object3dcontainer.cpp \
-    Core/solaranimator.cpp \
+    Core/animator.cpp \
     Scene/solarentity.cpp \
     UI/solarquickui.cpp \
     Scene/SceneObjects/planetring.cpp \
@@ -66,7 +66,7 @@ HEADERS += \
     Core/solarobjectscontainer.h \
     Scene/SceneObjects/planet.h \
     Core/object3dcontainer.h \
-    Core/solaranimator.h \
+    Core/animator.h \
     Scene/solarentity.h \
     UI/solarquickui.h \
     Scene/SceneObjects/planetring.h \
