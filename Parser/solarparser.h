@@ -2,7 +2,7 @@
 #define SOLARPARSER_H
 
 #include <solarsystemcore.h>
-#include <SolarCore/SolarObjects/abstractsolarobject.h>
+#include <Core/SolarObjects/abstractsolarobject.h>
 
 namespace SolarSystem
 {

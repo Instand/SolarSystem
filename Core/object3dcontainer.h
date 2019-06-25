@@ -24,6 +24,7 @@ namespace SolarSystem
 
         // returns planet storage
         Object3DMap& objects() const;
+        Object3D* object(SolarObjects type) const;
 
     private:
 

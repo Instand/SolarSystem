@@ -1,7 +1,7 @@
 #ifndef SOLAROBJECTS_H
 #define SOLAROBJECTS_H
 
-#include "SolarCore/SolarObjects/abstractsolarobject.h"
+#include "Core/SolarObjects/abstractsolarobject.h"
 
 namespace SolarSystem
 {

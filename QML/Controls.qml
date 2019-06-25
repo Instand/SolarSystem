@@ -4,17 +4,16 @@ Column {
     id: root
     spacing: 3
 
-    //size of every element
+    // size of every element
     property int elementWidth: 10
     property int elementHeight: 20
 
-    //signals
     signal planetButtonClicked(string name)
     signal infoButtonClicked(string name)
     signal calendarButtonClicked(string name)
     signal optionButtonClicked(string name)
 
-    //planet list button
+    // planet list button
     TransparentButton {
         id: planetButton
         width: root.elementWidth
@@ -26,7 +25,7 @@ Column {
         onClicked: root.planetButtonClicked(planetButton.objectName)
     }
 
-    //calendar button
+    // calendar button
     TransparentButton {
         id: calendarButton
         width: root.elementWidth
@@ -38,7 +37,7 @@ Column {
         onClicked: root.calendarButtonClicked(calendarButton.objectName)
     }
 
-    //options button
+    // options button
     TransparentButton {
         id: optionsButton
         width: root.elementWidth
@@ -50,7 +49,7 @@ Column {
         onClicked: root.optionButtonClicked(optionsButton.objectName)
     }
 
-    //info button
+    // info button
     TransparentButton {
         id: infoButton
         width: root.elementWidth

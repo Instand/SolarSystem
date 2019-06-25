@@ -1,9 +1,9 @@
-#include "solarquickui.h"
+#include "quickui.h"
 #include <QGuiApplication>
 #include <Scene/solarentity.h>
 #include <Additional/solarinfoloader.h>
 
-SolarSystem::SolarQuickUI::SolarQuickUI(QObject* parent):
+SolarSystem::QuickUi::QuickUi(QObject* parent):
     QObject(parent)
 {
     qmlRegisterType<SolarSystem::SolarEntity>("SolarSystem", 1, 0, "SolarEntity");
@@ -32,17 +32,16 @@ SolarSystem::SolarQuickUI::SolarQuickUI(QObject* parent):
     QObject::connect(m_view.engine(), SIGNAL(quit()), this, SLOT(quit()));
 }
 
-void SolarSystem::SolarQuickUI::show()
+void SolarSystem::QuickUi::show()
 {
-    m_view.show();
-}
-
-void SolarSystem::SolarQuickUI::showFullScreen()
-{
+#ifdef QT_NO_DEBUG
     m_view.showFullScreen();
+#else
+    m_view.show();
+#endif
 }
 
-void SolarSystem::SolarQuickUI::quit()
+void SolarSystem::QuickUi::quit()
 {
     qApp->exit();
 }

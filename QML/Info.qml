@@ -3,7 +3,6 @@ import QtQuick 2.0
 Text {
     id: root
 
-    //data
     property alias showInfo: showInfoAnim
     property alias unshowInfo: unshowInfoAnim
 
@@ -21,7 +20,6 @@ Text {
     styleColor: "black"
     visible: false
 
-    //show list
     PropertyAnimation {
         id: showInfoAnim
         target: root
@@ -31,7 +29,6 @@ Text {
         onStarted: root.visible = true
     }
 
-    //show list
     PropertyAnimation {
         id: unshowInfoAnim
         target: root

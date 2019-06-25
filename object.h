@@ -3,7 +3,9 @@
 
 #include <QObject>
 #include <QString>
-#include "solarsystemcore.h"
+
+#include <solarsystemcore.h>
+
 #include <memory>
 
 namespace SolarSystem

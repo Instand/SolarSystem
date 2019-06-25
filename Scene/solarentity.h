@@ -9,7 +9,7 @@
 
 #include <solarsystemcore.h>
 
-#include <SolarCore/solaranimator.h>
+#include <Core/animator.h>
 
 #include <Scene/fpscounter.h>
 
@@ -17,28 +17,60 @@ namespace SolarSystem
 {
     class SolarSkyBox;
     class Object3DContainer;
-    class SolarAnimator;
+    class Animator;
     class IFrameGraph;
 
-    // represents chain of solar objects (root entity)
+    // represents chain of solar objects (root entity),
+    // mediator for objects and QML/C++ code connector
     class SolarEntity : public Qt3DCore::QEntity
     {
         Q_OBJECT
 
-        Q_PROPERTY(SolarAnimator* animator READ animator)
         Q_PROPERTY(FpsCounter* counter READ counter)
-        Q_PROPERTY(Qt3DInput::QInputSettings* inputSettings READ inputSettings)
+
+        Q_PROPERTY(QString currentObjectString READ currentObjectString NOTIFY currentObjectStringChanged)
+        Q_PROPERTY(double extraSpeed READ extraSpeed NOTIFY extraSpeedChanged)
+        Q_PROPERTY(QDateTime time READ time NOTIFY timeChanged)
         Q_PROPERTY(bool databaseStatus READ databaseStatus)
+        Q_PROPERTY(QString info READ info)
 
     public:
         explicit SolarEntity(QNode* parent = nullptr);
         ~SolarEntity() = default;
 
-        SolarAnimator* animator() const;
         Qt3DRender::QCamera* camera() const;
-        Qt3DInput::QInputSettings* inputSettings() const;
         FpsCounter* counter() const;
         bool databaseStatus() const;
+
+        QDateTime time() const;
+        QString currentObjectString() const;
+        QString info() const;
+        double extraSpeed() const;
+
+    signals:
+        void timeChanged(const QDateTime&);
+        void currentObjectStringChanged(const QString&);
+        void extraSpeedChanged(double);
+
+    public slots:
+
+        // sets current solar speed, in percents
+        void setSolarSpeed(int value);
+
+        // sets current planets size, in percents
+        void setSolarSize(int value);
+
+        // sets camera view center by ui planet index
+        void setViewCenter(int index);
+
+        // sets event source to qt3d input settings
+        void setEventSource(QObject* object);
+
+        void changeExtraSpeed();
+        void resetExtraSpeed();
+
+    private slots:
+        void animatedObjectChanged(SolarObjects object);
 
     private:
         Qt3DRender::QCamera* m_camera;
@@ -46,7 +78,7 @@ namespace SolarSystem
         Qt3DInput::QInputSettings* m_inputSettings;
 
         Object3DContainer* m_object3DContainer;
-        SolarAnimator* m_animator;
+        Animator* m_animator;
         FpsCounter* m_fpsCounter;
         IFrameGraph* m_frameGraph;
         SolarSkyBox* m_skybox;

@@ -5,7 +5,7 @@
 #include <Scene/SceneObjects/earthcloud.h>
 #include <Scene/SceneObjects/sun.h>
 
-#include <SolarCore/object3dbuilder.h>
+#include <Core/object3dbuilder.h>
 
 #include <Qt3DRender/QTexture>
 #include <Qt3DRender/QPickEvent>
@@ -119,4 +119,14 @@ int SolarSystem::Object3DContainer::planetsNumber() const
 SolarSystem::Object3DMap& SolarSystem::Object3DContainer::objects() const
 {
     return m_objectContainer;
+}
+
+SolarSystem::Object3D* SolarSystem::Object3DContainer::object(SolarSystem::SolarObjects type) const
+{
+    auto iter = m_objectContainer.find(type);
+
+    if (iter != m_objectContainer.end())
+        return iter->second;
+
+    return nullptr;
 }

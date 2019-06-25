@@ -17,13 +17,5 @@ Clone/download a project from repository, use QtCreator with Qt 5.10+, enjoy<br 
 <br />
 
 ***Project binaries***<br />
-Current binaries exist at project current-build folder<br />
+Current binaries exist at current-build folder<br />
 <br />
-
-***SolarSystem old project***<br />
-Full project https://yadi.sk/d/mKuWiLLP3K6t8e <br />
-Binary for Windows is available at release folder<br />
-<br />
-
-
-

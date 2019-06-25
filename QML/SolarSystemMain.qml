@@ -6,16 +6,16 @@ import SolarSystem.InfoLoader 1.0
 Item {
     id: root
 
-    //version property
+    // version property
     property string version: "3.8"
 
-    //planet list show flag
+    // planet list show flag
     property bool showPlanetList: false
 
-    //focused planet
+    // focused planet
     property int currentSelectedObject: 0
 
-    //3d viewport
+    // 3d viewport
     Scene3D {
         id: scene
         anchors.fill: parent
@@ -23,19 +23,17 @@ Item {
         focus: true
         cameraAspectRatioMode: Scene3D.AutomaticAspectRatio
 
-        //from c++ code
+        // from c++ code
         SolarEntityMain {
             id: solarSystem
             Component.onCompleted: {
-                solarSystem.inputSettings.setEventSource(root)
-
-                //check db connection status
+                solarSystem.entity.setEventSource(root)
                 databaseLabel.text = solarSystem.dbState()
             }
         }
     }
 
-    //shows fps
+    // shows fps
     FpsLabel {
         id: fpsLabel
         anchors.top: root.top
@@ -45,7 +43,7 @@ Item {
         text: solarSystem.counter.fps
     }
 
-    //shows database status
+    // shows database status
     DatabaseLabel {
         id: databaseLabel
         anchors.top: fpsLabel.bottom
@@ -55,7 +53,7 @@ Item {
         visible: false
     }
 
-    //slider frame
+    // slider frame
     SolarFrame {
         id: speedSliderFrame
         anchors.right: parent.right
@@ -70,12 +68,12 @@ Item {
             orientation: Qt.Vertical
             anchors.fill: parent
             onValueChanged: {
-                solarSystem.animator.setSolarSpeed(value);
+                solarSystem.entity.setSolarSpeed(value);
             }
         }
     }
 
-    //take a solar screenshot
+    // take a solar screenshot
     TransparentButton {
         id: screenButton
         anchors.right: parent.right
@@ -93,7 +91,7 @@ Item {
         }
     }
 
-    //solar object info
+    // solar object info
     Info {
         id: infoText
         anchors.verticalCenter: parent.verticalCenter
@@ -103,7 +101,7 @@ Item {
         height: speedSliderFrame.height + 100
     }
 
-    //extra speed button
+    // extra speed button
     TransparentButton {
         id: extraButton
         anchors.right: parent.right
@@ -126,13 +124,13 @@ Item {
             style: Text.Sunken;
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr("x") + solarSystem.animator.extraSpeed.toString()
+            text: qsTr("x") + solarSystem.entity.extraSpeed.toString()
         }
 
-        onClicked: solarSystem.animator.changeExtraSpeed()
+        onClicked: solarSystem.entity.changeExtraSpeed()
     }
 
-    //date label
+    // date label
     Item {
         id: timeFrame
         anchors.top: parent.top
@@ -148,14 +146,14 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        //show current solar time
+        // show current solar time
         DateText {
             id: solarTime
             anchors.top: timeLabel.bottom
 
-            //show time to label
+            // show time to label
             function showTime() {
-                var solarDate = solarSystem.solarDate;
+                var solarDate = solarSystem.entity.time;
                 var hours = solarDate.getUTCHours();
                 var minutes = solarDate.getUTCMinutes();
                 var days  = solarDate.getUTCDate();
@@ -196,7 +194,7 @@ Item {
         }
     }
 
-    //left side controls
+    // left side controls
     Controls {
         id: controlElements
         anchors.verticalCenter: parent.verticalCenter
@@ -205,10 +203,10 @@ Item {
         elementWidth: 100
         elementHeight: 120
 
-        //store prev button object name
+        // store prev button object name
         property string prevName: ""
 
-        //planets
+        // planets
         onPlanetButtonClicked: {
             showPlanetList = !showPlanetList;
 
@@ -221,18 +219,18 @@ Item {
             }
         }
 
-        //options
+        // options
         onOptionButtonClicked: {
             showDataFrame(name, controlElements.prevName)
         }
 
-        //info
+        // info
         onInfoButtonClicked: {
             showDataFrame(name, controlElements.prevName)
         }
     }
 
-    //shows ui with data frame
+    // shows ui with data frame
     function showDataFrame(name, prevName) {
         if (dataFrame.opacity == 0) {
             setEnabledFrames(false)
@@ -252,13 +250,13 @@ Item {
         controlElements.prevName = name
     }
 
-    //sets visible state for all frames
+    // sets visible state for all frames
     function setEnabledFrames(state) {
         aboutText.visible = state
         options.visible = state
     }
 
-    //checks which frame component should be visible
+    // checks which frame component should be visible
     function checkFrameComponent(name) {
         if (name === "optionsButton")
             options.visible = true
@@ -266,7 +264,7 @@ Item {
             aboutText.visible = true
     }
 
-    //planets icons
+    // planets icons
     SolarFrame {
         id: planetsList
         anchors.bottom: parent.bottom
@@ -279,7 +277,6 @@ Item {
         radius: 4
         opacity: 0
 
-        //show list
         PropertyAnimation {
             id: showAnimation
             target: planetsList
@@ -288,7 +285,6 @@ Item {
             duration: 500
         }
 
-        //show list
         PropertyAnimation {
             id: unshowAnimation
             target: planetsList
@@ -298,7 +294,6 @@ Item {
             onStopped: planetsView.visible = false
         }
 
-        //all planets
         PlanetList {
             id: planetsView
             anchors.fill: parent
@@ -314,16 +309,16 @@ Item {
                     infoText.showInfo.start()
                 }
 
-                solarSystem.animator.resetExtraSpeed();
-                solarSystem.animator.setCameraViewCenter(planetsView.focusedPlanet);
+                solarSystem.entity.resetExtraSpeed();
+                solarSystem.entity.setViewCenter(planetsView.focusedPlanet);
 
                 if (planetsView.focusedPlanet != 0)
-                    infoText.text = solarSystem.animator.info;
+                    infoText.text = solarSystem.entity.info;
             }
         }
     }
 
-    //exit button
+    // exit button
     TransparentButton {
         anchors.top: parent.top
         anchors.right: parent.right
@@ -336,7 +331,7 @@ Item {
         onClicked: Qt.quit();
     }
 
-    //left frame with data
+    // left frame with data
     SolarFrame {
         id: dataFrame
         anchors.verticalCenter: parent.verticalCenter
@@ -347,7 +342,6 @@ Item {
         radius: 4
         opacity: 0
 
-        //show list
         PropertyAnimation {
             id: dataFrameShowAnimation
             target: dataFrame
@@ -356,7 +350,6 @@ Item {
             duration: 500
         }
 
-        //show list
         PropertyAnimation {
             id: dataFrameUnShowAnimation
             target: dataFrame
@@ -366,7 +359,7 @@ Item {
             onStopped: setEnabledFrames(false)
         }
 
-        //info text
+        // info text
         Text {
             id: aboutText
             width: dataFrame.width
@@ -387,7 +380,7 @@ Item {
             visible: false
         }
 
-        //options
+        // options
         UserOptions {
             id: options
             anchors.fill: dataFrame
@@ -400,7 +393,7 @@ Item {
         }
     }
 
-    //object text
+    // object text
     Text {
         id: planetText
         anchors.top: timeFrame.bottom
@@ -415,7 +408,7 @@ Item {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         color: "white"
-        text: solarSystem.animator.solarObjectString
+        text: solarSystem.entity.currentObjectString
         font.family: "Century Gothic"
         style: Text.Sunken;
         styleColor: "black"
