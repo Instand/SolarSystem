@@ -1,5 +1,5 @@
-#ifndef SOLARQUICKUI_H
-#define SOLARQUICKUI_H
+#ifndef QUICKUI_H
+#define QUICKUI_H
 
 #include <QQuickView>
 #include <QOpenGLContext>
@@ -8,15 +8,14 @@
 namespace SolarSystem
 {
     // user interface based on qt quick
-    class SolarQuickUI : public QObject
+    class QuickUi : public QObject
     {
         Q_OBJECT
 
     public:
-        explicit SolarQuickUI(QObject* parent = nullptr);
+        explicit QuickUi(QObject* parent = nullptr);
 
-        void show();
-        void showFullScreen();
+        Q_INVOKABLE void show();
 
     private:
         QSurfaceFormat m_format;
@@ -27,4 +26,4 @@ namespace SolarSystem
     };
 }
 
-#endif // SOLARQUICKUI_H
+#endif // QUICKUI_H

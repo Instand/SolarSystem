@@ -26,14 +26,15 @@ namespace SolarSystem
         // main call for solar system animation
         void animate(float deltaTime);
 
-        // set cam view center
-        void setCameraViewCenter(int index);
+        // sets camera view center to solar object and animates it
+        void animateCamera(SolarObjects object);
 
     signals:
         void solarTimeChanged(const QDateTime&);
         void currentObjectChanged(SolarObjects);
 
     private slots:
+        void onViewCenterAnimationFinished();
         void onAnimationFinished();
         void onSpeedAnimationFinished();
 
@@ -50,6 +51,9 @@ namespace SolarSystem
 
         // animation for view center
         QPropertyAnimation* m_viewCenterAnimation;
+
+        // animation for roll correction
+        QPropertyAnimation* m_cameraRollAnimation;
 
         // animation for position
         QPropertyAnimation* m_viewPositionAnimation;

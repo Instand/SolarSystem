@@ -23,6 +23,7 @@ namespace SolarSystem
         Q_OBJECT
 
         Q_PROPERTY(float solarSystemSpeed READ solarSystemSpeed WRITE setSolarSystemSpeed NOTIFY solarSystemSpeedChanged)
+        Q_PROPERTY(float cameraRoll READ cameraRoll WRITE setCameraRoll NOTIFY cameraRollChanged)
 
     private:
         explicit MathCore(QObject* parent = nullptr);
@@ -38,8 +39,8 @@ namespace SolarSystem
         // creates solar math core only once
         static MathCore* instance();
 
-        void setSolarView(Qt3DRender::QCamera* camera);
-        Qt3DRender::QCamera* solarView() const;
+        void setCamera(Qt3DRender::QCamera* camera);
+        Qt3DRender::QCamera* camera() const;
 
         // returns outer radius of solar object
         float getOuterRadius(SolarObjects object);
@@ -75,7 +76,7 @@ namespace SolarSystem
         void setCameraController(CameraController* controller);
 
         // returns camera controller
-        CameraController* viewController() const;
+        CameraController* cameraController() const;
 
         // updates camera min zoom position
         void updateSolarViewZoomLimit(SolarObjects object);
@@ -98,23 +99,28 @@ namespace SolarSystem
         // sets ultra speed to default value
         void resetExtraSpeed() const;
 
-        // calculates all planets container solar objects position
+        // calculates all objects container solar objects position
         void calculateAllSolarObjectsPosiitons();
 
         // performs main calculation of math core
         void calculate(float deltaTime, SolarObjects object);
 
+        // returns current camera Z rotation
+        float cameraRoll() const;
+        Q_INVOKABLE void setCameraRoll(float roll);
+
     signals:
         void solarSystemSpeedChanged(float);
+        void cameraRollChanged(float);
 
     private:
         struct Data;
-        Data* m_data;
+        Data* data;
 
         /// helper methods
 
         // calculates solar object current position
-        void solarObjectPosition(SolarObjects object);
+        void calculateObjectPosition(SolarObjects object);
 
         void setupPlanetRings();
         void atmosphereCalculations();

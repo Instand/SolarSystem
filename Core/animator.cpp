@@ -1,6 +1,7 @@
 #include "animator.h"
 
 #include <Qt3DRender/QCamera>
+#include <Qt3DCore/QTransform>
 
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
@@ -8,17 +9,17 @@
 #include <Core/mathcore.h>
 #include <Core/cameracontroller.h>
 
-#include <Parser/solarparser.h>
-
 SolarSystem::Animator::Animator(QObject* parent):
     QObject(parent)
 {
     m_viewCenterAnimation = new QPropertyAnimation(this);
+    m_cameraRollAnimation = new QPropertyAnimation(this);
     m_viewPositionAnimation = new QPropertyAnimation(this);
     m_solarSpeedAnimation = new QPropertyAnimation(this);
     m_cameraAnimation = new QParallelAnimationGroup(this);
 
     m_viewCenterAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InOutQuint));
+    m_cameraRollAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InOutQuint));
     m_viewPositionAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InOutQuint));
     m_solarSpeedAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InExpo));
 
@@ -26,6 +27,7 @@ SolarSystem::Animator::Animator(QObject* parent):
     m_cameraAnimation->addAnimation(m_viewPositionAnimation);
 
     // animation actions
+    QObject::connect(m_viewCenterAnimation, &QPropertyAnimation::finished, this, &Animator::onViewCenterAnimationFinished);
     QObject::connect(m_cameraAnimation, &QParallelAnimationGroup::finished, this, &Animator::onAnimationFinished);
     QObject::connect(m_solarSpeedAnimation, &QPropertyAnimation::finished, this, &Animator::onSpeedAnimationFinished);
 }
@@ -44,15 +46,13 @@ void SolarSystem::Animator::animate(float deltaTime)
     }
 }
 
-void SolarSystem::Animator::setCameraViewCenter(int index)
+void SolarSystem::Animator::animateCamera(SolarObjects object)
 {
     if (!m_animated)
     {
-        auto obj = SolarParser::parsePlanetListIndex(index);
-
-        if (obj != m_currentSolarObject)
+        if (object != m_currentSolarObject)
         {
-            m_currentSolarObject = obj;
+            m_currentSolarObject = object;
             m_solarSpeed = MathCore::instance()->solarSystemSpeed();
 
             // top speed animation
@@ -67,7 +67,7 @@ void SolarSystem::Animator::setCameraViewCenter(int index)
 
             m_animated = true;
 
-            auto camera = MathCore::instance()->solarView();
+            auto camera = MathCore::instance()->camera();
 
             // setup view animation
             m_viewCenterAnimation->setTargetObject(camera);
@@ -80,7 +80,7 @@ void SolarSystem::Animator::setCameraViewCenter(int index)
             m_viewPositionAnimation->setPropertyName("position");
             m_viewPositionAnimation->setStartValue(camera->position());
 
-            if (obj != SolarObjects::SolarSystemView)
+            if (object != SolarObjects::SolarSystemView)
             {
                 m_viewPositionAnimation->setDuration(2500);
                 m_viewPositionAnimation->setEndValue(MathCore::instance()->viewPositionOfObject(m_currentSolarObject));
@@ -93,10 +93,33 @@ void SolarSystem::Animator::setCameraViewCenter(int index)
                 m_viewPositionAnimation->setEndValue(CameraSettings::defaultCameraPosition);
             }
 
-            MathCore::instance()->viewController()->setEnabled(false);
+            MathCore::instance()->cameraController()->setEnabled(false);
 
             m_cameraAnimation->start();
         }
+    }
+}
+
+void SolarSystem::Animator::onViewCenterAnimationFinished()
+{
+    if (m_animated)
+    {
+        constexpr static float defaultCameraRoll = 0.0f;
+        constexpr static float threshold = 0.5f;
+
+        const auto roll = MathCore::instance()->cameraRoll();
+        const auto targetRoll = defaultCameraRoll - roll;
+
+        if (targetRoll < threshold)
+            return;
+
+        m_cameraRollAnimation->setTargetObject(MathCore::instance());
+        m_cameraRollAnimation->setPropertyName("cameraRoll");
+        m_cameraRollAnimation->setStartValue(roll);
+        m_cameraRollAnimation->setEndValue(0);
+        m_cameraRollAnimation->setDuration(700);
+
+        m_cameraRollAnimation->start();
     }
 }
 
@@ -110,7 +133,7 @@ void SolarSystem::Animator::onAnimationFinished()
     m_solarSpeedAnimation->setEndValue(m_solarSpeed);
     m_solarSpeedAnimation->start();
 
-    MathCore::instance()->viewController()->setEnabled(true);
+    MathCore::instance()->cameraController()->setEnabled(true);
 }
 
 void SolarSystem::Animator::onSpeedAnimationFinished()

@@ -50,7 +50,7 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
 
     // math core control
     MathCore::instance()->setObject3DContainer(m_object3DContainer);
-    MathCore::instance()->setSolarView(m_camera);
+    MathCore::instance()->setCamera(m_camera);
     MathCore::instance()->setCameraController(controller);
     MathCore::instance()->setSolarSystemSpeed(SolarSystem::SolarValues::startSpeed);
     MathCore::instance()->changeSolarSystemScale(SolarSystem::SolarValues::startSize);
@@ -129,7 +129,8 @@ void SolarSystem::SolarEntity::setSolarSize(int value)
 
 void SolarSystem::SolarEntity::setViewCenter(int index)
 {
-    m_animator->setCameraViewCenter(index);
+    auto object = SolarParser::parsePlanetListIndex(index);
+    m_animator->animateCamera(object);
 }
 
 void SolarSystem::SolarEntity::setEventSource(QObject* object)

@@ -120,3 +120,13 @@ SolarSystem::Object3DMap& SolarSystem::Object3DContainer::objects() const
 {
     return m_objectContainer;
 }
+
+SolarSystem::Object3D* SolarSystem::Object3DContainer::object(SolarSystem::SolarObjects type) const
+{
+    auto iter = m_objectContainer.find(type);
+
+    if (iter != m_objectContainer.end())
+        return iter->second;
+
+    return nullptr;
+}

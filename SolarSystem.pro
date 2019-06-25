@@ -30,7 +30,7 @@ SOURCES += main.cpp \
     Core/object3dcontainer.cpp \
     Core/animator.cpp \
     Scene/solarentity.cpp \
-    UI/solarquickui.cpp \
+    UI/quickui.cpp \
     Scene/SceneObjects/planetring.cpp \
     Core/cameracontroller.cpp \
     Scene/SceneObjects/earthcloud.cpp \
@@ -68,7 +68,7 @@ HEADERS += \
     Core/object3dcontainer.h \
     Core/animator.h \
     Scene/solarentity.h \
-    UI/solarquickui.h \
+    UI/quickui.h \
     Scene/SceneObjects/planetring.h \
     Core/cameracontroller.h \
     Scene/SceneObjects/earthcloud.h \
