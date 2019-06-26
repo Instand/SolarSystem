@@ -72,7 +72,7 @@ namespace SolarSystem
 
         // values
         float m_lookSpeedValue = 180.0f;
-        float m_defaultZoomLimitValue = modified<float>(200000.0f);
+        float m_defaultZoomLimitValue = modified<float>(250000.0f);
         float m_defaultZoomSpeedValue = modified<float>(5000000.0f);
         float m_zoomLimitValue = m_defaultZoomLimitValue;
         float m_zoomOutLimitValue = m_zoomLimitValue;

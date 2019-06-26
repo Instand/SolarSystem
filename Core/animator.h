@@ -2,7 +2,6 @@
 #define ANIMATOR_H
 
 #include <Core/mathcore.h>
-#include <QTimer>
 
 class QPropertyAnimation;
 class QParallelAnimationGroup;
@@ -30,38 +29,31 @@ namespace SolarSystem
         void animateCamera(SolarObjects object);
 
     signals:
-        void solarTimeChanged(const QDateTime&);
         void currentObjectChanged(SolarObjects);
 
     private slots:
-        void onViewCenterAnimationFinished();
         void onAnimationFinished();
         void onSpeedAnimationFinished();
 
     private:
 
+        // ms
+        constexpr static int viewCenterAnimationDuration = 1500;
+        constexpr static int viewPositionAnimationDuration = 2500;
+
+        bool cameraRollAnimationSetup();
+        void clearCameraRollAnimation();
+
         // selected solar object
         SolarObjects m_currentSolarObject = SolarObjects::SolarSystemView;
 
-        // animation flag
         bool m_animated = false;
-
-        // store solar systme speed
         float m_solarSpeed = 0;
 
-        // animation for view center
         QPropertyAnimation* m_viewCenterAnimation;
-
-        // animation for roll correction
         QPropertyAnimation* m_cameraRollAnimation;
-
-        // animation for position
         QPropertyAnimation* m_viewPositionAnimation;
-
-        // speed animation
         QPropertyAnimation* m_solarSpeedAnimation;
-
-        // group animation
         QParallelAnimationGroup* m_cameraAnimation;
     };
 }

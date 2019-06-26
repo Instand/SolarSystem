@@ -70,7 +70,7 @@ namespace SolarSystem
         void resetExtraSpeed();
 
     private slots:
-        void animatedObjectChanged(SolarObjects object);
+        void onAnimatedObjectChanged(SolarObjects object);
 
     private:
         Qt3DRender::QCamera* m_camera;

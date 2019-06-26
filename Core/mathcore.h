@@ -111,6 +111,7 @@ namespace SolarSystem
 
     signals:
         void solarSystemSpeedChanged(float);
+        void solarTimeChanged(const QDateTime&);
         void cameraRollChanged(float);
 
     private:

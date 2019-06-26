@@ -58,8 +58,8 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     m_animator = new Animator(this);
 
     QObject::connect(m_rootAction, &Qt3DLogic::QFrameAction::triggered, m_animator, &Animator::animate);
-    QObject::connect(m_animator, &Animator::solarTimeChanged, this, &SolarEntity::timeChanged);
-    QObject::connect(m_animator, &Animator::currentObjectChanged, this, &SolarEntity::animatedObjectChanged);
+    QObject::connect(MathCore::instance(), &MathCore::solarTimeChanged, this, &SolarEntity::timeChanged);
+    QObject::connect(m_animator, &Animator::currentObjectChanged, this, &SolarEntity::onAnimatedObjectChanged);
 }
 
 Qt3DRender::QCamera* SolarSystem::SolarEntity::camera() const
@@ -150,7 +150,7 @@ void SolarSystem::SolarEntity::resetExtraSpeed()
     emit extraSpeedChanged(MathCore::instance()->extraSpeed());
 }
 
-void SolarSystem::SolarEntity::animatedObjectChanged(SolarSystem::SolarObjects object)
+void SolarSystem::SolarEntity::onAnimatedObjectChanged(SolarSystem::SolarObjects object)
 {
     emit currentObjectStringChanged(SolarParser::parseSolarObjectToString(object));
 }

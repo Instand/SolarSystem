@@ -116,7 +116,7 @@ bool SolarSystem::DBConnector::status() const
 
 const SolarSystem::ObjectPtr SolarSystem::DBConnector::info(const QString& objectName) const
 {
-    SolarSystem::ObjectPtr object(new SolarSystem::Object());
+    SolarSystem::ObjectPtr object = std::make_shared<SolarSystem::Object>();
 
     if (m_dataBase.isOpen())
     {

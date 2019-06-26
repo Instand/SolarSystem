@@ -20,10 +20,10 @@ SolarSystem::Object3D::Object3D(Qt3DCore::QNode* parent):
     addComponent(m_transform);
     addComponent(m_picker);
 
-    QObject::connect(m_frameAction, &Qt3DLogic::QFrameAction::triggered, this, [&](float deltaTime) {
+    QObject::connect(m_frameAction, &Qt3DLogic::QFrameAction::triggered, this, [this](float deltaTime) {
 
         //additional actions
-        for (auto elem : m_logic)
+        for (const auto& elem : m_logic)
             elem(deltaTime);
 
         update(deltaTime);

@@ -27,7 +27,6 @@ SolarSystem::Animator::Animator(QObject* parent):
     m_cameraAnimation->addAnimation(m_viewPositionAnimation);
 
     // animation actions
-    QObject::connect(m_viewCenterAnimation, &QPropertyAnimation::finished, this, &Animator::onViewCenterAnimationFinished);
     QObject::connect(m_cameraAnimation, &QParallelAnimationGroup::finished, this, &Animator::onAnimationFinished);
     QObject::connect(m_solarSpeedAnimation, &QPropertyAnimation::finished, this, &Animator::onSpeedAnimationFinished);
 }
@@ -42,7 +41,6 @@ void SolarSystem::Animator::animate(float deltaTime)
     if (!m_animated)
     {
         MathCore::instance()->calculate(deltaTime, m_currentSolarObject);
-        emit solarTimeChanged(MathCore::instance()->getTime());
     }
 }
 
@@ -72,7 +70,7 @@ void SolarSystem::Animator::animateCamera(SolarObjects object)
             // setup view animation
             m_viewCenterAnimation->setTargetObject(camera);
             m_viewCenterAnimation->setPropertyName("viewCenter");
-            m_viewCenterAnimation->setDuration(1500);
+            m_viewCenterAnimation->setDuration(viewCenterAnimationDuration);
             m_viewCenterAnimation->setStartValue(camera->viewCenter());
             m_viewCenterAnimation->setEndValue(MathCore::instance()->objectPosition(m_currentSolarObject));
 
@@ -82,44 +80,26 @@ void SolarSystem::Animator::animateCamera(SolarObjects object)
 
             if (object != SolarObjects::SolarSystemView)
             {
-                m_viewPositionAnimation->setDuration(2500);
+                m_viewPositionAnimation->setDuration(viewPositionAnimationDuration);
                 m_viewPositionAnimation->setEndValue(MathCore::instance()->viewPositionOfObject(m_currentSolarObject));
             }
             else
             {
-                m_viewCenterAnimation->setDuration(3000);
+                m_viewCenterAnimation->setDuration(viewPositionAnimationDuration + 500);
 
-                m_viewPositionAnimation->setDuration(2500);
+                m_viewPositionAnimation->setDuration(viewCenterAnimationDuration + 1000);
                 m_viewPositionAnimation->setEndValue(CameraSettings::defaultCameraPosition);
             }
 
-            MathCore::instance()->cameraController()->setEnabled(false);
+            // configurate camera roll animation
+            clearCameraRollAnimation();
 
+            if (cameraRollAnimationSetup())
+                m_cameraAnimation->addAnimation(m_cameraRollAnimation);
+
+            MathCore::instance()->cameraController()->setEnabled(false);
             m_cameraAnimation->start();
         }
-    }
-}
-
-void SolarSystem::Animator::onViewCenterAnimationFinished()
-{
-    if (m_animated)
-    {
-        constexpr static float defaultCameraRoll = 0.0f;
-        constexpr static float threshold = 0.5f;
-
-        const auto roll = MathCore::instance()->cameraRoll();
-        const auto targetRoll = defaultCameraRoll - roll;
-
-        if (targetRoll < threshold)
-            return;
-
-        m_cameraRollAnimation->setTargetObject(MathCore::instance());
-        m_cameraRollAnimation->setPropertyName("cameraRoll");
-        m_cameraRollAnimation->setStartValue(roll);
-        m_cameraRollAnimation->setEndValue(0);
-        m_cameraRollAnimation->setDuration(700);
-
-        m_cameraRollAnimation->start();
     }
 }
 
@@ -139,4 +119,30 @@ void SolarSystem::Animator::onAnimationFinished()
 void SolarSystem::Animator::onSpeedAnimationFinished()
 {
     m_animated = false;
+}
+
+bool SolarSystem::Animator::cameraRollAnimationSetup()
+{
+    constexpr static float defaultCameraRoll = 0.0f;
+    constexpr static float threshold = 0.5f;
+
+    const auto roll = MathCore::instance()->cameraRoll();
+    const auto targetRoll = defaultCameraRoll - roll;
+
+    if (targetRoll < threshold)
+        return false;
+
+    m_cameraRollAnimation->setTargetObject(MathCore::instance());
+    m_cameraRollAnimation->setPropertyName("cameraRoll");
+    m_cameraRollAnimation->setStartValue(roll);
+    m_cameraRollAnimation->setEndValue(0);
+    m_cameraRollAnimation->setDuration(viewCenterAnimationDuration + 500);
+
+    return true;
+}
+
+void SolarSystem::Animator::clearCameraRollAnimation()
+{
+    if (m_cameraAnimation->indexOfAnimation(m_cameraRollAnimation) != -1)
+        m_cameraAnimation->removeAnimation(m_cameraRollAnimation);
 }

@@ -44,8 +44,8 @@ struct SolarSystem::MathCore::Data
     int focusedMinimumScale = 20;
     double actualScale;
     double ultraSpeed = 1.0;
-    double ultraSpeedStep = 2.0;
-    double ultraSpeedMax = 64.0;
+    const double ultraSpeedStep = 2.0;
+    const double ultraSpeedMax = 64.0;
 
     // inner and outer radius
     double saturnRingInnerRadius = 0;
@@ -54,7 +54,7 @@ struct SolarSystem::MathCore::Data
     double uranusRingOuterRadius = 0;
 
     // earth cloud
-    double earthCloudRModifier = 1.010;     //1.010
+    const double earthCloudRModifier = 1.010;
 
     // view
     Qt3DRender::QCamera* camera = nullptr;
@@ -276,6 +276,8 @@ void SolarSystem::MathCore::advanceTime(SolarSystem::SolarObjects object)
 
     // get deltaD
     data->deltaTimeD = data->currentTimeD - data->oldTimeD;
+
+    emit solarTimeChanged(data->solarTime);
 }
 
 void SolarSystem::MathCore::setSolarObjectsScale(float scale, bool focused)
@@ -394,8 +396,9 @@ void SolarSystem::MathCore::updateSolarViewZoomLimit(SolarSystem::SolarObjects o
     }
     else
     {
+        constexpr float zoomModifier = 4.0f;
         auto solarObjRadius = SolarParser::parseSolarObjectRadius(object);
-        auto zoomLimit = static_cast<float>(data->planetScale * solarObjRadius * 4.0);
+        auto zoomLimit = static_cast<float>(data->planetScale * solarObjRadius * double(zoomModifier));
 
         // empiricic calculations
         zoomLimit = calculateZoomLimit(object, zoomLimit);
@@ -403,7 +406,7 @@ void SolarSystem::MathCore::updateSolarViewZoomLimit(SolarSystem::SolarObjects o
         if (data->cameraController)
         {
             data->cameraController->setZoomLimit(zoomLimit);
-            data->cameraController->setZoomSpeed(data->cameraController->defaultZoomSpeed()/3.0f);
+            data->cameraController->setZoomSpeed(data->cameraController->defaultZoomSpeed()/zoomModifier);
         }
     }
 }
@@ -560,6 +563,7 @@ void SolarSystem::MathCore::atmosphereCalculations()
 float SolarSystem::MathCore::calculateZoomLimit(SolarSystem::SolarObjects object, float limit)
 {
     static constexpr float mercuryLimitModifier = 2.0f;
+    static constexpr float mastLimitModifier = 1.3f;
     static constexpr float jupiterLimitModifier = 1.6f;
     static constexpr float plutoLimitModifier = 1.8f;
 
@@ -572,6 +576,10 @@ float SolarSystem::MathCore::calculateZoomLimit(SolarSystem::SolarObjects object
 
     case SolarObjects::Mercury:
         finalLimit *= mercuryLimitModifier;
+        break;
+
+    case SolarObjects::Mars:
+        finalLimit *= mastLimitModifier;
         break;
 
     case SolarObjects::Jupiter:
