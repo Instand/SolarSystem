@@ -7,15 +7,15 @@ const QString SolarSystem::SolarStrings::dbName = "SolarSystem";
 const QString SolarSystem::SolarStrings::dbFileName = "SolarDB.db";
 const QString SolarSystem::SolarStrings::dbFolder = "/Database/";
 const QString SolarSystem::SolarStrings::nameField = "Name";
-const QString SolarSystem::SolarStrings::type = "SolarType";
-const QString SolarSystem::SolarStrings::orbitalSpeed = "OrbitalSpeed";
+const QString SolarSystem::SolarStrings::type = "Solar type";
+const QString SolarSystem::SolarStrings::orbitalSpeed = "Orbital speed";
 const QString SolarSystem::SolarStrings::mass = "Mass";
-const QString SolarSystem::SolarStrings::meanRadius = "MeanRadius";
+const QString SolarSystem::SolarStrings::meanRadius = "Mean radius";
 const QString SolarSystem::SolarStrings::surfaceTemp = "Temperature";
 const QString SolarSystem::SolarStrings::surfaceGravity = "Gravity";
 const QString SolarSystem::SolarStrings::volume = "Volume";
-const QString SolarSystem::SolarStrings::siderealPeriod = "SiderealPeriod";
-const QString SolarSystem::SolarStrings::orbitalPeriod = "OrbitalPeriod";
+const QString SolarSystem::SolarStrings::siderealPeriod = "Sidereal period";
+const QString SolarSystem::SolarStrings::orbitalPeriod = "Orbital period";
 const QString SolarSystem::SolarStrings::description = "Description";
 
 // Sql query
