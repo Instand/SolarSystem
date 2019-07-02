@@ -132,6 +132,9 @@ bool SolarSystem::Animator::cameraRollAnimationSetup()
     if (targetRoll < threshold)
         return false;
 
+    if (!MathCore::instance()->checkAngleThreshold(m_currentSolarObject, cameraAngleThreshold))
+        return false;
+
     m_cameraRollAnimation->setTargetObject(MathCore::instance());
     m_cameraRollAnimation->setPropertyName("cameraRoll");
     m_cameraRollAnimation->setStartValue(roll);

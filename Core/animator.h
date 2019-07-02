@@ -41,6 +41,9 @@ namespace SolarSystem
         constexpr static int viewCenterAnimationDuration = 1500;
         constexpr static int viewPositionAnimationDuration = 2500;
 
+        // degree
+        constexpr static float cameraAngleThreshold = 75.0f;
+
         bool cameraRollAnimationSetup();
         void clearCameraRollAnimation();
 
