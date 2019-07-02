@@ -515,6 +515,24 @@ void SolarSystem::MathCore::setCameraRoll(float roll)
     emit cameraRollChanged(delta);
 }
 
+bool SolarSystem::MathCore::checkAngleThreshold(SolarSystem::SolarObjects object, float threshold)
+{
+    auto cameraForward = data->camera->viewVector().normalized();
+    auto onTarget = (data->container->object(object)->position() - data->camera->position()).normalized();
+
+    auto angle = MathCore::angleBetweenVectors3D(cameraForward, onTarget);
+    return angle <= threshold;
+}
+
+float SolarSystem::MathCore::angleBetweenVectors3D(const QVector3D& lhs, const QVector3D& rhs)
+{
+    auto dot = QVector3D::dotProduct(lhs, rhs);
+    auto cos = dot/(lhs.length() * rhs.length());
+
+    // radians to degree
+    return std::acos(cos) * 180.0f/static_cast<float>(M_PI);
+}
+
 void SolarSystem::MathCore::setupPlanetRings()
 {
     Object3D* saturn = data->container->object(SolarObjects::Saturn);
