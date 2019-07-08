@@ -21,8 +21,15 @@ namespace Qt3DInput
     class QAnalogAxisInput;
 }
 
+namespace Qt3DLogic
+{
+    class QFrameAction;
+}
+
 namespace SolarSystem
 {
+    class Object3D;
+
     // view controll
     class CameraController : public Qt3DCore::QEntity
     {
@@ -49,9 +56,13 @@ namespace SolarSystem
         void setDefaultZoomSpeed();
         float defaultZoomSpeed() const;
 
+        void setLookAtObject(Object3D* object);
+        Object3D* lookAtObject() const;
+
     private:
         Qt3DRender::QCamera* m_viewCamera = nullptr;
-        Qt3DInput::QLogicalDevice* m_logicalDevice;
+        Qt3DInput::QLogicalDevice* m_logicalDevice = nullptr;
+        Qt3DLogic::QFrameAction* m_frameAction = nullptr;
 
         // mouse device
         Qt3DInput::QMouseDevice* m_mouseDevice;
@@ -79,16 +90,16 @@ namespace SolarSystem
         float m_zoomSpeedValue = m_defaultZoomSpeedValue;
 
         QVector3D m_cameraUp = QVector3D(0.0f, 1.0f, 0.0f);
+        Object3D* m_lookAtObject = nullptr;
+
+    protected:
+        void updateCameraViewCenter(float deltaTime);
 
     private slots:
+        void onEnabled(bool enabled);
 
         // update camera
         void onFrameAction(float deltaTime);
-
-    public slots:
-
-        // camera view center update
-        void changeViewCenter(const QVector3D& center);
     };
 }
 

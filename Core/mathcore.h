@@ -112,8 +112,6 @@ namespace SolarSystem
         // returns result of angle threshold between camera and solar object
         Q_INVOKABLE bool checkAngleThreshold(SolarObjects object, float threshold);
 
-        Q_INVOKABLE static float angleBetweenVectors3D(const QVector3D& lhs, const QVector3D& rhs);
-
     signals:
         void solarSystemSpeedChanged(float);
         void solarTimeChanged(const QDateTime&);

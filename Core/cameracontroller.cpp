@@ -1,4 +1,5 @@
 #include "cameracontroller.h"
+
 #include <Qt3DRender/QCamera>
 #include <Qt3DLogic/QFrameAction>
 #include <Qt3DInput/QLogicalDevice>
@@ -7,7 +8,10 @@
 #include <Qt3DInput/QActionInput>
 #include <Qt3DInput/QAxis>
 #include <Qt3DInput/QAnalogAxisInput>
-#include <QDebug>
+
+#include <Scene/object3d.h>
+
+#include <Core/utils.h>
 
 SolarSystem::CameraController::CameraController(Qt3DCore::QNode* parent):
     Qt3DCore::QEntity(parent),
@@ -63,13 +67,13 @@ SolarSystem::CameraController::CameraController(Qt3DCore::QNode* parent):
     m_logicalDevice->addAxis(m_mouseWheelYAxis);
 
     // tick component
-    Qt3DLogic::QFrameAction* frameAction = new Qt3DLogic::QFrameAction(this);
+    m_frameAction = new Qt3DLogic::QFrameAction(this);
 
-    QObject::connect(frameAction, &Qt3DLogic::QFrameAction::triggered, this, &CameraController::onFrameAction);
-    QObject::connect(this, &CameraController::enabledChanged, m_logicalDevice, &Qt3DInput::QLogicalDevice::setEnabled);
+    QObject::connect(m_frameAction, &Qt3DLogic::QFrameAction::triggered, this, &CameraController::onFrameAction);
+    QObject::connect(this, &CameraController::enabledChanged, this, &CameraController::onEnabled);
 
     addComponent(m_logicalDevice);
-    addComponent(frameAction);
+    addComponent(m_frameAction);
 }
 
 void SolarSystem::CameraController::setCamera(Qt3DRender::QCamera* camera)
@@ -132,10 +136,34 @@ float SolarSystem::CameraController::defaultZoomSpeed() const
     return m_defaultZoomSpeedValue;
 }
 
+void SolarSystem::CameraController::setLookAtObject(SolarSystem::Object3D* object)
+{
+    m_lookAtObject = object;
+}
+
+SolarSystem::Object3D* SolarSystem::CameraController::lookAtObject() const
+{
+    return m_lookAtObject;
+}
+
+void SolarSystem::CameraController::updateCameraViewCenter(float deltaTime)
+{
+    auto viewCenter = m_lookAtObject != nullptr ? m_lookAtObject->position() : QVector3D(0, 0, 0);
+    m_viewCamera->setViewCenter(Utils::lerp(m_viewCamera->viewCenter(), viewCenter, deltaTime));
+}
+
+void SolarSystem::CameraController::onEnabled(bool enabled)
+{
+    m_logicalDevice->setEnabled(enabled);
+    m_frameAction->setEnabled(enabled);
+}
+
 void SolarSystem::CameraController::onFrameAction(float deltaTime)
 {
     if (m_viewCamera != nullptr)
     {
+        updateCameraViewCenter(deltaTime);
+
         // right mouse button is pressed/ or touch on mobile
         if (m_mouseButtonAction->isActive())
         {
@@ -163,9 +191,4 @@ void SolarSystem::CameraController::onFrameAction(float deltaTime)
             }
         }
     }
-}
-
-void SolarSystem::CameraController::changeViewCenter(const QVector3D& center)
-{
-    m_viewCamera->setViewCenter(center);
 }

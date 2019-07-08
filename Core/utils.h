@@ -2,6 +2,8 @@
 #define UTILS_H
 
 #include <algorithm>
+
+#include <qmath.h>
 #include <QVector3D>
 
 namespace SolarSystem
@@ -32,6 +34,13 @@ namespace SolarSystem
             return (start + (end - start) * time);
         }
 
+        // linear interpolation for primitive types, time range [0, 1]
+        template<typename T, typename = std::enable_if_t<std::is_trivial_v<T>>>
+        static T lerp(T start, T end, float time)
+        {
+            return (1.0f - time) * start + time * end;
+        }
+
         // spherical linear interpolation from https://en.wikipedia.org/wiki/Slerp
         static QVector3D slerp(const QVector3D& start, const QVector3D& end, float time)
         {
@@ -42,6 +51,16 @@ namespace SolarSystem
             auto relativeVector = (end - start * dotValue).normalized();
 
             return (start * std::cos(theta)) + (relativeVector * std::sin(theta));
+        }
+
+        static float angle(const QVector3D& lhs, const QVector3D& rhs)
+        {
+            auto dot = QVector3D::dotProduct(lhs, rhs);
+            auto dotValue = std::clamp(dot, -1.0f, 1.0f);
+            auto cos = dotValue/(lhs.length() * rhs.length());
+
+            // radians to degree
+            return std::acos(cos) * 180.0f/static_cast<float>(M_PI);
         }
     };
 }

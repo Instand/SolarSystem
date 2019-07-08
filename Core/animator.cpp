@@ -9,6 +9,8 @@
 #include <Core/mathcore.h>
 #include <Core/cameracontroller.h>
 
+#include <Core/utils.h>
+
 SolarSystem::Animator::Animator(QObject* parent):
     QObject(parent)
 {
@@ -38,82 +40,35 @@ SolarSystem::SolarObjects SolarSystem::Animator::currentObject() const
 
 void SolarSystem::Animator::animate(float deltaTime)
 {
-    if (!m_animated)
+    if (m_animated)
     {
-        MathCore::instance()->calculate(deltaTime, m_currentSolarObject);
+        checkAnimation();
+        animation(deltaTime);
     }
+
+    MathCore::instance()->calculate(deltaTime, m_currentSolarObject);
 }
 
 void SolarSystem::Animator::animateCamera(SolarObjects object)
 {
-    if (!m_animated)
+    if (object != m_currentSolarObject)
     {
-        if (object != m_currentSolarObject)
-        {
-            m_currentSolarObject = object;
-            m_solarSpeed = MathCore::instance()->solarSystemSpeed();
+        m_currentSolarObject = object;
 
-            // top speed animation
-            if (m_solarSpeedAnimation->state() == QAbstractAnimation::State::Running)
-                m_solarSpeedAnimation->stop();
+        // object for animation changed
+        emit currentObjectChanged(m_currentSolarObject);
 
-            // object for animation changed
-            emit currentObjectChanged(m_currentSolarObject);
+        MathCore::instance()->cameraController()->setEnabled(false);
+        MathCore::instance()->updateSolarViewZoomLimit(m_currentSolarObject);
 
-            MathCore::instance()->setSolarSystemSpeed(0);
-            MathCore::instance()->updateSolarViewZoomLimit(m_currentSolarObject);
-
-            m_animated = true;
-
-            auto camera = MathCore::instance()->camera();
-
-            // setup view animation
-            m_viewCenterAnimation->setTargetObject(camera);
-            m_viewCenterAnimation->setPropertyName("viewCenter");
-            m_viewCenterAnimation->setDuration(viewCenterAnimationDuration);
-            m_viewCenterAnimation->setStartValue(camera->viewCenter());
-            m_viewCenterAnimation->setEndValue(MathCore::instance()->objectPosition(m_currentSolarObject));
-
-            m_viewPositionAnimation->setTargetObject(camera);
-            m_viewPositionAnimation->setPropertyName("position");
-            m_viewPositionAnimation->setStartValue(camera->position());
-
-            if (object != SolarObjects::SolarSystemView)
-            {
-                m_viewPositionAnimation->setDuration(viewPositionAnimationDuration);
-                m_viewPositionAnimation->setEndValue(MathCore::instance()->viewPositionOfObject(m_currentSolarObject));
-            }
-            else
-            {
-                m_viewCenterAnimation->setDuration(viewPositionAnimationDuration + 500);
-
-                m_viewPositionAnimation->setDuration(viewCenterAnimationDuration + 1000);
-                m_viewPositionAnimation->setEndValue(CameraSettings::defaultCameraPosition);
-            }
-
-            // configurate camera roll animation
-            clearCameraRollAnimation();
-
-            if (cameraRollAnimationSetup())
-                m_cameraAnimation->addAnimation(m_cameraRollAnimation);
-
-            MathCore::instance()->cameraController()->setEnabled(false);
-            m_cameraAnimation->start();
-        }
+        m_animated = true;
     }
 }
 
 void SolarSystem::Animator::onAnimationFinished()
 {
-    // speed animation
-    m_solarSpeedAnimation->setTargetObject(MathCore::instance());
-    m_solarSpeedAnimation->setPropertyName("solarSystemSpeed");
-    m_solarSpeedAnimation->setDuration(60);
-    m_solarSpeedAnimation->setStartValue(0);
-    m_solarSpeedAnimation->setEndValue(m_solarSpeed);
-    m_solarSpeedAnimation->start();
-
     MathCore::instance()->cameraController()->setEnabled(true);
+    m_animated = false;
 }
 
 void SolarSystem::Animator::onSpeedAnimationFinished()
@@ -121,31 +76,58 @@ void SolarSystem::Animator::onSpeedAnimationFinished()
     m_animated = false;
 }
 
-bool SolarSystem::Animator::cameraRollAnimationSetup()
+void SolarSystem::Animator::animation(float deltaTime)
 {
-    constexpr static float defaultCameraRoll = 0.0f;
-    constexpr static float threshold = 0.5f;
+    static constexpr float positionSpeed = 1.25f;
+    static constexpr float viewSpeed = 1.35f;
 
-    const auto roll = MathCore::instance()->cameraRoll();
-    const auto targetRoll = defaultCameraRoll - roll;
+    static constexpr float defaultCameraRoll = 0.0f;
+    static constexpr float cameraAngleThreshold = 30.0f;
 
-    if (targetRoll < threshold)
-        return false;
+    auto camera = MathCore::instance()->camera();
+    auto object = m_currentSolarObject != SolarObjects::SolarSystemView ? m_currentSolarObject : SolarObjects::Sun;
 
-    if (!MathCore::instance()->checkAngleThreshold(m_currentSolarObject, cameraAngleThreshold))
-        return false;
+    // animate view
+    auto center = MathCore::instance()->objectPosition(m_currentSolarObject);
+    camera->setViewCenter(Utils::lerp(camera->viewCenter(), center, deltaTime * viewSpeed));
 
-    m_cameraRollAnimation->setTargetObject(MathCore::instance());
-    m_cameraRollAnimation->setPropertyName("cameraRoll");
-    m_cameraRollAnimation->setStartValue(roll);
-    m_cameraRollAnimation->setEndValue(0);
-    m_cameraRollAnimation->setDuration(viewCenterAnimationDuration + 500);
+    // correct roll
+    const auto roll = camera->transform()->rotationZ();
+    camera->rollAboutViewCenter(defaultCameraRoll - roll);
 
-    return true;
+    qDebug() << "Camera roll " << roll;
+
+    if (m_currentSolarObject != SolarObjects::SolarSystemView)
+    {
+        if (!MathCore::instance()->checkAngleThreshold(object, cameraAngleThreshold))
+            return;
+    }
+
+    // animate position
+    auto position = MathCore::instance()->viewPositionOfObject(m_currentSolarObject);
+    camera->setPosition(Utils::lerp(camera->position(), position, deltaTime * positionSpeed));
 }
 
-void SolarSystem::Animator::clearCameraRollAnimation()
+void SolarSystem::Animator::checkAnimation()
 {
-    if (m_cameraAnimation->indexOfAnimation(m_cameraRollAnimation) != -1)
-        m_cameraAnimation->removeAnimation(m_cameraRollAnimation);
+    static constexpr float cameraAngleThreshold = 3.5f;
+
+    bool result = m_currentSolarObject == SolarObjects::SolarSystemView || m_currentSolarObject == SolarObjects::Sun;
+    const float coeff = !result ? 1.05f : 1.15f;
+
+    auto camera = MathCore::instance()->camera();
+    auto position = (m_currentSolarObject != SolarObjects::SolarSystemView) ?
+                MathCore::instance()->objectPosition(m_currentSolarObject) : CameraSettings::defaultCameraPosition;
+
+    auto needDistance = (MathCore::instance()->viewPositionOfObject(m_currentSolarObject) - position).length();
+    auto currentDistance = (camera->position() - position).length();
+
+    auto object = m_currentSolarObject != SolarObjects::SolarSystemView ? m_currentSolarObject : SolarObjects::Sun;
+    auto angleResult = MathCore::instance()->checkAngleThreshold(object, cameraAngleThreshold);
+
+    if (m_currentSolarObject == SolarObjects::SolarSystemView)
+        needDistance += coeff + 2.0f;
+
+    if (currentDistance/coeff <= needDistance && angleResult)
+        onAnimationFinished();
 }

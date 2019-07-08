@@ -301,8 +301,7 @@ void SolarSystem::MathCore::updateSolarView(SolarSystem::SolarObjects object)
     else
         solarObj = planets[SolarObjects::Sun];
 
-    if (solarObj != nullptr)
-        data->camera->setViewCenter(solarObj->position());
+    data->cameraController->setLookAtObject(solarObj);
 }
 
 void SolarSystem::MathCore::setSolarSystemSpeed(float speed)
@@ -421,6 +420,9 @@ QVector3D SolarSystem::MathCore::objectPosition(SolarSystem::SolarObjects object
 
 QVector3D SolarSystem::MathCore::viewPositionOfObject(SolarSystem::SolarObjects object)
 {
+    if (object == SolarObjects::SolarSystemView)
+        return CameraSettings::defaultCameraPosition;
+
     auto solarObj = data->container->objects()[object];
     auto pos = QVector3D {0, 0, 0};
 
@@ -520,17 +522,8 @@ bool SolarSystem::MathCore::checkAngleThreshold(SolarSystem::SolarObjects object
     auto cameraForward = data->camera->viewVector().normalized();
     auto onTarget = (data->container->object(object)->position() - data->camera->position()).normalized();
 
-    auto angle = MathCore::angleBetweenVectors3D(cameraForward, onTarget);
+    auto angle = Utils::angle(cameraForward, onTarget);
     return angle <= threshold;
-}
-
-float SolarSystem::MathCore::angleBetweenVectors3D(const QVector3D& lhs, const QVector3D& rhs)
-{
-    auto dot = QVector3D::dotProduct(lhs, rhs);
-    auto cos = dot/(lhs.length() * rhs.length());
-
-    // radians to degree
-    return std::acos(cos) * 180.0f/static_cast<float>(M_PI);
 }
 
 void SolarSystem::MathCore::setupPlanetRings()
