@@ -14,23 +14,6 @@
 SolarSystem::Animator::Animator(QObject* parent):
     QObject(parent)
 {
-    m_viewCenterAnimation = new QPropertyAnimation(this);
-    m_cameraRollAnimation = new QPropertyAnimation(this);
-    m_viewPositionAnimation = new QPropertyAnimation(this);
-    m_solarSpeedAnimation = new QPropertyAnimation(this);
-    m_cameraAnimation = new QParallelAnimationGroup(this);
-
-    m_viewCenterAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InOutQuint));
-    m_cameraRollAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InOutQuint));
-    m_viewPositionAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InOutQuint));
-    m_solarSpeedAnimation->setEasingCurve(QEasingCurve(QEasingCurve::InExpo));
-
-    m_cameraAnimation->addAnimation(m_viewCenterAnimation);
-    m_cameraAnimation->addAnimation(m_viewPositionAnimation);
-
-    // animation actions
-    QObject::connect(m_cameraAnimation, &QParallelAnimationGroup::finished, this, &Animator::onAnimationFinished);
-    QObject::connect(m_solarSpeedAnimation, &QPropertyAnimation::finished, this, &Animator::onSpeedAnimationFinished);
 }
 
 SolarSystem::SolarObjects SolarSystem::Animator::currentObject() const
@@ -68,11 +51,6 @@ void SolarSystem::Animator::animateCamera(SolarObjects object)
 void SolarSystem::Animator::onAnimationFinished()
 {
     MathCore::instance()->cameraController()->setEnabled(true);
-    m_animated = false;
-}
-
-void SolarSystem::Animator::onSpeedAnimationFinished()
-{
     m_animated = false;
 }
 

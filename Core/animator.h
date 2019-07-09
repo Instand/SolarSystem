@@ -33,28 +33,14 @@ namespace SolarSystem
 
     private slots:
         void onAnimationFinished();
-        void onSpeedAnimationFinished();
 
     private:
-
-        // ms
-        constexpr static int viewCenterAnimationDuration = 1500;
-        constexpr static int viewPositionAnimationDuration = 2500;
-
         void animation(float deltaTime);
         void checkAnimation();
 
         // selected solar object
         SolarObjects m_currentSolarObject = SolarObjects::SolarSystemView;
-
         bool m_animated = false;
-        float m_solarSpeed = 0;
-
-        QPropertyAnimation* m_viewCenterAnimation;
-        QPropertyAnimation* m_cameraRollAnimation;
-        QPropertyAnimation* m_viewPositionAnimation;
-        QPropertyAnimation* m_solarSpeedAnimation;
-        QParallelAnimationGroup* m_cameraAnimation;
     };
 }
 
