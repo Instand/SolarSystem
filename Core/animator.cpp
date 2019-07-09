@@ -95,8 +95,6 @@ void SolarSystem::Animator::animation(float deltaTime)
     const auto roll = camera->transform()->rotationZ();
     camera->rollAboutViewCenter(defaultCameraRoll - roll);
 
-    qDebug() << "Camera roll " << roll;
-
     if (m_currentSolarObject != SolarObjects::SolarSystemView)
     {
         if (!MathCore::instance()->checkAngleThreshold(object, cameraAngleThreshold))
