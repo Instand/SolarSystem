@@ -3,9 +3,6 @@
 #include <Qt3DRender/QCamera>
 #include <Qt3DCore/QTransform>
 
-#include <QPropertyAnimation>
-#include <QParallelAnimationGroup>
-
 #include <Core/mathcore.h>
 #include <Core/cameracontroller.h>
 
@@ -88,7 +85,7 @@ void SolarSystem::Animator::checkAnimation()
 {
     static constexpr float cameraAngleThreshold = 3.5f;
 
-    bool result = m_currentSolarObject == SolarObjects::SolarSystemView || m_currentSolarObject == SolarObjects::Sun;
+    const bool result = m_currentSolarObject == SolarObjects::SolarSystemView || m_currentSolarObject == SolarObjects::Sun;
     const float coeff = !result ? 1.05f : 1.15f;
 
     auto camera = MathCore::instance()->camera();

@@ -3,9 +3,6 @@
 
 #include <Core/mathcore.h>
 
-class QPropertyAnimation;
-class QParallelAnimationGroup;
-
 namespace SolarSystem
 {
     // animates and controlls mathcore
