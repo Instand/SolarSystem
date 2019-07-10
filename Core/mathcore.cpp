@@ -1,8 +1,13 @@
 #include "mathcore.h"
+
 #include <QtMath>
-#include <QTransform>
+
+#include <Qt3DCore/QTransform>
+
 #include <Qt3DRender/QCamera>
+
 #include <Parser/solarparser.h>
+
 #include <Core/utils.h>
 #include <Core/cameracontroller.h>
 #include <Core/object3dcontainer.h>
@@ -94,23 +99,17 @@ SolarSystem::MathCore::Data::Data()
 
 SolarSystem::MathCore::Data::~Data()
 {
-    if (camera)
-        camera = nullptr;
-
-    if (cameraController)
-        cameraController = nullptr;
+    camera = nullptr;
+    cameraController = nullptr;
 }
 
 SolarSystem::MathCore::MathCore(QObject* parent):
     QObject(parent),
-    data(new Data())
+    data(std::make_unique<Data>())
 {
 }
 
-SolarSystem::MathCore::~MathCore()
-{
-    delete data;
-}
+SolarSystem::MathCore::~MathCore() = default;
 
 SolarSystem::MathCore* SolarSystem::MathCore::instance()
 {
@@ -496,25 +495,6 @@ void SolarSystem::MathCore::calculate(float deltaTime, SolarSystem::SolarObjects
 
     // view on solar object
     updateSolarView(object);
-}
-
-float SolarSystem::MathCore::cameraRoll() const
-{
-    return data->camera->transform()->rotationZ();
-}
-
-void SolarSystem::MathCore::setCameraRoll(float roll)
-{
-    static constexpr QVector3D rollAxis(0, 0, 1);
-    auto matrix = data->camera->transform()->matrix();
-    auto delta = roll - cameraRoll();
-
-    matrix.rotate(delta, rollAxis);
-
-    data->camera->transform()->setMatrix(matrix);
-    data->camera->rollAboutViewCenter(delta);
-
-    emit cameraRollChanged(delta);
 }
 
 bool SolarSystem::MathCore::checkAngleThreshold(SolarSystem::SolarObjects object, float threshold)

@@ -3,7 +3,10 @@
 
 #include <QObject>
 #include <QDateTime>
+
 #include <solarsystemcore.h>
+
+#include <memory>
 
 namespace Qt3DRender
 {
@@ -23,7 +26,6 @@ namespace SolarSystem
         Q_OBJECT
 
         Q_PROPERTY(float solarSystemSpeed READ solarSystemSpeed WRITE setSolarSystemSpeed NOTIFY solarSystemSpeedChanged)
-        Q_PROPERTY(float cameraRoll READ cameraRoll WRITE setCameraRoll NOTIFY cameraRollChanged)
 
     private:
         explicit MathCore(QObject* parent = nullptr);
@@ -105,21 +107,16 @@ namespace SolarSystem
         // performs main calculation of math core
         void calculate(float deltaTime, SolarObjects object);
 
-        // returns current camera Z rotation
-        float cameraRoll() const;
-        Q_INVOKABLE void setCameraRoll(float roll);
-
         // returns result of angle threshold between camera and solar object
         Q_INVOKABLE bool checkAngleThreshold(SolarObjects object, float threshold);
 
     signals:
         void solarSystemSpeedChanged(float);
         void solarTimeChanged(const QDateTime&);
-        void cameraRollChanged(float);
 
     private:
         struct Data;
-        Data* data;
+        std::unique_ptr<Data> data;
 
         /// helper methods
 
