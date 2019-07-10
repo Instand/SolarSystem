@@ -17,6 +17,11 @@ namespace SolarSystem
         // returns current animated solar object
         SolarObjects currentObject() const;
 
+    protected:
+        bool isAnimated() const;
+        void enableAnimation();
+        void disableAnimation();
+
     public slots:
 
         // main call for solar system animation
@@ -27,9 +32,6 @@ namespace SolarSystem
 
     signals:
         void currentObjectChanged(SolarObjects);
-
-    private slots:
-        void onAnimationFinished();
 
     private:
         void animation(float deltaTime);

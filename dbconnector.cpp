@@ -27,7 +27,6 @@ SolarSystem::DBConnector::DBConnector(QObject* parent):
     QObject(parent),
     m_dataBase(QSqlDatabase::addDatabase(SolarS::qSqlLite))
 {
-//    QString dbLocalPath;
 #ifndef Q_OS_ANDROID
     m_dbPath = QGuiApplication::applicationDirPath() + SolarS::dbFolder + SolarS::dbFileName;
 

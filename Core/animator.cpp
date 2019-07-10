@@ -18,6 +18,23 @@ SolarSystem::SolarObjects SolarSystem::Animator::currentObject() const
     return m_currentSolarObject;
 }
 
+bool SolarSystem::Animator::isAnimated() const
+{
+    return m_animated;
+}
+
+void SolarSystem::Animator::enableAnimation()
+{
+    MathCore::instance()->cameraController()->setEnabled(false);
+    m_animated = true;
+}
+
+void SolarSystem::Animator::disableAnimation()
+{
+    MathCore::instance()->cameraController()->setEnabled(true);
+    m_animated = false;
+}
+
 void SolarSystem::Animator::animate(float deltaTime)
 {
     if (m_animated)
@@ -38,17 +55,10 @@ void SolarSystem::Animator::animateCamera(SolarObjects object)
         // object for animation changed
         emit currentObjectChanged(m_currentSolarObject);
 
-        MathCore::instance()->cameraController()->setEnabled(false);
         MathCore::instance()->updateSolarViewZoomLimit(m_currentSolarObject);
 
-        m_animated = true;
+        enableAnimation();
     }
-}
-
-void SolarSystem::Animator::onAnimationFinished()
-{
-    MathCore::instance()->cameraController()->setEnabled(true);
-    m_animated = false;
 }
 
 void SolarSystem::Animator::animation(float deltaTime)
@@ -102,5 +112,5 @@ void SolarSystem::Animator::checkAnimation()
         needDistance += coeff + 2.0f;
 
     if (currentDistance/coeff <= needDistance && angleResult)
-        onAnimationFinished();
+        disableAnimation();
 }
