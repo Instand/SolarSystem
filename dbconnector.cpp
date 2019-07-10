@@ -27,27 +27,27 @@ SolarSystem::DBConnector::DBConnector(QObject* parent):
     QObject(parent),
     m_dataBase(QSqlDatabase::addDatabase(SolarS::qSqlLite))
 {
-    QString dbLocalPath;
+//    QString dbLocalPath;
 #ifndef Q_OS_ANDROID
-    dbLocalPath = QGuiApplication::applicationDirPath() + SolarS::dbFolder + SolarS::dbFileName;
+    m_dbPath = QGuiApplication::applicationDirPath() + SolarS::dbFolder + SolarS::dbFileName;
 
-    if (!QFile::exists(dbLocalPath))
+    if (!QFile::exists(m_dbPath))
     {
         QDir dir;
         dir.mkdir(QGuiApplication::applicationDirPath() + SolarS::dbFolder);
 
         QFile file(":/Resources" + SolarS::dbFolder + SolarS::dbFileName);
-        file.copy(dbLocalPath);
+        file.copy(m_dbPath);
     }
 #endif
 
 #ifdef Q_OS_ANDROID
-    dbLocalPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + SolarS::dbFileName;
+    m_dbPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + SolarS::dbFileName;
 
-    if (!QFile::setPermissions(dbLocalPath, QFile::WriteOwner | QFile::ReadOwner))
+    if (!QFile::setPermissions(m_dbPath, QFile::WriteOwner | QFile::ReadOwner))
         qDebug() << "Database permissions failed";
 
-    QFileInfo file(dbLocalPath);
+    QFileInfo file(m_dbPath);
 
     if (!file.exists())
     {
@@ -55,21 +55,21 @@ SolarSystem::DBConnector::DBConnector(QObject* parent):
 
         if (resourceFile.exists())
         {
-            if (!resourceFile.copy(dbLocalPath))
+            if (!resourceFile.copy(m_dbPath))
             {
                 qDebug() << "Copy database from resources failed, try to copy from assets";
-                assetsSetup(dbLocalPath);
+                assetsSetup(m_dbPath);
             }
         }
         else
-            assetsSetup(dbLocalPath);
+            assetsSetup(m_dbPath);
     }
 #endif
-    QFileInfo info(dbLocalPath);
+    QFileInfo info(m_dbPath);
 
     if (info.isFile() && info.exists())
     {
-        m_dataBase.setDatabaseName(dbLocalPath);
+        m_dataBase.setDatabaseName(m_dbPath);
 
        if (!m_dataBase.open())
            qDebug() << "Database opening failed";
@@ -80,6 +80,9 @@ SolarSystem::DBConnector::~DBConnector()
 {
     if (m_dataBase.isOpen())
         m_dataBase.close();
+
+    if (QFile::exists(m_dbPath))
+        QFile::remove(m_dbPath);
 }
 
 SolarSystem::DBConnector& SolarSystem::DBConnector::instance()

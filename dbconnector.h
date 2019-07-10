@@ -52,6 +52,7 @@ namespace SolarSystem
 
     private:
         QSqlDatabase m_dataBase;
+        QString m_dbPath;
 
         // creates object
         void createObjectFromQuery(QSqlQuery& query, ObjectPtr& object) const;
