@@ -1,6 +1,8 @@
 #ifndef SOLARENTITY_H
 #define SOLARENTITY_H
 
+#include <QDateTime>
+
 #include <Qt3DLogic/QFrameAction>
 #include <Qt3DRender/QTexture>
 #include <Qt3DInput/QInputSettings>

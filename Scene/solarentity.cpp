@@ -4,6 +4,7 @@
 
 #include <Scene/SceneObjects/solarskybox.h>
 
+#include <Core/mathcore.h>
 #include <Core/cameracontroller.h>
 #include <Core/object3dcontainer.h>
 #include <Core/Render/solarforwardframegraph.h>

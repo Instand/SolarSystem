@@ -1,7 +1,9 @@
 #ifndef ANIMATOR_H
 #define ANIMATOR_H
 
-#include <Core/mathcore.h>
+#include <QObject>
+
+#include <solarsystemcore.h>
 
 namespace SolarSystem
 {
