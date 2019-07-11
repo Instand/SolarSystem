@@ -35,6 +35,19 @@ namespace SolarSystem
     {
         Q_OBJECT
 
+        enum class Zoom
+        {
+            ByWheel,
+            ByTouch
+        };
+
+        struct ZoomData
+        {
+            float deltaTime;
+            Zoom type;
+            float value = 0;
+        };
+
     public:
         explicit CameraController(Qt3DCore::QNode* parent = nullptr);
 
@@ -58,6 +71,9 @@ namespace SolarSystem
 
         void setLookAtObject(Object3D* object);
         Object3D* lookAtObject() const;
+
+        // use from qml only
+        void touchZoom(float value);
 
     private:
         Qt3DRender::QCamera* m_viewCamera = nullptr;
@@ -89,11 +105,17 @@ namespace SolarSystem
         float m_zoomOutLimitValue = m_zoomLimitValue;
         float m_zoomSpeedValue = m_defaultZoomSpeedValue;
 
+        float m_deltaTime = 0.0f;
+
         QVector3D m_cameraUp = QVector3D(0.0f, 1.0f, 0.0f);
         Object3D* m_lookAtObject = nullptr;
 
     protected:
         void updateCameraViewCenter(float deltaTime);
+
+        void zoom(const ZoomData& data);
+        void zoomIn(const ZoomData& data);
+        void zoomOut(const ZoomData& data);
 
     private slots:
         void onEnabled(bool enabled);

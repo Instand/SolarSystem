@@ -146,49 +146,72 @@ SolarSystem::Object3D* SolarSystem::CameraController::lookAtObject() const
     return m_lookAtObject;
 }
 
+void SolarSystem::CameraController::touchZoom(float value)
+{
+    if (isEnabled())
+        return;
+
+    // inverse value of touch
+    ZoomData data { m_deltaTime, Zoom::ByTouch, value };
+    value > 0 ? zoomIn(data) : zoomOut(data);
+}
+
 void SolarSystem::CameraController::updateCameraViewCenter(float deltaTime)
 {
     auto viewCenter = m_lookAtObject != nullptr ? m_lookAtObject->position() : QVector3D(0, 0, 0);
     m_viewCamera->setViewCenter(Utils::lerp(m_viewCamera->viewCenter(), viewCenter, deltaTime));
 }
 
+void SolarSystem::CameraController::zoom(const ZoomData& data)
+{
+    auto translationValue = data.type != Zoom::ByTouch ? m_mouseWheelYAxis->value() : data.value;
+    m_viewCamera->translate(QVector3D(0, 0, translationValue * data.deltaTime * m_zoomSpeedValue),
+                            Qt3DRender::QCamera::CameraTranslationOption::DontTranslateViewCenter);
+}
+
+void SolarSystem::CameraController::zoomIn(const ZoomData& data)
+{
+    if ((m_viewCamera->viewCenter() - m_viewCamera->position()).lengthSquared() > (m_zoomLimitValue * m_zoomLimitValue))
+        zoom(data);
+}
+
+void SolarSystem::CameraController::zoomOut(const ZoomData& data)
+{
+    if ((m_viewCamera->viewCenter() - m_viewCamera->position()).lengthSquared() < (m_zoomOutLimitValue * m_zoomOutLimitValue * 1000.0f))
+        zoom(data);
+}
+
 void SolarSystem::CameraController::onEnabled(bool enabled)
 {
     m_logicalDevice->setEnabled(enabled);
-    m_frameAction->setEnabled(enabled);
 }
 
 void SolarSystem::CameraController::onFrameAction(float deltaTime)
 {
-    if (m_viewCamera != nullptr)
+    if (!isEnabled())
     {
-        updateCameraViewCenter(deltaTime);
+        m_deltaTime = deltaTime;
+        return;
+    }
 
-        // right mouse button is pressed/ or touch on mobile
-        if (m_mouseButtonAction->isActive())
-        {
-            m_viewCamera->panAboutViewCenter(m_mouseXAxis->value() * m_lookSpeedValue * deltaTime, m_cameraUp);
-            m_viewCamera->tiltAboutViewCenter(m_mouseYAxis->value() * m_lookSpeedValue * deltaTime);
-        }
+    updateCameraViewCenter(deltaTime);
 
-        // zoom check in
-        if ((m_viewCamera->viewCenter() - m_viewCamera->position()).lengthSquared() > (m_zoomLimitValue * m_zoomLimitValue))
-        {
-            if (m_mouseWheelYAxis->value() > 0)
-            {
-                m_viewCamera->translate(QVector3D(0, 0, m_mouseWheelYAxis->value() * deltaTime * m_zoomSpeedValue),
-                                      Qt3DRender::QCamera::CameraTranslationOption::DontTranslateViewCenter);
-            }
-        }
+    // right mouse button is pressed/ or touch on mobile
+    if (m_mouseButtonAction->isActive())
+    {
+        m_viewCamera->panAboutViewCenter(m_mouseXAxis->value() * m_lookSpeedValue * deltaTime, m_cameraUp);
+        m_viewCamera->tiltAboutViewCenter(m_mouseYAxis->value() * m_lookSpeedValue * deltaTime);
+    }
 
-        // zoom check out
-        if ((m_viewCamera->viewCenter() - m_viewCamera->position()).lengthSquared() < (m_zoomOutLimitValue * m_zoomOutLimitValue * 1000.0f))
-        {
-            if (m_mouseWheelYAxis->value() < 0)
-            {
-                m_viewCamera->translate(QVector3D(0, 0, m_mouseWheelYAxis->value() * deltaTime * m_zoomSpeedValue),
-                                      Qt3DRender::QCamera::CameraTranslationOption::DontTranslateViewCenter);
-            }
-        }
+    // zoom check in
+    if (m_mouseWheelYAxis->value() > 0)
+    {
+        zoomIn(ZoomData { deltaTime, Zoom::ByWheel });
+    }
+
+    // zoom check out
+    if (m_mouseWheelYAxis->value() < 0)
+    {
+        zoomOut(ZoomData { deltaTime, Zoom::ByWheel });
     }
 }
