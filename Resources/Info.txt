@@ -8,7 +8,8 @@ Qt Planet QML example.
 Some textures used from:
 http://www.solarsystemscope.com.
 
-Created by Instand in 2017,
+Created by Instand in 2017.
+
 Source code available at:
 https://github.com/Instand/SolarSystem
 

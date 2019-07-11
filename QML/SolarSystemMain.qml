@@ -1,13 +1,15 @@
 import QtQuick 2.0
 import QtQuick.Scene3D 2.0
 import QtQuick.Controls 2.1
+
 import SolarSystem.InfoLoader 1.0
+import SolarSystem.Utils 1.0
 
 Item {
     id: root
 
     // version property
-    property string version: "3.9"
+    property string version: "3.9.7"
 
     // planet list show flag
     property bool showPlanetList: false
@@ -15,20 +17,54 @@ Item {
     // focused planet
     property int currentSelectedObject: 0
 
-    // 3d viewport
-    Scene3D {
-        id: scene
+    // enables camera zoom on mobile devices, because of Qt3D Input does not support it
+    // on desktop does nothing
+    MultiPointTouchArea {
         anchors.fill: parent
-        aspects: ["render", "logic", "input"]
-        focus: true
-        cameraAspectRatioMode: Scene3D.AutomaticAspectRatio
 
-        // from c++ code
-        SolarEntityMain {
-            id: solarSystem
-            Component.onCompleted: {
-                solarSystem.entity.setEventSource(root)
-                databaseLabel.text = solarSystem.dbState()
+        minimumTouchPoints: 2
+        maximumTouchPoints: 2
+        mouseEnabled: false
+        enabled: true
+
+        touchPoints: [
+            TouchPoint { id: point1 },
+            TouchPoint { id: point2 }
+        ]
+
+        // 3d viewport, handles mouse or one touch events thought MultiPointTouchArea
+        Scene3D {
+            id: scene
+            anchors.fill: parent
+            aspects: ["render", "logic", "input"]
+            focus: true
+            cameraAspectRatioMode: Scene3D.AutomaticAspectRatio
+
+            // from c++ code
+            SolarEntityMain {
+                id: solarSystem
+                Component.onCompleted: {
+                    solarSystem.entity.setEventSource(root)
+                    databaseLabel.text = solarSystem.dbState()
+                }
+            }
+        }
+
+        onPressed: {
+            if (!solarSystem.entity.isAnimated()) {
+                solarSystem.entity.setCameraControllerEnabled(false)
+            }
+        }
+
+        onReleased: {
+            if (!solarSystem.entity.isAnimated()) {
+                solarSystem.entity.setCameraControllerEnabled(true)
+            }
+        }
+
+        onUpdated: {
+            if (!solarSystem.entity.isAnimated()) {
+                solarSystem.zoom(point1, point2)
             }
         }
     }
@@ -162,26 +198,30 @@ Item {
 
                 var str = "";
 
-                if (hours.toString().length === 1)
+                if (hours.toString().length === 1) {
                     str += "0"
+                }
 
                 str += hours.toString()
                 str += ":"
 
-                if (minutes.toString().length === 1)
+                if (minutes.toString().length === 1) {
                     str += "0"
+                }
 
                 str += minutes.toString()
                 str += " "
 
-                if (days.toString().length === 1)
+                if (days.toString().length === 1) {
                     str += " "
+                }
 
                 str += days.toString()
                 str += "/"
 
-                if (month.toString().length === 1)
+                if (month.toString().length === 1) {
                     str += "0"
+                }
 
                 str += month.toString()
                 str += "/"
@@ -258,10 +298,12 @@ Item {
 
     // checks which frame component should be visible
     function checkFrameComponent(name) {
-        if (name === "optionsButton")
+        if (name === "optionsButton") {
             options.visible = true
-        else if (name === "infoButton")
+        }
+        else if (name === "infoButton") {
             aboutText.visible = true
+        }
     }
 
     // planets icons
@@ -312,8 +354,9 @@ Item {
                 solarSystem.entity.resetExtraSpeed();
                 solarSystem.entity.setViewCenter(planetsView.focusedPlanet);
 
-                if (planetsView.focusedPlanet != 0)
+                if (planetsView.focusedPlanet != 0) {
                     infoText.text = solarSystem.entity.info;
+                }
             }
         }
     }

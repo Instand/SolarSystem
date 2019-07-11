@@ -17,7 +17,6 @@
 
 namespace SolarSystem
 {
-    class SolarSkyBox;
     class Object3DContainer;
     class Animator;
     class IFrameGraph;
@@ -48,6 +47,11 @@ namespace SolarSystem
         QString currentObjectString() const;
         QString info() const;
         double extraSpeed() const;
+
+        // mobile touch support by QML
+        Q_INVOKABLE bool isAnimated() const;
+        Q_INVOKABLE void setCameraControllerEnabled(bool state);
+        Q_INVOKABLE void zoomCamera(float value);
 
     signals:
         void timeChanged(const QDateTime&);
@@ -83,7 +87,6 @@ namespace SolarSystem
         Animator* m_animator;
         FpsCounter* m_fpsCounter;
         IFrameGraph* m_frameGraph;
-        SolarSkyBox* m_skybox;
     };
 }
 

@@ -16,7 +16,6 @@ Rectangle {
     height: buttonSize
     color: "transparent"
 
-    // planet image
     Image {
         id: planetImage
         anchors.fill: parent
@@ -25,11 +24,18 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
+
             onClicked: {
                 planetSelector.focusedPlanet = focusPlanet;
                 planetButton.clicked();
             }
-            onEntered: PropertyAnimation { target: planetText; property: "opacity"; to: 1 }
+
+            onEntered: PropertyAnimation {
+                target: planetText;
+                property: "opacity";
+                to: 1
+            }
+
             onExited: PropertyAnimation {
                 target: planetText
                 property: "opacity"
@@ -38,7 +44,6 @@ Rectangle {
         }
     }
 
-    // showing text
     Text {
         id: planetText
         anchors.centerIn: parent

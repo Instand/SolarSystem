@@ -7,6 +7,7 @@
 #include <Core/mathcore.h>
 #include <Core/cameracontroller.h>
 #include <Core/object3dcontainer.h>
+
 #include <Core/Render/solarforwardframegraph.h>
 #include <Core/Render/solarstandardframegraph.h>
 
@@ -38,7 +39,8 @@ SolarSystem::SolarEntity::SolarEntity(QNode* parent):
     controller->setCamera(m_camera);
     controller->setLookSpeed(controller->lookSpeed() * 1.2f);
 
-    m_skybox = new SolarSkyBox(this);
+    // owned by entity
+    new SolarSkyBox(this);
 
     // frame graph
     m_frameGraph = new SolarStandardFrameGraph(this);
@@ -114,6 +116,21 @@ QString SolarSystem::SolarEntity::info() const
 double SolarSystem::SolarEntity::extraSpeed() const
 {
     return MathCore::instance()->extraSpeed();
+}
+
+bool SolarSystem::SolarEntity::isAnimated() const
+{
+    return m_animator->isAnimated();
+}
+
+void SolarSystem::SolarEntity::setCameraControllerEnabled(bool state)
+{
+    MathCore::instance()->cameraController()->setEnabled(state);
+}
+
+void SolarSystem::SolarEntity::zoomCamera(float value)
+{
+    MathCore::instance()->cameraController()->touchZoom(value);
 }
 
 void SolarSystem::SolarEntity::setSolarSpeed(int value)

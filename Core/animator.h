@@ -18,9 +18,9 @@ namespace SolarSystem
 
         // returns current animated solar object
         SolarObjects currentObject() const;
+        bool isAnimated() const;
 
     protected:
-        bool isAnimated() const;
         void enableAnimation();
         void disableAnimation();
 

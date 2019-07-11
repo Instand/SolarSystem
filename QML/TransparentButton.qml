@@ -50,8 +50,9 @@ Rectangle {
 
             // release event
             onReleased: {
-                if (area.containsMouse)
+                if (area.containsMouse) {
                     coloredRECT.opacity = root.maxOpacity
+                }
             }
 
             // enter event

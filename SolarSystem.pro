@@ -16,6 +16,7 @@ CONFIG += resources_big
 TEMPLATE = app
 
 SOURCES += main.cpp \
+    Core/utils.cpp \
     object.cpp \
     dbconnector.cpp \
     solarsystemcore.cpp \
