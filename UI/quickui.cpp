@@ -1,5 +1,8 @@
 #include "quickui.h"
+
 #include <QGuiApplication>
+
+#include <Core/utils.h>
 #include <Scene/solarentity.h>
 #include <Additional/solarinfoloader.h>
 
@@ -7,6 +10,8 @@ SolarSystem::QuickUi::QuickUi(QObject* parent):
     QObject(parent)
 {
     qmlRegisterType<SolarSystem::SolarEntity>("SolarSystem", 1, 0, "SolarEntity");
+
+    qmlRegisterSingletonType<SolarSystem::Utils>("SolarSystem.Utils", 1, 0, "Utils", SolarSystem::utilsProvider);
     qmlRegisterSingletonType<SolarSystem::SolarInfoLoader>("SolarSystem.InfoLoader", 1, 0, "InfoLoader", SolarSystem::infoLoaderProvider);
 
     if (QOpenGLContext::openGLModuleType() == QOpenGLContext::LibGL)

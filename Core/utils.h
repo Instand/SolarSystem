@@ -4,15 +4,22 @@
 #include <algorithm>
 
 #include <qmath.h>
+
+#include <QObject>
+#include <QVector2D>
 #include <QVector3D>
+
+class QQmlEngine;
+class QJSEngine;
 
 namespace SolarSystem
 {
     // Additional class with solar system common helper methods
-    class Utils
+    class Utils final : public QObject
     {
-        Utils() = delete;
-        Utils(const Utils&) = delete;
+        Q_OBJECT
+
+        explicit Utils(QObject* parent = nullptr);
 
     public:
 
@@ -53,7 +60,8 @@ namespace SolarSystem
             return (start * std::cos(theta)) + (relativeVector * std::sin(theta));
         }
 
-        static float angle(const QVector3D& lhs, const QVector3D& rhs)
+        // calculates angle between two vectors 3d
+        Q_INVOKABLE static float angle(const QVector3D& lhs, const QVector3D& rhs)
         {
             auto dot = QVector3D::dotProduct(lhs, rhs);
             auto dotValue = std::clamp(dot, -1.0f, 1.0f);
@@ -62,7 +70,53 @@ namespace SolarSystem
             // radians to degree
             return std::acos(cos) * 180.0f/static_cast<float>(M_PI);
         }
+
+        // calculates angle between two vectors 2d
+        Q_INVOKABLE static float angle(const QVector2D& lhs, const QVector2D& rhs)
+        {
+            return Utils::angle(lhs.toVector3D(), rhs.toVector3D());
+        }
+
+        // helper to QML, calculates distance between two vectors 3d
+        Q_INVOKABLE static float distance(const QVector3D& lhs, const QVector3D& rhs)
+        {
+            return (lhs - rhs).length();
+        }
+
+        // helper to QML, calculates distance between two vectors 2d
+        Q_INVOKABLE static float distance(const QVector2D& lhs, const QVector2D& rhs)
+        {
+            return distance(lhs.toVector3D(), rhs.toVector3D());
+        }
+
+        // calculates the shortest difference between two given angles given in degrees,
+        // https://stackoverflow.com/questions/1878907/the-smallest-difference-between-2-angles
+        Q_INVOKABLE static float deltaAngle(float current, float target)
+        {
+            float result = current - target;
+            return -(static_cast<int>(result + 180) % 360 - 180);
+        }
+
+        Q_INVOKABLE static float specialAngle(const QVector2D& lhs, const QVector2D& rhs)
+        {
+            auto from = rhs - lhs;
+            auto to = QVector2D(1, 0);
+
+            auto result = Utils::angle(from, to);
+            auto cross = QVector3D::crossProduct(from.toVector3D(), to.toVector3D());
+
+            if (cross.z() > 0)
+            {
+                result = 360.0f - result;
+            }
+
+            return result;
+        }
+
+        friend QObject* utilsProvider(QQmlEngine*, QJSEngine*);
     };
+
+    QObject* utilsProvider(QQmlEngine*, QJSEngine*);
 }
 
 #endif // UTILS_H
