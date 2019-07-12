@@ -17,3 +17,6 @@ Thanks to Qt Company. <br />
 - Use C++17 compiler kit<br />
 - Enjoy<br />
 <br />
+
+***Binaries*** <br />
+Release binaries available at https://github.com/Instand/SolarSystem/releases <br />
