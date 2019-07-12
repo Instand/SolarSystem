@@ -122,7 +122,7 @@ Item {
         source: "qrc:/Resources/Images/screen_icon.png"
         onClicked: {
             root.grabToImage(function(result) {
-                result.saveToFile("SolarSystemScreen.png");
+                result.saveToFile("SolarSystemScreen.jpg");
             });
         }
     }
