@@ -13,5 +13,7 @@ Thanks to Qt Company. <br />
 <br />
 
 ***Build for Windows/Android***<br />
-Clone project from repository, use IDE that supports .pro project, use Qt with version 5.10 or above, enjoy<br />
+- Clone project from repository, use IDE that supports .pro project, Qt with version 5.10 or above<br />
+- Use C++17 compiler kit<br />
+- Enjoy<br />
 <br />
