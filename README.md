@@ -9,13 +9,9 @@ Created in 2017 <br />
 <br />
 Thanks to Qt Company. <br />
 <br />
-![alt tag](http://ipic.su/img/img7/fs/SolarSystemScreen.1490859421.png) <br />
+![alt tag](http://ipic.su/img/img7/fs/SolarSystemScreen.1562931855.jpg) <br />
 <br />
 
 ***Build for Windows/Android***<br />
-Clone/download a project from repository, use QtCreator with Qt 5.10+, enjoy<br />
-<br />
-
-***Project binaries***<br />
-Current binaries exist at current-build folder<br />
+Clone project from repository, use IDE that supports .pro project, use Qt with version 5.10 or above, enjoy<br />
 <br />
