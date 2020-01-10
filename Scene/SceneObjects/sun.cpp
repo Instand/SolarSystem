@@ -37,9 +37,3 @@ SolarSystem::Sun::Sun(Qt3DCore::QNode* parent):
 
     setTilt(SolarObjectsValues::Sun::tilt);
 }
-
-void SolarSystem::Sun::update(float deltaTime)
-{
-    Q_UNUSED(deltaTime)
-    Object3D::baseBehaviour();
-}

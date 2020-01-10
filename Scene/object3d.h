@@ -40,7 +40,7 @@ namespace SolarSystem
     protected:
 
         // frame tick for solar object logic programming
-        virtual void update(float deltaTime) = 0;
+        virtual void update(float deltaTime);
 
         void setMaterialType(SolarMaterials material);
 

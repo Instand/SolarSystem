@@ -12,9 +12,3 @@ SolarSystem::PlanetRing::PlanetRing(Qt3DCore::QNode* parent):
 
     mesh->setSource(QUrl::fromLocalFile(":/Resources/Meshes/ring.obj"));
 }
-
-void SolarSystem::PlanetRing::update(float deltaTime)
-{
-    Q_UNUSED(deltaTime)
-    Object3D::baseBehaviour();
-}

@@ -31,6 +31,12 @@ SolarSystem::Object3D::Object3D(Qt3DCore::QNode* parent):
     });
 }
 
+void SolarSystem::Object3D::update(float deltaTime)
+{
+    Q_UNUSED(deltaTime)
+    baseBehaviour();
+}
+
 void SolarSystem::Object3D::addLogic(SolarSystem::LogicPtr func)
 {
     m_logic.push_back(func);
