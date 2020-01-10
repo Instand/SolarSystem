@@ -20,9 +20,3 @@ SolarSystem::Planet::Planet(Qt3DCore::QNode *parent):
 
     m_renderer->setGeometry(sphereGeometry);
 }
-
-void SolarSystem::Planet::update(float deltaTime)
-{
-    Q_UNUSED(deltaTime)
-    Object3D::baseBehaviour();
-}

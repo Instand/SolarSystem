@@ -12,9 +12,6 @@ namespace SolarSystem
 
     public:
         explicit Planet(Qt3DCore::QNode* parent = nullptr);
-
-    protected:
-        virtual void update(float deltaTime) override;
     };
 }
 

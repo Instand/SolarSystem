@@ -13,9 +13,6 @@ namespace SolarSystem
 
     public:
         explicit UnlitObject(Qt3DCore::QNode* parent = nullptr);
-
-    protected:
-        virtual void update(float deltaTime) = 0;
     };
 }
 

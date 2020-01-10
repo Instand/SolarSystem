@@ -13,9 +13,6 @@ namespace SolarSystem
 
     public:
         explicit EarthCloud(Qt3DCore::QNode* parent = nullptr);
-
-    protected:
-        virtual void update(float deltaTime) override;
     };
 }
 

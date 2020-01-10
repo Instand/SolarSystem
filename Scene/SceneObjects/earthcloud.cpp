@@ -32,9 +32,3 @@ SolarSystem::EarthCloud::EarthCloud(Qt3DCore::QNode* parent):
 
     mat->setShininess(100000.0f);
 }
-
-void SolarSystem::EarthCloud::update(float deltaTime)
-{
-    Q_UNUSED(deltaTime)
-    Object3D::baseBehaviour();
-}
