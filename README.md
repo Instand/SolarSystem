@@ -12,7 +12,7 @@ Thanks to Qt Company. <br />
 ![alt tag](http://ipic.su/img/img7/fs/SolarSystemScreen.1562931855.jpg) <br />
 <br />
 
-***Build for Windows/Android***<br />
+***Build for Windows/Linux/Android***<br />
 - Clone project from repository, use IDE that supports .pro project, Qt with version 5.10 or above<br />
 - Use C++17 compiler kit<br />
 - Enjoy<br />
