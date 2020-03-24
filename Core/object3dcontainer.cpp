@@ -22,8 +22,7 @@ SolarSystem::Object3DContainer::~Object3DContainer()
     {
         for (auto& elem : m_objectContainer)
         {
-            if (elem.second)
-                delete elem.second;
+            delete elem.second;
         }
     }
 }
