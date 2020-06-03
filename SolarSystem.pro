@@ -121,7 +121,6 @@ DISTFILES += \
     QML/DatabaseLabel.qml \
     QML/UserOptions.qml
 
-
 # for win app icon
 win32 {
     RC_ICONS += Resources/Images/solarsystem_icon.ico
