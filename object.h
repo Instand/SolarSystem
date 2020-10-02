@@ -32,7 +32,7 @@ namespace SolarSystem
 
         // interface
         void setDescription(const QString& description);
-        QString& description() const;
+        QString description() const;
 
         void setStringType(const QString& type);
         QString stringType() const;

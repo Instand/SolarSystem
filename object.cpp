@@ -53,7 +53,7 @@ void SolarSystem::Object::setDescription(const QString& description)
     solarObjectData->description = description;
 }
 
-QString &SolarSystem::Object::description() const
+QString SolarSystem::Object::description() const
 {
     return solarObjectData->description;
 }
