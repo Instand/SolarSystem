@@ -11,7 +11,6 @@ endif()
 
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS 3DCore 3DExtras 3DInput 3DQuickExtras 3DRender Gui Qml Quick Sql)
-#find_package(Qt${QT_VERSION_MAJOR} OPTIONAL_COMPONENTS AndroidExtras)
 
 qt_standard_project_setup()
 
@@ -55,6 +54,7 @@ qt_add_executable(SolarSystem WIN32 MACOSX_BUNDLE
     main.cpp
     object.cpp object.h
     solarsystemcore.cpp solarsystemcore.h
+    android/AndroidManifest.xml
 )
 
 qt_add_qml_module(SolarSystem
@@ -149,10 +149,12 @@ qt_add_qml_module(SolarSystem
     NO_RESOURCE_TARGET_PATH
 )
 
-# Avoid collision between executable name and QML module directory (QTBUG-98568).
-if(NOT WIN32 AND NOT APPLE)
-    set_property(TARGET SolarSystem PROPERTY OUTPUT_NAME SolarSystem_app)
-endif()
+set(ANDROID_PACKAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/android CACHE INTERNAL "")
+
+## Avoid collision between executable name and QML module directory (QTBUG-98568).
+#if(NOT WIN32 AND NOT APPLE)
+#    set_property(TARGET SolarSystem PROPERTY OUTPUT_NAME SolarSystem_app)
+#endif()
 
 target_link_libraries(SolarSystem PRIVATE
     Qt::3DCore
@@ -167,14 +169,9 @@ target_link_libraries(SolarSystem PRIVATE
     Qt::Sql
 )
 
-if(ANDROID)
-    target_link_libraries(SolarSystem PRIVATE
-        Qt::AndroidExtras
-    )
-endif()
-
 install(TARGETS SolarSystem
     BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_BINDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
