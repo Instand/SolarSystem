@@ -9,7 +9,7 @@ Item {
     id: root
 
     // version property
-    property string version: "3.9.7"
+    property string version: "4.0.0"
 
     // planet list show flag
     property bool showPlanetList: false

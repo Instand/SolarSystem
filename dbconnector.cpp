@@ -2,10 +2,6 @@
 #include <QGuiApplication>
 #include <Parser/solarparser.h>
 
-#ifdef ANDROID
-    #include <QtAndroidExtras/QtAndroid>
-#endif
-
 using SolarS = SolarSystem::SolarStrings;
 using SolarV = SolarSystem::SolarValues;
 using Types = SolarSystem::SolarFields;
