@@ -151,11 +151,6 @@ qt_add_qml_module(SolarSystem
 
 set(ANDROID_PACKAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/android CACHE INTERNAL "")
 
-## Avoid collision between executable name and QML module directory (QTBUG-98568).
-#if(NOT WIN32 AND NOT APPLE)
-#    set_property(TARGET SolarSystem PROPERTY OUTPUT_NAME SolarSystem_app)
-#endif()
-
 target_link_libraries(SolarSystem PRIVATE
     Qt::3DCore
     Qt::3DExtras
