@@ -24,8 +24,7 @@ It is necessary to run in the terminal, which sets the environment variables for
 
 >```sh
 >git clone https://github.com/Instand/SolarSystem.git
->cd node
->git submodule update --init --recursive
+>cd SolarSystem
 >mkdir build
 >cd build
 >cmake -DCMAKE_BUILD_TYPE=Release -A x64 ..
@@ -33,8 +32,7 @@ It is necessary to run in the terminal, which sets the environment variables for
 On Linux/MacOS:<br/>
 >```sh
 >git clone https://github.com/Instand/SolarSystem.git
->cd node
->git submodule update --init --recursive
+>cd SolarSystem
 >mkdir build
 >cd build
 >cmake -DCMAKE_BUILD_TYPE=Release ..
@@ -42,4 +40,4 @@ On Linux/MacOS:<br/>
 
 <h3>Binaries</h3>
 
-Release binaries available at https://github.com/Instand/SolarSystem/releases <br />
+Release binaries are available at https://github.com/Instand/SolarSystem/releases <br />
