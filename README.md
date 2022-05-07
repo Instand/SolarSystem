@@ -23,7 +23,7 @@ On Windows:<br/>
 It is necessary to run in the terminal, which sets the environment variables for building a Visual Studio project
 
 >```sh
->git clone https://github.com/CREDITSCOM/node.git
+>git clone https://github.com/Instand/SolarSystem.git
 >cd node
 >git submodule update --init --recursive
 >mkdir build
@@ -32,7 +32,7 @@ It is necessary to run in the terminal, which sets the environment variables for
 >cmake --build . --target ALL_BUILD --config Release
 On Linux/MacOS:<br/>
 >```sh
->git clone https://github.com/CREDITSCOM/node.git
+>git clone https://github.com/Instand/SolarSystem.git
 >cd node
 >git submodule update --init --recursive
 >mkdir build
