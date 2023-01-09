@@ -58,7 +58,7 @@ qt_add_executable(SolarSystem WIN32 MACOSX_BUNDLE
 )
 
 qt_add_qml_module(SolarSystem
-    URI SolarSystem
+    URI SolarSystemQml
     VERSION ${PROJECT_VERSION}
     QML_FILES
         QML/SolarEntityMain.qml
