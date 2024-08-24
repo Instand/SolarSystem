@@ -13,4 +13,4 @@ Created by Arew in 2017.
 Source code available at:
 https://github.com/Instand/SolarSystem
 
-Thanks to Emerald and Qt Company.
+Thanks to Emerald, QtCompany and KDAB

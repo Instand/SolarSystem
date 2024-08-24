@@ -2,11 +2,12 @@ cmake_minimum_required(VERSION 3.16)
 project(SolarSystem VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(TARGET_NAME SolarSystem)
 
 if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++20")
 else()
-    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD 20)
 endif()
 
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core)
@@ -14,7 +15,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS 3DCore 3DExtras 3DInput 3
 
 qt_standard_project_setup()
 
-qt_add_executable(SolarSystem WIN32 MACOSX_BUNDLE
+qt_add_executable(${TARGET_NAME} WIN32 MACOSX_BUNDLE
     Additional/solarinfoloader.cpp Additional/solarinfoloader.h
     Core/Render/solardiffuseeffect.cpp Core/Render/solardiffuseeffect.h
     Core/Render/solarforwardframegraph.cpp Core/Render/solarforwardframegraph.h
@@ -57,8 +58,8 @@ qt_add_executable(SolarSystem WIN32 MACOSX_BUNDLE
     android/AndroidManifest.xml
 )
 
-qt_add_qml_module(SolarSystem
-    URI SolarSystemQml
+qt_add_qml_module(${TARGET_NAME}
+    URI ${TARGET_NAME}Qml
     VERSION ${PROJECT_VERSION}
     QML_FILES
         QML/SolarEntityMain.qml
@@ -149,9 +150,11 @@ qt_add_qml_module(SolarSystem
     NO_RESOURCE_TARGET_PATH
 )
 
-set(ANDROID_PACKAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/android CACHE INTERNAL "")
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(ANDROID_PACKAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/android CACHE INTERNAL "" FORCE)
 
-target_link_libraries(SolarSystem PRIVATE
+target_link_libraries(${TARGET_NAME} PRIVATE
     Qt::3DCore
     Qt::3DExtras
     Qt::3DInput
@@ -164,18 +167,24 @@ target_link_libraries(SolarSystem PRIVATE
     Qt::Sql
 )
 
-install(TARGETS SolarSystem
+install(TARGETS ${TARGET_NAME}
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_BINDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 qt_generate_deploy_qml_app_script(
-    TARGET SolarSystem
-    FILENAME_VARIABLE deploy_script
+    TARGET ${TARGET_NAME}
+    OUTPUT_SCRIPT deploy_script
     NO_UNSUPPORTED_PLATFORM_ERROR
     DEPLOY_USER_QML_MODULES_ON_UNSUPPORTED_PLATFORM
     MACOS_BUNDLE_POST_BUILD
 )
 
 install(SCRIPT ${deploy_script})
+
+if (ANDROID)
+    set_target_properties(${TARGET_NAME} PROPERTIES LIBRARY_OUTPUT_NAME ${PROJECT_NAME})
+    set(ANDROID_TARGET_GRANDLE_PATH ${CMAKE_BINARY_DIR}/android-build/libs/${ANDROID_ABI})
+    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${TARGET_NAME}> ${ANDROID_TARGET_GRANDLE_PATH})
+endif()
