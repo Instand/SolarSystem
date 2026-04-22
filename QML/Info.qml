@@ -9,7 +9,7 @@ Text {
     font.family: "Comic Sans MS"
     font.italic: true
     verticalAlignment: Text.AlignVCenter
-    font.pixelSize: 15
+    font.pixelSize: 30 * dp
     font.weight: Font.Light
     lineHeight: 1.4
     lineHeightMode: Text.ProportionalHeight
@@ -19,6 +19,7 @@ Text {
     style: Text.Sunken;
     styleColor: "black"
     visible: false
+    width: parent.width
 
     PropertyAnimation {
         id: showInfoAnim

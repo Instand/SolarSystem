@@ -35,12 +35,12 @@ Item {
         // fps title
         Text {
             wrapMode: Text.Wrap
-            font.pixelSize: 14
+            font.pixelSize: 30 * dp
             style: Text.Sunken;
             styleColor: "black"
             color: "white"
             text: "Show FPS: "
-            width: 200 * dp
+            width: 350 * dp
             height: fpsRow.height
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight
@@ -49,10 +49,10 @@ Item {
         // fps button
         Button {
             id: fpsButton
-            width: 140 * dp
-            height: 40 * dp
+            width: 350 * dp
+            height: 60 * dp
             text: "On"
-            font.pixelSize: 15
+            font.pixelSize: 30 * dp
             property bool state: true
 
             onClicked: {
@@ -72,13 +72,13 @@ Item {
 
         // db title
         Text {
-            wrapMode: Text.Wrap
-            font.pixelSize: 14
+            wrapMode: Text.NoWrap
+            font.pixelSize: 30 * dp
             style: Text.Sunken;
             styleColor: "black"
             color: "white"
             text: "Show Database state: "
-            width: 200 * dp
+            width: 350 * dp
             height: dbRow.height
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight
@@ -87,10 +87,10 @@ Item {
         // db button
         Button {
             id: dbButton
-            width: 140 * dp
-            height: 40 * dp
+            width: 350 * dp
+            height: 60 * dp
             text: "Off"
-            font.pixelSize: 15
+            font.pixelSize: 30 * dp
             property bool state: false
 
             onClicked: {

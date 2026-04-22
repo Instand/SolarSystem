@@ -11,7 +11,7 @@ Item {
     id: root
 
     // version property
-    property string version: "4.0.0"
+    property string version: "4.1.0"
 
     // planet list show flag
     property bool showPlanetList: false
@@ -23,6 +23,8 @@ Item {
     // pixels) so High-DPI (devicePixelRatio > 1) does not double-scale the UI.
     readonly property real dp: (Screen.pixelDensity * 25.4 / 160)
         / (Screen.devicePixelRatio > 0 ? Screen.devicePixelRatio : 1.0)
+
+    readonly property real rightPanelWidth: 200 * dp
 
     // enables camera zoom on mobile devices, because of Qt3D Input does not support it
     // on desktop does nothing
@@ -102,9 +104,9 @@ Item {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         anchors.rightMargin: 5 * dp
-        height: Math.min(420 * dp, parent.height * 0.5)
-        width: 120 * dp
-        radius: 4 * dp
+        height: Math.min(1000 * dp, parent.height * 0.65)
+        width: rightPanelWidth
+        radius: 5 * dp
 
         SpeedSlider {
             id: speedSlider
@@ -248,8 +250,8 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: 5 * dp
-        elementWidth: 100 * dp
-        elementHeight: 120 * dp
+        elementWidth: rightPanelWidth // same as right
+        elementHeight: 260 * dp
 
         // store prev button object name
         property string prevName: ""
@@ -268,12 +270,12 @@ Item {
         }
 
         // options
-        onOptionButtonClicked: {
+        onOptionButtonClicked: (name) => {
             showDataFrame(name, controlElements.prevName)
         }
 
         // info
-        onInfoButtonClicked: {
+        onInfoButtonClicked: (name) => {
             showDataFrame(name, controlElements.prevName)
         }
     }
@@ -320,7 +322,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: 110 * dp
+        height: 250 * dp
         anchors.leftMargin: 5 * dp
         anchors.bottomMargin: 10 * dp
         anchors.rightMargin: 5 * dp
@@ -378,8 +380,8 @@ Item {
         anchors.topMargin: 5 * dp
         radius: 4 * dp
         source: "qrc:/Resources/Images/exit_icon.png"
-        width: 60 * dp
-        height: 80 * dp
+        width: rightPanelWidth
+        height: 250 * dp
         onClicked: Qt.quit();
     }
 
@@ -425,7 +427,7 @@ Item {
             lineHeight: 1.45
             lineHeightMode: Text.ProportionalHeight
             wrapMode: Text.Wrap
-            font.pixelSize: 15
+            font.pixelSize: 30 * dp
             style: Text.Sunken;
             styleColor: "black"
             text: InfoLoader.loadInfo(version)
@@ -440,8 +442,13 @@ Item {
             height: dataFrame.height
             visible: false
 
-            onDbButtonClicked: databaseLabel.visible = state
-            onFpsButtonClicked: fpsLabel.visible = state
+            onDbButtonClicked: (state) => {
+                databaseLabel.visible = state
+            }
+
+            onFpsButtonClicked: (state) => {
+                fpsLabel.visible = state
+            }
         }
     }
 
@@ -453,7 +460,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         width: Math.min(340 * dp, parent.width - 20 * dp)
         height: contentHeight
-        font.pixelSize: 20
+        font.pixelSize: 40 * dp
         font.wordSpacing: 1
         font.bold: true
         font.italic: true

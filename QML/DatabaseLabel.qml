@@ -7,7 +7,7 @@ Item {
     Text {
         anchors.fill: parent
         color: "white"
-        font.pixelSize: 22
+        font.pixelSize: 30 * dp
         style: Text.Sunken
         styleColor: "black"
         text: " Database status: " + root.text
