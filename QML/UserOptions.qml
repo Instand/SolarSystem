@@ -11,15 +11,15 @@ Item {
     Text {
         id: title
         anchors.top: root.top
-        anchors.topMargin: 10
+        anchors.topMargin: 8 * dp
         width: parent.width
-        height: 25 * dp
+        height: 22 * dp
         color: "white"
         font.italic: true
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
-        font.pixelSize: 24
+        font.pixelSize: 17
         style: Text.Sunken;
         styleColor: "black"
         text: "Options"
@@ -29,13 +29,13 @@ Item {
         id: fpsRow
         anchors.left: root.left
         anchors.top: title.bottom
-        anchors.topMargin: 30 * dp
-        spacing: 15 * dp
+        anchors.topMargin: 20 * dp
+        spacing: 10 * dp
 
         // fps title
         Text {
             wrapMode: Text.Wrap
-            font.pixelSize: 18
+            font.pixelSize: 14
             style: Text.Sunken;
             styleColor: "black"
             color: "white"
@@ -49,10 +49,10 @@ Item {
         // fps button
         Button {
             id: fpsButton
-            width: 170 * dp
-            height: 50 * dp
+            width: 140 * dp
+            height: 40 * dp
             text: "On"
-            font.pixelSize: 22
+            font.pixelSize: 15
             property bool state: true
 
             onClicked: {
@@ -67,13 +67,13 @@ Item {
         id: dbRow
         anchors.left: root.left
         anchors.top: fpsRow.bottom
-        anchors.topMargin: 30 * dp
-        spacing: 15 * dp
+        anchors.topMargin: 20 * dp
+        spacing: 10 * dp
 
         // db title
         Text {
             wrapMode: Text.Wrap
-            font.pixelSize: 18
+            font.pixelSize: 14
             style: Text.Sunken;
             styleColor: "black"
             color: "white"
@@ -87,10 +87,10 @@ Item {
         // db button
         Button {
             id: dbButton
-            width: 170 * dp
-            height: 50 * dp
+            width: 140 * dp
+            height: 40 * dp
             text: "Off"
-            font.pixelSize: 22
+            font.pixelSize: 15
             property bool state: false
 
             onClicked: {

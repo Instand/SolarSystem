@@ -96,19 +96,18 @@ Item {
         visible: false
     }
 
-    // slider frame
+    // slider frame (wider = easier touch on phones)
     SolarFrame {
         id: speedSliderFrame
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         anchors.rightMargin: 5 * dp
-        height: 400 * dp
-        width: 65 * dp
+        height: Math.min(420 * dp, parent.height * 0.5)
+        width: 120 * dp
         radius: 4 * dp
 
         SpeedSlider {
             id: speedSlider
-            orientation: Qt.Vertical
             anchors.fill: parent
             onValueChanged: {
                 solarSystem.entity.setSolarSpeed(value);
@@ -134,14 +133,15 @@ Item {
         }
     }
 
-    // solar object info
+    // solar object info (fill space between left toolbar and right slider)
     Info {
         id: infoText
         anchors.verticalCenter: parent.verticalCenter
+        anchors.left: controlElements.right
+        anchors.leftMargin: 10 * dp
         anchors.right: speedSliderFrame.left
         anchors.rightMargin: 5 * dp
-        width: 600 * dp
-        height: (speedSliderFrame.height + 100) * dp
+        height: speedSliderFrame.height + 40 * dp
     }
 
     // extra speed button
@@ -173,26 +173,27 @@ Item {
         onClicked: solarSystem.entity.changeExtraSpeed()
     }
 
-    // date label
-    Item {
+    // date label (Column so two lines reserve real height; avoids overlap with planet name)
+    Column {
         id: timeFrame
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.topMargin: 5 * dp
-        width: 200 * dp
-        height: 50 * dp
+        width: Math.min(280 * dp, parent.width * 0.75)
+        spacing: 2 * dp
 
         DateText {
             id: timeLabel
             text: "Actual time"
-            anchors.top: parent.top
-            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width
+            horizontalAlignment: Text.AlignHCenter
         }
 
         // show current solar time
         DateText {
             id: solarTime
-            anchors.top: timeLabel.bottom
+            width: parent.width
+            horizontalAlignment: Text.AlignHCenter
 
             // show time to label
             function showTime() {
@@ -421,10 +422,10 @@ Item {
             font.italic: true
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
-            lineHeight: 1.625 * 14
-            lineHeightMode: Text.FixedHeight
+            lineHeight: 1.45
+            lineHeightMode: Text.ProportionalHeight
             wrapMode: Text.Wrap
-            font.pixelSize: 22
+            font.pixelSize: 15
             style: Text.Sunken;
             styleColor: "black"
             text: InfoLoader.loadInfo(version)
@@ -444,20 +445,21 @@ Item {
         }
     }
 
-    // object text
+    // current object name (pixelSize: pointSize 30 was huge on mobile; same ballpark as DateText + bold)
     Text {
         id: planetText
         anchors.top: timeFrame.bottom
-        anchors.topMargin: 10 * dp
+        anchors.topMargin: 16 * dp
         anchors.horizontalCenter: parent.horizontalCenter
-        width: 200 * dp
-        height: 60 * dp
-        font.pointSize: 30
-        font.wordSpacing: 2
+        width: Math.min(340 * dp, parent.width - 20 * dp)
+        height: contentHeight
+        font.pixelSize: 20
+        font.wordSpacing: 1
         font.bold: true
         font.italic: true
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.Wrap
         color: "white"
         text: solarSystem.entity.currentObjectString
         font.family: "Century Gothic"

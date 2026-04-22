@@ -9,10 +9,10 @@ Text {
     font.family: "Comic Sans MS"
     font.italic: true
     verticalAlignment: Text.AlignVCenter
-    font.pixelSize: 18
+    font.pixelSize: 15
     font.weight: Font.Light
-    lineHeight: 1.625 * 16 * dp
-    lineHeightMode: Text.FixedHeight
+    lineHeight: 1.4
+    lineHeightMode: Text.ProportionalHeight
     color: "white"
     opacity: 0
     wrapMode: Text.Wrap
