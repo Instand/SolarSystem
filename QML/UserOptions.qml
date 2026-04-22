@@ -40,7 +40,7 @@ Item {
             styleColor: "black"
             color: "white"
             text: "Show FPS: "
-            width: 200
+            width: 200 * dp
             height: fpsRow.height
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight

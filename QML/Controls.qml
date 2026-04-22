@@ -18,7 +18,7 @@ Column {
         id: planetButton
         width: root.elementWidth
         height: root.elementHeight
-        radius: 4
+        radius: 4 * dp
         source: "qrc:/Resources/Images/planet_icon.png"
         objectName: "planetButton"
 
@@ -30,7 +30,7 @@ Column {
         id: calendarButton
         width: root.elementWidth
         height: root.elementHeight
-        radius: 4
+        radius: 4 * dp
         source: "qrc:/Resources/Images/calendar_icon.png"
         objectName: "calendarButton"
 
@@ -42,7 +42,7 @@ Column {
         id: optionsButton
         width: root.elementWidth
         height: root.elementHeight
-        radius: 4
+        radius: 4 * dp
         source: "qrc:/Resources/Images/options_icon.png"
         objectName: "optionsButton"
 
@@ -54,7 +54,7 @@ Column {
         id: infoButton
         width: root.elementWidth
         height: root.elementHeight
-        radius: 4
+        radius: 4 * dp
         source: "qrc:/Resources/Images/info_icon.png"
         objectName: "infoButton"
 

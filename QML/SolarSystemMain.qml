@@ -19,7 +19,10 @@ Item {
     // focused planet
     property int currentSelectedObject: 0
 
-    readonly property real dp: Screen.pixelDensity * 25.4 / 160
+    // Android 1dp in physical pixels, converted to QML scene units (device-independent
+    // pixels) so High-DPI (devicePixelRatio > 1) does not double-scale the UI.
+    readonly property real dp: (Screen.pixelDensity * 25.4 / 160)
+        / (Screen.devicePixelRatio > 0 ? Screen.devicePixelRatio : 1.0)
 
     // enables camera zoom on mobile devices, because of Qt3D Input does not support it
     // on desktop does nothing
@@ -146,8 +149,8 @@ Item {
         id: extraButton
         anchors.right: parent.right
         anchors.bottom: speedSliderFrame.top
-        anchors.rightMargin: 5
-        anchors.bottomMargin: 5
+        anchors.rightMargin: 5 * dp
+        anchors.bottomMargin: 5 * dp
         radius: 4 * dp
         height: width
         width: speedSliderFrame.width
@@ -343,7 +346,8 @@ Item {
         PlanetList {
             id: planetsView
             anchors.fill: parent
-            buttonSize: (height - 5) * dp
+            // height is already in scene units; do not multiply by dp again
+            buttonSize: height - 5
             visible: false
             onClicked:  {
                 if (planetsView.focusedPlanet == 0) {

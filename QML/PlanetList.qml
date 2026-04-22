@@ -101,7 +101,7 @@ Item {
     ListView {
         id: planetButtonView
         anchors.fill: parent
-        spacing: 10
+        spacing: 10 * dp
         width: root.parent.width
         interactive: false
         model: planetModel
