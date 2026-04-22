@@ -13,7 +13,7 @@ Item {
         anchors.top: root.top
         anchors.topMargin: 10
         width: parent.width
-        height: 25
+        height: 25 * dp
         color: "white"
         font.italic: true
         verticalAlignment: Text.AlignVCenter
@@ -29,8 +29,8 @@ Item {
         id: fpsRow
         anchors.left: root.left
         anchors.top: title.bottom
-        anchors.topMargin: 30
-        spacing: 15
+        anchors.topMargin: 30 * dp
+        spacing: 15 * dp
 
         // fps title
         Text {
@@ -49,8 +49,8 @@ Item {
         // fps button
         Button {
             id: fpsButton
-            width: 170
-            height: 50
+            width: 170 * dp
+            height: 50 * dp
             text: "On"
             font.pixelSize: 22
             property bool state: true
@@ -67,8 +67,8 @@ Item {
         id: dbRow
         anchors.left: root.left
         anchors.top: fpsRow.bottom
-        anchors.topMargin: 30
-        spacing: 15
+        anchors.topMargin: 30 * dp
+        spacing: 15 * dp
 
         // db title
         Text {
@@ -78,7 +78,7 @@ Item {
             styleColor: "black"
             color: "white"
             text: "Show Database state: "
-            width: 200
+            width: 200 * dp
             height: dbRow.height
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight
@@ -87,8 +87,8 @@ Item {
         // db button
         Button {
             id: dbButton
-            width: 170
-            height: 50
+            width: 170 * dp
+            height: 50 * dp
             text: "Off"
             font.pixelSize: 22
             property bool state: false

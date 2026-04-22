@@ -5,8 +5,8 @@ Column {
     spacing: 3
 
     // size of every element
-    property int elementWidth: 10
-    property int elementHeight: 20
+    property int elementWidth: 10 * dp
+    property int elementHeight: 20 * dp
 
     signal planetButtonClicked(string name)
     signal infoButtonClicked(string name)

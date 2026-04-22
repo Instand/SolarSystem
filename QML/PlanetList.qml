@@ -3,7 +3,7 @@ import QtQuick 2.0
 Item {
     id: root
 
-    property int buttonSize: 70
+    property int buttonSize: 70 * dp
     property int fontSize: 14
     property int focusedPlanet: 0
 
@@ -108,5 +108,4 @@ Item {
         delegate: modelDelegate
         orientation: Qt.Horizontal
     }
-
 }

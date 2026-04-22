@@ -1,4 +1,6 @@
-import QtQuick 2.0
+import QtQuick 2.15
+import QtQuick.Window 2.15
+
 import QtQuick.Scene3D 2.0
 import QtQuick.Controls 2.1
 
@@ -16,6 +18,8 @@ Item {
 
     // focused planet
     property int currentSelectedObject: 0
+
+    readonly property real dp: Screen.pixelDensity * 25.4 / 160
 
     // enables camera zoom on mobile devices, because of Qt3D Input does not support it
     // on desktop does nothing
@@ -74,8 +78,8 @@ Item {
         id: fpsLabel
         anchors.top: root.top
         anchors.left: root.left
-        width: 100
-        height: 50
+        width: 100 * dp
+        height: 50 * dp
         text: solarSystem.counter.fps
     }
 
@@ -84,8 +88,8 @@ Item {
         id: databaseLabel
         anchors.top: fpsLabel.bottom
         anchors.left: root.left
-        width: 200
-        height: 50
+        width: 200 * dp
+        height: 50 * dp
         visible: false
     }
 
@@ -94,10 +98,10 @@ Item {
         id: speedSliderFrame
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        anchors.rightMargin: 5
-        height: 400
-        width: 65
-        radius: 4
+        anchors.rightMargin: 5 * dp
+        height: 400 * dp
+        width: 65 * dp
+        radius: 4 * dp
 
         SpeedSlider {
             id: speedSlider
@@ -114,9 +118,9 @@ Item {
         id: screenButton
         anchors.right: parent.right
         anchors.top: speedSliderFrame.bottom
-        anchors.topMargin: 5
-        anchors.rightMargin: 5
-        radius: 4
+        anchors.topMargin: 5 * dp
+        anchors.rightMargin: 5 * dp
+        radius: 4 * dp
         height: width
         width: speedSliderFrame.width
         source: "qrc:/Resources/Images/screen_icon.png"
@@ -132,9 +136,9 @@ Item {
         id: infoText
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: speedSliderFrame.left
-        anchors.rightMargin: 5
-        width: 600
-        height: speedSliderFrame.height + 100
+        anchors.rightMargin: 5 * dp
+        width: 600 * dp
+        height: (speedSliderFrame.height + 100) * dp
     }
 
     // extra speed button
@@ -144,7 +148,7 @@ Item {
         anchors.bottom: speedSliderFrame.top
         anchors.rightMargin: 5
         anchors.bottomMargin: 5
-        radius: 4
+        radius: 4 * dp
         height: width
         width: speedSliderFrame.width
 
@@ -171,9 +175,9 @@ Item {
         id: timeFrame
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: 5
-        width: 200
-        height: 50
+        anchors.topMargin: 5 * dp
+        width: 200 * dp
+        height: 50 * dp
 
         DateText {
             id: timeLabel
@@ -239,9 +243,9 @@ Item {
         id: controlElements
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: 5
-        elementWidth: 100
-        elementHeight: 120
+        anchors.leftMargin: 5 * dp
+        elementWidth: 100 * dp
+        elementHeight: 120 * dp
 
         // store prev button object name
         property string prevName: ""
@@ -272,12 +276,12 @@ Item {
 
     // shows ui with data frame
     function showDataFrame(name, prevName) {
-        if (dataFrame.opacity == 0) {
+        if (dataFrame.opacity === 0) {
             setEnabledFrames(false)
             checkFrameComponent(name)
             dataFrameShowAnimation.start()
         }
-        else if (dataFrame.opacity == 1) {
+        else if (dataFrame.opacity === 1) {
             if (prevName === name) {
                 dataFrameUnShowAnimation.start()
             }
@@ -312,11 +316,11 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: 110
-        anchors.leftMargin: 5
-        anchors.bottomMargin: 10
-        anchors.rightMargin: 5
-        radius: 4
+        height: 110 * dp
+        anchors.leftMargin: 5 * dp
+        anchors.bottomMargin: 10 * dp
+        anchors.rightMargin: 5 * dp
+        radius: 4 * dp
         opacity: 0
 
         PropertyAnimation {
@@ -339,7 +343,7 @@ Item {
         PlanetList {
             id: planetsView
             anchors.fill: parent
-            buttonSize: height - 5
+            buttonSize: (height - 5) * dp
             visible: false
             onClicked:  {
                 if (planetsView.focusedPlanet == 0) {
@@ -365,12 +369,12 @@ Item {
     TransparentButton {
         anchors.top: parent.top
         anchors.right: parent.right
-        anchors.rightMargin: 5
-        anchors.topMargin: 5
-        radius: 4
+        anchors.rightMargin: 5 * dp
+        anchors.topMargin: 5 * dp
+        radius: 4 * dp
         source: "qrc:/Resources/Images/exit_icon.png"
-        width: 60
-        height: 80
+        width: 60 * dp
+        height: 80 * dp
         onClicked: Qt.quit();
     }
 
@@ -379,10 +383,10 @@ Item {
         id: dataFrame
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: controlElements.right
-        anchors.leftMargin: 10
+        anchors.leftMargin: 10 * dp
         width: controlElements.height
         height: controlElements.height
-        radius: 4
+        radius: 4 * dp
         opacity: 0
 
         PropertyAnimation {
@@ -408,7 +412,7 @@ Item {
             width: dataFrame.width
             height: dataFrame.height
             anchors.fill: parent
-            anchors.topMargin: 15
+            anchors.topMargin: 15 * dp
             color: "white"
             font.italic: true
             verticalAlignment: Text.AlignVCenter
@@ -440,10 +444,10 @@ Item {
     Text {
         id: planetText
         anchors.top: timeFrame.bottom
-        anchors.topMargin: 10
+        anchors.topMargin: 10 * dp
         anchors.horizontalCenter: parent.horizontalCenter
-        width: 200
-        height: 60
+        width: 200 * dp
+        height: 60 * dp
         font.pointSize: 30
         font.wordSpacing: 2
         font.bold: true

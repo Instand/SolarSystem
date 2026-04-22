@@ -7,7 +7,7 @@ Rectangle {
     property alias source: planetImage.source
     property alias focusPlanet: planetImage.focusPlanet
     property Item planetSelector: parent.parent
-    property int buttonSize: 70
+    property int buttonSize: 70 * dp
     property int fontSize: 16
 
     signal clicked;
