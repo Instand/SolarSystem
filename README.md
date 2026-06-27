@@ -8,7 +8,7 @@ Created in 2017 <br />
 <br />
 Thanks to Qt Company. <br />
 <br />
-![alt tag](http://ipic.su/img/img7/fs/SolarSystemScreen.1562931855.jpg) <br />
+![alt tag](https://github.com/user-attachments/assets/5e4d5abe-0629-416e-9e0c-41b5c9b24366) <br />
 <br />
 
 <h2>Build for Windows/Linux/MacOS/Android</h2>

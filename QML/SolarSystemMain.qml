@@ -1,4 +1,7 @@
-import QtQuick 2.0
+import QtQuick 2.15
+import QtQuick.Window 2.15
+import QtQuick.Layouts 1.15
+
 import QtQuick.Scene3D 2.0
 import QtQuick.Controls 2.1
 
@@ -9,13 +12,22 @@ Item {
     id: root
 
     // version property
-    property string version: "4.0.0"
+    property string version: "4.1.0"
 
     // planet list show flag
     property bool showPlanetList: false
 
     // focused planet
     property int currentSelectedObject: 0
+
+    // Android 1dp in physical pixels, converted to QML scene units (device-independent
+    // pixels) so High-DPI (devicePixelRatio > 1) does not double-scale the UI.
+    readonly property real dp: (Screen.pixelDensity * 25.4 / 160)
+        / (Screen.devicePixelRatio > 0 ? Screen.devicePixelRatio : 1.0)
+
+    readonly property real rightPanelWidth: 200 * dp
+    readonly property real rightPanelSpacing: 5 * dp
+    readonly property real rightPanelSideHeight: Math.max(48 * dp, rightPanel.height * 0.14)
 
     // enables camera zoom on mobile devices, because of Qt3D Input does not support it
     // on desktop does nothing
@@ -74,8 +86,8 @@ Item {
         id: fpsLabel
         anchors.top: root.top
         anchors.left: root.left
-        width: 100
-        height: 50
+        width: 100 * dp
+        height: 50 * dp
         text: solarSystem.counter.fps
     }
 
@@ -84,108 +96,123 @@ Item {
         id: databaseLabel
         anchors.top: fpsLabel.bottom
         anchors.left: root.left
-        width: 200
-        height: 50
+        width: 200 * dp
+        height: 50 * dp
         visible: false
     }
 
-    // slider frame
-    SolarFrame {
-        id: speedSliderFrame
+    // Right toolbar: exit, extra speed, speed slider, screenshot — stacked top to bottom.
+    Item {
+        id: rightPanel
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
         anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.rightMargin: 5
-        height: 400
-        width: 65
-        radius: 4
+        anchors.topMargin: 5 * dp
+        anchors.bottomMargin: 5 * dp
+        anchors.rightMargin: 5 * dp
+        width: rightPanelWidth
 
-        SpeedSlider {
-            id: speedSlider
-            orientation: Qt.Vertical
+        ColumnLayout {
             anchors.fill: parent
-            onValueChanged: {
-                solarSystem.entity.setSolarSpeed(value);
+            spacing: rightPanelSpacing
+
+            TransparentButton {
+                id: exitButton
+                Layout.fillWidth: true
+                Layout.preferredHeight: rightPanelSideHeight
+                Layout.maximumHeight: rightPanel.height * 0.2
+                radius: 4 * dp
+                source: "qrc:/Resources/Images/exit_icon.png"
+                onClicked: Qt.quit()
+            }
+
+            TransparentButton {
+                id: extraButton
+                Layout.fillWidth: true
+                Layout.preferredHeight: rightPanelSideHeight
+                Layout.maximumHeight: rightPanel.height * 0.2
+                radius: 4 * dp
+
+                Text {
+                    id: extraText
+                    color: "#ffffff"
+                    anchors.fill: parent
+                    font.family: "Comic Sans MS"
+                    font.bold: true
+                    font.italic: true
+                    font.pointSize: 12
+                    styleColor: "black"
+                    style: Text.Sunken
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    text: qsTr("x") + solarSystem.entity.extraSpeed.toString()
+                }
+
+                onClicked: solarSystem.entity.changeExtraSpeed()
+            }
+
+            SolarFrame {
+                id: speedSliderFrame
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.minimumHeight: 100 * dp
+                radius: 5 * dp
+
+                SpeedSlider {
+                    id: speedSlider
+                    anchors.fill: parent
+                    onValueChanged: solarSystem.entity.setSolarSpeed(value)
+                }
+            }
+
+            TransparentButton {
+                id: screenButton
+                Layout.fillWidth: true
+                Layout.preferredHeight: rightPanelSideHeight
+                Layout.maximumHeight: rightPanel.height * 0.2
+                radius: 4 * dp
+                source: "qrc:/Resources/Images/screen_icon.png"
+                onClicked: {
+                    root.grabToImage(function(result) {
+                        result.saveToFile("SolarSystemScreen.jpg")
+                    })
+                }
             }
         }
     }
 
-    // take a solar screenshot
-    TransparentButton {
-        id: screenButton
-        anchors.right: parent.right
-        anchors.top: speedSliderFrame.bottom
-        anchors.topMargin: 5
-        anchors.rightMargin: 5
-        radius: 4
-        height: width
-        width: speedSliderFrame.width
-        source: "qrc:/Resources/Images/screen_icon.png"
-        onClicked: {
-            root.grabToImage(function(result) {
-                result.saveToFile("SolarSystemScreen.jpg");
-            });
-        }
-    }
-
-    // solar object info
+    // solar object info (fill space between left toolbar and right panel)
     Info {
         id: infoText
         anchors.verticalCenter: parent.verticalCenter
-        anchors.right: speedSliderFrame.left
-        anchors.rightMargin: 5
-        width: 600
-        height: speedSliderFrame.height + 100
+        anchors.left: controlElements.right
+        anchors.leftMargin: 10 * dp
+        anchors.right: rightPanel.left
+        anchors.rightMargin: 5 * dp
+        height: rightPanel.height
     }
 
-    // extra speed button
-    TransparentButton {
-        id: extraButton
-        anchors.right: parent.right
-        anchors.bottom: speedSliderFrame.top
-        anchors.rightMargin: 5
-        anchors.bottomMargin: 5
-        radius: 4
-        height: width
-        width: speedSliderFrame.width
-
-        Text {
-            id: extraText
-            color: "#ffffff"
-            anchors.fill: parent
-            font.family: "Comic Sans MS"
-            font.bold: true
-            font.italic: true
-            font.pointSize: 12
-            styleColor: "black"
-            style: Text.Sunken;
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            text: qsTr("x") + solarSystem.entity.extraSpeed.toString()
-        }
-
-        onClicked: solarSystem.entity.changeExtraSpeed()
-    }
-
-    // date label
-    Item {
+    // date label (Column so two lines reserve real height; avoids overlap with planet name)
+    Column {
         id: timeFrame
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: 5
-        width: 200
-        height: 50
+        anchors.topMargin: 5 * dp
+        width: Math.min(280 * dp, parent.width * 0.75)
+        spacing: 2 * dp
 
         DateText {
             id: timeLabel
             text: "Actual time"
-            anchors.top: parent.top
-            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width
+            horizontalAlignment: Text.AlignHCenter
         }
 
         // show current solar time
         DateText {
             id: solarTime
-            anchors.top: timeLabel.bottom
+            width: parent.width
+            horizontalAlignment: Text.AlignHCenter
 
             // show time to label
             function showTime() {
@@ -239,9 +266,9 @@ Item {
         id: controlElements
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: 5
-        elementWidth: 100
-        elementHeight: 120
+        anchors.leftMargin: 5 * dp
+        elementWidth: rightPanelWidth // same as right
+        elementHeight: 200 * dp
 
         // store prev button object name
         property string prevName: ""
@@ -260,24 +287,24 @@ Item {
         }
 
         // options
-        onOptionButtonClicked: {
+        onOptionButtonClicked: (name) => {
             showDataFrame(name, controlElements.prevName)
         }
 
         // info
-        onInfoButtonClicked: {
+        onInfoButtonClicked: (name) => {
             showDataFrame(name, controlElements.prevName)
         }
     }
 
     // shows ui with data frame
     function showDataFrame(name, prevName) {
-        if (dataFrame.opacity == 0) {
+        if (dataFrame.opacity === 0) {
             setEnabledFrames(false)
             checkFrameComponent(name)
             dataFrameShowAnimation.start()
         }
-        else if (dataFrame.opacity == 1) {
+        else if (dataFrame.opacity === 1) {
             if (prevName === name) {
                 dataFrameUnShowAnimation.start()
             }
@@ -311,12 +338,12 @@ Item {
         id: planetsList
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        anchors.right: parent.right
-        height: 110
-        anchors.leftMargin: 5
-        anchors.bottomMargin: 10
-        anchors.rightMargin: 5
-        radius: 4
+        anchors.right: rightPanel.left
+        height: 200 * dp
+        anchors.leftMargin: 5 * dp
+        anchors.bottomMargin: 10 * dp
+        anchors.rightMargin: 5 * dp
+        radius: 4 * dp
         opacity: 0
 
         PropertyAnimation {
@@ -339,6 +366,7 @@ Item {
         PlanetList {
             id: planetsView
             anchors.fill: parent
+            // height is already in scene units; do not multiply by dp again
             buttonSize: height - 5
             visible: false
             onClicked:  {
@@ -361,28 +389,15 @@ Item {
         }
     }
 
-    // exit button
-    TransparentButton {
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.rightMargin: 5
-        anchors.topMargin: 5
-        radius: 4
-        source: "qrc:/Resources/Images/exit_icon.png"
-        width: 60
-        height: 80
-        onClicked: Qt.quit();
-    }
-
     // left frame with data
     SolarFrame {
         id: dataFrame
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: controlElements.right
-        anchors.leftMargin: 10
+        anchors.leftMargin: 10 * dp
         width: controlElements.height
         height: controlElements.height
-        radius: 4
+        radius: 4 * dp
         opacity: 0
 
         PropertyAnimation {
@@ -405,19 +420,20 @@ Item {
         // info text
         Text {
             id: aboutText
-            width: dataFrame.width
-            height: dataFrame.height
             anchors.fill: parent
-            anchors.topMargin: 15
+            anchors.margins: 12 * dp
             color: "white"
             font.italic: true
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
-            lineHeight: 1.625 * 14
-            lineHeightMode: Text.FixedHeight
+            lineHeight: 1.35
+            lineHeightMode: Text.ProportionalHeight
             wrapMode: Text.Wrap
-            font.pixelSize: 22
-            style: Text.Sunken;
+            clip: true
+            font.pixelSize: 28 * dp
+            fontSizeMode: Text.Fit
+            minimumPixelSize: 8
+            style: Text.Sunken
             styleColor: "black"
             text: InfoLoader.loadInfo(version)
             visible: false
@@ -431,25 +447,30 @@ Item {
             height: dataFrame.height
             visible: false
 
-            onDbButtonClicked: databaseLabel.visible = state
-            onFpsButtonClicked: fpsLabel.visible = state
+            onDbButtonClicked: (state) => {
+                databaseLabel.visible = state
+            }
+
+            onFpsButtonClicked: (state) => {
+                fpsLabel.visible = state
+            }
         }
     }
 
-    // object text
     Text {
         id: planetText
         anchors.top: timeFrame.bottom
-        anchors.topMargin: 10
+        anchors.topMargin: 16 * dp
         anchors.horizontalCenter: parent.horizontalCenter
-        width: 200
-        height: 60
-        font.pointSize: 30
-        font.wordSpacing: 2
+        width: Math.min(340 * dp, parent.width - 20 * dp)
+        height: contentHeight
+        font.pixelSize: 40 * dp
+        font.wordSpacing: 1
         font.bold: true
         font.italic: true
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.Wrap
         color: "white"
         text: solarSystem.entity.currentObjectString
         font.family: "Century Gothic"

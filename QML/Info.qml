@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.15
 
 Text {
     id: root
@@ -9,14 +9,22 @@ Text {
     font.family: "Comic Sans MS"
     font.italic: true
     verticalAlignment: Text.AlignVCenter
-    font.pixelSize: 18
+    horizontalAlignment: Text.AlignLeft
+    font.pixelSize: 28 * dp
+    fontSizeMode: Text.Fit
+    minimumPixelSize: 8
     font.weight: Font.Light
-    lineHeight: 1.625 * 16
-    lineHeightMode: Text.FixedHeight
+    lineHeight: 1.35
+    lineHeightMode: Text.ProportionalHeight
     color: "white"
     opacity: 0
     wrapMode: Text.Wrap
-    style: Text.Sunken;
+    clip: true
+    topPadding: 12 * dp
+    bottomPadding: 12 * dp
+    leftPadding: 12 * dp
+    rightPadding: 12 * dp
+    style: Text.Sunken
     styleColor: "black"
     visible: false
 

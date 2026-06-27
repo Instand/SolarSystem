@@ -7,7 +7,7 @@ Rectangle {
     property alias source: planetImage.source
     property alias focusPlanet: planetImage.focusPlanet
     property Item planetSelector: parent.parent
-    property int buttonSize: 70
+    property int buttonSize: 70 * dp
     property int fontSize: 16
 
     signal clicked;
@@ -30,18 +30,23 @@ Rectangle {
                 planetButton.clicked();
             }
 
-            onEntered: PropertyAnimation {
-                target: planetText;
-                property: "opacity";
-                to: 1
-            }
-
-            onExited: PropertyAnimation {
-                target: planetText
-                property: "opacity"
-                to: 0
-            }
+            onEntered: showTextAnim.start()
+            onExited: hideTextAnim.start()
         }
+    }
+
+    PropertyAnimation {
+        id: showTextAnim
+        target: planetText
+        property: "opacity"
+        to: 1
+    }
+
+    PropertyAnimation {
+        id: hideTextAnim
+        target: planetText
+        property: "opacity"
+        to: 0
     }
 
     Text {

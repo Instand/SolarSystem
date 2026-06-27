@@ -1,10 +1,9 @@
 import QtQuick 2.0
 
+// No anchors: works in Column (time block) and other layouts
 Text {
-    anchors.top: parent.top
-    anchors.horizontalCenter: parent.horizontalCenter
-    color: "white";
+    color: "white"
     font.pixelSize: 20
-    style: Text.Sunken;
+    style: Text.Sunken
     styleColor: "black"
 }

@@ -3,7 +3,7 @@ import QtQuick 2.0
 Item {
     id: root
 
-    property int buttonSize: 70
+    property int buttonSize: 70 * dp
     property int fontSize: 14
     property int focusedPlanet: 0
 
@@ -101,12 +101,11 @@ Item {
     ListView {
         id: planetButtonView
         anchors.fill: parent
-        spacing: 10
+        spacing: 10 * dp
         width: root.parent.width
         interactive: false
         model: planetModel
         delegate: modelDelegate
         orientation: Qt.Horizontal
     }
-
 }
