@@ -420,19 +420,20 @@ Item {
         // info text
         Text {
             id: aboutText
-            width: dataFrame.width
-            height: dataFrame.height
             anchors.fill: parent
-            anchors.topMargin: 15 * dp
+            anchors.margins: 12 * dp
             color: "white"
             font.italic: true
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
-            lineHeight: 1.45
+            lineHeight: 1.35
             lineHeightMode: Text.ProportionalHeight
             wrapMode: Text.Wrap
-            font.pixelSize: 30 * dp
-            style: Text.Sunken;
+            clip: true
+            font.pixelSize: 28 * dp
+            fontSizeMode: Text.Fit
+            minimumPixelSize: 8
+            style: Text.Sunken
             styleColor: "black"
             text: InfoLoader.loadInfo(version)
             visible: false
