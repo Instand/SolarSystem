@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
+import QtQuick.Layouts 1.15
 
 import QtQuick.Scene3D 2.0
 import QtQuick.Controls 2.1
@@ -25,6 +26,8 @@ Item {
         / (Screen.devicePixelRatio > 0 ? Screen.devicePixelRatio : 1.0)
 
     readonly property real rightPanelWidth: 200 * dp
+    readonly property real rightPanelSpacing: 5 * dp
+    readonly property real rightPanelSideHeight: Math.max(48 * dp, rightPanel.height * 0.14)
 
     // enables camera zoom on mobile devices, because of Qt3D Input does not support it
     // on desktop does nothing
@@ -98,81 +101,95 @@ Item {
         visible: false
     }
 
-    // slider frame (wider = easier touch on phones)
-    SolarFrame {
-        id: speedSliderFrame
+    // Right toolbar: exit, extra speed, speed slider, screenshot — stacked top to bottom.
+    Item {
+        id: rightPanel
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
         anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.topMargin: 5 * dp
+        anchors.bottomMargin: 5 * dp
         anchors.rightMargin: 5 * dp
-        height: Math.min(850 * dp, parent.height * 0.6)
         width: rightPanelWidth
-        radius: 5 * dp
 
-        SpeedSlider {
-            id: speedSlider
+        ColumnLayout {
             anchors.fill: parent
-            onValueChanged: {
-                solarSystem.entity.setSolarSpeed(value);
+            spacing: rightPanelSpacing
+
+            TransparentButton {
+                id: exitButton
+                Layout.fillWidth: true
+                Layout.preferredHeight: rightPanelSideHeight
+                Layout.maximumHeight: rightPanel.height * 0.2
+                radius: 4 * dp
+                source: "qrc:/Resources/Images/exit_icon.png"
+                onClicked: Qt.quit()
+            }
+
+            TransparentButton {
+                id: extraButton
+                Layout.fillWidth: true
+                Layout.preferredHeight: rightPanelSideHeight
+                Layout.maximumHeight: rightPanel.height * 0.2
+                radius: 4 * dp
+
+                Text {
+                    id: extraText
+                    color: "#ffffff"
+                    anchors.fill: parent
+                    font.family: "Comic Sans MS"
+                    font.bold: true
+                    font.italic: true
+                    font.pointSize: 12
+                    styleColor: "black"
+                    style: Text.Sunken
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    text: qsTr("x") + solarSystem.entity.extraSpeed.toString()
+                }
+
+                onClicked: solarSystem.entity.changeExtraSpeed()
+            }
+
+            SolarFrame {
+                id: speedSliderFrame
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.minimumHeight: 100 * dp
+                radius: 5 * dp
+
+                SpeedSlider {
+                    id: speedSlider
+                    anchors.fill: parent
+                    onValueChanged: solarSystem.entity.setSolarSpeed(value)
+                }
+            }
+
+            TransparentButton {
+                id: screenButton
+                Layout.fillWidth: true
+                Layout.preferredHeight: rightPanelSideHeight
+                Layout.maximumHeight: rightPanel.height * 0.2
+                radius: 4 * dp
+                source: "qrc:/Resources/Images/screen_icon.png"
+                onClicked: {
+                    root.grabToImage(function(result) {
+                        result.saveToFile("SolarSystemScreen.jpg")
+                    })
+                }
             }
         }
     }
 
-    // take a solar screenshot
-    TransparentButton {
-        id: screenButton
-        anchors.right: parent.right
-        anchors.top: speedSliderFrame.bottom
-        anchors.topMargin: 5 * dp
-        anchors.rightMargin: 5 * dp
-        radius: 4 * dp
-        height: width
-        width: speedSliderFrame.width
-        source: "qrc:/Resources/Images/screen_icon.png"
-        onClicked: {
-            root.grabToImage(function(result) {
-                result.saveToFile("SolarSystemScreen.jpg");
-            });
-        }
-    }
-
-    // solar object info (fill space between left toolbar and right slider)
+    // solar object info (fill space between left toolbar and right panel)
     Info {
         id: infoText
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: controlElements.right
         anchors.leftMargin: 10 * dp
-        anchors.right: speedSliderFrame.left
+        anchors.right: rightPanel.left
         anchors.rightMargin: 5 * dp
-        height: speedSliderFrame.height + 40 * dp
-    }
-
-    // extra speed button
-    TransparentButton {
-        id: extraButton
-        anchors.right: parent.right
-        anchors.bottom: speedSliderFrame.top
-        anchors.rightMargin: 5 * dp
-        anchors.bottomMargin: 5 * dp
-        radius: 4 * dp
-        height: width
-        width: speedSliderFrame.width
-
-        Text {
-            id: extraText
-            color: "#ffffff"
-            anchors.fill: parent
-            font.family: "Comic Sans MS"
-            font.bold: true
-            font.italic: true
-            font.pointSize: 12
-            styleColor: "black"
-            style: Text.Sunken;
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            text: qsTr("x") + solarSystem.entity.extraSpeed.toString()
-        }
-
-        onClicked: solarSystem.entity.changeExtraSpeed()
+        height: rightPanel.height
     }
 
     // date label (Column so two lines reserve real height; avoids overlap with planet name)
@@ -370,19 +387,6 @@ Item {
                 }
             }
         }
-    }
-
-    // exit button
-    TransparentButton {
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.rightMargin: 5 * dp
-        anchors.topMargin: 5 * dp
-        radius: 4 * dp
-        source: "qrc:/Resources/Images/exit_icon.png"
-        width: rightPanelWidth
-        height: 250 * dp
-        onClicked: Qt.quit();
     }
 
     // left frame with data
