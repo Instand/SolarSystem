@@ -338,7 +338,7 @@ Item {
         id: planetsList
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.right: rightPanel.left
         height: 200 * dp
         anchors.leftMargin: 5 * dp
         anchors.bottomMargin: 10 * dp
