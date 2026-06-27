@@ -104,7 +104,7 @@ Item {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         anchors.rightMargin: 5 * dp
-        height: Math.min(1000 * dp, parent.height * 0.65)
+        height: Math.min(850 * dp, parent.height * 0.6)
         width: rightPanelWidth
         radius: 5 * dp
 
@@ -251,7 +251,7 @@ Item {
         anchors.left: parent.left
         anchors.leftMargin: 5 * dp
         elementWidth: rightPanelWidth // same as right
-        elementHeight: 260 * dp
+        elementHeight: 200 * dp
 
         // store prev button object name
         property string prevName: ""
@@ -322,7 +322,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: 250 * dp
+        height: 200 * dp
         anchors.leftMargin: 5 * dp
         anchors.bottomMargin: 10 * dp
         anchors.rightMargin: 5 * dp
@@ -452,7 +452,6 @@ Item {
         }
     }
 
-    // current object name (pixelSize: pointSize 30 was huge on mobile; same ballpark as DateText + bold)
     Text {
         id: planetText
         anchors.top: timeFrame.bottom
