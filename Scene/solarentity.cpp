@@ -92,9 +92,10 @@ QString SolarSystem::SolarEntity::currentObjectString() const
 
 QString SolarSystem::SolarEntity::info() const
 {
-    const auto columnNames = DBConnector::instance().columnNames();
-    const auto objParameters = DBConnector::instance().info(m_animator->currentObject());
-    const auto dbFieldsParamsCount = DbParams::paramList.size();
+    auto columnNames = DBConnector::instance().columnNames();
+    auto objParameters = DBConnector::instance().info(m_animator->currentObject());
+    auto dbFieldsParamsCount = DbParams::paramList.size();
+    auto str = QString();
 
     if (columnNames.size() != objParameters.size() || columnNames.size() != dbFieldsParamsCount
             || dbFieldsParamsCount != objParameters.size())
@@ -102,13 +103,12 @@ QString SolarSystem::SolarEntity::info() const
         qDebug() << "Something wrong in DB connector";
         qDebug() << columnNames.size() << " != " << objParameters.size();
 
-        return {};
+        return str;
     }
 
-    QString str;
-
-    for (decltype(columnNames.size()) i = 0; i < columnNames.size(); ++i)
-        str.append(columnNames[i] + ":  " + objParameters[i] + " " + DbParams::paramList[i] + "\n\n");
+    // fill info sheet
+    for (int i = 0; i < columnNames.size(); ++i)
+        str.append(columnNames[i] + ":  " + objParameters[i] + " " + DbParams::paramList[i] + "\n");
 
     return str;
 }
@@ -135,19 +135,19 @@ void SolarSystem::SolarEntity::zoomCamera(float value)
 
 void SolarSystem::SolarEntity::setSolarSpeed(int value)
 {
-    const float coeff = 0.02f * value;
+    auto coeff = 0.02f * value;
     MathCore::instance()->setSolarSystemSpeed(SolarValues::startSpeed * coeff);
 }
 
 void SolarSystem::SolarEntity::setSolarSize(int value)
 {
-    const float coeff = value/50.0f;
+    float coeff = value/50.0f;
     MathCore::instance()->changeSolarSystemScale(SolarValues::startSize * coeff);
 }
 
 void SolarSystem::SolarEntity::setViewCenter(int index)
 {
-    const auto object = SolarParser::parsePlanetListIndex(index);
+    auto object = SolarParser::parsePlanetListIndex(index);
     m_animator->animateCamera(object);
 }
 

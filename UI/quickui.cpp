@@ -24,10 +24,12 @@ SolarSystem::QuickUi::QuickUi(QObject* parent):
     m_format.setStencilBufferSize(8);
     m_format.setSamples(4);
 
+    m_view.setFlags(Qt::Window | Qt::FramelessWindowHint);
+
     m_view.setFormat(m_format);
     m_view.setResizeMode(QQuickView::SizeRootObjectToView);
     m_view.setSource(QUrl("qrc:/QML/SolarSystemMain.qml"));
-    m_view.setColor("#000000");
+    m_view.setColor(QColor{QRgb{0x000000}});
 
     m_view.setMinimumWidth(1280);
     m_view.setMinimumHeight(700);
@@ -39,11 +41,7 @@ SolarSystem::QuickUi::QuickUi(QObject* parent):
 
 void SolarSystem::QuickUi::show()
 {
-#if defined(QT_NO_DEBUG) || defined(__ANDROID__)
-    m_view.showFullScreen();
-#else
-    m_view.show();
-#endif
+    m_view.showMaximized();
 }
 
 void SolarSystem::QuickUi::quit()
