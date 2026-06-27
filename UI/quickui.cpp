@@ -39,7 +39,7 @@ SolarSystem::QuickUi::QuickUi(QObject* parent):
 
 void SolarSystem::QuickUi::show()
 {
-#ifdef QT_NO_DEBUG
+#if defined(QT_NO_DEBUG) || defined(__ANDROID__)
     m_view.showFullScreen();
 #else
     m_view.show();

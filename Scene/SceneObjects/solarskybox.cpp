@@ -7,4 +7,3 @@ SolarSystem::SolarSkyBox::SolarSkyBox(Qt3DCore::QNode* parent):
     setBaseName(QStringLiteral("qrc:/Resources/Skybox/stars"));
     setExtension(QStringLiteral(".webp"));
 }
-
